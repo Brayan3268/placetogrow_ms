@@ -141,12 +141,6 @@ class SiteController extends Controller
                 'image' => 'storage/site_images/'.$imageName,
             ]);
 
-            Cache::forget('site.'.$site->id);
-            Cache::forget('sites.index');
-
-            return redirect()->route('sites.index')
-                ->with('status', 'Site updated successfully')
-                ->with('class', 'bg-green-500');
         } else {
             $site->update([
                 'slug' => $request['slug'],
@@ -158,14 +152,14 @@ class SiteController extends Controller
                 'current_type' => $request['current'],
                 'site_type' => $request['site_type'],
             ]);
-
-            Cache::forget('site.'.$site->id);
-            Cache::forget('sites.index');
-
-            return redirect()->route('sites.index')
-                ->with('status', 'Site updated successfully')
-                ->with('class', 'bg-green-500');
         }
+
+        Cache::forget('site.'.$site->id);
+        Cache::forget('sites.index');
+
+        return redirect()->route('sites.index')
+            ->with('status', 'Site updated successfully')
+            ->with('class', 'bg-green-500');
     }
 
     public function destroy(Site $site): RedirectResponse
