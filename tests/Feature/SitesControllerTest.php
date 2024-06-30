@@ -167,5 +167,4 @@ class SitesControllerTest extends TestCase
         //$response->assertRedirect(route('sites.index'));
 
     }
-
 }
