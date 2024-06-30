@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Image;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ImageTest extends TestCase

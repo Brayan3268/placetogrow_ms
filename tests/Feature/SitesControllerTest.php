@@ -3,20 +3,20 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
-use App\Models\User;
 use App\Models\Site;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
-use Tests\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
 
 class SitesControllerTest extends TestCase
 {
     use RefreshDatabase;
-    private function seed_db(){
+
+    private function seed_db()
+    {
         Artisan::call('db:seed');
     }
 
@@ -31,21 +31,21 @@ class SitesControllerTest extends TestCase
     {
         $this->seed_db();
 
-        #TEST 1
+        //TEST 1
         $user = User::find(1);
         $response = $this->actingAs($user)
             ->get(route('sites.index'));
 
         $response->assertOk();
 
-        #TEST 2
+        //TEST 2
         $user = User::find(1);
         $response = $this->actingAs($user)
             ->get(route('sites.show', ['site' => 1]));
 
         $response->assertOk();
 
-        #TEST 3
+        //TEST 3
         $user = User::find(1);
         $response = $this->actingAs($user)->get(route('sites.create'));
         $response->assertStatus(200);
@@ -57,7 +57,7 @@ class SitesControllerTest extends TestCase
             'document_types',
         ]);
 
-        #TEST 4
+        //TEST 4
         Storage::fake('public');
         $user = User::find(1);
         $category = Category::find(1);
@@ -90,16 +90,16 @@ class SitesControllerTest extends TestCase
             'image' => 'storage/site_images/test-image.jpg',
         ]);*/
 
-        #$response->assertSessionHas('status', 'Site created successfully!');
-        #$response->assertSessionHas('class', 'bg-green-500');
+        //$response->assertSessionHas('status', 'Site created successfully!');
+        //$response->assertSessionHas('class', 'bg-green-500');
 
-        #TEST 5
+        //TEST 5
         $user = User::find(3);
         $site = Site::find(2);
         $response = $this->delete("/sites/{$site->id}");
         $response->assertRedirect(route('sites.index'));
 
-        #TEST 5
+        //TEST 5
         $user = User::find(1);
         $site = Site::find(1);
         $response = $this->actingAs($user)
@@ -107,7 +107,7 @@ class SitesControllerTest extends TestCase
 
         $response->assertRedirect(route('sites.index'));
 
-        #TEST 6
+        //TEST 6
         $user = User::find(1);
         $site = Site::find(3);
 
@@ -115,12 +115,12 @@ class SitesControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('sites.edit');
 
-        #TEST 7
+        //TEST 7
         $user = User::find(1);
         $site = Site::find(3);
         $category = Category::find(1);
 
-        #Cache::put('site.'.$site->id, $site, $minutes = 1000);
+        //Cache::put('site.'.$site->id, $site, $minutes = 1000);
 
         // Nuevos datos para actualizar el sitio
         $newData = [
@@ -134,44 +134,38 @@ class SitesControllerTest extends TestCase
             'site_type' => 'Type B',
             'image' => 'public/images/welcome.jpg',
         ];
-        
-        if(empty($newData['image'])){
+
+        if (empty($newData['image'])) {
             $response = $this->actingAs($user)->put(route('sites.update', ['site' => $site->id]), $newData);
             Cache::forget('site.'.$site->id);
             Cache::forget('sites.index');
             $response->assertRedirect(route('sites.index'));
 
-        }else{
+        } else {
             $newData['image'] = 'public/images/welcome.jpg';
             $response = $this->actingAs($user)->put(route('sites.update', ['site' => $site->id]), $newData);
             Cache::forget('site.'.$site->id);
             Cache::forget('sites.index');
-            #$response->assertRedirect(route('sites.index'));
+            //$response->assertRedirect(route('sites.index'));
         }
 
-        #TEST 9
+        //TEST 9
         $imagePath = storage_path('public/site_images/welcome.jpg');
 
-        if(!empty($imagePath)){
+        if (! empty($imagePath)) {
             $response = $this->actingAs(User::find(1))
-                         ->put(route('sites.update', ['site' => $site->id]), [
-                             'slug' => 'updated-site-slug',
-                             'name' => 'Updated Site Name',
-                             'image' => '/public/storage/images/welcome.jpg',
-                         ]);
+                ->put(route('sites.update', ['site' => $site->id]), [
+                    'slug' => 'updated-site-slug',
+                    'name' => 'Updated Site Name',
+                    'image' => '/public/storage/images/welcome.jpg',
+                ]);
             Cache::forget('site.'.$site->id);
 
             Cache::forget('sites.index');
-            #$response->assertRedirect(route('sites.index'));
+            //$response->assertRedirect(route('sites.index'));
         }
-        #$response->assertRedirect(route('sites.index'));
+        //$response->assertRedirect(route('sites.index'));
 
-       
-    }
-
-    public function test_function()
-    {
-        
     }
 
 }
