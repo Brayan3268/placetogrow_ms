@@ -154,7 +154,7 @@ class UsersControllerTest extends TestCase
 
         $this->assertEquals('Jane Doe', $user_ud->name);
         $this->assertEquals('jane.doe@example.com', $user_ud->email);
-        //$this->assertTrue(Hash::check('newpassword', $user_ud->password)); // Verifica que la nueva contraseña esté encriptada correctamente
+        //$this->assertTrue(Hash::check('newpassword', $user_ud->password));
 
         //TEST 14
         $user = User::find(1);
@@ -180,7 +180,7 @@ class UsersControllerTest extends TestCase
 
         $this->assertEquals('Jane Doe', $user_ud->name);
         $this->assertEquals('jane.doe@example.com', $user_ud->email);
-        //$this->assertTrue(Hash::check('newpassword', $user_ud->password)); // Verifica que la nueva contraseña esté encriptada correctamente
+        //$this->assertTrue(Hash::check('newpassword', $user_ud->password));
 
         //TEST 15
         $user = User::find(3);

@@ -122,7 +122,6 @@ class SitesControllerTest extends TestCase
 
         //Cache::put('site.'.$site->id, $site, $minutes = 1000);
 
-        // Nuevos datos para actualizar el sitio
         $newData = [
             'slug' => 'updated-site-slug',
             'name' => 'Updated Site Name',
