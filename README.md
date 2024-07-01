@@ -64,3 +64,42 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## How to run the proyect
+
+Follow these steps for run this proyect successfuly.
+
+1) You can use your preference db manage, we use XAMPP.
+
+2) Install composer, for Windows you need to download composer for the following link: https://getcomposer.org/
+
+3) Clone repo https://github.com/Brayan3268/placetogrow_ms.git
+
+4) Run the comand: "Composer install"
+
+5) Run the instruction: "cp .env.example .env"
+
+6) Config the .env file with the next config:
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ms_ptw
+DB_USERNAME=root
+DB_PASSWORD=
+
+7) Run the following comand if need it: "php artisan key:generate"
+
+8) Run the command: "php artisan migrate:fresh --seed"
+
+9) Run the command: "npm install"
+
+10) Run the command: "npm run dev"
+
+11) Run the command: "php artisan serve"
+
+12) Run the command: "npm run dev"
+
+13) For run the test:
+
+php - dxdebug.mode=coverage ./vendor/bin/phpunit --coverage-html coverage/ tests/Feature/<filename>.php

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Http\PersistantsLowLevel\CategoryPll;
+use App\Http\PersistantsLowLevel\SitePll;
 use App\Models\Site;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -15,15 +14,7 @@ class SiteController extends Controller
 {
     public function index(): View
     {
-        $sites = Cache::get('sites.index');
-        if (is_null($sites)) {
-            $sites = Site::whereIn('site_type', ['open', 'close', 'suscription'])
-                ->with('category:id,name')
-                ->select('name', 'category_id', 'site_type', 'id')
-                ->get();
-
-            Cache::put('sites.index', $sites);
-        }
+        $sites = SitePll::get_all_sites();
 
         $classifiedSites = [
             'OPEN' => [],
@@ -62,21 +53,11 @@ class SiteController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
 
-            $imageName = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/site_images/', $imageName);
+            $image_name = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/site_images/', $image_name);
 
-            $site = new Site();
-
-            $site->slug = $request->slug;
-            $site->name = $request->name;
-            $site->document_type = $request->document_type;
-            $site->document = $request->document;
-            $site->category_id = $request->category;
-            $site->expiration_time = $request->expiration_time;
-            $site->current_type = $request->current;
-            $site->site_type = $request->site_type;
-            $site->image = 'storage/site_images/'.$imageName;
-            $site->save();
+            SitePll::save_site($request, $image_name);
+            SitePll::forget_cache('sites.index');
 
             return redirect()->route('sites.index')
                 ->with('status', 'Site created successfully!')
@@ -90,24 +71,14 @@ class SiteController extends Controller
 
     public function show(string $id): View
     {
-        $site = Cache::get('site.'.$id);
-        if (is_null($site)) {
-            $site = Site::find($id);
-
-            Cache::put('site.'.$id, $site, $minutes = 1000);
-        }
+        $site = SitePll::get_specific_site($id);
 
         return view('sites.show', compact('site'));
     }
 
     public function edit(string $id): View
     {
-        $site = Cache::get('site.'.$id);
-        if (is_null($site)) {
-            $site = Site::find($id);
-
-            Cache::put('site.'.$id, $site, $minutes = 1000);
-        }
+        $site = SitePll::get_specific_site($id);
 
         $datos = $this->get_enums();
         $categories = $datos['categories'];
@@ -120,52 +91,37 @@ class SiteController extends Controller
 
     public function update(Request $request, Site $site): RedirectResponse
     {
+        $data = [
+            'slug' => $request['slug'],
+            'name' => $request['name'],
+            'document_type' => $request['document_type'],
+            'document' => $request['document'],
+            'category_id' => $request['category'],
+            'expiration_time' => $request['expiration_time'],
+            'current_type' => $request['current'],
+            'site_type' => $request['site_type'],
+        ];
+
         if ($request->hasFile('image')) {
             if (Storage::exists(str_replace('storage', 'public', $site->image))) {
                 Storage::delete(str_replace('storage', 'public', $site->image));
             }
 
             $image = $request->file('image');
-            $imageName = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/site_images/', $imageName);
+            $image_name = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/site_images/', $image_name);
 
-            $site->update([
-                'slug' => $request['slug'],
-                'name' => $request['name'],
-                'document_type' => $request['document_type'],
-                'document' => $request['document'],
-                'category_id' => $request['category'],
-                'expiration_time' => $request['expiration_time'],
-                'current_type' => $request['current'],
-                'site_type' => $request['site_type'],
-                'image' => 'storage/site_images/'.$imageName,
-            ]);
-
-            Cache::forget('site.'.$site->id);
-            Cache::forget('sites.index');
-
-            return redirect()->route('sites.index')
-                ->with('status', 'Site updated successfully')
-                ->with('class', 'bg-green-500');
-        } else {
-            $site->update([
-                'slug' => $request['slug'],
-                'name' => $request['name'],
-                'document_type' => $request['document_type'],
-                'document' => $request['document'],
-                'category_id' => $request['category'],
-                'expiration_time' => $request['expiration_time'],
-                'current_type' => $request['current'],
-                'site_type' => $request['site_type'],
-            ]);
-
-            Cache::forget('site.'.$site->id);
-            Cache::forget('sites.index');
-
-            return redirect()->route('sites.index')
-                ->with('status', 'Site updated successfully')
-                ->with('class', 'bg-green-500');
+            $data['image'] = 'storage/site_images/'.$image_name;
         }
+
+        SitePll::update_site($site, $data);
+
+        SitePll::forget_cache('site.'.$site->id);
+        SitePll::forget_cache('sites.index');
+
+        return redirect()->route('sites.index')
+            ->with('status', 'Site updated successfully')
+            ->with('class', 'bg-green-500');
     }
 
     public function destroy(Site $site): RedirectResponse
@@ -176,10 +132,10 @@ class SiteController extends Controller
             Storage::delete(str_replace('storage', 'public', $site->image));
         }
 
-        $site->delete();
+        SitePll::delete_site($site);
 
-        Cache::forget('site.'.$site->id);
-        Cache::forget('users.index');
+        SitePll::forget_cache('site.'.$site->id);
+        SitePll::forget_cache('sites.index');
 
         return redirect()->route('sites.index')
             ->with('status', 'Site deleted successfully')
@@ -188,34 +144,33 @@ class SiteController extends Controller
 
     public function get_enums(): array
     {
-
-        $categories = Cache::get('categories');
+        $categories = CategoryPll::get_cache('categories');
         if (is_null($categories)) {
-            $categories = Category::all();
+            $categories = CategoryPll::get_all_categories();
 
-            $enumCurrentValues = DB::select("SHOW COLUMNS FROM sites WHERE Field = 'current_type'")[0]->Type;
+            $enumCurrentValues = SitePll::get_sites_enum_field_values('current_type');
             preg_match('/^enum\((.*)\)$/', $enumCurrentValues, $matches);
             $current_options = explode(',', $matches[1]);
             $current_options = array_map(fn ($value) => trim($value, "'"), $current_options);
 
-            $enumSiteTypeValues = DB::select("SHOW COLUMNS FROM sites WHERE Field = 'site_type'")[0]->Type;
+            $enumSiteTypeValues = SitePll::get_sites_enum_field_values('site_type');
             preg_match('/^enum\((.*)\)$/', $enumSiteTypeValues, $matches);
             $site_type_options = explode(',', $matches[1]);
             $site_type_options = array_map(fn ($value) => trim($value, "'"), $site_type_options);
 
-            $enumDocumentTypeValues = DB::select("SHOW COLUMNS FROM sites WHERE Field = 'document_type'")[0]->Type;
+            $enumDocumentTypeValues = SitePll::get_sites_enum_field_values('document_type');
             preg_match('/^enum\((.*)\)$/', $enumDocumentTypeValues, $matches);
             $document_types = explode(',', $matches[1]);
             $document_types = array_map(fn ($value) => trim($value, "'"), $document_types);
 
-            Cache::put('categories', $categories);
-            Cache::put('current_options', $current_options);
-            Cache::put('site_type_options', $site_type_options);
-            Cache::put('document_types', $document_types);
+            SitePll::save_cache('categories', $categories);
+            SitePll::save_cache('current_options', $current_options);
+            SitePll::save_cache('site_type_options', $site_type_options);
+            SitePll::save_cache('document_types', $document_types);
         } else {
-            $current_options = Cache::get('current_options');
-            $site_type_options = Cache::get('site_type_options');
-            $document_types = Cache::get('document_types');
+            $current_options = SitePll::get_cache('current_options');
+            $site_type_options = SitePll::get_cache('site_type_options');
+            $document_types = SitePll::get_cache('document_types');
         }
 
         return [
