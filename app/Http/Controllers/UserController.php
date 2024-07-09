@@ -2,32 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\PersistantsLowLevel\RolePll;
+use App\Http\PersistantsLowLevel\UserPll;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index(): RedirectResponse|View
     {
         if ($this->validate_role()) {
+            $response = UserPll::get_all_users();
 
-            $roles = Cache::get('users.index');
-            if (is_null($roles)) {
-                $roles = Role::with(['users' => function ($query) {
-                    $query->select('users.id', 'users.name', 'users.email', 'role_id');
-                }])->orderBy('id', 'asc')->get();
-
-                Cache::put('users.index', $roles);
-            }
-
-            $super_admin_users = $roles[0]->users;
-            $admin_users = $roles[1]->users;
-            $guest_users = $roles[2]->users;
+            $super_admin_users = $response['super_admin_users'];
+            $admin_users = $response['admin_users'];
+            $guest_users = $response['guest_users'];
 
             return view('users.index', compact(['super_admin_users', 'admin_users', 'guest_users']));
         }
@@ -57,22 +48,12 @@ class UserController extends Controller
                 'password' => 'required|string|min:8',
             ]);
 
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->save();
-
-            $role = Cache::get('role');
-            if (is_null($role)) {
-                $role = Role::findByName($request->role);
-
-                Cache::put('role', $role);
-            }
+            $user = UserPll::save_user($request->name, $request->email, $request->password);
+            $role = RolePll::get_specific_role($request->role);
 
             $user->assignRole($role);
 
-            Cache::forget('users.index');
+            RolePll::forget_cache('users.roles');
 
             return redirect()->route('users.index')
                 ->with('status', 'User created successfully!')
@@ -87,17 +68,12 @@ class UserController extends Controller
     public function show(string $id): View|RedirectResponse
     {
         if ($this->validate_role()) {
+            $userData = UserPll::get_specific_user($id);
 
-            $user = Cache::get('user.'.$id);
-            if (is_null($user)) {
-                $user = User::find($id);
-
-                Cache::put('user.'.$id, $user, $minutes = 1000);
-            }
-
-            $role_name = $user->getRoleNames();
-
-            return view('users.show', compact('user', 'role_name'));
+            return view('users.show', [
+                'user' => $userData['user'],
+                'role_name' => $userData['role'],
+            ]);
         }
 
         return redirect()->route('dashboard')
@@ -108,15 +84,10 @@ class UserController extends Controller
     public function edit(string $id): View|RedirectResponse
     {
         if ($this->validate_role()) {
+            $userData = UserPll::get_specific_user($id);
+            RolePll::forget_cache('users.roles');
 
-            $user = Cache::get('user.'.$id);
-            if (is_null($user)) {
-                $user = User::find($id);
-
-                Cache::put('user.'.$id, $user, $minutes = 1000);
-            }
-
-            return view('users.edit', compact('user'));
+            return view('users.edit', ['user' => $userData['user']]);
         }
 
         return redirect()->route('dashboard')
@@ -135,22 +106,26 @@ class UserController extends Controller
             ]);
 
             if (empty($validatedData['password'])) {
-                $user->update([
+                $data = [
                     'name' => $validatedData['name'],
                     'email' => $validatedData['email'],
-                ]);
+                    'role' => $validatedData['role'],
+                ];
+
+                $user = UserPll::update_user_without_password($user, $data);
             } else {
-                $user->update([
+                $data = [
                     'name' => $validatedData['name'],
                     'email' => $validatedData['email'],
                     'password' => bcrypt($validatedData['password']),
-                ]);
+                    'role' => $validatedData['role'],
+                ];
+
+                $user = UserPll::update_user_with_password($user, $data);
             }
 
-            Cache::forget('user.'.$user->id);
-            Cache::forget('users.index');
-
-            $user->syncRoles([$validatedData['role']]);
+            UserPll::forget_cache('user.'.$user->id);
+            RolePll::forget_cache('users.roles');
 
             return redirect()->route('users.index')
                 ->with('status', 'User updated successfully')
@@ -166,10 +141,9 @@ class UserController extends Controller
     {
         if ($this->validate_role()) {
             if ($this->valide_last_super_admin($user)) {
-                $user->delete();
-
-                Cache::forget('user.'.$user->id);
-                Cache::forget('users.index');
+                UserPll::delete_user($user);
+                UserPll::forget_cache('user.'.$user->id);
+                RolePll::forget_cache('users.roles');
 
                 return redirect()->route('users.index')
                     ->with('status', 'User deleted successfully')
@@ -188,14 +162,10 @@ class UserController extends Controller
 
     private function valide_last_super_admin(User $user): bool
     {
-        $role_name = $user->getRoleNames();
+        $role_name = UserPll::get_role_names($user);
 
         if ($role_name[0] === 'super_admin') {
-            $count = DB::table('model_has_roles')
-                ->where('role_id', 1)
-                ->count();
-
-            return ($count > 1) ? true : false;
+            return (RolePll::count_super_admin_users() > 1) ? true : false;
         } else {
             return true;
         }
@@ -203,7 +173,7 @@ class UserController extends Controller
 
     private function validate_role(): bool
     {
-        $role_name = User::find(auth()->user()->id)->getRoleNames();
+        $role_name = UserPll::get_user_auth();
 
         return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
     }
