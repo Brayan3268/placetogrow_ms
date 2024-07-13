@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             CategorySeeder::class,
             SiteSeeder::class,
+            FieldspaysiteSeeder::class,
         ]);
     }
 }

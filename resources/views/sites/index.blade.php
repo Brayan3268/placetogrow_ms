@@ -57,6 +57,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
                                 </form>
+                                <a href="{{ route('sites.edit', $open_site->id) }}" method="POST" class="text-orange-600 hover:text-orange-800 ml-2"><i class="fas fa-bars"></i></a>
                                 @endcan
                             </td>
                         </tr>
@@ -94,6 +95,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
                                 </form>
+                                <a href="{{ route('sites.edit', $open_site->id) }}" method="POST" class="text-orange-600 hover:text-orange-800 ml-2"><i class="fas fa-bars"></i></a>
                                 @endcan
                                 </td>
                             </tr>
@@ -131,6 +133,7 @@
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
                                     </form>
+                                    <a href="{{ route('sites.edit', $open_site->id) }}" method="POST" class="text-orange-600 hover:text-orange-800 ml-2"><i class="fas fa-bars"></i></a>
                                     @endcan
                                 </td>
                             </tr>
