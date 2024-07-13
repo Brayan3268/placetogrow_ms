@@ -26,5 +26,9 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'super_user.edit'])->syncRoles([$super_admin_role]);
         Permission::create(['name' => 'super_user.show'])->syncRoles([$super_admin_role, $admin_role]);
         Permission::create(['name' => 'super_user.destroy'])->syncRoles([$super_admin_role]);
+
+        Permission::create(['name' => 'site.manage'])->syncRoles([$super_admin_role, $admin_role]);
+
+        Permission::create(['name' => 'site.pay'])->syncRoles([$guest_role]);
     }
 }
