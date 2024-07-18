@@ -16,7 +16,7 @@ class FieldspaysiteSeeder extends Seeder
 
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
-        $fieldpaysite->type = 'radio';
+        $fieldpaysite->type = 'select';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->is_user_see = true;
         $fieldpaysite->site_id = 1;
@@ -26,7 +26,7 @@ class FieldspaysiteSeeder extends Seeder
 
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
-        $fieldpaysite->type = 'radio';
+        $fieldpaysite->type = 'select';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->is_user_see = true;
         $fieldpaysite->site_id = 2;
@@ -36,7 +36,7 @@ class FieldspaysiteSeeder extends Seeder
 
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
-        $fieldpaysite->type = 'radio';
+        $fieldpaysite->type = 'select';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->is_user_see = true;
         $fieldpaysite->site_id = 3;

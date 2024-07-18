@@ -8,5 +8,5 @@ enum FieldTypes
 
     case number;
 
-    case radio;
+    case select;
 }

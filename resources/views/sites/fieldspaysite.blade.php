@@ -56,7 +56,7 @@
                             <option value="">Select type</option>
                             <option value="text">Text</option>
                             <option value="number">Number</option>
-                            <option value="radio">Radio</option>
+                            <option value="select">Select</option>
                         </select>
                         <span id="select_type-error" class="error"></span>
                     </div>

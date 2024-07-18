@@ -200,6 +200,13 @@ class SiteController extends Controller
             ->with('success', 'Redirection successful!');
     }
 
+    public function form_site(Site $site): View
+    {
+        $sites_fields = FieldpaysitePll::get_fields_site($site->id);
+        
+        return view('sites.form_site', compact('site', 'sites_fields'));
+    }
+
     public function get_enums(): array
     {
         $categories = CategoryPll::get_cache('categories');
