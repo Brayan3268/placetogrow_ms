@@ -20,6 +20,7 @@ class Site extends Model
         'expiration_time',
         'current_type',
         'site_type',
+        'return_url',
         'image',
     ];
 

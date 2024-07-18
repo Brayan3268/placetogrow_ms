@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
+use function Laravel\Prompts\alert;
+
 class SitePll extends PersistantLowLevel
 {
     public static function get_all_sites()
@@ -41,6 +43,7 @@ class SitePll extends PersistantLowLevel
         $site->expiration_time = $request->expiration_time;
         $site->current_type = $request->current;
         $site->site_type = $request->site_type;
+        $site->return_url = $request->return_url;
         $site->image = 'storage/site_images/'.$image_name;
         $site->save();
 
@@ -71,6 +74,7 @@ class SitePll extends PersistantLowLevel
                 'expiration_time' => $data['expiration_time'],
                 'current_type' => $data['current_type'],
                 'site_type' => $data['site_type'],
+                'return_url' => $data['return_url'],
                 'image' => $data['image'],
             ]);
         } else {
@@ -83,6 +87,7 @@ class SitePll extends PersistantLowLevel
                 'expiration_time' => $data['expiration_time'],
                 'current_type' => $data['current_type'],
                 'site_type' => $data['site_type'],
+                'return_url' => $data['return_url'],
             ]);
         }
     }

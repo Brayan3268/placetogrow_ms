@@ -102,6 +102,7 @@ class SiteController extends Controller
             'expiration_time' => $request['expiration_time'],
             'current_type' => $request['current'],
             'site_type' => $request['site_type'],
+            'return_url' => $request['return_url'],
         ];
 
         if ($request->hasFile('image')) {
