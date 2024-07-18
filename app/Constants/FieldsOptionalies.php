@@ -5,6 +5,7 @@ namespace App\Constants;
 class FieldsOptionalies
 {
     public const DESCRIPTION = 'description';
+
     public const CURRENCY = 'currency';
 
     public static function getDescription(string $constant): string

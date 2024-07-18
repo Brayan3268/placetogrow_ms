@@ -3,8 +3,8 @@
 namespace App\Http\PersistantsLowLevel;
 
 use App\Models\Fieldspaysite;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FieldpaysitePll extends PersistantLowLevel
 {
@@ -41,15 +41,17 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->save();
     }
 
-    public static function get_fields_site(int $site_id){
-        
+    public static function get_fields_site(int $site_id)
+    {
+
         $site_config = Fieldspaysite::where('site_id', $site_id)->get();
 
         return $site_config;
 
     }
 
-    public static function add_field_site(Request $request){
+    public static function add_field_site(Request $request)
+    {
         $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = $request->name_field;
@@ -61,7 +63,8 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->save();
     }
 
-    public static function delete_field_pay(int $id){
+    public static function delete_field_pay(int $id)
+    {
         $field_pay = Fieldspaysite::find($id);
         $site_id = $field_pay->site_id;
         $field_pay->delete();
