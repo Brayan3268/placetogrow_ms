@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-use function Laravel\Prompts\alert;
-
 class SitePll extends PersistantLowLevel
 {
     public static function get_all_sites()

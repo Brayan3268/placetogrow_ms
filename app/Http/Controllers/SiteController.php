@@ -203,7 +203,7 @@ class SiteController extends Controller
     public function form_site(Site $site): View
     {
         $sites_fields = FieldpaysitePll::get_fields_site($site->id);
-        
+
         return view('sites.form_site', compact('site', 'sites_fields'));
     }
 
