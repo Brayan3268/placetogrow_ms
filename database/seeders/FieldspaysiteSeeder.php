@@ -14,36 +14,6 @@ class FieldspaysiteSeeder extends Seeder
     {
         $fieldpaysite = new Fieldspaysite();
 
-        $fieldpaysite->name = 'description';
-        $fieldpaysite->name_user_see = 'Pay\'s description';
-        $fieldpaysite->type = 'text';
-        $fieldpaysite->is_optional = true;
-        $fieldpaysite->is_user_see = false;
-        $fieldpaysite->site_id = 1;
-        $fieldpaysite->save();
-
-        $fieldpaysite = new Fieldspaysite();
-
-        $fieldpaysite->name = 'description';
-        $fieldpaysite->name_user_see = 'Pay\'s description';
-        $fieldpaysite->type = 'text';
-        $fieldpaysite->is_optional = true;
-        $fieldpaysite->is_user_see = false;
-        $fieldpaysite->site_id = 2;
-        $fieldpaysite->save();
-
-        $fieldpaysite = new Fieldspaysite();
-
-        $fieldpaysite->name = 'description';
-        $fieldpaysite->name_user_see = 'Pay\'s description';
-        $fieldpaysite->type = 'text';
-        $fieldpaysite->is_optional = true;
-        $fieldpaysite->is_user_see = false;
-        $fieldpaysite->site_id = 3;
-        $fieldpaysite->save();
-
-        $fieldpaysite = new Fieldspaysite();
-
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
         $fieldpaysite->type = 'radio';
