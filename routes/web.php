@@ -36,8 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/field_destroy/{id}', [SiteController::class, 'field_destroy'])->name('sites.field_destroy');
 });
 
-Route::middleware('auth')->group(function () {
-
-});
+Route::middleware('auth')->group(function () {});
 
 require __DIR__.'/auth.php';

@@ -17,10 +17,9 @@ class Fieldspaysite extends Model
         'is_modified',
         'is_user_see',
     ];
-    
+
     public function site(): BelongsTo
     {
         return $this->belongsTo(Site::class);
     }
-
 }

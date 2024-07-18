@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Constants\FieldsOptionalies;
 use App\Http\PersistantsLowLevel\CategoryPll;
-use App\Http\PersistantsLowLevel\SitePll;
 use App\Http\PersistantsLowLevel\FieldpaysitePll;
+use App\Http\PersistantsLowLevel\SitePll;
 use App\Models\Site;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-
-use function Laravel\Prompts\alert;
 
 class SiteController extends Controller
 {
@@ -152,12 +150,12 @@ class SiteController extends Controller
 
         $constants_opt = FieldsOptionalies::getAll();
         $sites_fields = FieldpaysitePll::get_fields_site($site->id);
-        
+
         $filtered_constants_opt = [];
 
         foreach ($constants_opt as $constant => $description) {
             $exists_in_db = false;
-        
+
             // Comparar con cada registro en $site_config
             foreach ($sites_fields as $site) {
                 if ($site->name === $constant) {
@@ -165,9 +163,9 @@ class SiteController extends Controller
                     break;
                 }
             }
-        
+
             // Si no existe en la base de datos, agregar a $filtered_constants
-            if (!$exists_in_db) {
+            if (! $exists_in_db) {
                 $filtered_constants_opt[$constant] = $description;
             }
 
@@ -184,13 +182,13 @@ class SiteController extends Controller
             'field_type' => 'required|string',
             'is_optional' => 'required|boolean',
             'is_user_see' => 'required|boolean',
-            'site_id' => 'required|integer'
+            'site_id' => 'required|integer',
         ]);
 
         FieldpaysitePll::add_field_site($request);
 
         return redirect()->route('sites.manage_config', ['site' => $request->site_id])
-                         ->with('success', 'Redirection successful!');
+            ->with('success', 'Redirection successful!');
     }
 
     public function field_destroy(int $field_pay_site_id): RedirectResponse
@@ -198,7 +196,7 @@ class SiteController extends Controller
         $site_id = FieldpaysitePll::delete_field_pay($field_pay_site_id);
 
         return redirect()->route('sites.manage_config', ['site' => $site_id])
-                ->with('success', 'Redirection successful!');
+            ->with('success', 'Redirection successful!');
     }
 
     public function get_enums(): array
