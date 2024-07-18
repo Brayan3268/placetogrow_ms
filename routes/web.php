@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/sites/{site}/manage_config', [SiteController::class, 'maganage_sites_config_pay'])->name('sites.manage_config');
     Route::post('/add_field', [SiteController::class, 'add_field'])->name('sites.add_field');
     Route::delete('/field_destroy/{id}', [SiteController::class, 'field_destroy'])->name('sites.field_destroy');
+    Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
 });
 
 Route::middleware('auth')->group(function () {});
