@@ -182,7 +182,7 @@ class SiteController extends Controller
             'name_field_useer_see' => 'required|string',
             'field_type' => 'required|string',
             'is_optional' => 'required|boolean',
-            'is_user_see' => 'required|boolean',
+            'values' => 'required|string',
             'site_id' => 'required|integer',
         ]);
 

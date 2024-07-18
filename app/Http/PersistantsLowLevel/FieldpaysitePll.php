@@ -12,22 +12,12 @@ class FieldpaysitePll extends PersistantLowLevel
     {
         $fieldpaysite = new Fieldspaysite();
 
-        $fieldpaysite->name = 'description';
-        $fieldpaysite->name_user_see = 'Pay\'s description';
-        $fieldpaysite->type = 'text';
-        $fieldpaysite->is_optional = true;
-        $fieldpaysite->is_user_see = false;
-        $fieldpaysite->site_id = $site_id;
-        $fieldpaysite->save();
-
-        $fieldpaysite = new Fieldspaysite();
-
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
-        $fieldpaysite->type = 'radio';
+        $fieldpaysite->type = 'select';
         $fieldpaysite->is_optional = false;
-        $fieldpaysite->is_user_see = true;
-        $fieldpaysite->site_id = $site_id;
+        $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
+        $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
 
         $fieldpaysite = new Fieldspaysite();
@@ -36,8 +26,8 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->name_user_see = 'Amount to pay';
         $fieldpaysite->type = 'number';
         $fieldpaysite->is_optional = false;
-        $fieldpaysite->is_user_see = true;
-        $fieldpaysite->site_id = $site_id;
+        $fieldpaysite->values = '';
+        $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
     }
 
@@ -58,7 +48,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->name_user_see = $request->name_field_useer_see;
         $fieldpaysite->type = $request->field_type;
         $fieldpaysite->is_optional = $request->is_optional;
-        $fieldpaysite->is_user_see = $request->is_user_see;
+        $fieldpaysite->values = $request->values;
         $fieldpaysite->site_id = $request->site_id;
         $fieldpaysite->save();
     }

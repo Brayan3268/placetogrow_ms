@@ -74,13 +74,9 @@
 
                     <!-- Section for User Visibility Selection -->
                     <div class="form-section">
-                        <label for="select_is_user_see">User Can See?</label>
-                        <select id="select_is_user_see" name="is_user_see">
-                            <option value="">Select Option</option>
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-                        </select>
-                        <span id="select_is_user_see-error" class="error"></span>
+                        <label for="select_type">Values</label>
+                        <input id="values" name="values" type="text">
+                        <span id="values-error" class="error"></span>
                     </div>
                 
                     <!-- Submit Button -->
@@ -99,7 +95,7 @@
                         <th scope="col" class="border border-gray-200 px-4 py-2">Name user see</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">Type</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">Is optional</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Is user see</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">Values</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">Action</th>
                     </tr>
                 </thead>
@@ -110,7 +106,7 @@
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->name_user_see }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->type }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->is_optional ? 'Yes' : 'No' }}</td>
-                            <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->is_user_see ? 'Yes' : 'No' }}</td>
+                            <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->values }}</td>
                             <td class="border border-gray-200 px-4 py-2 text-right">                                    
                                 <form action="{{ route('sites.field_destroy', $sites_fields->id) }}" method="POST" class="inline-block">
                                     @csrf
@@ -145,14 +141,13 @@
                         // Update the label text
                         document.getElementById('name_field').value = `${constant}`;
                         document.getElementById('name_field_useer_see').value = `${description}`;
-                        
     
                         // Show the form container and elements
                         const formContainer = document.getElementById('form-container');
                         formContainer.classList.remove('hidden');
                         document.getElementById('select_type').classList.remove('hidden');
                         document.getElementById('select_is_optional').classList.remove('hidden');
-                        document.getElementById('select_is_user_see').classList.remove('hidden');
+                        document.getElementById('values').classList.remove('hidden');
                     }
                 });
             });
@@ -174,7 +169,7 @@
                     // Optionally set default values for selects
                     document.getElementById('select_type').value = '';
                     document.getElementById('select_is_optional').value = '';
-                    document.getElementById('select_is_user_see').value = '';
+                    document.getElementById('values').value = '';
                 }
             });
 
@@ -198,13 +193,6 @@
                 const isOptional = document.getElementById('select_is_optional').value;
                 if (isOptional === '') {
                     document.getElementById('select_is_optional-error').textContent = 'Optional selection is required.';
-                    isValid = false;
-                }
-
-                // Validate is_user_see
-                const isUserSee = document.getElementById('select_is_user_see').value;
-                if (isUserSee === '') {
-                    document.getElementById('select_is_user_see-error').textContent = 'User visibility selection is required.';
                     isValid = false;
                 }
 
