@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name_user_see', 40);
             $table->enum('type', array_column(FieldTypes::cases(), 'name'));
             $table->boolean('is_optional');
-            $table->boolean('is_user_see');
+            $table->string('values', 80)->nullable(true);
             $table->foreignId('site_id')->constrained();
             $table->timestamps();
         });

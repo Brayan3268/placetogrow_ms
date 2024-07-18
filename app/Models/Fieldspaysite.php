@@ -15,7 +15,7 @@ class Fieldspaysite extends Model
         'name_user_see',
         'type',
         'is_modified',
-        'is_user_see',
+        'values',
     ];
 
     public function site(): BelongsTo
