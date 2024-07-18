@@ -39,6 +39,16 @@
     text-decoration: none;
 }
 
+.my-button-sm {
+    padding: 10px 20px;
+    background-color: #ff7c06;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .my-button:hover {
     background-color: #702bd8;
 }

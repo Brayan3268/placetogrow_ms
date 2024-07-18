@@ -43,6 +43,8 @@ class SitePll extends PersistantLowLevel
         $site->site_type = $request->site_type;
         $site->image = 'storage/site_images/'.$image_name;
         $site->save();
+
+        FieldpaysitePll::save_default_fields($site->id);
     }
 
     public static function get_specific_site(string $id)

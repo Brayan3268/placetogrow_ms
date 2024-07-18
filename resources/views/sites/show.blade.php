@@ -85,7 +85,13 @@
                 </select>
             </div>
 
-            <button type="submit" class="my-button"><i class="fas fa-edit"></i></button>
+            @can('site.manage')
+                <button type="submit" class="my-button"><i class="fas fa-edit"></i></button>
+            @endcan
+
+            @can('site.pay')
+                <button type="submit" class="my-button"><i class="fas fa-message-dollar"></i></button>
+            @endcan
         </form>
     </div>
     @endsection
