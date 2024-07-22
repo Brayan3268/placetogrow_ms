@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-enum PaymentGaeway: string
+enum PaymentGateway: string
 {
     case PLACETOPAY = 'placetopay';
 
@@ -11,6 +11,11 @@ enum PaymentGaeway: string
     public static function toArray(): array
     {
         return array_column(self::cases(), 'value');
+    }
+
+    public static function test(): string
+    {
+        return 'placetopay';
     }
 
     public static function toOptions(): array

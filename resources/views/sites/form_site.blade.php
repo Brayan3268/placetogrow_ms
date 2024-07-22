@@ -13,7 +13,7 @@
       <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
         <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">Complete the form for pay</h1>
 
-        <form id="payForm" method="POST" class="max-w-lg mx-auto mt-10">
+        <form id="payForm" method="POST" class="max-w-lg mx-auto mt-10" action="{{ route('payment.store') }}">
           @csrf
           @foreach($sites_fields as $input)
             <div class="mb-6">
@@ -35,7 +35,7 @@
               @endif
             </div>
           @endforeach
-          <button type="submit" id="submitForm">Submit</button>
+          <button type="submit" id="submitForm" class="my-button">Submit</button>
         </form>
       </div>
 

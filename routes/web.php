@@ -11,6 +11,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
 
@@ -36,6 +37,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/field_destroy/{id}', [SiteController::class, 'field_destroy'])->name('sites.field_destroy');
     Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
 });
+
+Route::post('payment', [PaymentController::class, 'store'])
+    ->name('payment.store');
+
+Route::post('payment', [PaymentController::class, 'show'])
+    ->name('payment.show');
+
+/*Route::middleware('auth')->group(function () {
+    Route::resource('payment', PaymentController::class);
+});*/
 
 Route::middleware('auth')->group(function () {});
 
