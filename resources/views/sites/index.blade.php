@@ -48,15 +48,15 @@
                             <td class="border border-gray-200 px-4 py-2">{{ $open_site->name }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $open_site->category->name }}</td>
                             <td class="border border-gray-200 px-4 py-2 text-right">                                    
-                                <a href="{{ route('sites.show', $open_site->id) }}" class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('sites.show', $open_site->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                 @can('site.manage')
-                                <a href="{{ route('sites.edit', $open_site->id) }}" method="POST" class="text-yellow-600 hover:text-yellow-800 mr-2"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('sites.edit', $open_site->id) }}" method="POST" class="text-yellow-600 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('sites.destroy', $open_site->id) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
                                 </form>
-                                <a href="{{ route('sites.manage_config', $open_site->id) }}" class="text-orange-600 hover:text-orange-800 ml-2"><i class="fas fa-bars"></i></a>
+                                <a href="{{ route('sites.manage_config', $open_site->id) }}" class="text-orange-600 hover:text-purple-800 ml-2"><i class="fas fa-bars"></i></a>
                                 @endcan
                             </td>
                         </tr>
@@ -86,15 +86,15 @@
                                 <td class="border border-gray-200 px-4 py-2">{{ $close_site->name }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $close_site->category->name }}</td>
                             <td class="border border-gray-200 px-4 py-2 text-right">
-                                <a href="{{ route('sites.show', $close_site->id) }}" class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('sites.show', $close_site->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                 @can('site.manage')
-                                <a href="{{ route('sites.edit', $close_site->id) }}" class="text-yellow-600 hover:text-yellow-800 mr-2"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('sites.edit', $close_site->id) }}" class="text-yellow-600 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('sites.destroy', $close_site->id) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
                                 </form>
-                                <a href="{{ route('sites.manage_config', $close_site->id) }}" method="POST" class="text-orange-600 hover:text-orange-800 ml-2"><i class="fas fa-bars"></i></a>
+                                <a href="{{ route('sites.manage_config', $close_site->id) }}" method="POST" class="text-orange-600 hover:text-purple-800 ml-2"><i class="fas fa-bars"></i></a>
                                 @endcan
                                 </td>
                             </tr>
@@ -124,15 +124,15 @@
                                 <td class="border border-gray-200 px-4 py-2">{{ $suscription_site->name }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $suscription_site->category->name }}</td>
                             <td class="border border-gray-200 px-4 py-2 text-right">
-                                    <a href="{{ route('sites.show', $suscription_site->id) }}" class="text-blue-600 hover:text-blue-800 mr-2"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('sites.show', $suscription_site->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                     @can('site.manage')
-                                    <a href="{{ route('sites.edit', $suscription_site->id) }}" class="text-yellow-600 hover:text-yellow-800 mr-2"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('sites.edit', $suscription_site->id) }}" class="text-yellow-600 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route('sites.destroy', $suscription_site->id) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
                                     </form>
-                                    <a href="{{ route('sites.manage_config', $suscription_site->id) }}" method="POST" class="text-orange-600 hover:text-orange-800 ml-2"><i class="fas fa-bars"></i></a>
+                                    <a href="{{ route('sites.manage_config', $suscription_site->id) }}" method="POST" class="text-orange-600 hover:text-purple-800 ml-2"><i class="fas fa-bars"></i></a>
                                     @endcan
                                 </td>
                             </tr>

@@ -10,7 +10,7 @@
     </x-slot>
 
     @section('content')
-    <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
+    <div class="container mx-auto mt-5 flex-col space-y-4 items-center">
         <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">Create Site</h1>
     
         <form action="{{ route('sites.store') }}" method="POST" class="max-w-lg mx-auto mt-5" enctype="multipart/form-data">
