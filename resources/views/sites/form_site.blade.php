@@ -45,7 +45,6 @@
                 form.addEventListener('submit', function(event) {
                     event.preventDefault();
         
-                    // Collect form data
                     const formData = new FormData(form);
                     
                     let alertMessage = 'Form Data:\n';
@@ -54,7 +53,6 @@
                         alertMessage += `${entry[0]}: ${entry[1]}\n`;
                     }
 
-                    // Show alert with form data
                     alert(alertMessage);
 
                     var json_file = obtener_json_sesion()
@@ -86,7 +84,7 @@
                       console.log(response)
                       console.log(status)
 
-                      //window.location.href = response.data.processUrl; 
+                      //window.location.href = response.data.processUrl;
                     })
                     .catch(error => {
                       let error_str = String(error.request.response)
@@ -110,7 +108,6 @@
                 const hash = CryptoJS.SHA1(trankey_woc);
                 var base64 = CryptoJS.enc.Base64.stringify(hash);
 
-                //Creamos la variable con los datos para el json
                 var sesion = {
                   "auth": {
                     "login": login + "",

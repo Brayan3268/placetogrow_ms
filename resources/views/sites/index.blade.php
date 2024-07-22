@@ -30,7 +30,6 @@
             <div class="flex flex-col space-y-2">
                 <h1 class="text-2xl font-bold mb-2">Microsites open</h1>
 
-            <!-- Formulario de Búsqueda -->
             <div class="w-1/2 mb-4">
                 <input type="text" id="search_names_open_sites" placeholder="search by names" class="border w-full p-2">
             </div>

@@ -40,7 +40,6 @@
 
                     <input type="hidden" name="site_id" value="{{ $site_id }}" />
 
-                    <!-- Section for Constant Name -->
                     <div class="form-section">
                         <input type="text" id="name_field" name="name_field" readonly class="bg-gray-200 border border-gray-300 p-2 rounded-md" />
                     </div>
@@ -49,7 +48,6 @@
                         <input type="text" id="name_field_useer_see" name="name_field_useer_see" readonly class="bg-gray-200 border border-gray-300 p-2 rounded-md" />
                     </div>
 
-                    <!-- Section for Type Selection -->
                     <div class="form-section">
                         <label for="select_type">Field Type</label>
                         <select id="select_type" name="field_type">
@@ -61,7 +59,6 @@
                         <span id="select_type-error" class="error"></span>
                     </div>
 
-                    <!-- Section for Optional Selection -->
                     <div class="form-section">
                         <label for="select_is_optional">Is Optional?</label>
                         <select id="select_is_optional" name="is_optional">
@@ -72,14 +69,12 @@
                         <span id="select_is_optional-error" class="error"></span>
                     </div>
 
-                    <!-- Section for User Visibility Selection -->
                     <div class="form-section">
                         <label for="select_type">Values</label>
                         <input id="values" name="values" type="text">
                         <span id="values-error" class="error"></span>
                     </div>
                 
-                    <!-- Submit Button -->
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -123,28 +118,20 @@
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Get the container of items
                 const itemContainer = document.getElementById('filtered_constants_opt');
     
-                // Add a click event listener to the container
                 itemContainer.addEventListener('click', function(event) {
-                    // Check if the clicked element is an 'add-btn'
                     if (event.target.classList.contains('add-btn')) {
-                        // Prevent the default action of the link
                         event.preventDefault();
     
-                        // Get the parent item
                         const item = event.target.closest('.item');
     
-                        // Get the constant and description from data attributes
                         const constant = item.getAttribute('data-constant');
                         const description = item.getAttribute('data-description');
     
-                        // Update the label text
                         document.getElementById('name_field').value = `${constant}`;
                         document.getElementById('name_field_useer_see').value = `${description}`;
     
-                        // Show the form container and elements
                         const formContainer = document.getElementById('form-container');
                         formContainer.classList.remove('hidden');
                         document.getElementById('select_type').classList.remove('hidden');
@@ -168,30 +155,25 @@
                     const formContainer = document.getElementById('form-container');
                     formContainer.classList.remove('hidden');
 
-                    // Optionally set default values for selects
                     document.getElementById('select_type').value = '';
                     document.getElementById('select_is_optional').value = '';
                     document.getElementById('values').value = '';
                 }
             });
 
-            // Form validation and submission
             const form = document.getElementById('dynamic-form');
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
                 let isValid = true;
 
-                // Clear previous errors
                 document.querySelectorAll('.error').forEach(span => span.textContent = '');
 
-                // Validate field type
                 const fieldType = document.getElementById('select_type').value;
                 if (fieldType === '') {
                     document.getElementById('select_type-error').textContent = 'Field Type is required.';
                     isValid = false;
                 }
 
-                // Validate is_optional
                 const isOptional = document.getElementById('select_is_optional').value;
                 if (isOptional === '') {
                     document.getElementById('select_is_optional-error').textContent = 'Optional selection is required.';
@@ -199,7 +181,7 @@
                 }
 
                 if (isValid) {
-                    form.submit(); // Submit the form if all fields are valid
+                    form.submit();
                 }
             });
         });
