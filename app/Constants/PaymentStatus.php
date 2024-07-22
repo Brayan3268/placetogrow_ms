@@ -10,7 +10,7 @@ enum PaymentStatus: string
     case APPROVED_PARCIAL = 'APPROVED_PARCIAL';
     case PARTIAL_EXPIRED = 'PARTIAL_EXPIRED';
     case UNKNOW = 'UNKNOW';
-    
+
     public static function toArray(): array
     {
         return array_column(self::cases(), 'value');

@@ -5,7 +5,7 @@ namespace App\Constants;
 enum PaymentGaeway: string
 {
     case PLACETOPAY = 'placetopay';
-    
+
     case PAYPAL = 'paypal';
 
     public static function toArray(): array
@@ -22,7 +22,7 @@ enum PaymentGaeway: string
             ],
             [
                 'value' => self::PAYPAL->value,
-                'text' => 'PayPal', 
+                'text' => 'PayPal',
             ],
         ];
     }
