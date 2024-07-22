@@ -107,12 +107,14 @@
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->type }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->is_optional ? 'Yes' : 'No' }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->values }}</td>
-                            <td class="border border-gray-200 px-4 py-2 text-right">                                    
-                                <form action="{{ route('sites.field_destroy', $sites_fields->id) }}" method="POST" class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
-                                </form>
+                            <td class="border border-gray-200 px-4 py-2 text-right">  
+                                @if ($sites_fields->is_mandatory == false)
+                                    <form action="{{ route('sites.field_destroy', $sites_fields->id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

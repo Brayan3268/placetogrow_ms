@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('type', array_column(FieldTypes::cases(), 'name'));
             $table->boolean('is_optional');
             $table->string('values', 80)->nullable(true);
+            $table->boolean('is_mandatory');
             $table->foreignId('site_id')->constrained();
             $table->timestamps();
         });

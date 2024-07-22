@@ -157,7 +157,6 @@ class SiteController extends Controller
         foreach ($constants_opt as $constant => $description) {
             $exists_in_db = false;
 
-            // Comparar con cada registro en $site_config
             foreach ($sites_fields as $site) {
                 if ($site->name === $constant) {
                     $exists_in_db = true;
@@ -165,7 +164,6 @@ class SiteController extends Controller
                 }
             }
 
-            // Si no existe en la base de datos, agregar a $filtered_constants
             if (! $exists_in_db) {
                 $filtered_constants_opt[$constant] = $description;
             }
@@ -182,7 +180,7 @@ class SiteController extends Controller
             'name_field_useer_see' => 'required|string',
             'field_type' => 'required|string',
             'is_optional' => 'required|boolean',
-            'values' => 'required|string',
+            'values' => 'nullable|string',
             'site_id' => 'required|integer',
         ]);
 
