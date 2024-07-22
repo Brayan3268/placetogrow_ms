@@ -35,47 +35,55 @@
             <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">This is the field that you are adding</h1>
 
             <div id="form-container" class="hidden form-container">
-                <form id="dynamic-form" method="POST" action="{{ route('sites.add_field') }}">
+                <form id="dynamic-form" method="POST" action="{{ route('sites.add_field') }}" class="max-w-lg mx-auto mt-10">
                     @csrf
 
                     <input type="hidden" name="site_id" value="{{ $site_id }}" />
 
-                    <div class="form-section">
-                        <input type="text" id="name_field" name="name_field" readonly class="bg-gray-200 border border-gray-300 p-2 rounded-md" />
+                    <div class="mb-6">
+                        <label for="name_field" class="block text-gray-700 text-sm font-bold mb-2">Name field:</label>
+                        <input type="text" id="name_field" name="name_field" readonly class="bg-gray-200 form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('name_field') border-red-500 @enderror" />
+                        @error('name_field')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                    <div class="form-section">
-                        <input type="text" id="name_field_useer_see" name="name_field_useer_see" readonly class="bg-gray-200 border border-gray-300 p-2 rounded-md" />
+                    <div class="mb-6">
+                        <label for="name_field_useer_see" class="block text-gray-700 text-sm font-bold mb-2">Name for user see:</label>
+                        <input type="text" id="name_field_useer_see" name="name_field_useer_see" readonly class="bg-gray-200 form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('name_field_useer_see') border-red-500 @enderror" />
+                        @error('name_field_useer_see')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                    <div class="form-section">
-                        <label for="select_type">Field Type</label>
-                        <select id="select_type" name="field_type">
-                            <option value="">Select type</option>
+                    <div class="mb-6">
+                        <label for="select_type" class="block text-gray-700 text-sm font-bold mb-2">Field type:</label>
+                        <select id="select_type" name="field_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('field_type') border-red-500 @enderror" required>
+                            <option value="" disabled selected>Select a field type</option>
                             <option value="text">Text</option>
                             <option value="number">Number</option>
                             <option value="select">Select</option>
                         </select>
-                        <span id="select_type-error" class="error"></span>
                     </div>
 
-                    <div class="form-section">
-                        <label for="select_is_optional">Is Optional?</label>
-                        <select id="select_is_optional" name="is_optional">
-                            <option value="">Select Option</option>
+                    <div class="mb-6">
+                        <label for="select_is_optional" class="block text-gray-700 text-sm font-bold mb-2">Is Optional?</label>
+                        <select id="select_is_optional" name="is_optional" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('is_optional') border-red-500 @enderror" required>
+                            <option value="" disabled selected>Select option</option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
-                        <span id="select_is_optional-error" class="error"></span>
+                    </div>                    
+
+                    <div class="mb-6">
+                        <label for="select_type" class="block text-gray-700 text-sm font-bold mb-2">Values for this field:</label>
+                        <input type="text" id="values" name="values" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('values') border-red-500 @enderror" required>
+                        @error('values')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                    <div class="form-section">
-                        <label for="select_type">Values</label>
-                        <input id="values" name="values" type="text">
-                        <span id="values-error" class="error"></span>
-                    </div>
-                
-                    <button type="submit">Submit</button>
+                    <button type="submit" class="my-button">Add field</button>
                 </form>
             </div>
 
@@ -107,7 +115,7 @@
                                     <form action="{{ route('sites.field_destroy', $sites_fields->id) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                                        <button type="submit" class="text-red-600 hover:text-purple-800"><i class="fas fa-trash"></i></button>
                                     </form>
                                 @endif
                             </td>
@@ -142,49 +150,49 @@
             });
 
             document.addEventListener('DOMContentLoaded', function() {
-            const itemContainer = document.getElementById('filtered_constants_opt');
+                const itemContainer = document.getElementById('filtered_constants_opt');
 
-            itemContainer.addEventListener('click', function(event) {
-                if (event.target.classList.contains('add-btn')) {
+                itemContainer.addEventListener('click', function(event) {
+                    if (event.target.classList.contains('add-btn')) {
+                        event.preventDefault();
+
+                        const item = event.target.closest('.item');
+                        const constant = item.getAttribute('data-constant');
+                        const description = item.getAttribute('data-description');
+
+                        const formContainer = document.getElementById('form-container');
+                        formContainer.classList.remove('hidden');
+
+                        document.getElementById('select_type').value = '';
+                        document.getElementById('select_is_optional').value = '';
+                        document.getElementById('values').value = '';
+                    }
+                });
+
+                const form = document.getElementById('dynamic-form');
+                form.addEventListener('submit', function(event) {
                     event.preventDefault();
+                    let isValid = true;
 
-                    const item = event.target.closest('.item');
-                    const constant = item.getAttribute('data-constant');
-                    const description = item.getAttribute('data-description');
+                    document.querySelectorAll('.error').forEach(span => span.textContent = '');
 
-                    const formContainer = document.getElementById('form-container');
-                    formContainer.classList.remove('hidden');
+                    const fieldType = document.getElementById('select_type').value;
+                    if (fieldType === '') {
+                        document.getElementById('select_type-error').textContent = 'Field Type is required.';
+                        isValid = false;
+                    }
 
-                    document.getElementById('select_type').value = '';
-                    document.getElementById('select_is_optional').value = '';
-                    document.getElementById('values').value = '';
-                }
+                    const isOptional = document.getElementById('select_is_optional').value;
+                    if (isOptional === '') {
+                        document.getElementById('select_is_optional-error').textContent = 'Optional selection is required.';
+                        isValid = false;
+                    }
+
+                    if (isValid) {
+                        form.submit();
+                    }
+                });
             });
-
-            const form = document.getElementById('dynamic-form');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                let isValid = true;
-
-                document.querySelectorAll('.error').forEach(span => span.textContent = '');
-
-                const fieldType = document.getElementById('select_type').value;
-                if (fieldType === '') {
-                    document.getElementById('select_type-error').textContent = 'Field Type is required.';
-                    isValid = false;
-                }
-
-                const isOptional = document.getElementById('select_is_optional').value;
-                if (isOptional === '') {
-                    document.getElementById('select_is_optional-error').textContent = 'Optional selection is required.';
-                    isValid = false;
-                }
-
-                if (isValid) {
-                    form.submit();
-                }
-            });
-        });
         </script>
     @endsection
 </x-app-layout>
