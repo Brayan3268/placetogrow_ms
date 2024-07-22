@@ -18,6 +18,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
         $fieldpaysite->site_id = 1;
+        $fieldpaysite->is_mandatory = true;
         $fieldpaysite->save();
 
         $fieldpaysite = new Fieldspaysite();
@@ -27,6 +28,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->type = 'number';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
+        $fieldpaysite->is_mandatory = true;
         $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
     }
@@ -49,6 +51,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->type = $request->field_type;
         $fieldpaysite->is_optional = $request->is_optional;
         $fieldpaysite->values = $request->values;
+        $fieldpaysite->is_mandatory = false;
         $fieldpaysite->site_id = $request->site_id;
         $fieldpaysite->save();
     }

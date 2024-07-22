@@ -7,9 +7,6 @@ use Illuminate\Database\Seeder;
 
 class FieldspaysiteSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $fieldpaysite = new Fieldspaysite();
@@ -19,6 +16,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->type = 'select';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
+        $fieldpaysite->is_mandatory = true;
         $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
 
@@ -29,6 +27,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->type = 'select';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
+        $fieldpaysite->is_mandatory = true;
         $fieldpaysite->site_id = 2;
         $fieldpaysite->save();
 
@@ -39,6 +38,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->type = 'select';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
+        $fieldpaysite->is_mandatory = true;
         $fieldpaysite->site_id = 3;
         $fieldpaysite->save();
 
@@ -49,6 +49,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->type = 'number';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
+        $fieldpaysite->is_mandatory = true;
         $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
 
@@ -59,6 +60,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->type = 'number';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
+        $fieldpaysite->is_mandatory = true;
         $fieldpaysite->site_id = 2;
         $fieldpaysite->save();
 
@@ -69,6 +71,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->type = 'number';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
+        $fieldpaysite->is_mandatory = true;
         $fieldpaysite->site_id = 3;
         $fieldpaysite->save();
     }

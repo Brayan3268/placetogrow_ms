@@ -2,13 +2,18 @@
 
 namespace App\Constants;
 
-enum CurrentTypes
+enum CurrentTypes: string
 {
-    case COP;
+    case COP = 'COP';
 
-    case USD;
+    case USD = 'USD';
 
-    case CLP;
+    case CLP = 'CLP';
 
-    case CRC;
+    case CRC = 'CRC';
+
+    public static function toArray(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }
