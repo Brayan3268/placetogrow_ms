@@ -30,7 +30,6 @@
             <div class="flex flex-col space-y-2">
                 <h1 class="text-2xl font-bold mb-2">Super Admins users</h1>
 
-            <!-- Formulario de Búsqueda -->
             <div class="w-1/2 mb-4">
                 <input type="text" id="search_email_super_admin_users" placeholder="Search by email" class="border w-full p-2">
             </div>

@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
@@ -23,24 +20,12 @@ return new class extends Migration
             $table->enum('status', PaymentStatus::toArray());
             $table->enum('gateway', PaymentGaeway::toArray());
             $table->unsignedBigInteger('process_identifier')->nullable();
-
-            $table->foreignId('site_id');
-            $table->foreign('site_id')
-                ->references('id')
-                ->on('sites');
-
-            $table->foreignId('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
-
+            $table->foreignId('site_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('payments');
