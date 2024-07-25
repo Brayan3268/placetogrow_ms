@@ -17,7 +17,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->type = 'select';
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
-        $fieldpaysite->site_id = 1;
+        $fieldpaysite->site_id = $site_id;
         $fieldpaysite->is_mandatory = true;
         $fieldpaysite->save();
 
@@ -29,7 +29,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
         $fieldpaysite->is_mandatory = true;
-        $fieldpaysite->site_id = 1;
+        $fieldpaysite->site_id = $site_id;
         $fieldpaysite->save();
     }
 
