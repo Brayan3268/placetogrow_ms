@@ -17,8 +17,6 @@ class PaymentController extends Controller
 {
     public function store(StorePaymentRequest $request): RedirectResponse
     {
-        dd(Auth::user());
-
         $payment = new Payment();
         $payment->reference = date('ymdHis').'-'.strtoupper(Str::random(4));
         $payment->locale = $request->locale;
