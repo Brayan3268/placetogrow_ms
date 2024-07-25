@@ -32,8 +32,8 @@ class PlacetopayGateway implements PaymentGateway
         $seed = date('c');
         $nonce = (string) rand();
 
-        $tranKey = base64_encode(hash('sha256', $nonce . $seed . $secretKey, true));
-        
+        $tranKey = base64_encode(hash('sha256', $nonce.$seed.$secretKey, true));
+
         $nonce = base64_encode($nonce);
 
         $this->data['auth'] = [
@@ -76,7 +76,7 @@ class PlacetopayGateway implements PaymentGateway
             'payment' => $payment,
             'manufacturer' => 'Samsung']);*/
         $this->data['returnUrl'] = route('payment.show', $payment);
-        
+
         return $this;
     }
 

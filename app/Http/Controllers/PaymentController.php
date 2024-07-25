@@ -7,22 +7,18 @@ use App\Constants\PaymentStatus;
 use App\Contracts\PaymentService;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
-use App\Models\Site;
 use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
-use function Laravel\Prompts\alert;
 
 class PaymentController extends Controller
 {
     public function store(StorePaymentRequest $request): RedirectResponse
     {
         dd(Auth::user());
-        
+
         $payment = new Payment();
         $payment->reference = date('ymdHis').'-'.strtoupper(Str::random(4));
         $payment->locale = $request->locale;
@@ -32,7 +28,7 @@ class PaymentController extends Controller
         $payment->gateway = PaymentGateway::PLACETOPAY;
         $payment->site()->associate($request->site_id);
         $payment->user()->associate(Auth::user()->id);
-        $payment->status = PaymentStatus::PENDING; #Por qué esto está en pending? #Imagino que por si pasa algo, que quede en pendiente
+        $payment->status = PaymentStatus::PENDING; //Por qué esto está en pending? #Imagino que por si pasa algo, que quede en pendiente
 
         $payment->save();
 
@@ -55,14 +51,12 @@ class PaymentController extends Controller
 
     public function show(Request $request, Payment $payment): View
     {
-        #dd($request->all());
+        //dd($request->all());
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
             'payment' => $payment,
             'gateway' => $payment->gateway,
         ]);
-
-
 
         if ($payment->status === PaymentStatus::PENDING->value) {
             $payment = $paymentService->query();

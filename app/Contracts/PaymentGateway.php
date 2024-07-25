@@ -10,7 +10,7 @@ interface PaymentGateway
 {
     public function prepare(): self;
 
-    #public function buyer(array $buyer): self;
+    //public function buyer(array $buyer): self;
 
     public function payment(Payment $payment): self;
 

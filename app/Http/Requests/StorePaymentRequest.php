@@ -26,14 +26,14 @@ class StorePaymentRequest extends FormRequest
         alert('1');
 
         return [
-            'site_id'=> ['required', 'numeric', 'exists:sites,id'],
+            'site_id' => ['required', 'numeric', 'exists:sites,id'],
             'locale' => ['required', 'string'],
             'total' => ['required', 'integer', 'min:1', 'max:999999999999'],
             'description' => ['string'],
             'currency' => ['required', Rule::in(CurrentTypes::toArray())],
-            #'site_id' => ['required', 'numeric', 'exists:sites,id'],
-            #'currency' => ['required', ],
-            #'gateway' => ['required', Rule::in(PaymentGateway::toArray())],
+            //'site_id' => ['required', 'numeric', 'exists:sites,id'],
+            //'currency' => ['required', ],
+            //'gateway' => ['required', Rule::in(PaymentGateway::toArray())],
         ];
     }
 
@@ -42,11 +42,11 @@ class StorePaymentRequest extends FormRequest
         $data = parent::all($keys);
 
         // Agregar valor por defecto para 'description' si no está presente
-        if (!isset($data['description'])) {
+        if (! isset($data['description'])) {
             $data = $data + ['description' => 'Valor por defecto'];
         }
 
-        if (!isset($data['currency'])) {
+        if (! isset($data['currency'])) {
             $data = $data + ['currency' => 'CLP'];
         }
 
@@ -56,15 +56,15 @@ class StorePaymentRequest extends FormRequest
     public function validationData()
     {
         $data = $this->all();
-     
-        if (!isset($data['description'])) {
+
+        if (! isset($data['description'])) {
             $data += ['description' => ''];
         }
 
         /*if (!isset($data['currency'])) {
             $data += ['currency' => 'CLP'];
         }*/
-    
+
         return $data;
     }
 }

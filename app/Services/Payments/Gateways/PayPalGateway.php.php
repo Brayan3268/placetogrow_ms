@@ -97,4 +97,4 @@ class PayPalGateway implements PaymentGateway
     }
 }
 
-#CLASES CONCRETAS (COMPARATOR)
+//CLASES CONCRETAS (COMPARATOR)
