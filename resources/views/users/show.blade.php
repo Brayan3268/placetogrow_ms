@@ -32,6 +32,21 @@
                 @enderror
             </div>
 
+            <div class="mb-6">
+                <label for="document" class="block text-gray-700 text-sm font-bold mb-2">Document:</label>
+                <input type="number" id="document" name="document" value="{{ old('document', $user->document) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document') border-red-500 @enderror" requiered disabled>
+                @error('document')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="document_type" class="block text-gray-700 text-sm font-bold mb-2">Document type:</label>
+                <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" requiered disabled>
+                    <option value="" disabled selected>{{ old('document_type', $user->document_type) }}</option>
+                </select>
+            </div>
+
             <div class="mb-4">
                 <label for="role" class="block text-sm font-bold mb-2">Role:</label>
                 <select id="role" name="role" class="form-select block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('role') border-red-500 @enderror" required disabled>

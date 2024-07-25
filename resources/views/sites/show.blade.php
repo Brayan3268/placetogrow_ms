@@ -49,21 +49,6 @@
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
-                <div class="mb-6">
-                    <label for="document" class="block text-gray-700 text-sm font-bold mb-2">Document:</label>
-                    <input type="number" id="document" name="document" value="{{ old('document', $site->document) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document') border-red-500 @enderror" requiered disabled>
-                    @error('document')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-6">
-                    <label for="document_type" class="block text-gray-700 text-sm font-bold mb-2">Document type:</label>
-                    <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" requiered disabled>
-                        <option value="" disabled selected>{{ old('document_type', $site->document_type) }}</option>
-                    </select>
-                </div>
             @endcan
 
             <div class="mb-6">
@@ -74,9 +59,9 @@
             </div>
 
             <div class="mb-6">
-                <label for="current" class="block text-gray-700 text-sm font-bold mb-2">Current:</label>
-                <select id="current" name="current" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('role') border-red-500 @enderror" requiered disabled>
-                    <option value="" disabled selected>{{ old('category', $site->current_type) }}</option>
+                <label for="currency" class="block text-gray-700 text-sm font-bold mb-2">Currency:</label>
+                <select id="currency" name="currency" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('role') border-red-500 @enderror" requiered disabled>
+                    <option value="" disabled selected>{{ old('category', $site->currency_type) }}</option>
                 </select>
             </div>
 

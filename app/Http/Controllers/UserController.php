@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\PersistantsLowLevel\RolePll;
 use App\Http\PersistantsLowLevel\UserPll;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -30,25 +30,23 @@ class UserController extends Controller
 
     public function create(): View|RedirectResponse
     {
+        $datos = $this->get_enums();
+        $document_types = $datos['document_types'];
+
         if ($this->validate_role()) {
-            return view('users.create');
+            return view('users.create', compact('document_types'));
         }
 
         return redirect()->route('dashboard')
             ->with('status', 'User not authorized for this route')
             ->with('class', 'bg-red-500');
+
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreUserRequest $request): RedirectResponse
     {
         if ($this->validate_role()) {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:8',
-            ]);
-
-            $user = UserPll::save_user($request->name, $request->email, $request->password);
+            $user = UserPll::save_user($request);
             $role = RolePll::get_specific_role($request->role);
 
             $user->assignRole($role);
@@ -84,10 +82,13 @@ class UserController extends Controller
     public function edit(string $id): View|RedirectResponse
     {
         if ($this->validate_role()) {
+            $datos = $this->get_enums();
+            $document_types = $datos['document_types'];
+
             $userData = UserPll::get_specific_user($id);
             RolePll::forget_cache('users.roles');
 
-            return view('users.edit', ['user' => $userData['user']]);
+            return view('users.edit', ['user' => $userData['user'], 'document_types' => $document_types, 'role' => $userData['role']]);
         }
 
         return redirect()->route('dashboard')
@@ -95,30 +96,28 @@ class UserController extends Controller
             ->with('class', 'bg-red-500');
     }
 
-    public function update(Request $request, User $user): RedirectResponse
+    public function update(StoreUserRequest $request, User $user): RedirectResponse
     {
         if ($this->validate_role()) {
-            $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:users,email,'.$user->id,
-                'password' => 'nullable|string|min:8',
-                'role' => 'required|in:super_admin,admin,guest',
-            ]);
-
-            if (empty($validatedData['password'])) {
+            if (empty($request['password'])) {
                 $data = [
-                    'name' => $validatedData['name'],
-                    'email' => $validatedData['email'],
-                    'role' => $validatedData['role'],
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'document_type' => $request['document_type'],
+                    'document' => $request['document'],
+                    'role' => $request['role'],
                 ];
 
                 $user = UserPll::update_user_without_password($user, $data);
+
             } else {
                 $data = [
-                    'name' => $validatedData['name'],
-                    'email' => $validatedData['email'],
-                    'password' => bcrypt($validatedData['password']),
-                    'role' => $validatedData['role'],
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'document_type' => $request['document_type'],
+                    'document' => $request['document'],
+                    'password' => bcrypt($request['password']),
+                    'role' => $request['role'],
                 ];
 
                 $user = UserPll::update_user_with_password($user, $data);
@@ -176,5 +175,21 @@ class UserController extends Controller
         $role_name = UserPll::get_user_auth();
 
         return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
+    }
+
+    public function get_enums(): array
+    {
+        //if (is_null($categories)) {
+        $enumDocumentTypeValues = UserPll::get_users_enum_field_values('document_type');
+        preg_match('/^enum\((.*)\)$/', $enumDocumentTypeValues, $matches);
+        $document_types = explode(',', $matches[1]);
+        $document_types = array_map(fn ($value) => trim($value, "'"), $document_types);
+
+        UserPll::save_cache('document_types', $document_types);
+        //} else {
+        //$document_types = SitePll::get_cache('document_types');
+        //}
+
+        return ['document_types' => $document_types];
     }
 }

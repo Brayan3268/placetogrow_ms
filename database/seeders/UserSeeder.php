@@ -14,6 +14,8 @@ class UserSeeder extends Seeder
         $user->name = 'Brayan Luján Muñoz';
         $user->email = 'brayan.lujan@evertecinc.com';
         $user->password = '12345678';
+        $user->document_type = 'CC';
+        $user->document = '1234567890';
 
         $user->save();
 
@@ -22,6 +24,8 @@ class UserSeeder extends Seeder
         $user->name = 'Gisela Muñoz Valencia';
         $user->email = 'gisela.munoz@evertecinc.com';
         $user->password = '12345678';
+        $user->document_type = 'CC';
+        $user->document = '1010101010';
 
         $user->save();
 
@@ -30,6 +34,8 @@ class UserSeeder extends Seeder
         $user->name = 'Miguel Ángel Luján Muñoz';
         $user->email = 'miguel.lujan@evertecinc.com';
         $user->password = '12345678';
+        $user->document_type = 'CC';
+        $user->document = '0987654321';
 
         $user->save();
     }

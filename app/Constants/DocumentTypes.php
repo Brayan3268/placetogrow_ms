@@ -2,13 +2,18 @@
 
 namespace App\Constants;
 
-enum DocumentTypes
+enum DocumentTypes: string
 {
-    case CC;
+    case CC = 'CC';
 
-    case NIT;
+    case NIT = 'NIT';
 
-    case CE;
+    case CE = 'CE';
 
-    case PPT;
+    case PPT = 'PPT';
+
+    public static function toArray(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }

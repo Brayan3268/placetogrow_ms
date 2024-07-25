@@ -39,11 +39,10 @@ class SiteController extends Controller
     {
         $datos = $this->get_enums();
         $categories = $datos['categories'];
-        $current_options = $datos['current_options'];
+        $currency_options = $datos['currency_options'];
         $site_type_options = $datos['site_type_options'];
-        $document_types = $datos['document_types'];
 
-        return view('sites.create', compact('categories', 'current_options', 'site_type_options', 'document_types'));
+        return view('sites.create', compact('categories', 'currency_options', 'site_type_options'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -84,11 +83,10 @@ class SiteController extends Controller
 
         $datos = $this->get_enums();
         $categories = $datos['categories'];
-        $current_options = $datos['current_options'];
+        $currency_options = $datos['currency_options'];
         $site_type_options = $datos['site_type_options'];
-        $document_types = $datos['document_types'];
 
-        return view('sites.edit', compact('site', 'categories', 'current_options', 'site_type_options', 'document_types'));
+        return view('sites.edit', compact('site', 'categories', 'currency_options', 'site_type_options'));
     }
 
     public function update(Request $request, Site $site): RedirectResponse
@@ -96,11 +94,9 @@ class SiteController extends Controller
         $data = [
             'slug' => $request['slug'],
             'name' => $request['name'],
-            'document_type' => $request['document_type'],
-            'document' => $request['document'],
             'category_id' => $request['category'],
             'expiration_time' => $request['expiration_time'],
-            'current_type' => $request['current'],
+            'currency_type' => $request['currency'],
             'site_type' => $request['site_type'],
             'return_url' => $request['return_url'],
         ];
@@ -211,36 +207,28 @@ class SiteController extends Controller
         if (is_null($categories)) {
             $categories = CategoryPll::get_all_categories();
 
-            $enumCurrentValues = SitePll::get_sites_enum_field_values('current_type');
-            preg_match('/^enum\((.*)\)$/', $enumCurrentValues, $matches);
-            $current_options = explode(',', $matches[1]);
-            $current_options = array_map(fn ($value) => trim($value, "'"), $current_options);
+            $enumCurrencyValues = SitePll::get_sites_enum_field_values('currency_type');
+            preg_match('/^enum\((.*)\)$/', $enumCurrencyValues, $matches);
+            $currency_options = explode(',', $matches[1]);
+            $currency_options = array_map(fn ($value) => trim($value, "'"), $currency_options);
 
             $enumSiteTypeValues = SitePll::get_sites_enum_field_values('site_type');
             preg_match('/^enum\((.*)\)$/', $enumSiteTypeValues, $matches);
             $site_type_options = explode(',', $matches[1]);
             $site_type_options = array_map(fn ($value) => trim($value, "'"), $site_type_options);
 
-            $enumDocumentTypeValues = SitePll::get_sites_enum_field_values('document_type');
-            preg_match('/^enum\((.*)\)$/', $enumDocumentTypeValues, $matches);
-            $document_types = explode(',', $matches[1]);
-            $document_types = array_map(fn ($value) => trim($value, "'"), $document_types);
-
             SitePll::save_cache('categories', $categories);
-            SitePll::save_cache('current_options', $current_options);
+            SitePll::save_cache('currency_options', $currency_options);
             SitePll::save_cache('site_type_options', $site_type_options);
-            SitePll::save_cache('document_types', $document_types);
         } else {
-            $current_options = SitePll::get_cache('current_options');
+            $currency_options = SitePll::get_cache('currency_options');
             $site_type_options = SitePll::get_cache('site_type_options');
-            $document_types = SitePll::get_cache('document_types');
         }
 
         return [
             'categories' => $categories,
-            'current_options' => $current_options,
+            'currency_options' => $currency_options,
             'site_type_options' => $site_type_options,
-            'document_types' => $document_types,
         ];
     }
 }

@@ -14,8 +14,6 @@ class Site extends Model
     protected $fillable = [
         'slug',
         'name',
-        'document',
-        'document_type',
         'category_id',
         'expiration_time',
         'current_type',
