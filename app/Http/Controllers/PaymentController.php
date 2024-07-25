@@ -23,10 +23,10 @@ class PaymentController extends Controller
         $payment->amount = $request->total;
         $payment->description = $request->description;
         $payment->currency = $request->currency;
-        $payment->gateway = PaymentGateway::PLACETOPAY;
+        $payment->gateway = PaymentGateway::PLACETOPAY->value;
         $payment->site()->associate($request->site_id);
         $payment->user()->associate(Auth::user()->id);
-        $payment->status = PaymentStatus::PENDING; //Por qué esto está en pending? #Imagino que por si pasa algo, que quede en pendiente
+        $payment->status = PaymentStatus::PENDING->value; //Por qué esto está en pending? #Imagino que por si pasa algo, que quede en pendiente
 
         $payment->save();
 
