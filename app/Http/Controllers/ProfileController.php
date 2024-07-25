@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-use function Laravel\Prompts\alert;
-
 class ProfileController extends Controller
 {
     public function edit(Request $request): View
@@ -57,9 +55,7 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         $user = User::find($id);
         $role_name = $user->getRoleNames();
-        alert($user);
         $role_name = $user->getRoleNames();
-        alert($role_name);
 
         return view('profile.show', compact('user', 'role_name'));
     }

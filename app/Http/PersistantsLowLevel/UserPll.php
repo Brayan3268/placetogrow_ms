@@ -5,8 +5,6 @@ namespace App\Http\PersistantsLowLevel;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
-use function Laravel\Prompts\alert;
-
 class UserPll extends PersistantLowLevel
 {
     public static function get_all_users()
@@ -80,10 +78,8 @@ class UserPll extends PersistantLowLevel
 
     public static function get_user_auth()
     {
-        alert('1');
         $user = User::find(auth()->user()->id);
         $user = UserPll::get_role_names($user);
-        alert('2');
 
         return $user;
     }
