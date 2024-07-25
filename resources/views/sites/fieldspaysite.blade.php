@@ -77,7 +77,7 @@
 
                     <div class="mb-6">
                         <label for="select_type" class="block text-gray-700 text-sm font-bold mb-2">Values for this field:</label>
-                        <input type="text" id="values" name="values" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('values') border-red-500 @enderror" required>
+                        <input type="text" id="values" name="values" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('values') border-red-500 @enderror">
                         @error('values')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror

@@ -20,7 +20,7 @@ class QueryPaymentResponse implements Arrayable
     {
         return [
             'reason' => $this->reason,
-            'statis' => $this->status->value,
+            'status' => $this->status->value,
         ];
     }
 }

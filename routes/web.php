@@ -38,15 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
 });
 
-Route::post('payment', [PaymentController::class, 'store'])
-    ->name('payment.store');
-
-Route::post('payment', [PaymentController::class, 'show'])
-    ->name('payment.show');
-
-/*Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::resource('payment', PaymentController::class);
-});*/
+});
 
 Route::middleware('auth')->group(function () {});
 

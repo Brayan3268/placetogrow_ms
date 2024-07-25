@@ -32,7 +32,8 @@ class PlacetopayGateway implements PaymentGateway
         $seed = date('c');
         $nonce = (string) rand();
 
-        $tranKey = base64_encode(hash('sha256', $nonce.$seed.$secretKey, true));
+        $tranKey = base64_encode(hash('sha256', $nonce . $seed . $secretKey, true));
+        
         $nonce = base64_encode($nonce);
 
         $this->data['auth'] = [
@@ -45,7 +46,7 @@ class PlacetopayGateway implements PaymentGateway
         return $this;
     }
 
-    public function buyer(array $data): self
+    /*public function buyer(array $data): self
     {
         $this->data['buyer'] = [
             'name' => $data['name'],
@@ -56,10 +57,12 @@ class PlacetopayGateway implements PaymentGateway
         ];
 
         return $this;
-    }
+    }*/
 
     public function payment(Payment $payment): self
     {
+        $this->data['locale'] = $payment->locale;
+
         $this->data['payment'] = [
             'reference' => $payment->reference,
             'description' => $payment->description,
@@ -69,8 +72,11 @@ class PlacetopayGateway implements PaymentGateway
             ],
         ];
 
-        $this->data['returnUrl'] = route('payments.show', $payment);
-
+        /*$this->data['returnUrl'] = route('payment.show', [
+            'payment' => $payment,
+            'manufacturer' => 'Samsung']);*/
+        $this->data['returnUrl'] = route('payment.show', $payment);
+        
         return $this;
     }
 

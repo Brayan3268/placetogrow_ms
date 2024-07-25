@@ -96,3 +96,5 @@ class PayPalGateway implements PaymentGateway
         return new QueryPaymentResponse($status['reason'], $status['status']);
     }
 }
+
+#CLASES CONCRETAS (COMPARATOR)
