@@ -84,7 +84,7 @@ class UserController extends Controller
         if ($this->validate_role()) {
             $datos = $this->get_enums();
             $document_types = $datos['document_types'];
-            
+
             $userData = UserPll::get_specific_user($id);
             RolePll::forget_cache('users.roles');
 
@@ -179,18 +179,17 @@ class UserController extends Controller
 
     public function get_enums(): array
     {
-        #if (is_null($categories)) {
-            $enumDocumentTypeValues = UserPll::get_users_enum_field_values('document_type');
-            preg_match('/^enum\((.*)\)$/', $enumDocumentTypeValues, $matches);
-            $document_types = explode(',', $matches[1]);
-            $document_types = array_map(fn ($value) => trim($value, "'"), $document_types);
+        //if (is_null($categories)) {
+        $enumDocumentTypeValues = UserPll::get_users_enum_field_values('document_type');
+        preg_match('/^enum\((.*)\)$/', $enumDocumentTypeValues, $matches);
+        $document_types = explode(',', $matches[1]);
+        $document_types = array_map(fn ($value) => trim($value, "'"), $document_types);
 
-            UserPll::save_cache('document_types', $document_types);
-        #} else {
-            #$document_types = SitePll::get_cache('document_types');
-        #}
+        UserPll::save_cache('document_types', $document_types);
+        //} else {
+        //$document_types = SitePll::get_cache('document_types');
+        //}
 
         return ['document_types' => $document_types];
     }
-
 }

@@ -101,7 +101,7 @@ class UserPll extends PersistantLowLevel
     {
         return DB::select("SHOW COLUMNS FROM users WHERE Field = '".$field."'")[0]->Type;
     }
-    
+
     public static function save_cache(string $name, $data)
     {
         Cache::put($name, $data);
