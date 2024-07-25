@@ -1,6 +1,7 @@
 <?php
 
 use App\Constants\CurrencyTypes;
+use App\Constants\LocalesTypes;
 use App\Constants\PaymentGateway;
 use App\Constants\PaymentStatus;
 use Illuminate\Database\Migrations\Migration;

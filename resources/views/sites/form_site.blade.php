@@ -23,14 +23,14 @@
             <div class="mb-6">
               <label for="{{ $input['name'] }}" class="block text-gray-700 text-sm font-bold mb-2">{{ $input['name_user_see'] }}</label>
               @if($input['type'] === 'text')
-                <input type="text" id="{{ $input['name'] }}" name="{{ $input['name'] }}"  @if(!$input['is_optional']) required @endif class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('{{ $input->name }}') border-red-500 @enderror">
+                <input type="text" id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if($input['is_optional'] == 0) required @endif class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('{{ $input->name }}') border-red-500 @enderror">
               @elseif($input['type'] === 'number')
-                <input type="number" min="1" id="{{ $input['name'] }}" name="{{ $input['name'] }}"  @if($input['is_optional']) required @endif class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('{{ $input->name }}') border-red-500 @enderror">
+                <input type="number" min="1" id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if($input['is_optional'] == 0) required @endif class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('{{ $input->name }}') border-red-500 @enderror">
               @elseif($input['type'] === 'select')
                 @php
                   $options = explode(',', $input->values);
                 @endphp
-                <select id="{{ $input['name'] }}" name="{{ $input['name'] }}" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error(' {{ $input->name }} ') border-red-500 @enderror" required>
+                <select id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if($input['is_optional'] == 0) required @endif class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error(' {{ $input->name }} ') border-red-500 @enderror">
                   <option value="">Select an option</option>
                   @foreach($options as $option)
                     <option value="{{ trim($option) }}">{{ trim($option) }}</option>

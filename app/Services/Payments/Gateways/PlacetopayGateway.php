@@ -46,18 +46,18 @@ class PlacetopayGateway implements PaymentGateway
         return $this;
     }
 
-    /*public function buyer(array $data): self
+    public function buyer(array $data): self
     {
         $this->data['buyer'] = [
             'name' => $data['name'],
             'surname' => $data['last_name'],
             'email' => $data['email'],
+            'document' => $data['document'],
             'documentType' => $data['document_type'],
-            //'document' => $data['document'],
         ];
 
         return $this;
-    }*/
+    }
 
     public function payment(Payment $payment): self
     {
