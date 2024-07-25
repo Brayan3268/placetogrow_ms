@@ -37,11 +37,11 @@ class PaymentController extends Controller
         ]);
 
         $response = $paymentService->create([
-            'name' => $request->name,
-            'last_name' => $request->lastName,
-            'email' => $request->email,
-            'document_number' => $request->document_number,
-            'document_type' => $request->document_type,
+            'name' => Auth::user()->name,
+            'last_name' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'document' => Auth::user()->document,
+            'document_type' => Auth::user()->document_type,
         ]);
 
         return redirect()->away($response->url);

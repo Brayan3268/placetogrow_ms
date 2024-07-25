@@ -16,7 +16,7 @@ class PaymentService implements PaymentServiceContract
     public function create(array $buyer): PaymentResponse
     {
         $response = $this->gateway->prepare()
-            //->buyer($buyer)
+            ->buyer($buyer)
             ->payment($this->payment)
             ->process();
 
