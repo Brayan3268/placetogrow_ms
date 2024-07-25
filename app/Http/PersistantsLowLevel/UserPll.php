@@ -2,10 +2,10 @@
 
 namespace App\Http\PersistantsLowLevel;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
-
-use function Laravel\Prompts\alert;
+use Illuminate\Support\Facades\DB;
 
 class UserPll extends PersistantLowLevel
 {
@@ -32,12 +32,14 @@ class UserPll extends PersistantLowLevel
         return ['user' => $user, 'role' => $role_name];
     }
 
-    public static function save_user(string $name, string $email, string $password)
+    public static function save_user(StoreUserRequest $request)
     {
         $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = bcrypt($password);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->document_type = $request->document_type;
+        $user->document = $request->document;
         $user->save();
 
         return $user;
@@ -48,6 +50,8 @@ class UserPll extends PersistantLowLevel
         $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
+            'document_type' => $data['document_type'],
+            'document' => $data['document'],
             'password' => bcrypt($data['password']),
         ]);
 
@@ -61,6 +65,8 @@ class UserPll extends PersistantLowLevel
         $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
+            'document_type' => $data['document_type'],
+            'document' => $data['document'],
         ]);
 
         $user->syncRoles([$data['role']]);
@@ -80,10 +86,8 @@ class UserPll extends PersistantLowLevel
 
     public static function get_user_auth()
     {
-        alert('1');
         $user = User::find(auth()->user()->id);
         $user = UserPll::get_role_names($user);
-        alert('2');
 
         return $user;
     }
@@ -91,5 +95,15 @@ class UserPll extends PersistantLowLevel
     public static function forget_cache(string $name_cache)
     {
         Cache::forget($name_cache);
+    }
+
+    public static function get_users_enum_field_values(string $field)
+    {
+        return DB::select("SHOW COLUMNS FROM users WHERE Field = '".$field."'")[0]->Type;
+    }
+    
+    public static function save_cache(string $name, $data)
+    {
+        Cache::put($name, $data);
     }
 }

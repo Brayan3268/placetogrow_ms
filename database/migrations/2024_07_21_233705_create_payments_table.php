@@ -1,6 +1,6 @@
 <?php
 
-use App\Constants\CurrentTypes;
+use App\Constants\CurrencyTypes;
 use App\Constants\PaymentGaeway;
 use App\Constants\PaymentStatus;
 use Illuminate\Database\Migrations\Migration;
@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('reference')->unique();
             $table->string('description', 100);
             $table->unsignedBigInteger('amount');
-            $table->enum('currency', CurrentTypes::toArray());
+            $table->enum('currency', CurrencyTypes::toArray());
             $table->enum('status', PaymentStatus::toArray());
             $table->enum('gateway', PaymentGaeway::toArray());
             $table->unsignedBigInteger('process_identifier')->nullable();

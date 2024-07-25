@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-enum CurrentTypes: string
+enum CurrencyTypes: string
 {
     case COP = 'COP';
 

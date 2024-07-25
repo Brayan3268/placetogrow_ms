@@ -35,11 +35,9 @@ class SitePll extends PersistantLowLevel
 
         $site->slug = $request->slug;
         $site->name = $request->name;
-        $site->document_type = $request->document_type;
-        $site->document = $request->document;
         $site->category_id = $request->category;
         $site->expiration_time = $request->expiration_time;
-        $site->current_type = $request->current;
+        $site->currency_type = $request->currency;
         $site->site_type = $request->site_type;
         $site->return_url = $request->return_url;
         $site->image = 'storage/site_images/'.$image_name;
@@ -66,11 +64,9 @@ class SitePll extends PersistantLowLevel
             $site->update([
                 'slug' => $data['slug'],
                 'name' => $data['name'],
-                'document_type' => $data['document_type'],
-                'document' => $data['document'],
                 'category_id' => $data['category_id'],
                 'expiration_time' => $data['expiration_time'],
-                'current_type' => $data['current_type'],
+                'currency_type' => $data['currency_type'],
                 'site_type' => $data['site_type'],
                 'return_url' => $data['return_url'],
                 'image' => $data['image'],
@@ -79,11 +75,9 @@ class SitePll extends PersistantLowLevel
             $site->update([
                 'slug' => $data['slug'],
                 'name' => $data['name'],
-                'document_type' => $data['document_type'],
-                'document' => $data['document'],
                 'category_id' => $data['category_id'],
                 'expiration_time' => $data['expiration_time'],
-                'current_type' => $data['current_type'],
+                'currency_type' => $data['currency_type'],
                 'site_type' => $data['site_type'],
                 'return_url' => $data['return_url'],
             ]);
