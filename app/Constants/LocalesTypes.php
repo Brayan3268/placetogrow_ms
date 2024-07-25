@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-enum LocaleTypes
+enum LocalesTypes
 {
     case es_CO;
 
