@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->enum('locale', array_column(LocalesTypes::cases(), 'name'));
             $table->string('reference')->unique();
             $table->string('description', 100);
             $table->unsignedBigInteger('amount');
             $table->enum('currency', CurrencyTypes::toArray());
             $table->enum('status', PaymentStatus::toArray());
-            $table->enum('gateway', PaymentGaeway::toArray());
+            $table->enum('gateway', PaymentGateway::toArray());
             $table->unsignedBigInteger('process_identifier')->nullable();
             $table->foreignId('site_id')->constrained();
             $table->foreignId('user_id')->constrained();
