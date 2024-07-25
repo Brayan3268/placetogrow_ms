@@ -13,9 +13,9 @@ enum PaymentGateway: string
         return array_column(self::cases(), 'value');
     }
 
-    public static function test(): string
+    public static function return_ptp(): string
     {
-        return 'placetopay';
+        return self::PLACETOPAY->value;
     }
 
     public static function toOptions(): array

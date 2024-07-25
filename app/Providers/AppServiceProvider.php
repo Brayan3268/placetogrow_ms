@@ -13,30 +13,33 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         $this->app->bind(PaymentServiceContract::class, function (Application $app, array $data) {
-            ['payment' => $payment, 'gateway' => $gateway] = $data;
+            $gateway = $data['gateway'] ?? null;
+            $payment = $data['payment'] ?? null;
 
-            $gateway = $app->make(PaymentGatewayContract::class, ['gateway' => PaymentGateway::test()]);
+            $gateway = $app->make(PaymentGatewayContract::class, ['gateway' => PaymentGateway::return_ptp()]);
 
             return new PaymentService($payment, $gateway);
         });
 
         $this->app->bind(PaymentGatewayContract::class, function (Application $app, array $data) {
+
+            $gateway = $data['gateway'] ?? null;
+
+            if (! isset($gateway)) {
+                throw new \InvalidArgumentException('Gateway key is missing in data.');
+            }
+
             return match (PaymentGateway::from($data['gateway'])) {
                 PaymentGateway::PLACETOPAY => new PlacetopayGateway(),
                 PaymentGateway::PAYPAL => new PayPalGateway(),
+                default => throw new \InvalidArgumentException('Invalid gateway type.'),
             };
         });
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         //
