@@ -34,7 +34,6 @@ class AppServiceProvider extends ServiceProvider
 
             return match (PaymentGateway::from($data['gateway'])) {
                 PaymentGateway::PLACETOPAY => new PlacetopayGateway(),
-                PaymentGateway::PAYPAL => new PayPalGateway(),
             };
         });
     }
