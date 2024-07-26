@@ -24,6 +24,20 @@ class PaymentController extends Controller
         return view('payments.index', compact('pays'));
     }
 
+    public function pays_especific_user(int $user_id): View
+    {
+        $pays = PaymentPll::get_especific_user_pays($user_id);
+
+        return view('payments.index', compact('pays'));
+    }
+
+    public function pays_especific_site(int $site_id): View
+    {
+        $pays = $this->validate_role() ? PaymentPll::get_especific_site_pays($site_id) : PaymentPll::get_especific_site_user_pays($site_id, Auth::user()->id);
+
+        return view('payments.index', compact('pays'));
+    }
+
     public function store(StorePaymentRequest $request): RedirectResponse
     {
         $user_id = Auth::user()->id;
@@ -43,6 +57,8 @@ class PaymentController extends Controller
         $payment->save();
         PaymentPll::forget_cache('pays.index');
         PaymentPll::forget_cache('pays.user'.$user_id);
+        PaymentPll::forget_cache('pays.site'.$request->site_id);
+        PaymentPll::forget_cache('pays.site_user'.$request->site_id.'_'.$user_id);
 
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [

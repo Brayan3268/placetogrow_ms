@@ -26,8 +26,9 @@ class UserPll extends PersistantLowLevel
 
             Cache::put('user.'.$id, $user);
         }
-
+        //dd($user);
         $role_name = $user->getRoleNames();
+        //dd($role_name);
 
         return ['user' => $user, 'role' => $role_name];
     }

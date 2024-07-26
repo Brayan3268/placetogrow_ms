@@ -15,7 +15,7 @@ class SitePll extends PersistantLowLevel
         if (is_null($sites)) {
             $sites = Site::whereIn('site_type', ['open', 'close', 'suscription'])
                 ->with('category:id,name')
-                ->select('name', 'category_id', 'site_type', 'id')
+                ->select('name', 'slug', 'category_id', 'site_type', 'id')
                 ->get();
 
             Cache::put('sites.index', $sites);

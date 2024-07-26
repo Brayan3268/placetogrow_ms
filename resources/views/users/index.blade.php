@@ -49,12 +49,8 @@
                             <td class="border border-gray-200 px-4 py-2">{{ $super_admin_user->email }}</td>
                             <td class="border border-gray-200 px-4 py-2 text-right">
                                 @can(['super_user.options'])
-                                <a href="{{ route('users.show', $super_admin_user->id) }}" class="text-blue-600 hover:text-purple-800 mr-2">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ route('users.edit', $super_admin_user->id) }}" method="POST" class="text-yellow-600 hover:purple-yellow-800 mr-2">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                <a href="{{ route('users.show', $super_admin_user->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('users.edit', $super_admin_user->id) }}" method="POST" class="text-yellow-600 hover:purple-yellow-800 mr-2"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('users.destroy', $super_admin_user->id) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
@@ -62,6 +58,7 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
+                                
                             @endcan
                             </td>
                         </tr>
@@ -93,7 +90,7 @@
                                 <td class="border border-gray-200 px-4 py-2 text-right">
                                     <a href="{{ route('users.show', $admin_user->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('users.edit', $admin_user->id) }}" class="text-yellow-600 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('users.destroy', $admin_user->id) }}" method="POST" class="inline-block">
+                                     <form action="{{ route('users.destroy', $admin_user->id) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-purple-800"><i class="fas fa-trash"></i></button>
@@ -128,6 +125,7 @@
                                 <td class="border border-gray-200 px-4 py-2 text-right">
                                     <a href="{{ route('users.show', $guest_user->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('users.edit', $guest_user->id) }}" class="text-yellow-600 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('payment.pays_user', $guest_user->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
                                     <form action="{{ route('users.destroy', $guest_user->id) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')

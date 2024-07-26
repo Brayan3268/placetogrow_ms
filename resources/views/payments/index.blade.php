@@ -44,10 +44,12 @@
                     <div class="w-1/3 px-2 mb-4">
                         <input type="text" id="search_status" placeholder="Search by status" class="border w-full p-2">
                     </div>
-                
-                    <div class="w-1/3 px-2 mb-4">
-                        <input type="text" id="search_user" placeholder="Search by user" class="border w-full p-2">
-                    </div>
+                    
+                    @can('paymens.see_user')
+                        <div class="w-1/3 px-2 mb-4">
+                            <input type="text" id="search_user" placeholder="Search by user" class="border w-full p-2">
+                        </div>
+                    @endcan
                 
                     <div class="w-1/3 px-2 mb-4">
                         <input type="text" id="search_site" placeholder="Search by site" class="border w-full p-2">
@@ -65,7 +67,9 @@
                             <th scope="col" class="border border-gray-200 px-4 py-2">Amount</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">Currency</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">Status</th>
-                            <th scope="col" class="border border-gray-200 px-4 py-2">User</th>
+                            @can('paymens.see_user')
+                                <th scope="col" class="border border-gray-200 px-4 py-2">User</th>
+                            @endcan
                             <th scope="col" class="border border-gray-200 px-4 py-2">Site</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">Actions</th>
                         </tr>
@@ -77,8 +81,14 @@
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->amount }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->currency }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->status }}</td>
-                                <td class="border border-gray-200 px-4 py-2">{{ $pay->user->document }}</td>
-                                <td class="border border-gray-200 px-4 py-2">{{ $pay->site->slug }}</td>
+                                @can('paymens.see_user')
+                                    <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
+                                        <a href="{{ route('show.user', ['id' => $pay->user->id]) }}">{{ $pay->user->document }}</a>
+                                    </td>
+                                @endcan
+                                <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
+                                    <a href="{{ route('show.site', ['id' => $pay->site->id]) }}">{{ $pay->site->slug }}</a>
+                                </td>
                                 <td class="border border-gray-200 px-4 py-2 text-right">
                                     <a href="{{ route('payment.show', $pay->reference) }}" class="text-blue-600 hover:text-purple-800 mr-2">
                                         <i class="fas fa-eye"></i>
