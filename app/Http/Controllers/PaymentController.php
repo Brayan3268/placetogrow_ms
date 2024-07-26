@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Constants\PaymentGateway;
 use App\Constants\PaymentStatus;
 use App\Contracts\PaymentService;
+use App\Http\PersistantsLowLevel\PaymentPll;
+use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
 use Illuminate\Contracts\View\View;
@@ -15,8 +17,17 @@ use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
+    public function index(): View
+    {
+        $pays = $this->validate_role() ? PaymentPll::get_all_pays() : PaymentPll::get_especific_user_pays(Auth::user()->id);
+
+        return view('payments.index', compact('pays'));
+    }
+
     public function store(StorePaymentRequest $request): RedirectResponse
     {
+        $user_id = Auth::user()->id;
+
         $payment = new Payment();
         $payment->reference = date('ymdHis').'-'.strtoupper(Str::random(4));
         $payment->locale = $request->locale;
@@ -25,10 +36,13 @@ class PaymentController extends Controller
         $payment->currency = $request->currency;
         $payment->gateway = PaymentGateway::PLACETOPAY->value;
         $payment->site()->associate($request->site_id);
-        $payment->user()->associate(Auth::user()->id);
-        $payment->status = PaymentStatus::PENDING->value; //Por qué esto está en pending? #Imagino que por si pasa algo, que quede en pendiente
+        $payment->user()->associate($user_id);
+        $payment->status = PaymentStatus::PENDING->value;
+        //$payment->expiration = 88;
 
         $payment->save();
+        PaymentPll::forget_cache('pays.index');
+        PaymentPll::forget_cache('pays.user'.$user_id);
 
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
@@ -43,6 +57,12 @@ class PaymentController extends Controller
             'document' => Auth::user()->document,
             'document_type' => Auth::user()->document_type,
         ]);
+
+        //Guardar la url por si el pago queda pendiente
+        //$payment->session_url = $response->url;
+        //$payment->save();
+
+        //Validar si hay un pago pendiente de este usuario y
 
         return redirect()->away($response->url);
     }
@@ -63,5 +83,12 @@ class PaymentController extends Controller
         return view('payments.show', [
             'payment' => $payment,
         ]);
+    }
+
+    private function validate_role(): bool
+    {
+        $role_name = UserPll::get_user_auth();
+
+        return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
     }
 }
