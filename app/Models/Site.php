@@ -31,4 +31,9 @@ class Site extends Model
     {
         return $this->hasMany(Fieldspaysite::class);
     }
+
+    public function payment()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

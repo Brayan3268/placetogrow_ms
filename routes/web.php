@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
+    Route::get('/users/{id}', [UserController::class, 'show'])->name('show.user');
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -36,10 +38,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/add_field', [SiteController::class, 'add_field'])->name('sites.add_field');
     Route::delete('/field_destroy/{id}', [SiteController::class, 'field_destroy'])->name('sites.field_destroy');
     Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
+    Route::get('/sites/{id}', [SiteController::class, 'show'])->name('show.site');
 });
 
 Route::middleware('auth')->group(function () {
     Route::resource('payment', PaymentController::class);
+    Route::get('/payment/user/show/{id}', [PaymentController::class, 'pays_especific_user'])->name('payment.pays_user');
+    Route::get('/payment/site/show/{id}', [PaymentController::class, 'pays_especific_site'])->name('payment.pays_site');
 });
 
 Route::middleware('auth')->group(function () {});

@@ -70,6 +70,7 @@ class PlacetopayGateway implements PaymentGateway
                 'currency' => $payment->currency,
                 'total' => $payment->amount,
             ],
+            //'expiration' => $payment->expiration,
         ];
 
         /*$this->data['returnUrl'] = route('payment.show', [
