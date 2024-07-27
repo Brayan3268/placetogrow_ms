@@ -68,10 +68,11 @@ class PaymentController extends Controller
 
         $response = $paymentService->create([
             'name' => Auth::user()->name,
-            'last_name' => Auth::user()->name,
+            'last_name' => Auth::user()->last_name,
             'email' => Auth::user()->email,
             'document' => Auth::user()->document,
             'document_type' => Auth::user()->document_type,
+            'phone' => Auth::user()->phone,
         ]);
 
         //Guardar la url por si el pago queda pendiente
