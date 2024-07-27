@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+use function Laravel\Prompts\alert;
+
 class UserController extends Controller
 {
     public function index(): RedirectResponse|View
@@ -86,6 +88,8 @@ class UserController extends Controller
             $document_types = $datos['document_types'];
 
             $userData = UserPll::get_specific_user($id);
+            alert('1');
+            //dd($userData);
             RolePll::forget_cache('users.roles');
 
             return view('users.edit', ['user' => $userData['user'], 'document_types' => $document_types, 'role' => $userData['role']]);
@@ -99,29 +103,7 @@ class UserController extends Controller
     public function update(StoreUserRequest $request, User $user): RedirectResponse
     {
         if ($this->validate_role()) {
-            if (empty($request['password'])) {
-                $data = [
-                    'name' => $request['name'],
-                    'email' => $request['email'],
-                    'document_type' => $request['document_type'],
-                    'document' => $request['document'],
-                    'role' => $request['role'],
-                ];
-
-                $user = UserPll::update_user_without_password($user, $data);
-
-            } else {
-                $data = [
-                    'name' => $request['name'],
-                    'email' => $request['email'],
-                    'document_type' => $request['document_type'],
-                    'document' => $request['document'],
-                    'password' => bcrypt($request['password']),
-                    'role' => $request['role'],
-                ];
-
-                $user = UserPll::update_user_with_password($user, $data);
-            }
+            $user = (empty($request['password'])) ? UserPll::update_user_without_password($user, $request) : UserPll::update_user_with_password($user, $request);
 
             UserPll::forget_cache('user.'.$user->id);
             RolePll::forget_cache('users.roles');

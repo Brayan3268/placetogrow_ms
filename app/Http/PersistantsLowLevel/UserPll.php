@@ -26,9 +26,8 @@ class UserPll extends PersistantLowLevel
 
             Cache::put('user.'.$id, $user);
         }
-        //dd($user);
+
         $role_name = $user->getRoleNames();
-        //dd($role_name);
 
         return ['user' => $user, 'role' => $role_name];
     }
@@ -37,40 +36,46 @@ class UserPll extends PersistantLowLevel
     {
         $user = new User();
         $user->name = $request->name;
+        $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->document_type = $request->document_type;
         $user->document = $request->document;
+        $user->phone = $request->phone;
         $user->save();
 
         return $user;
     }
 
-    public static function update_user_with_password(User $user, $data)
+    public static function update_user_with_password(User $user, StoreUserRequest $request)
     {
         $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'document_type' => $data['document_type'],
-            'document' => $data['document'],
-            'password' => bcrypt($data['password']),
+            'name' => $request['name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'document_type' => $request['document_type'],
+            'document' => $request['document'],
+            'password' => bcrypt($request['password']),
+            'phone' => $request['phone'],
         ]);
 
-        $user->syncRoles([$data['role']]);
+        $user->syncRoles([$request['role']]);
 
         return $user;
     }
 
-    public static function update_user_without_password(User $user, $data)
+    public static function update_user_without_password(User $user, StoreUserRequest $request)
     {
         $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'document_type' => $data['document_type'],
-            'document' => $data['document'],
+            'name' => $request['name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'phone' => $request['phone'],
+            'document_type' => $request['document_type'],
+            'document' => $request['document'],
         ]);
 
-        $user->syncRoles([$data['role']]);
+        $user->syncRoles([$request['role']]);
 
         return $user;
     }

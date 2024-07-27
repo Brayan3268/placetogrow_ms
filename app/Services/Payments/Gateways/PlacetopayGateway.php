@@ -54,6 +54,9 @@ class PlacetopayGateway implements PaymentGateway
             'email' => $data['email'],
             'document' => $data['document'],
             'documentType' => $data['document_type'],
+            'address' => [
+                'phone' => $data['phone'],
+            ],
         ];
 
         return $this;
