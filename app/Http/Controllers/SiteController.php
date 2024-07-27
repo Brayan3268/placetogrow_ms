@@ -59,6 +59,7 @@ class SiteController extends Controller
 
             SitePll::save_site($request, $image_name);
             SitePll::forget_cache('sites.index');
+            SitePll::forget_cache('sites.closed');
 
             return redirect()->route('sites.index')
                 ->with('status', 'Site created successfully!')

@@ -24,6 +24,21 @@ class SitePll extends PersistantLowLevel
         return $sites;
     }
 
+    public static function get_sites_closed()
+    {
+        $sites = Cache::get('sites.closed');
+        if (is_null($sites)) {
+            $sites = Site::whereIn('site_type', ['close'])
+                ->with('category:id,name')
+                ->select('name', 'slug', 'category_id', 'site_type', 'id')
+                ->get();
+
+            Cache::put('sites.closed', $sites);
+        }
+
+        return $sites;
+    }
+
     public static function get_sites_enum_field_values(string $field)
     {
         return DB::select("SHOW COLUMNS FROM sites WHERE Field = '".$field."'")[0]->Type;

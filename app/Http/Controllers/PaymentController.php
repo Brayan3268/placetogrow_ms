@@ -43,7 +43,7 @@ class PaymentController extends Controller
         $user_id = Auth::user()->id;
 
         $payment = new Payment();
-        $payment->reference = date('ymdHis').'-'.strtoupper(Str::random(4));
+        $payment->reference = (is_null($request->reference)) ? date('ymdHis').'-'.strtoupper(Str::random(4)) : $request->reference;
         $payment->locale = $request->locale;
         $payment->amount = $request->total;
         $payment->description = $request->description;

@@ -32,6 +32,13 @@ class UserPll extends PersistantLowLevel
         return ['user' => $user, 'role' => $role_name];
     }
 
+    public static function get_users_guest()
+    {
+        $roles = RolePll::get_all_users_roles();
+
+        return $roles[2]->users;
+    }
+
     public static function save_user(StoreUserRequest $request)
     {
         $user = new User();

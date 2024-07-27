@@ -11,6 +11,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
@@ -29,7 +30,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::get('/users/{id}', [UserController::class, 'show'])->name('show.user');
-
 });
 
 Route::middleware('auth')->group(function () {
@@ -45,6 +45,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('payment', PaymentController::class);
     Route::get('/payment/user/show/{id}', [PaymentController::class, 'pays_especific_user'])->name('payment.pays_user');
     Route::get('/payment/site/show/{id}', [PaymentController::class, 'pays_especific_site'])->name('payment.pays_site');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('invoices', InvoiceController::class);
 });
 
 Route::middleware('auth')->group(function () {});
