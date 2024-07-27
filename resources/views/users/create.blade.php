@@ -57,7 +57,7 @@
             </div>
 
             <div class="mb-6">
-                <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Document type:</label>
+                <label for="document_type" class="block text-gray-700 text-sm font-bold mb-2">Document type:</label>
                 <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" required>
                     <option value="" disabled selected>Select a Document type</option>
                     @foreach ($document_types as $document_type)

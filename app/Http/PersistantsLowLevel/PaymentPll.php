@@ -2,8 +2,13 @@
 
 namespace App\Http\PersistantsLowLevel;
 
+use App\Constants\PaymentGateway;
+use App\Constants\PaymentStatus;
+use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class PaymentPll extends PersistantLowLevel
 {
@@ -57,6 +62,32 @@ class PaymentPll extends PersistantLowLevel
         }
 
         return $pays;
+    }
+
+    public static function save_payment(StorePaymentRequest $request): Payment
+    {
+        $user_id = Auth::user()->id;
+
+        $payment = new Payment();
+        $payment->reference = (is_null($request->reference)) ? date('ymdHis').'-'.strtoupper(Str::random(4)) : $request->reference;
+        $payment->locale = $request->locale;
+        $payment->amount = $request->total;
+        $payment->description = $request->description;
+        $payment->currency = $request->currency;
+        $payment->gateway = PaymentGateway::PLACETOPAY->value;
+        $payment->site()->associate($request->site_id);
+        $payment->user()->associate($user_id);
+        $payment->status = PaymentStatus::PENDING->value;
+
+        //$payment->expiration = 88;
+
+        $payment->save();
+        PaymentPll::forget_cache('pays.index');
+        PaymentPll::forget_cache('pays.user'.$user_id);
+        PaymentPll::forget_cache('pays.site'.$request->site_id);
+        PaymentPll::forget_cache('pays.site_user'.$request->site_id.'_'.$user_id);
+
+        return $payment;
     }
 
     public static function save_cache(string $name, $data)

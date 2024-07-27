@@ -60,7 +60,7 @@
                                 </form>
                                 <a href="{{ route('sites.manage_config', $open_site->id) }}" class="text-orange-600 hover:text-purple-800 ml-2"><i class="fas fa-bars"></i></a>
                                 @endcan
-                                <a href="{{ route('payment.pays_site', $open_site->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
+                                <a href="{{ route('payment.pays_site', $open_site->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-search-dollar"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -101,7 +101,7 @@
                                 </form>
                                 <a href="{{ route('sites.manage_config', $close_site->id) }}" method="POST" class="text-orange-600 hover:text-purple-800 ml-2"><i class="fas fa-bars"></i></a>
                                 @endcan
-                                <a href="{{ route('payment.pays_site', $close_site->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
+                                <a href="{{ route('payment.pays_site', $close_site->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-search-dollar"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -142,7 +142,6 @@
                                     </form>
                                     <a href="{{ route('sites.manage_config', $suscription_site->id) }}" method="POST" class="text-orange-600 hover:text-purple-800 ml-2"><i class="fas fa-bars"></i></a>
                                     @endcan
-                                    <a href="{{ route('payment.pays_site', $suscription_site->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
                                 </td>
                             </tr>
                         @endforeach
