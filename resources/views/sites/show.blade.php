@@ -97,6 +97,9 @@
             @endif
         @endcan
         @if ($site->site_type == "CLOSE")
+            @php
+                $columns = 5;
+            @endphp
             <table class="table-auto w-full border-collapse border border-gray-200">
                 <thead>
                     <tr class="bg-gray-100">
@@ -143,7 +146,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ $loop->iteration ? $loop->count : 5 }}" class="border border-gray-200 px-4 py-2 text-center">No invoices available</td>
+                            <td colspan="{{ $columns }}" class="border border-gray-200 px-4 py-2 text-center">No invoices available</td>
                         </tr>
                     @endforelse
                 </tbody>

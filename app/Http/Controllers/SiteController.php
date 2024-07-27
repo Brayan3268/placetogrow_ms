@@ -74,16 +74,20 @@ class SiteController extends Controller
 
     public function show(string $id): View
     {
+        $invoices = collect();
+        $invoices = collect();
         $site = SitePll::get_specific_site($id);
 
         if ($site->site_type == 'CLOSE') {
-            $invoices = ($this->validate_role()) ? InvoicePll::get_especific_site_invoices($site->id) : InvoicePll::get_especific_site_user_invoices($site->id);
+            $invoices = ($this->validate_role()) ?
+                InvoicePll::get_especific_site_invoices($site->id) :
+                InvoicePll::get_especific_site_user_invoices($site->id);
         }
 
         try {
             return view('sites.show', compact('site', 'invoices'));
         } catch (Exception $e) {
-            return view('sites.show', compact('site'));
+            return view('sites.show', compact('site', 'invoices'));
         }
     }
 
