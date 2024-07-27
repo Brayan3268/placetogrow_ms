@@ -34,6 +34,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'payments.see_admins_users'])->syncRoles([$super_admin_role, $admin_role]);
 
         Permission::create(['name' => 'invoices.see_admins_users'])->syncRoles([$super_admin_role, $admin_role]);
-        Permission::create(['name' => 'pay_invoices.see_user'])->syncRoles([$super_admin_role, $admin_role]);
+        Permission::create(['name' => 'pay_invoices.see_admins_users'])->syncRoles([$super_admin_role, $admin_role]);
     }
 }

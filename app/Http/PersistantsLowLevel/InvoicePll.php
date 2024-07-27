@@ -6,6 +6,7 @@ use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Invoice;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -42,6 +43,35 @@ class InvoicePll extends PersistantLowLevel
         return DB::select("SHOW COLUMNS FROM invoices WHERE Field = '".$field."'")[0]->Type;
     }
 
+    public static function get_especific_site_invoices(int $site_id)
+    {
+        $invoices = Cache::get('invoices.site'.$site_id);
+        if (is_null($invoices)) {
+            $invoices = Invoice::with('user')->where('site_id', $site_id)->get();
+
+            Cache::put('invoices.site'.$site_id, $invoices);
+        }
+
+        return $invoices;
+    }
+
+    public static function get_especific_site_user_invoices(int $site_id)
+    {
+        $user_id = Auth::user()->id;
+
+        $invoices = Cache::get('invoices.site_user'.$site_id.'_'.$user_id);
+        if (is_null($invoices)) {
+            $invoices = Invoice::with('user', 'site')
+                ->where('site_id', $site_id)
+                ->where('user_id', $user_id)
+                ->get();
+
+            Cache::put('invoices.site_user'.$site_id.'_'.$user_id, $invoices);
+        }
+
+        return $invoices;
+    }
+
     public static function save_invoice(StoreInvoiceRequest $request)
     {
         //dd($request);
@@ -76,32 +106,16 @@ class InvoicePll extends PersistantLowLevel
         return $user;
     }
 
-    public static function delete_user(User $user)
+    public static function delete_invoice(Invoice $invoice)
     {
-        $user->delete();
-    }
+        $invoice->delete();
 
-    public static function get_role_names(User $user)
-    {
-        return $user->getRoleNames();
-    }
-
-    public static function get_user_auth()
-    {
-        $user = User::find(auth()->user()->id);
-        $user = UserPll::get_role_names($user);
-
-        return $user;
+        Cache::flush();
     }
 
     public static function forget_cache(string $name_cache)
     {
         Cache::forget($name_cache);
-    }
-
-    public static function get_users_enum_field_values(string $field)
-    {
-        return DB::select("SHOW COLUMNS FROM users WHERE Field = '".$field."'")[0]->Type;
     }
 
     public static function save_cache(string $name, $data)

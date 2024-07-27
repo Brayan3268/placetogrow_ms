@@ -29,6 +29,8 @@ class UserPll extends PersistantLowLevel
 
         $role_name = $user->getRoleNames();
 
+        RolePll::forget_cache('users.roles');
+
         return ['user' => $user, 'role' => $role_name];
     }
 
@@ -51,6 +53,8 @@ class UserPll extends PersistantLowLevel
         $user->phone = $request->phone;
         $user->save();
 
+        RolePll::forget_cache('users.roles');
+
         return $user;
     }
 
@@ -68,6 +72,8 @@ class UserPll extends PersistantLowLevel
 
         $user->syncRoles([$request['role']]);
 
+        Cache::flush();
+
         return $user;
     }
 
@@ -84,12 +90,17 @@ class UserPll extends PersistantLowLevel
 
         $user->syncRoles([$request['role']]);
 
+        Cache::flush();
+
         return $user;
     }
 
     public static function delete_user(User $user)
     {
         $user->delete();
+
+        UserPll::forget_cache('user.'.$user->id);
+        RolePll::forget_cache('users.roles');
     }
 
     public static function get_role_names(User $user)

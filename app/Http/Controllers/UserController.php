@@ -9,8 +9,6 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-use function Laravel\Prompts\alert;
-
 class UserController extends Controller
 {
     public function index(): RedirectResponse|View
@@ -53,8 +51,6 @@ class UserController extends Controller
 
             $user->assignRole($role);
 
-            RolePll::forget_cache('users.roles');
-
             return redirect()->route('users.index')
                 ->with('status', 'User created successfully!')
                 ->with('class', 'bg-green-500');
@@ -88,9 +84,6 @@ class UserController extends Controller
             $document_types = $datos['document_types'];
 
             $userData = UserPll::get_specific_user($id);
-            alert('1');
-            //dd($userData);
-            RolePll::forget_cache('users.roles');
 
             return view('users.edit', ['user' => $userData['user'], 'document_types' => $document_types, 'role' => $userData['role']]);
         }
@@ -104,9 +97,6 @@ class UserController extends Controller
     {
         if ($this->validate_role()) {
             $user = (empty($request['password'])) ? UserPll::update_user_without_password($user, $request) : UserPll::update_user_with_password($user, $request);
-
-            UserPll::forget_cache('user.'.$user->id);
-            RolePll::forget_cache('users.roles');
 
             return redirect()->route('users.index')
                 ->with('status', 'User updated successfully')
@@ -123,8 +113,6 @@ class UserController extends Controller
         if ($this->validate_role()) {
             if ($this->valide_last_super_admin($user)) {
                 UserPll::delete_user($user);
-                UserPll::forget_cache('user.'.$user->id);
-                RolePll::forget_cache('users.roles');
 
                 return redirect()->route('users.index')
                     ->with('status', 'User deleted successfully')

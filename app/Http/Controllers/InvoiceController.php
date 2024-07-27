@@ -61,7 +61,17 @@ class InvoiceController extends Controller
 
     public function destroy(Invoice $invoice)
     {
-        //
+        if ($this->validate_role()) {
+            InvoicePll::delete_invoice($invoice);
+
+            return redirect()->route('invoices.index')
+                ->with('status', 'invoice deleted successfully')
+                ->with('class', 'bg-green-500');
+        }
+
+        return redirect()->route('dashboard')
+            ->with('status', 'User not authorized for this route')
+            ->with('class', 'bg-red-500');
     }
 
     private function validate_role(): bool

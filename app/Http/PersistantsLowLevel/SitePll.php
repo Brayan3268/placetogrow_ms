@@ -6,6 +6,7 @@ use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class SitePll extends PersistantLowLevel
 {
@@ -59,6 +60,9 @@ class SitePll extends PersistantLowLevel
         $site->save();
 
         FieldpaysitePll::save_default_fields($site->id);
+
+        SitePll::forget_cache('sites.index');
+        SitePll::forget_cache('sites.closed');
     }
 
     public static function get_specific_site(string $id)
@@ -73,8 +77,30 @@ class SitePll extends PersistantLowLevel
         return $site;
     }
 
-    public static function update_site(Site $site, $data)
+    public static function update_site(Site $site, Request $request)
     {
+        $data = [
+            'slug' => $request['slug'],
+            'name' => $request['name'],
+            'category_id' => $request['category'],
+            'expiration_time' => $request['expiration_time'],
+            'currency_type' => $request['currency'],
+            'site_type' => $request['site_type'],
+            'return_url' => $request['return_url'],
+        ];
+
+        if ($request->hasFile('image')) {
+            if (Storage::exists(str_replace('storage', 'public', $site->image))) {
+                Storage::delete(str_replace('storage', 'public', $site->image));
+            }
+
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/site_images/', $image_name);
+
+            $data['image'] = 'storage/site_images/'.$image_name;
+        }
+
         if (array_key_exists('image', $data)) {
             $site->update([
                 'slug' => $data['slug'],
@@ -97,11 +123,15 @@ class SitePll extends PersistantLowLevel
                 'return_url' => $data['return_url'],
             ]);
         }
+        SitePll::forget_cache('site.'.$site->id);
+        SitePll::forget_cache('sites.index');
     }
 
     public static function delete_site(Site $site)
     {
         $site->delete();
+        SitePll::forget_cache('site.'.$site->id);
+        SitePll::forget_cache('sites.index');
     }
 
     public static function save_cache(string $name, $data)

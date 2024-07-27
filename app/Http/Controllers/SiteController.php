@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Constants\FieldsOptionalies;
 use App\Http\PersistantsLowLevel\CategoryPll;
 use App\Http\PersistantsLowLevel\FieldpaysitePll;
+use App\Http\PersistantsLowLevel\InvoicePll;
 use App\Http\PersistantsLowLevel\SitePll;
+use App\Http\PersistantsLowLevel\UserPll;
 use App\Models\Site;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -58,8 +61,6 @@ class SiteController extends Controller
             $image->storeAs('public/site_images/', $image_name);
 
             SitePll::save_site($request, $image_name);
-            SitePll::forget_cache('sites.index');
-            SitePll::forget_cache('sites.closed');
 
             return redirect()->route('sites.index')
                 ->with('status', 'Site created successfully!')
@@ -75,7 +76,15 @@ class SiteController extends Controller
     {
         $site = SitePll::get_specific_site($id);
 
-        return view('sites.show', compact('site'));
+        if ($site->site_type == 'CLOSE') {
+            $invoices = ($this->validate_role()) ? InvoicePll::get_especific_site_invoices($site->id) : InvoicePll::get_especific_site_user_invoices($site->id);
+        }
+
+        try {
+            return view('sites.show', compact('site', 'invoices'));
+        } catch (Exception $e) {
+            return view('sites.show', compact('site'));
+        }
     }
 
     public function edit(string $id): View
@@ -92,32 +101,7 @@ class SiteController extends Controller
 
     public function update(Request $request, Site $site): RedirectResponse
     {
-        $data = [
-            'slug' => $request['slug'],
-            'name' => $request['name'],
-            'category_id' => $request['category'],
-            'expiration_time' => $request['expiration_time'],
-            'currency_type' => $request['currency'],
-            'site_type' => $request['site_type'],
-            'return_url' => $request['return_url'],
-        ];
-
-        if ($request->hasFile('image')) {
-            if (Storage::exists(str_replace('storage', 'public', $site->image))) {
-                Storage::delete(str_replace('storage', 'public', $site->image));
-            }
-
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/site_images/', $image_name);
-
-            $data['image'] = 'storage/site_images/'.$image_name;
-        }
-
-        SitePll::update_site($site, $data);
-
-        SitePll::forget_cache('site.'.$site->id);
-        SitePll::forget_cache('sites.index');
+        SitePll::update_site($site, $request);
 
         return redirect()->route('sites.index')
             ->with('status', 'Site updated successfully')
@@ -133,9 +117,6 @@ class SiteController extends Controller
         }
 
         SitePll::delete_site($site);
-
-        SitePll::forget_cache('site.'.$site->id);
-        SitePll::forget_cache('sites.index');
 
         return redirect()->route('sites.index')
             ->with('status', 'Site deleted successfully')
@@ -231,5 +212,12 @@ class SiteController extends Controller
             'currency_options' => $currency_options,
             'site_type_options' => $site_type_options,
         ];
+    }
+
+    private function validate_role(): bool
+    {
+        $role_name = UserPll::get_user_auth();
+
+        return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
     }
 }
