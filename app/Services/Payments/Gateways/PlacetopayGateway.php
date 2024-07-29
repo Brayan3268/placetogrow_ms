@@ -64,7 +64,6 @@ class PlacetopayGateway implements PaymentGateway
 
     public function payment(Payment $payment): self
     {
-        dump($payment);
         $this->data['locale'] = $payment->locale;
 
         $this->data['payment'] = [
@@ -80,12 +79,10 @@ class PlacetopayGateway implements PaymentGateway
         $this->data['returnUrl'] = route('payment.show', [
             'payment' => $payment,
             'manufacturer' => 'Samsung',
-            'invoice_id' => $payment->invoice_id,
         ]
         );
 
         $this->data['returnUrl'] = route('payment.show', $payment);
-        dd($payment);
 
         return $this;
     }
