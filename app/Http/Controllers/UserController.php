@@ -6,18 +6,18 @@ use App\Http\PersistantsLowLevel\RolePll;
 use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
     use AuthorizesRequests;
-    
+
     public function index(): RedirectResponse|View
     {
         $this->authorize('viewAny', User::class);
-        
+
         $response = UserPll::get_all_users();
 
         $super_admin_users = $response['super_admin_users'];
@@ -47,7 +47,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): RedirectResponse
     {
         $this->authorize('update', User::class);
-        
+
         if ($this->validate_role()) {
             $user = UserPll::save_user($request);
             $role = RolePll::get_specific_role($request->role);

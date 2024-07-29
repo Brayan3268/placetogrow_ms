@@ -14,5 +14,4 @@ class Roles
     {
         return (new \ReflectionClass(self::class))->getConstants();
     }
-
 }

@@ -11,11 +11,11 @@ use Spatie\Permission\Models\Role;
 class RoleSeeder extends Seeder
 {
     protected array $roles = [
-        [ 'name' => Roles::SUPER_ADMIN, 'guard_name' => 'web'],
-        [ 'name' => Roles::ADMIN, 'guard_name' => 'web'],
-        [ 'name' => Roles::GUEST, 'guard_name' => 'web'],
+        ['name' => Roles::SUPER_ADMIN, 'guard_name' => 'web'],
+        ['name' => Roles::ADMIN, 'guard_name' => 'web'],
+        ['name' => Roles::GUEST, 'guard_name' => 'web'],
     ];
-    
+
     public function run(): void
     {
         DB::table('roles')->upsert($this->roles, 'name');

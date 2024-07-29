@@ -15,12 +15,12 @@ class PermissionSeeder extends Seeder
         $newPermissions = [];
 
         foreach (Permissions::get_all_permissions() as $permission) {
-            if (!in_array($permission, $existingPermissions)) {
+            if (! in_array($permission, $existingPermissions)) {
                 $newPermissions[] = ['name' => $permission, 'guard_name' => 'web'];
             }
         }
 
-        if (!empty($newPermissions)) {
+        if (! empty($newPermissions)) {
             DB::table('permissions')->insert($newPermissions);
         }
     }

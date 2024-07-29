@@ -15,7 +15,7 @@ class Permissions
     public const USERS_STORE = 'users.store';
 
     public const USERS_EDIT = 'users.edit';
-    
+
     public const USERS_SHOW = 'users.show';
 
     public const USERS_DESTROY = 'users.destroy';
@@ -23,7 +23,7 @@ class Permissions
     public const SUPER_USERS_CREATE = 'super_users.create';
 
     public const SUPER_USERS_EDIT = 'super_users.edit';
-    
+
     public const SUPER_USERS_SHOW = 'super_users.show';
 
     public const SUPER_USERS_DESTROY = 'super_users.destroy';
