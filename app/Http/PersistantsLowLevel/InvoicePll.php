@@ -25,6 +25,11 @@ class InvoicePll extends PersistantLowLevel
         return $invoices;
     }
 
+    public static function get_especific_invoice(int $id)
+    {
+        return Invoice::find($id);
+    }
+
     public static function get_especific_user_invoices(int $user_id)
     {
 

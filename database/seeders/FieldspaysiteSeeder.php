@@ -17,6 +17,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
         $fieldpaysite->is_mandatory = true;
+        $fieldpaysite->is_modify = true;
         $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
 
@@ -28,6 +29,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
         $fieldpaysite->is_mandatory = true;
+        $fieldpaysite->is_modify = true;
         $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
 
@@ -39,6 +41,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
         $fieldpaysite->is_mandatory = true;
+        $fieldpaysite->is_modify = true;
         $fieldpaysite->site_id = 2;
         $fieldpaysite->save();
 
@@ -50,6 +53,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
         $fieldpaysite->is_mandatory = true;
+        $fieldpaysite->is_modify = false;
         $fieldpaysite->site_id = 2;
         $fieldpaysite->save();
 
@@ -61,6 +65,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'COP,CLP,USD,CRC';
         $fieldpaysite->is_mandatory = true;
+        $fieldpaysite->is_modify = false;
         $fieldpaysite->site_id = 2;
         $fieldpaysite->save();
 
@@ -72,6 +77,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = 'es_CO,es_EC,es_PR,en_US';
         $fieldpaysite->is_mandatory = true;
+        $fieldpaysite->is_modify = true;
         $fieldpaysite->site_id = 3;
         $fieldpaysite->save();
 
@@ -83,6 +89,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
         $fieldpaysite->is_mandatory = true;
+        $fieldpaysite->is_modify = false;
         $fieldpaysite->site_id = 3;
         $fieldpaysite->save();
     }

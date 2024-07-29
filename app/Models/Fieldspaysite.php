@@ -15,6 +15,7 @@ class Fieldspaysite extends Model
         'name_user_see',
         'type',
         'is_modified',
+        'is_modify',
         'values',
     ];
 

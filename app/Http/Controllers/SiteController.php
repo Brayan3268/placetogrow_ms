@@ -83,6 +83,7 @@ class SiteController extends Controller
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
         }
+        //dd($invoices);
 
         try {
             return view('sites.show', compact('site', 'invoices'));
@@ -163,6 +164,8 @@ class SiteController extends Controller
             'field_type' => 'required|string',
             'is_optional' => 'required|boolean',
             'values' => 'nullable|string',
+            'is_mandatory' => 'required|boolean',
+            'is_modify' => 'required|boolean',
             'site_id' => 'required|integer',
         ]);
 
@@ -183,8 +186,43 @@ class SiteController extends Controller
     public function form_site(Site $site): View
     {
         $sites_fields = FieldpaysitePll::get_fields_site($site->id);
+        //dd($sites_fields);
+        foreach ($sites_fields as $site_field) {
+            $site_field->value_invoice = ' ';
+        }
 
-        return view('sites.form_site', compact('site', 'sites_fields'));
+        $invoice_id = 0;
+
+        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
+    }
+
+    public function form_site_invoices(int $invoice_id): View
+    {
+        $invoice = InvoicePll::get_especific_invoice($invoice_id);
+        $invoice_id = $invoice->id;
+        //dd($invoice);
+
+        $sites_fields = FieldpaysitePll::get_fields_site($invoice->site_id);
+
+        foreach ($sites_fields as $site_field) {
+            $site_field->value_invoice = ' ';
+
+            if ($site_field->name == 'total') {
+                $site_field->value_invoice = $invoice->amount;
+            }
+
+            if ($site_field->name == 'currency') {
+                $site_field->value_invoice = $invoice->currency;
+            }
+        }
+
+        //dd($sites_fields);
+
+        $site = SitePll::get_specific_site($invoice->site_id);
+
+        //dd($site);
+
+        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
     }
 
     public function get_enums(): array

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('is_optional');
             $table->string('values', 80)->nullable(true);
             $table->boolean('is_mandatory');
+            $table->boolean('is_modify');
             $table->foreignId('site_id')->constrained();
             $table->timestamps();
         });

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+use function Laravel\Prompts\alert;
+
 class SitePll extends PersistantLowLevel
 {
     public static function get_all_sites()
@@ -45,8 +47,17 @@ class SitePll extends PersistantLowLevel
         return DB::select("SHOW COLUMNS FROM sites WHERE Field = '".$field."'")[0]->Type;
     }
 
+    public static function get_site_currecy(int $id)
+    {
+        $site = Site::find($id);
+
+        return $site->currency_type;
+    }
+
     public static function save_site(Request $request, string $image_name)
     {
+
+        dump($request);
         $site = new Site();
 
         $site->slug = $request->slug;
@@ -57,9 +68,12 @@ class SitePll extends PersistantLowLevel
         $site->site_type = $request->site_type;
         $site->return_url = $request->return_url;
         $site->image = 'storage/site_images/'.$image_name;
+
+        dump($site);
+
         $site->save();
 
-        FieldpaysitePll::save_default_fields($site->id);
+        FieldpaysitePll::save_default_fields($site->id, $site->site_type);
 
         SitePll::forget_cache('sites.index');
         SitePll::forget_cache('sites.closed');
@@ -79,6 +93,9 @@ class SitePll extends PersistantLowLevel
 
     public static function update_site(Site $site, Request $request)
     {
+        dump($site);
+        dump($request);
+
         $data = [
             'slug' => $request['slug'],
             'name' => $request['name'],
@@ -88,6 +105,8 @@ class SitePll extends PersistantLowLevel
             'site_type' => $request['site_type'],
             'return_url' => $request['return_url'],
         ];
+
+        dump($data);
 
         if ($request->hasFile('image')) {
             if (Storage::exists(str_replace('storage', 'public', $site->image))) {
@@ -100,8 +119,10 @@ class SitePll extends PersistantLowLevel
 
             $data['image'] = 'storage/site_images/'.$image_name;
         }
+        dump($data);
 
         if (array_key_exists('image', $data)) {
+            alert('image');
             $site->update([
                 'slug' => $data['slug'],
                 'name' => $data['name'],
@@ -113,6 +134,7 @@ class SitePll extends PersistantLowLevel
                 'image' => $data['image'],
             ]);
         } else {
+            alert('no image');
             $site->update([
                 'slug' => $data['slug'],
                 'name' => $data['name'],
@@ -123,6 +145,9 @@ class SitePll extends PersistantLowLevel
                 'return_url' => $data['return_url'],
             ]);
         }
+
+        dump($site);
+
         SitePll::forget_cache('site.'.$site->id);
         SitePll::forget_cache('sites.index');
     }

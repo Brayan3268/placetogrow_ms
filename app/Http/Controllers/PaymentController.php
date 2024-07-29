@@ -38,6 +38,7 @@ class PaymentController extends Controller
 
     public function store(StorePaymentRequest $request): RedirectResponse
     {
+        //dd($request);
         $payment = PaymentPll::save_payment($request);
 
         /** @var PaymentService $paymentService */
@@ -66,7 +67,9 @@ class PaymentController extends Controller
 
     public function show(Request $request, Payment $payment): View
     {
-        //dd($request->all());
+        //dd($request);
+        //dd($request->all);
+        //dump($request);
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
             'payment' => $payment,
@@ -79,6 +82,7 @@ class PaymentController extends Controller
 
         return view('payments.show', [
             'payment' => $payment,
+            'test',
         ]);
     }
 
