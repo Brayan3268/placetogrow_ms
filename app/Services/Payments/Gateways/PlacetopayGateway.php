@@ -64,6 +64,7 @@ class PlacetopayGateway implements PaymentGateway
 
     public function payment(Payment $payment): self
     {
+        dump($payment);
         $this->data['locale'] = $payment->locale;
 
         $this->data['payment'] = [
@@ -76,10 +77,15 @@ class PlacetopayGateway implements PaymentGateway
             //'expiration' => $payment->expiration,
         ];
 
-        /*$this->data['returnUrl'] = route('payment.show', [
+        $this->data['returnUrl'] = route('payment.show', [
             'payment' => $payment,
-            'manufacturer' => 'Samsung']);*/
+            'manufacturer' => 'Samsung',
+            'invoice_id' => $payment->invoice_id,
+        ]
+        );
+
         $this->data['returnUrl'] = route('payment.show', $payment);
+        dd($payment);
 
         return $this;
     }
@@ -100,7 +106,7 @@ class PlacetopayGateway implements PaymentGateway
 
         $response = Http::post($url, $this->data);
         $response = $response->json();
-
+        //dd($response);
         $status = $response['status'];
 
         return new QueryPaymentResponse($status['reason'], $status['status']);

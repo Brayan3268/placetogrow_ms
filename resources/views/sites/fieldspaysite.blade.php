@@ -73,7 +73,16 @@
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
-                    </div>                    
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="select_is_modify" class="block text-gray-700 text-sm font-bold mb-2">Is Modify?</label>
+                        <select id="select_is_modify" name="is_modify" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('is_modify') border-red-500 @enderror" required>
+                            <option value="" disabled selected>Select option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
 
                     <div class="mb-6">
                         <label for="select_type" class="block text-gray-700 text-sm font-bold mb-2">Values for this field:</label>
@@ -98,6 +107,7 @@
                         <th scope="col" class="border border-gray-200 px-4 py-2">Name user see</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">Type</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">Is optional</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">Is modify</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">Values</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">Action</th>
                     </tr>
@@ -109,6 +119,7 @@
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->name_user_see }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->type }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->is_optional ? 'Yes' : 'No' }}</td>
+                            <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->is_modify ? 'Yes' : 'No' }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $sites_fields->values }}</td>
                             <td class="border border-gray-200 px-4 py-2 text-right">  
                                 @if ($sites_fields->is_mandatory == false)
@@ -144,6 +155,7 @@
                         formContainer.classList.remove('hidden');
                         document.getElementById('select_type').classList.remove('hidden');
                         document.getElementById('select_is_optional').classList.remove('hidden');
+                        document.getElementById('select_is_modify').classList.remove('hidden');
                         document.getElementById('values').classList.remove('hidden');
                     }
                 });
@@ -165,6 +177,7 @@
 
                         document.getElementById('select_type').value = '';
                         document.getElementById('select_is_optional').value = '';
+                        document.getElementById('select_is_modify').value = '';
                         document.getElementById('values').value = '';
                     }
                 });
@@ -185,6 +198,12 @@
                     const isOptional = document.getElementById('select_is_optional').value;
                     if (isOptional === '') {
                         document.getElementById('select_is_optional-error').textContent = 'Optional selection is required.';
+                        isValid = false;
+                    }
+
+                    const isModify = document.getElementById('select_is_modify').value;
+                    if (isOptional === '') {
+                        document.getElementById('select_is_modify-error').textContent = 'Optional selection is required.';
                         isValid = false;
                     }
 

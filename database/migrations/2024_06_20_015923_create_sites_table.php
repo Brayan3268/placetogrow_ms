@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name', 30);
             $table->foreignId('category_id')->constrained();
             $table->integer('expiration_time');
-            $table->enum('currency_type', array_column(CurrencyTypes::cases(), 'name'));
+            $table->enum('currency_type', CurrencyTypes::toArray());
             $table->enum('site_type', array_column(SiteTypes::cases(), 'name'));
             $table->string('return_url', 90);
             $table->string('image')->nullable();

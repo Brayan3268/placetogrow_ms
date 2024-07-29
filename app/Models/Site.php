@@ -16,7 +16,7 @@ class Site extends Model
         'name',
         'category_id',
         'expiration_time',
-        'current_type',
+        'currency_type',
         'site_type',
         'return_url',
         'image',

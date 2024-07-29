@@ -37,3 +37,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'pay_invoices.see_admins_users'])->syncRoles([$super_admin_role, $admin_role]);
     }
 }
+
+//Hacerlo masivo con foreach
+//Tomar los nombres de constantes

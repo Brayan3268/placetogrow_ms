@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/add_field', [SiteController::class, 'add_field'])->name('sites.add_field');
     Route::delete('/field_destroy/{id}', [SiteController::class, 'field_destroy'])->name('sites.field_destroy');
     Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
+    Route::get('/sites/{site}/form_site_invoices', [SiteController::class, 'form_site_invoices'])->name('sites.form_site_invoices');
     Route::get('/sites/{id}', [SiteController::class, 'show'])->name('show.site');
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Constants\CurrencyTypes;
+use App\Http\PersistantsLowLevel\SitePll;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -26,6 +27,13 @@ class StorePaymentRequest extends FormRequest
             'total' => ['integer', 'min:1', 'max:999999999999'],
             'description' => ['string'],
             'currency' => ['nullable', Rule::in(CurrencyTypes::toArray())],
+            'invoice_id' => [
+                function ($attribute, $value, $fail) {
+                    if ($value !== null && $value !== '0' && ! \App\Models\Invoice::where('id', $value)->exists()) {
+                        $fail('El valor de invoice_id debe existir en la base de datos.');
+                    }
+                },
+            ],
         ];
     }
 
@@ -33,13 +41,19 @@ class StorePaymentRequest extends FormRequest
     {
         $data = parent::all($keys);
 
+        //dd($data);
+
         if (! isset($data['description'])) {
             $data['description'] = 'Valor por defecto';
         }
 
+        //dd($data);
+
         if (! isset($data['currency'])) {
-            $data['currency'] = 'CLP';
+            $data['currency'] = SitePll::get_site_currecy($data['site_id']);
         }
+
+        //dd($data);
 
         return $data;
     }
