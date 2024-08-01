@@ -82,10 +82,10 @@ class PaymentController extends Controller
         }
 
         $invoice_id = $request->query('invoice_id');
-        $status = "";
+        $status = '';
 
-        if($invoice_id != 0){
-            $status = "";
+        if ($invoice_id != 0) {
+            $status = '';
 
             switch ($payment->status) {
                 case PaymentStatus::APPROVED->value:
@@ -99,7 +99,7 @@ class PaymentController extends Controller
                 case PaymentStatus::PENDING->value:
                     $status = InvoiceStatus::PENDING->value;
                     break;
-                
+
                 default:
                     $status = InvoiceStatus::UNKNOW->value;
                     break;

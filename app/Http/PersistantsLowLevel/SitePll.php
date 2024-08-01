@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-use function Laravel\Prompts\alert;
-
 class SitePll extends PersistantLowLevel
 {
     public static function get_all_sites()

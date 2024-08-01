@@ -4,9 +4,7 @@ namespace App\Http\PersistantsLowLevel;
 
 use App\Constants\InvoiceStatus;
 use App\Http\Requests\StoreInvoiceRequest;
-use App\Http\Requests\StoreUserRequest;
 use App\Models\Invoice;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -82,7 +80,8 @@ class InvoicePll extends PersistantLowLevel
         return $invoices;
     }
 
-    public static function update_invoice(int $invoice_id, string $status, int $payment_id){
+    public static function update_invoice(int $invoice_id, string $status, int $payment_id)
+    {
         $invoice = InvoicePll::get_especific_invoice($invoice_id);
         $invoice->update([
             'reference' => $invoice->reference,
