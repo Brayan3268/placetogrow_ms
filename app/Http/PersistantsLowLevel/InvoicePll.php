@@ -2,6 +2,7 @@
 
 namespace App\Http\PersistantsLowLevel;
 
+use App\Constants\InvoiceStatus;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Invoice;
@@ -52,7 +53,10 @@ class InvoicePll extends PersistantLowLevel
     {
         $invoices = Cache::get('invoices.site'.$site_id);
         if (is_null($invoices)) {
-            $invoices = Invoice::with('user')->where('site_id', $site_id)->get();
+            $invoices = Invoice::with('user')
+                ->where('site_id', $site_id)
+                ->where('status', InvoiceStatus::NOT_PAYED->value)
+                ->get();
 
             Cache::put('invoices.site'.$site_id, $invoices);
         }
@@ -69,6 +73,7 @@ class InvoicePll extends PersistantLowLevel
             $invoices = Invoice::with('user', 'site')
                 ->where('site_id', $site_id)
                 ->where('user_id', $user_id)
+                ->where('status', InvoiceStatus::NOT_PAYED->value)
                 ->get();
 
             Cache::put('invoices.site_user'.$site_id.'_'.$user_id, $invoices);
@@ -77,9 +82,25 @@ class InvoicePll extends PersistantLowLevel
         return $invoices;
     }
 
+    public static function update_invoice(int $invoice_id, string $status, int $payment_id){
+        $invoice = InvoicePll::get_especific_invoice($invoice_id);
+        $invoice->update([
+            'reference' => $invoice->reference,
+            'amount' => $invoice->amount,
+            'currency' => $invoice->currency,
+            'status' => $status,
+            'site_id' => $invoice->site_id,
+            'user_id' => $invoice->user_id,
+            'payment_id' => $payment_id,
+            'date_created' => $invoice->date_created,
+            'date_expiration' => $invoice->date_expiration,
+        ]);
+
+        Cache::flush();
+    }
+
     public static function save_invoice(StoreInvoiceRequest $request)
     {
-        //dd($request);
         $invoice = new Invoice();
         $invoice->reference = $request->reference;
         $invoice->amount = $request->amount;
@@ -89,26 +110,10 @@ class InvoicePll extends PersistantLowLevel
         $invoice->user()->associate($request->user_id);
         $invoice->date_created = date('ymdHis');
         $invoice->date_expiration = $request->date_expiration;
+        $invoice->payment_id = $request->payment_id;
         $invoice->save();
 
         Cache::flush();
-    }
-
-    public static function update_user_with_password(User $user, StoreUserRequest $request)
-    {
-        $user->update([
-            'name' => $request['name'],
-            'last_name' => $request['last_name'],
-            'email' => $request['email'],
-            'document_type' => $request['document_type'],
-            'document' => $request['document'],
-            'password' => bcrypt($request['password']),
-            'phone' => $request['phone'],
-        ]);
-
-        $user->syncRoles([$request['role']]);
-
-        return $user;
     }
 
     public static function delete_invoice(Invoice $invoice)

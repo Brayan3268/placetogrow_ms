@@ -17,6 +17,7 @@ class Invoice extends Model
         'status',
         'site_id',
         'user_id',
+        'payment_id',
         'date_created',
         'date_expiration',
     ];

@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
@@ -21,6 +18,7 @@ return new class extends Migration
             $table->enum('status', InvoiceStatus::toArray());
             $table->foreignId('site_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->integer('payment_id')->nullable();
             $table->date('date_created');
             $table->date('date_expiration');
 
@@ -28,9 +26,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('invoices');

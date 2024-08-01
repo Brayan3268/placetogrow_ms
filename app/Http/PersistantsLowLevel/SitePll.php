@@ -93,9 +93,6 @@ class SitePll extends PersistantLowLevel
 
     public static function update_site(Site $site, Request $request)
     {
-        dump($site);
-        dump($request);
-
         $data = [
             'slug' => $request['slug'],
             'name' => $request['name'],
@@ -105,8 +102,6 @@ class SitePll extends PersistantLowLevel
             'site_type' => $request['site_type'],
             'return_url' => $request['return_url'],
         ];
-
-        dump($data);
 
         if ($request->hasFile('image')) {
             if (Storage::exists(str_replace('storage', 'public', $site->image))) {
@@ -119,10 +114,8 @@ class SitePll extends PersistantLowLevel
 
             $data['image'] = 'storage/site_images/'.$image_name;
         }
-        dump($data);
 
         if (array_key_exists('image', $data)) {
-            alert('image');
             $site->update([
                 'slug' => $data['slug'],
                 'name' => $data['name'],
@@ -134,7 +127,6 @@ class SitePll extends PersistantLowLevel
                 'image' => $data['image'],
             ]);
         } else {
-            alert('no image');
             $site->update([
                 'slug' => $data['slug'],
                 'name' => $data['name'],
@@ -145,8 +137,6 @@ class SitePll extends PersistantLowLevel
                 'return_url' => $data['return_url'],
             ]);
         }
-
-        dump($site);
 
         SitePll::forget_cache('site.'.$site->id);
         SitePll::forget_cache('sites.index');

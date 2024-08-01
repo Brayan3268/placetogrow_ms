@@ -48,7 +48,7 @@
                 <select id="user_id" name="user_id" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('user_id') border-red-500 @enderror" required>
                     <option value="" disabled selected>Select a user</option>
                     @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name}}: {{ $user->document }}</option>
+                        <option value="{{ $user->id }}">{{ $user->name }}: {{ $user->document }}</option>
                     @endforeach
                 </select>
             </div>

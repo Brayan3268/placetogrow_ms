@@ -20,6 +20,12 @@ class PaymentService implements PaymentServiceContract
             ->payment($this->payment)
             ->process();
 
+        #dd($this->payment);
+
+        unset($this->payment->invoice_id);
+
+        #dd($this->payment);
+
         $this->payment->update([
             'process_identifier' => $response->process_identifier,
         ]);
