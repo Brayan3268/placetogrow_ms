@@ -19,11 +19,10 @@
             </div>
             @endif
 
-            <div class="container mx-auto mt-5 flex flex-col space-y-4 items-center">
-
-                <h1 class="text-2xl font-bold mb-4">Create a new Invoice</h1>
-                <a href="{{ route('invoices.create') }}" class="my-button">Create New Invoice</a>
-            </div>
+                <div class="container mx-auto mt-5 flex flex-col space-y-4 items-center">
+                    <h1 class="text-2xl font-bold mb-4">Create a new Invoice</h1>
+                    <a href="{{ route('invoices.create') }}" class="my-button">Create New Invoice</a>
+                </div>
             <br>
             <br>
             <br>

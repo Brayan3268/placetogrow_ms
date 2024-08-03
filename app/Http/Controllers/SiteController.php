@@ -200,7 +200,6 @@ class SiteController extends Controller
     {
         $invoice = InvoicePll::get_especific_invoice($invoice_id);
         $invoice_id = $invoice->id;
-        //dd($invoice);
 
         $sites_fields = FieldpaysitePll::get_fields_site($invoice->site_id);
 
@@ -216,11 +215,7 @@ class SiteController extends Controller
             }
         }
 
-        //dd($sites_fields);
-
         $site = SitePll::get_specific_site($invoice->site_id);
-
-        //dd($site);
 
         return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
     }

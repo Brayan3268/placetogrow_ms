@@ -26,7 +26,11 @@
         <label for="">site_id: {{ $payment->site_id }}</label>
         <br>
         <label for="">user_id: {{ $payment->user_id }}</label>
-    
+        <br>
+        @if ($status_invoice != "")
+            <label for="">status_invoice: {{ $status_invoice }}</label>
+        @endif
+
     </div>
     @endsection
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\InvoiceStatus;
 use App\Constants\PaymentStatus;
 use App\Contracts\PaymentService;
+use App\Http\PersistantsLowLevel\InvoicePll;
 use App\Http\PersistantsLowLevel\PaymentPll;
 use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\Requests\StorePaymentRequest;
@@ -38,8 +40,10 @@ class PaymentController extends Controller
 
     public function store(StorePaymentRequest $request): RedirectResponse
     {
-        //dd($request);
         $payment = PaymentPll::save_payment($request);
+
+        //$payment->invoice_id = $request->invoice_id;
+        $payment->setAttribute('invoice_id', $request->invoice_id);
 
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
@@ -67,9 +71,7 @@ class PaymentController extends Controller
 
     public function show(Request $request, Payment $payment): View
     {
-        //dd($request);
-        //dd($request->all);
-        //dump($request);
+
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
             'payment' => $payment,
@@ -80,9 +82,37 @@ class PaymentController extends Controller
             $payment = $paymentService->query();
         }
 
+        $invoice_id = intval($request->query('invoice_id'));
+        $payment_id = intval($payment->id);
+        $status = '';
+
+        if ($invoice_id != 0) {
+            $status_payment = $payment->status;
+
+            switch ($status_payment) {
+                case PaymentStatus::APPROVED->value:
+                    $status = InvoiceStatus::PAYED->value;
+                    break;
+
+                case PaymentStatus::REJECTED->value:
+                    $status = InvoiceStatus::NOT_PAYED->value;
+                    break;
+
+                case PaymentStatus::PENDING->value:
+                    $status = InvoiceStatus::PENDING->value;
+                    break;
+
+                default:
+                    $status = InvoiceStatus::UNKNOW->value;
+                    break;
+            }
+
+            InvoicePll::update_invoice($invoice_id, $status, $payment_id);
+        }
+
         return view('payments.show', [
             'payment' => $payment,
-            'test',
+            'status_invoice' => $status,
         ]);
     }
 
