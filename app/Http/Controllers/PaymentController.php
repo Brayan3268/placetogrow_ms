@@ -42,7 +42,8 @@ class PaymentController extends Controller
     {
         $payment = PaymentPll::save_payment($request);
 
-        $payment->invoice_id = $request->invoice_id;
+        //$payment->invoice_id = $request->invoice_id;
+        $payment->setAttribute('invoice_id', $request->invoice_id);
 
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
@@ -81,13 +82,14 @@ class PaymentController extends Controller
             $payment = $paymentService->query();
         }
 
-        $invoice_id = $request->query('invoice_id');
+        $invoice_id = intval($request->query('invoice_id'));
+        $payment_id = intval($payment->id);
         $status = '';
 
         if ($invoice_id != 0) {
-            $status = '';
+            $status_payment = $payment->status;
 
-            switch ($payment->status) {
+            switch ($status_payment) {
                 case PaymentStatus::APPROVED->value:
                     $status = InvoiceStatus::PAYED->value;
                     break;
@@ -104,7 +106,8 @@ class PaymentController extends Controller
                     $status = InvoiceStatus::UNKNOW->value;
                     break;
             }
-            InvoicePll::update_invoice($invoice_id, $status, $payment->id);
+
+            InvoicePll::update_invoice($invoice_id, $status, $payment_id);
         }
 
         return view('payments.show', [

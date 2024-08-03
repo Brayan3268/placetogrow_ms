@@ -81,7 +81,8 @@ class PlacetopayGateway implements PaymentGateway
             'payment' => $payment,
         ]);
 
-        $invoice_id = $payment->invoice_id;
+        $invoice_id = $payment->getAttribute('invoice_id');
+        //$invoice_id = $payment->invoice_id;
 
         $this->data['returnUrl'] = route('payment.show', compact('payment', 'invoice_id'));
 
