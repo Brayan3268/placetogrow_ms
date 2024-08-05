@@ -6,6 +6,7 @@ use App\Constants\FieldsOptionalies;
 use App\Http\PersistantsLowLevel\CategoryPll;
 use App\Http\PersistantsLowLevel\FieldpaysitePll;
 use App\Http\PersistantsLowLevel\InvoicePll;
+use App\Http\PersistantsLowLevel\PaymentPll;
 use App\Http\PersistantsLowLevel\SitePll;
 use App\Http\PersistantsLowLevel\UserPll;
 use App\Models\Site;
@@ -74,6 +75,13 @@ class SiteController extends Controller
 
     public function show(string $id): View
     {
+        $pay_exist = false;
+        $pay = '';
+        if (PaymentPll::validate_is_pending_rejected_pays(intval($id))) {
+            $pay = PaymentPll::get_pays_not_approved_payments(intval($id));
+            $pay_exist = true;
+        }
+
         $invoices = collect();
         $invoices = collect();
         $site = SitePll::get_specific_site($id);
@@ -83,12 +91,11 @@ class SiteController extends Controller
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
         }
-        //dd($invoices);
 
         try {
-            return view('sites.show', compact('site', 'invoices'));
+            return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay'));
         } catch (Exception $e) {
-            return view('sites.show', compact('site', 'invoices'));
+            return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay'));
         }
     }
 
@@ -186,7 +193,6 @@ class SiteController extends Controller
     public function form_site(Site $site): View
     {
         $sites_fields = FieldpaysitePll::get_fields_site($site->id);
-        //dd($sites_fields);
         foreach ($sites_fields as $site_field) {
             $site_field->value_invoice = ' ';
         }
@@ -249,6 +255,20 @@ class SiteController extends Controller
             'currency_options' => $currency_options,
             'site_type_options' => $site_type_options,
         ];
+    }
+
+    public function finish_session(string $payment_id): RedirectResponse
+    {
+        $payment = PaymentPll::get_especific_pay(intval($payment_id));
+
+        return redirect()->away($payment->url_session);
+    }
+
+    public function lose_session(int $payment_id): View
+    {
+        $site_id = PaymentPll::lose_session($payment_id);
+
+        return $this->show($site_id);
     }
 
     private function validate_role(): bool

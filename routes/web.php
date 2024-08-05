@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
     Route::get('/sites/{site}/form_site_invoices', [SiteController::class, 'form_site_invoices'])->name('sites.form_site_invoices');
     Route::get('/sites/{id}', [SiteController::class, 'show'])->name('show.site');
+
+    Route::get('/finish_session/{value}', [SiteController::class, 'finish_session'])->name('sites.finish_session');
+    Route::get('/lose_session/{value}', [SiteController::class, 'lose_session'])->name('sites.lose_session');
 });
 
 Route::middleware('auth')->group(function () {

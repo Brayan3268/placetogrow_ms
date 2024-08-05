@@ -4,6 +4,7 @@ namespace App\Http\PersistantsLowLevel;
 
 use App\Constants\InvoiceStatus;
 use App\Http\Requests\StoreInvoiceRequest;
+use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -29,9 +30,15 @@ class InvoicePll extends PersistantLowLevel
         return Invoice::find($id);
     }
 
+    public static function get_especific_invoice_with_pay_id(int $id)
+    {
+        $invoice = Invoice::where('payment_id', $id)->first();
+
+        return ($invoice) ? $invoice : '';
+    }
+
     public static function get_especific_user_invoices(int $user_id)
     {
-
         $invoices = Cache::get('invoices.user'.$user_id);
         if (is_null($invoices)) {
             $invoices = Invoice::with('site')->where('user_id', $user_id)->get();
@@ -96,6 +103,27 @@ class InvoicePll extends PersistantLowLevel
         ]);
 
         Cache::flush();
+
+        return $invoice;
+    }
+
+    public static function update_all_invoice(Invoice $invoice, UpdateInvoiceRequest $request)
+    {
+        $invoice->update([
+            'reference' => $request->reference,
+            'amount' => $request->amount,
+            'currency' => $request->currency,
+            'status' => $invoice->status,
+            'site_id' => $request->site_id,
+            'user_id' => $request->user_id,
+            'payment_id' => $invoice->payment_id,
+            'date_created' => $invoice->date_created,
+            'date_expiration' => $request->date_expiration,
+        ]);
+
+        Cache::flush();
+
+        return $invoice;
     }
 
     public static function save_invoice(StoreInvoiceRequest $request)

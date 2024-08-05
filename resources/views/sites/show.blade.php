@@ -96,7 +96,7 @@
                 </form>
             @endif
         @endcan
-        @if ($site->site_type == "CLOSE")
+        @if ($site->site_type == "CLOSE" && !$pay_exist)
             @php
                 $columns = 5;
             @endphp
@@ -151,6 +151,37 @@
                     @endforelse
                 </tbody>
             </table>
+        @else
+            @if ($pay_exist)
+            <div id="alert-additional-content-1" class="items-center p-4 mb-4 text-orange-800 border border-orange-300 rounded-lg bg-orange-50 dark:bg-gray-800 dark:text-orange-400 dark:border-orange-800" role="alert">
+                <div class="flex items-center">
+                  <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                  </svg>
+                  <span class="sr-only">Info</span>
+                  <h3 class="text-lg font-medium">You have a session in progress</h3>
+                </div>
+                <div class="mt-2 mb-4 text-sm">
+                    <ul>
+                        <li>Pay's reference: {{ $pay->reference }}</li>
+                        <li>Pay's amount: {{ $pay->amount }}</li>
+                        <li>Pay's currency: {{ $pay->currency }}</li>
+                        <li>Pay's status: {{ $pay->status }}</li>
+                        <li>Pay's url session: {{ $pay->url_session }}</li>
+                    </ul>
+                </div>
+                <div class="flex">
+                  <a href="{{ route('sites.finish_session', ['value' => $pay->id]) }}" class="text-white bg-orange-800 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-200 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
+                    <svg class="me-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                      <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+                    </svg>
+                    Go to session
+                  <a href="{{ route('sites.lose_session', ['value' => $pay->id]) }}"  data-dismiss-target="#alert-additional-content-1" aria-label="Close">
+                    Lose session
+                  </button>
+                </div>
+              </div>
+            @endif
         @endif
         <br>
     </div>

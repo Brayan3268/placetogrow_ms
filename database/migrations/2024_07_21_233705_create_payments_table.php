@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('process_identifier')->nullable();
             $table->foreignId('site_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->string('url_session')->nullable();
             $table->timestamps();
         });
     }

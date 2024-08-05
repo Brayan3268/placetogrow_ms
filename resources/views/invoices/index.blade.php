@@ -80,11 +80,13 @@
                                     <a href="{{ route('show.site', $invoice->site->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
                                 @endcan
                                 @can('invoices.see_admins_users')
-                                <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-purple-800"><i class="fas fa-trash"></i></button>
-                                </form>
+                                    <a href="{{ route('invoices.edit', $invoice->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
+
+                                    <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-purple-800"><i class="fas fa-trash"></i></button>
+                                    </form>
                                 @endcan
                             </td>
                         </tr>

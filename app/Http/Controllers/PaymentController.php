@@ -42,7 +42,6 @@ class PaymentController extends Controller
     {
         $payment = PaymentPll::save_payment($request);
 
-        //$payment->invoice_id = $request->invoice_id;
         $payment->setAttribute('invoice_id', $request->invoice_id);
 
         /** @var PaymentService $paymentService */
@@ -60,18 +59,13 @@ class PaymentController extends Controller
             'phone' => Auth::user()->phone,
         ]);
 
-        //Guardar la url por si el pago queda pendiente
-        //$payment->session_url = $response->url;
-        //$payment->save();
-
-        //Validar si hay un pago pendiente de este usuario y
+        PaymentPll::save_response_url_payment($payment, $response->url);
 
         return redirect()->away($response->url);
     }
 
     public function show(Request $request, Payment $payment): View
     {
-
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
             'payment' => $payment,
@@ -86,7 +80,10 @@ class PaymentController extends Controller
         $payment_id = intval($payment->id);
         $status = '';
 
-        if ($invoice_id != 0) {
+        if ($invoice_id == 0) {
+            $invoice = InvoicePll::get_especific_invoice_with_pay_id($payment_id);
+            $status = ($invoice !== '') ? $invoice->status : '';
+        } else {
             $status_payment = $payment->status;
 
             switch ($status_payment) {
@@ -103,16 +100,17 @@ class PaymentController extends Controller
                     break;
 
                 default:
-                    $status = InvoiceStatus::UNKNOW->value;
+                    $status = 'not_payed';
                     break;
             }
 
-            InvoicePll::update_invoice($invoice_id, $status, $payment_id);
+            $invoice = InvoicePll::update_invoice($invoice_id, $status, $payment_id);
         }
 
         return view('payments.show', [
             'payment' => $payment,
-            'status_invoice' => $status,
+            'invoice_status' => $status,
+            'invoice' => $invoice,
         ]);
     }
 
