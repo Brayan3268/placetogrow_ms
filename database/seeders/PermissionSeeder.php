@@ -25,6 +25,3 @@ class PermissionSeeder extends Seeder
         }
     }
 }
-
-//Hacerlo masivo con foreach
-//Tomar los nombres de constantes

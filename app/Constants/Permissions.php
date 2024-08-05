@@ -40,13 +40,46 @@ class Permissions
 
     public static function get_all_permissions(): array
     {
-        return (new \ReflectionClass(self::class))->getConstants();
+        return [
+            self::USERS_INDEX,
+            self::SUPER_USER_OPTIONS,
+            self::USERS_STORE,
+            self::USERS_CREATE,
+            self::USERS_DESTROY,
+            self::USERS_EDIT,
+            self::USERS_MENU_SHOW,
+            self::USERS_SHOW,
+            self::SITES_MANAGE,
+            self::SITES_PAY, //Eliminar
+            self::PAYMENTS_SEE_ADMINS_USERS,
+            self::INVOICES_SEE_ADMINS_USERS,
+            self::PAY_INVOICES_SEE_ADMINS_USERS,
+        ];
+    }
+
+    public static function get_permissions_super_admin(): array
+    {
+        return [
+            self::USERS_INDEX,
+            self::SUPER_USER_OPTIONS,
+            self::USERS_STORE,
+            self::USERS_CREATE,
+            self::USERS_DESTROY,
+            self::USERS_EDIT,
+            self::USERS_MENU_SHOW,
+            self::USERS_SHOW,
+            self::SITES_MANAGE,
+            self::PAYMENTS_SEE_ADMINS_USERS,
+            self::INVOICES_SEE_ADMINS_USERS,
+            self::PAY_INVOICES_SEE_ADMINS_USERS,
+        ];
     }
 
     public static function get_permissions_admin(): array
     {
         return [
             self::USERS_INDEX,
+            self::USERS_STORE,
             self::USERS_CREATE,
             self::USERS_DESTROY,
             self::USERS_EDIT,

@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
     {
         $super_admin_role = Role::findByName(Roles::SUPER_ADMIN);
 
-        $super_admin_role->syncPermissions(Permissions::get_all_permissions());
+        $super_admin_role->syncPermissions(Permissions::get_permissions_super_admin());
     }
 
     public function assign_permissions_to_admin()
