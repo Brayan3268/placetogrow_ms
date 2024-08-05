@@ -7,6 +7,7 @@ enum PaymentStatus: string
     case APPROVED = 'APPROVED';
     case PENDING = 'PENDING';
     case REJECTED = 'REJECTED';
+    case EXPIRED = 'EXPIRED';
     case APPROVED_PARCIAL = 'APPROVED_PARCIAL';
     case PARTIAL_EXPIRED = 'PARTIAL_EXPIRED';
     case UNKNOW = 'UNKNOW';

@@ -24,6 +24,13 @@ class PaymentPll extends PersistantLowLevel
         return $pays;
     }
 
+    public static function get_especific_pay(int $id)
+    {
+        $payment = Payment::find($id);
+
+        return $payment;
+    }
+
     public static function get_especific_user_pays(int $user_id)
     {
 
@@ -88,6 +95,62 @@ class PaymentPll extends PersistantLowLevel
         PaymentPll::forget_cache('pays.site_user'.$request->site_id.'_'.$user_id);
 
         return $payment;
+    }
+
+    public static function save_response_url_payment(Payment $payment, string $url_session)
+    {
+        $payment->url_session = $url_session;
+
+        $payment->save();
+    }
+
+    public static function validate_is_pending_rejected_pays(int $site_id)
+    {
+        $user_id = Auth::user()->id;
+
+        $pays = Payment::with('user', 'site')
+            ->where('site_id', $site_id)
+            ->where('user_id', $user_id)
+            ->whereIn('status', ['PENDING', 'REJECTED'])
+            ->get();
+
+        return (! $pays->isEmpty()) ? true : false;
+    }
+
+    public static function get_session_not_approved_payments(int $site_id)
+    {
+        $user_id = Auth::user()->id;
+
+        $pay = Payment::with('user', 'site')
+            ->where('site_id', $site_id)
+            ->where('user_id', $user_id)
+            ->whereIn('status', ['PENDING', 'REJECTED'])
+            ->first();
+
+        return $pay->url_session;
+    }
+
+    public static function get_pays_not_approved_payments(int $site_id)
+    {
+        $user_id = Auth::user()->id;
+
+        $pay = Payment::with('user', 'site')
+            ->where('site_id', $site_id)
+            ->where('user_id', $user_id)
+            ->whereIn('status', ['PENDING', 'REJECTED'])
+            ->first();
+
+        return $pay;
+    }
+
+    public static function lose_session(int $payment_id)
+    {
+        $payment = Payment::find($payment_id);
+
+        $payment->status = 'EXPIRED';
+        $payment->save();
+
+        return $payment->site_id;
     }
 
     public static function save_cache(string $name, $data)

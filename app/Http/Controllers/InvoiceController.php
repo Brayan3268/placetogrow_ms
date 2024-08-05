@@ -8,6 +8,7 @@ use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
@@ -44,19 +45,46 @@ class InvoiceController extends Controller
             ->with('class', 'bg-red-500');
     }
 
-    public function show(Invoice $invoice)
+    public function show(string $id)
     {
-        //
+        $invoice = InvoicePll::get_especific_invoice(intval($id));
+
+        return view('invoices.show', compact('invoice'));
     }
 
-    public function edit(Invoice $invoice)
+    public function edit(string $id)
     {
-        //
+        if ($this->validate_role()) {
+            $invoice = InvoicePll::get_especific_invoice(intval($id));
+
+            $datos = $this->get_enums();
+            $currency = $datos['currency'];
+            $users = UserPll::get_users_guest();
+            $sites = SitePll::get_sites_closed();
+
+            $date_expiration = $invoice->date_expiration ? Carbon::parse($invoice->date_expiration)->format('Y-m-d\TH:i') : '';
+
+            return view('invoices.edit', compact('invoice', 'currency', 'users', 'sites', 'date_expiration'));
+        }
+
+        return redirect()->route('dashboard')
+            ->with('status', 'User not authorized for this route')
+            ->with('class', 'bg-red-500');
     }
 
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)
     {
-        //
+        if ($this->validate_role()) {
+            $invoice = InvoicePll::update_all_invoice($invoice, $request);
+
+            return redirect()->route('invoices.index')
+                ->with('status', 'User updated successfully')
+                ->with('class', 'bg-green-500');
+        }
+
+        return redirect()->route('dashboard')
+            ->with('status', 'User not authorized for this route')
+            ->with('class', 'bg-red-500');
     }
 
     public function destroy(Invoice $invoice)

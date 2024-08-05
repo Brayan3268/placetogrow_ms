@@ -1,81 +1,102 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('View user') }}
+            {{ __('View invoice') }}
         </h2>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View User</title>
+    <title>View Invoice</title>
     </x-slot>
 
     @section('content')
+
     <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
-        <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">View User</h1>
-        <form action="{{ route('users.edit', $user->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
+        <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">View Invoice</h1>
+        <form action="{{ route('invoices.edit', $invoice->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
             @csrf
             @method('GET')
 
             <div class="mb-4">
-                <label for="name" class="block text-sm font-bold mb-2">Name:</label>
-                <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('name') border-red-500 @enderror" required disabled>
-                @error('name')
+                <label for="reference" class="block text-sm font-bold mb-2">Reference:</label>
+                <input type="text" id="reference" name="reference" value="{{ old('reference', $invoice->reference) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('reference') border-red-500 @enderror" required disabled>
+                @error('reference')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
+            @if ($invoice->description !== null)
+                <div class="mb-4">
+                    <label for="description" class="block text-sm font-bold mb-2">Description:</label>
+                    <input type="text" id="description" name="description" value="{{ old('description', $invoice->description) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('description') border-red-500 @enderror" required disabled>
+                    @error('description')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            @endif
 
             <div class="mb-4">
-                <label for="last_name" class="block text-sm font-bold mb-2">Last name:</label>
-                <input type="text" id="last_name" name="last_name" value="{{ old('last_name', $user->last_name) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('last_name') border-red-500 @enderror" required disabled>
-                @error('last_name')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-bold mb-2">Email:</label>
-                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('email') border-red-500 @enderror" required disabled>
-                @error('email')
+                <label for="amount" class="block text-sm font-bold mb-2">Amount:</label>
+                <input type="text" id="amount" name="amount" value="{{ old('amount', $invoice->amount) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('amount') border-red-500 @enderror" required disabled>
+                @error('amount')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
             <div class="mb-6">
-                <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Phone:</label>
-                <input type="number" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('phone') border-red-500 @enderror" requiered disabled>
-                @error('phone')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label for="document" class="block text-gray-700 text-sm font-bold mb-2">Document:</label>
-                <input type="number" id="document" name="document" value="{{ old('document', $user->document) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document') border-red-500 @enderror" requiered disabled>
-                @error('document')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label for="document_type" class="block text-gray-700 text-sm font-bold mb-2">Document type:</label>
-                <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" requiered disabled>
-                    <option value="" disabled selected>{{ old('document_type', $user->document_type) }}</option>
+                <label for="currency" class="block text-gray-700 text-sm font-bold mb-2">Currency:</label>
+                <select id="currency" name="currency" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('currency') border-red-500 @enderror" requiered disabled>
+                    <option value="" disabled selected>{{ old('currency', $invoice->currency) }}</option>
                 </select>
             </div>
 
             <div class="mb-4">
-                <label for="role" class="block text-sm font-bold mb-2">Role:</label>
-                <select id="role" name="role" class="form-select block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('role') border-red-500 @enderror" required disabled>
-                    <option value="" disabled selected>{{ old('role', $role_name[0]) }}</option>
-                </select>
-                @error('role')
+                <label for="status" class="block text-sm font-bold mb-2">Status:</label>
+                <input type="text" id="status" name="status" value="{{ old('status', $invoice->status) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('status') border-red-500 @enderror" required disabled>
+                @error('status')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
-            <button type="submit" class="my-button"><i class="fas fa-edit"></i></button>
+            @can('super_user.show')
+                <div class="mb-6">
+                    <label for="user_id" class="block text-gray-700 text-sm font-bold mb-2">User document:</label>
+                    <select id="user_id" name="user_id" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('user_id') border-red-500 @enderror" requiered disabled>
+                        <option value="" disabled selected>{{ old('currency', $invoice->user->document) }}</option>
+                    </select>
+                </div>
+            @endcan
+
+            <div class="mb-6">
+                <label for="site_id" class="block text-gray-700 text-sm font-bold mb-2">Site:</label>
+                <select id="site_id" name="site_id" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('currency') border-red-500 @enderror" requiered disabled>
+                    <option value="" disabled selected>{{ old('currency', $invoice->site->slug) }}</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="date_created" class="block text-sm font-bold mb-2">Invoice created at:</label>
+                <input type="text" id="date_created" name="date_created" value="{{ old('date_created', $invoice->date_created) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('date_created') border-red-500 @enderror" required disabled>
+                @error('date_created')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            
+            <div class="mb-4">
+                <label for="date_expiration" class="block text-sm font-bold mb-2">Invoice expirated at:</label>
+                <input type="text" id="date_expiration" name="date_expiration" value="{{ old('date_expiration', $invoice->date_expiration) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('date_expiration') border-red-500 @enderror" required disabled>
+                @error('date_expiration')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            
+            @can('site.manage')
+                <button type="submit" class="my-button"><i class="fas fa-edit"></i></button>
+            @endcan
         </form>
     </div>
+
     @endsection
 
 </x-app-layout>
