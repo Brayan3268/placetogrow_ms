@@ -23,7 +23,6 @@
           @endif
 
           @foreach($sites_fields as $input)
-            {{ $input['name'] }}
             <div class="mb-6">
               <label for="{{ $input['name'] }}" class="block text-gray-700 text-sm font-bold mb-2">{{ $input['name_user_see'] }}</label>
               @if($input['type'] === 'text')

@@ -49,9 +49,9 @@
                     </div>
 
                     <div class="mb-6">
-                        <label for="name_field_useer_see" class="block text-gray-700 text-sm font-bold mb-2">Name for user see:</label>
-                        <input type="text" id="name_field_useer_see" name="name_field_useer_see" readonly class="bg-gray-200 form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('name_field_useer_see') border-red-500 @enderror" />
-                        @error('name_field_useer_see')
+                        <label for="name_field_user_see" class="block text-gray-700 text-sm font-bold mb-2">Name for user see:</label>
+                        <input type="text" id="name_field_user_see" name="name_field_user_see" readonly class="bg-gray-200 form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('name_field_user_see') border-red-500 @enderror" />
+                        @error('name_field_user_see')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
@@ -149,7 +149,7 @@
                         const description = item.getAttribute('data-description');
     
                         document.getElementById('name_field').value = `${constant}`;
-                        document.getElementById('name_field_useer_see').value = `${description}`;
+                        document.getElementById('name_field_user_see').value = `${description}`;
     
                         const formContainer = document.getElementById('form-container');
                         formContainer.classList.remove('hidden');
@@ -198,12 +198,6 @@
                     const isOptional = document.getElementById('select_is_optional').value;
                     if (isOptional === '') {
                         document.getElementById('select_is_optional-error').textContent = 'Optional selection is required.';
-                        isValid = false;
-                    }
-
-                    const isModify = document.getElementById('select_is_modify').value;
-                    if (isOptional === '') {
-                        document.getElementById('select_is_modify-error').textContent = 'Optional selection is required.';
                         isValid = false;
                     }
 
