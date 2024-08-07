@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Constants\DocumentTypes;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreFieldRequest extends FormRequest
 {
