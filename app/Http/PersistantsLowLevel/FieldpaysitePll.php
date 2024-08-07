@@ -61,12 +61,13 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = $request->name_field;
-        $fieldpaysite->name_user_see = $request->name_field_useer_see;
+        $fieldpaysite->name_user_see = $request->name_field_user_see;
         $fieldpaysite->type = $request->field_type;
         $fieldpaysite->is_optional = $request->is_optional;
         $fieldpaysite->values = $request->values;
         $fieldpaysite->is_mandatory = false;
         $fieldpaysite->site_id = $request->site_id;
+        $fieldpaysite->is_modify = $request->is_modify;
         $fieldpaysite->save();
     }
 

@@ -9,6 +9,7 @@ use App\Http\PersistantsLowLevel\InvoicePll;
 use App\Http\PersistantsLowLevel\PaymentPll;
 use App\Http\PersistantsLowLevel\SitePll;
 use App\Http\PersistantsLowLevel\UserPll;
+use App\Http\Requests\StoreFieldRequest;
 use App\Models\Site;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -163,19 +164,8 @@ class SiteController extends Controller
         return view('sites.fieldspaysite', compact('filtered_constants_opt', 'sites_fields', 'site_id'));
     }
 
-    public function add_field(Request $request)
+    public function add_field(StoreFieldRequest $request)
     {
-        $request->validate([
-            'name_field' => 'required|string',
-            'name_field_useer_see' => 'required|string',
-            'field_type' => 'required|string',
-            'is_optional' => 'required|boolean',
-            'values' => 'nullable|string',
-            'is_mandatory' => 'required|boolean',
-            'is_modify' => 'required|boolean',
-            'site_id' => 'required|integer',
-        ]);
-
         FieldpaysitePll::add_field_site($request);
 
         return redirect()->route('sites.manage_config', ['site' => $request->site_id])
