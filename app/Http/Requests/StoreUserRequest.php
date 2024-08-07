@@ -27,10 +27,12 @@ class StoreUserRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', Rule::unique('users', 'email')->ignore($user_id)],
             'password' => ['nullable', 'string', 'min:8'],
             'document_type' => ['required', 'string', Rule::in(DocumentTypes::toArray())],
             'document' => ['required', 'string', 'min:8'],
+            'phone' => ['required', 'string', Rule::unique('users', 'phone')->ignore($user_id)],
             'role' => ['required', 'in:super_admin,admin,guest'],
         ];
     }

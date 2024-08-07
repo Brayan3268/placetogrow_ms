@@ -12,6 +12,7 @@ use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\Requests\StoreFieldRequest;
 use App\Models\Site;
 use Exception;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,8 +20,12 @@ use Illuminate\View\View;
 
 class SiteController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index(): View
     {
+        $this->authorize('viewAny', Site::class);
+
         $sites = SitePll::get_all_sites();
 
         $classifiedSites = [
@@ -42,6 +47,7 @@ class SiteController extends Controller
 
     public function create(): View
     {
+
         $datos = $this->get_enums();
         $categories = $datos['categories'];
         $currency_options = $datos['currency_options'];
