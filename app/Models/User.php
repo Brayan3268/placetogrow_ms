@@ -13,14 +13,28 @@ class User extends Authenticatable //implements MustVerifyEmail
 
     protected $fillable = [
         'name',
+        'last_name',
         'email',
         'password',
+        'document',
+        'document_type',
+        'phone',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    public function payment()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 
     protected function casts(): array
     {

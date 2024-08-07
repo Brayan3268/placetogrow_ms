@@ -52,24 +52,6 @@
             </div>
 
             <div class="mb-6">
-                <label for="document" class="block text-gray-700 text-sm font-bold mb-2">Document:</label>
-                <input type="number" id="document" name="document" value="{{ old('document', $site->document) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document') border-red-500 @enderror" required>
-                @error('document')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Document type:</label>
-                <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" required>
-                    <option value="" disabled selected>Actualmente: {{ $site->document_type }}</option>
-                    @foreach ($document_types as $document_type)
-                        <option value="{{ $document_type }}">{{ $document_type }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="mb-6">
                 <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
                 <select id="category" name="category" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('Category') border-red-500 @enderror" required>
                     <option value="" disabled selected>Actualmente: {{ $site->category->name }}</option>
@@ -80,11 +62,11 @@
             </div>
 
             <div class="mb-6">
-                <label for="current" class="block text-gray-700 text-sm font-bold mb-2">Current:</label>
-                <select id="current" name="current" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('role') border-red-500 @enderror" required>
-                    <option value="" disabled selected>Actualmente: {{ $site->current_type }}</option>
-                    @foreach ($current_options as $current_option)
-                        <option value="{{ $current_option }}">{{ $current_option }}</option>
+                <label for="currency" class="block text-gray-700 text-sm font-bold mb-2">Currency:</label>
+                <select id="currency" name="currency" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('role') border-red-500 @enderror" required>
+                    <option value="" disabled selected>Actualmente: {{ $site->currency_type }}</option>
+                    @foreach ($currency_options as $currency_option)
+                        <option value="{{ $currency_option }}">{{ $currency_option }}</option>
                     @endforeach
                 </select>
             </div>
@@ -97,6 +79,14 @@
                         <option value="{{ $site_type_option }}">{{ $site_type_option }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="mb-6">
+                <label for="return_url" class="block text-gray-700 text-sm font-bold mb-2">Return url:</label>
+                <input type="text" id="return_url" name="return_url" value="{{ old('return_url', $site->return_url) }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('return_url') border-red-500 @enderror" required>
+                @error('slug')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-6">

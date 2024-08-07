@@ -13,7 +13,7 @@ class RolePll extends PersistantLowLevel
         $roles = Cache::get('users.roles');
         if (is_null($roles)) {
             $roles = Role::with(['users' => function ($query) {
-                $query->select('users.id', 'users.name', 'users.email', 'role_id');
+                $query->select('users.id', 'users.name', 'users.email', 'users.document', 'role_id');
             }])->orderBy('id', 'asc')->get();
 
             Cache::put('users.roles', $roles);

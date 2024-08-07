@@ -6,11 +6,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Site</title>
+    <title> @lang('messages.create_site') </title>
     </x-slot>
 
     @section('content')
-    <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
+    <div class="container mx-auto mt-5 flex-col space-y-4 items-center">
         <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">Create Site</h1>
     
         <form action="{{ route('sites.store') }}" method="POST" class="max-w-lg mx-auto mt-5" enctype="multipart/form-data">
@@ -42,24 +42,6 @@
             </div>
 
             <div class="mb-6">
-                <label for="document" class="block text-gray-700 text-sm font-bold mb-2">Document:</label>
-                <input type="number" id="document" name="document" value="{{ old('document') }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document') border-red-500 @enderror" required>
-                @error('document')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Document type:</label>
-                <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" required>
-                    <option value="" disabled selected>Select a Document type</option>
-                    @foreach ($document_types as $document_type)
-                        <option value="{{ $document_type }}">{{ $document_type }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="mb-6">
                 <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
                 <select id="category" name="category" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('Category') border-red-500 @enderror" required>
                     <option value="" disabled selected>Select a category</option>
@@ -70,11 +52,11 @@
             </div>
 
             <div class="mb-6">
-                <label for="current" class="block text-gray-700 text-sm font-bold mb-2">Current:</label>
-                <select id="current" name="current" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('role') border-red-500 @enderror" required>
-                    <option value="" disabled selected>Select a current</option>
-                    @foreach ($current_options as $current_option)
-                        <option value="{{ $current_option }}">{{ $current_option }}</option>
+                <label for="currency" class="block text-gray-700 text-sm font-bold mb-2">Currency:</label>
+                <select id="currency" name="currency" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('role') border-red-500 @enderror" required>
+                    <option value="" disabled selected>Select a currency</option>
+                    @foreach ($currency_options as $currency_option)
+                        <option value="{{ $currency_option }}">{{ $currency_option }}</option>
                     @endforeach
                 </select>
             </div>
@@ -87,6 +69,14 @@
                         <option value="{{ $site_type_option }}">{{ $site_type_option }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="mb-6">
+                <label for="return_url" class="block text-gray-700 text-sm font-bold mb-2">Return url:</label>
+                <input type="text" id="return_url" name="return_url" value="{{ old('return_url') }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('return_url') border-red-500 @enderror" required>
+                @error('return_url')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-6">

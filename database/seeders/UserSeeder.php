@@ -2,35 +2,32 @@
 
 namespace Database\Seeders;
 
+use App\Constants\Roles;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $user = new User();
+        DB::table('users')->upsert($this->add_users(), 'email');
 
-        $user->name = 'Brayan Luján Muñoz';
-        $user->email = 'brayan.lujan@evertecinc.com';
-        $user->password = '12345678';
+        User::query()->where('email', 'brayan.lujan@evertecinc.com')->first()->assignRole(Roles::SUPER_ADMIN);
+    }
 
-        $user->save();
-
-        $user = new User();
-
-        $user->name = 'Gisela Muñoz Valencia';
-        $user->email = 'gisela.munoz@evertecinc.com';
-        $user->password = '12345678';
-
-        $user->save();
-
-        $user = new User();
-
-        $user->name = 'Miguel Ángel Luján Muñoz';
-        $user->email = 'miguel.lujan@evertecinc.com';
-        $user->password = '12345678';
-
-        $user->save();
+    public function add_users()
+    {
+        return [
+            [
+                'name' => 'Brayan',
+                'last_name' => 'Luján Muñoz',
+                'email' => 'brayan.lujan@evertecinc.com',
+                'password' => bcrypt('12345678'),
+                'document_type' => 'CC',
+                'phone' => '3111111111',
+                'document' => '1234567890',
+            ],
+        ];
     }
 }

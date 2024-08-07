@@ -2,10 +2,10 @@
 
 namespace App\Http\PersistantsLowLevel;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
-
-use function Laravel\Prompts\alert;
+use Illuminate\Support\Facades\DB;
 
 class UserPll extends PersistantLowLevel
 {
@@ -29,41 +29,68 @@ class UserPll extends PersistantLowLevel
 
         $role_name = $user->getRoleNames();
 
+        RolePll::forget_cache('users.roles');
+
         return ['user' => $user, 'role' => $role_name];
     }
 
-    public static function save_user(string $name, string $email, string $password)
+    public static function get_users_guest()
+    {
+        $roles = RolePll::get_all_users_roles();
+
+        return $roles[2]->users;
+    }
+
+    public static function save_user(StoreUserRequest $request)
     {
         $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = bcrypt($password);
+        $user->name = $request->name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->document_type = $request->document_type;
+        $user->document = $request->document;
+        $user->phone = $request->phone;
         $user->save();
 
-        return $user;
-    }
-
-    public static function update_user_with_password(User $user, $data)
-    {
-        $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-
-        $user->syncRoles([$data['role']]);
+        RolePll::forget_cache('users.roles');
 
         return $user;
     }
 
-    public static function update_user_without_password(User $user, $data)
+    public static function update_user_with_password(User $user, StoreUserRequest $request)
     {
         $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name' => $request['name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'document_type' => $request['document_type'],
+            'document' => $request['document'],
+            'password' => bcrypt($request['password']),
+            'phone' => $request['phone'],
         ]);
 
-        $user->syncRoles([$data['role']]);
+        $user->syncRoles([$request['role']]);
+
+        Cache::flush();
+
+        return $user;
+    }
+
+    public static function update_user_without_password(User $user, StoreUserRequest $request)
+    {
+        $user->update([
+            'name' => $request['name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'phone' => $request['phone'],
+            'document_type' => $request['document_type'],
+            'document' => $request['document'],
+        ]);
+
+        $user->syncRoles([$request['role']]);
+
+        Cache::flush();
 
         return $user;
     }
@@ -71,6 +98,9 @@ class UserPll extends PersistantLowLevel
     public static function delete_user(User $user)
     {
         $user->delete();
+
+        UserPll::forget_cache('user.'.$user->id);
+        RolePll::forget_cache('users.roles');
     }
 
     public static function get_role_names(User $user)
@@ -80,10 +110,8 @@ class UserPll extends PersistantLowLevel
 
     public static function get_user_auth()
     {
-        alert('1');
         $user = User::find(auth()->user()->id);
         $user = UserPll::get_role_names($user);
-        alert('2');
 
         return $user;
     }
@@ -91,5 +119,15 @@ class UserPll extends PersistantLowLevel
     public static function forget_cache(string $name_cache)
     {
         Cache::forget($name_cache);
+    }
+
+    public static function get_users_enum_field_values(string $field)
+    {
+        return DB::select("SHOW COLUMNS FROM users WHERE Field = '".$field."'")[0]->Type;
+    }
+
+    public static function save_cache(string $name, $data)
+    {
+        Cache::put($name, $data);
     }
 }

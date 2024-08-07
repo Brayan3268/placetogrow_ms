@@ -2,29 +2,26 @@
 
 namespace Database\Seeders;
 
+use App\Constants\Permissions;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class PermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        $super_admin_role = Role::where('name', 'super_admin')->first();
-        $admin_role = Role::where('name', 'admin')->first();
-        $guest_role = Role::where('name', 'guest')->first();
+        $existingPermissions = DB::table('permissions')->pluck('name')->toArray();
 
-        Permission::create(['name' => 'users_menu.show'])->syncRoles([$super_admin_role, $admin_role]);
-        Permission::create(['name' => 'super_user.options'])->syncRoles([$super_admin_role]);
+        $newPermissions = [];
 
-        Permission::create(['name' => 'user.create'])->syncRoles([$super_admin_role, $admin_role]);
-        Permission::create(['name' => 'user.edit'])->syncRoles([$super_admin_role, $admin_role]);
-        Permission::create(['name' => 'user.show'])->syncRoles([$super_admin_role, $admin_role, $guest_role]);
-        Permission::create(['name' => 'user.destroy'])->syncRoles([$super_admin_role, $admin_role]);
+        foreach (Permissions::get_all_permissions() as $permission) {
+            if (! in_array($permission, $existingPermissions)) {
+                $newPermissions[] = ['name' => $permission, 'guard_name' => 'web'];
+            }
+        }
 
-        Permission::create(['name' => 'super_user.create'])->syncRoles([$super_admin_role]);
-        Permission::create(['name' => 'super_user.edit'])->syncRoles([$super_admin_role]);
-        Permission::create(['name' => 'super_user.show'])->syncRoles([$super_admin_role, $admin_role]);
-        Permission::create(['name' => 'super_user.destroy'])->syncRoles([$super_admin_role]);
+        if (! empty($newPermissions)) {
+            DB::table('permissions')->insert($newPermissions);
+        }
     }
 }

@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\FieldsOptionalies;
 use App\Http\PersistantsLowLevel\CategoryPll;
+use App\Http\PersistantsLowLevel\FieldpaysitePll;
+use App\Http\PersistantsLowLevel\InvoicePll;
+use App\Http\PersistantsLowLevel\PaymentPll;
 use App\Http\PersistantsLowLevel\SitePll;
+use App\Http\PersistantsLowLevel\UserPll;
 use App\Models\Site;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -37,11 +43,10 @@ class SiteController extends Controller
     {
         $datos = $this->get_enums();
         $categories = $datos['categories'];
-        $current_options = $datos['current_options'];
+        $currency_options = $datos['currency_options'];
         $site_type_options = $datos['site_type_options'];
-        $document_types = $datos['document_types'];
 
-        return view('sites.create', compact('categories', 'current_options', 'site_type_options', 'document_types'));
+        return view('sites.create', compact('categories', 'currency_options', 'site_type_options'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -57,7 +62,6 @@ class SiteController extends Controller
             $image->storeAs('public/site_images/', $image_name);
 
             SitePll::save_site($request, $image_name);
-            SitePll::forget_cache('sites.index');
 
             return redirect()->route('sites.index')
                 ->with('status', 'Site created successfully!')
@@ -71,9 +75,28 @@ class SiteController extends Controller
 
     public function show(string $id): View
     {
+        $pay_exist = false;
+        $pay = '';
+        if (PaymentPll::validate_is_pending_rejected_pays(intval($id))) {
+            $pay = PaymentPll::get_pays_not_approved_payments(intval($id));
+            $pay_exist = true;
+        }
+
+        $invoices = collect();
+        $invoices = collect();
         $site = SitePll::get_specific_site($id);
 
-        return view('sites.show', compact('site'));
+        if ($site->site_type == 'CLOSE') {
+            $invoices = ($this->validate_role()) ?
+                InvoicePll::get_especific_site_invoices($site->id) :
+                InvoicePll::get_especific_site_user_invoices($site->id);
+        }
+
+        try {
+            return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay'));
+        } catch (Exception $e) {
+            return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay'));
+        }
     }
 
     public function edit(string $id): View
@@ -82,42 +105,15 @@ class SiteController extends Controller
 
         $datos = $this->get_enums();
         $categories = $datos['categories'];
-        $current_options = $datos['current_options'];
+        $currency_options = $datos['currency_options'];
         $site_type_options = $datos['site_type_options'];
-        $document_types = $datos['document_types'];
 
-        return view('sites.edit', compact('site', 'categories', 'current_options', 'site_type_options', 'document_types'));
+        return view('sites.edit', compact('site', 'categories', 'currency_options', 'site_type_options'));
     }
 
     public function update(Request $request, Site $site): RedirectResponse
     {
-        $data = [
-            'slug' => $request['slug'],
-            'name' => $request['name'],
-            'document_type' => $request['document_type'],
-            'document' => $request['document'],
-            'category_id' => $request['category'],
-            'expiration_time' => $request['expiration_time'],
-            'current_type' => $request['current'],
-            'site_type' => $request['site_type'],
-        ];
-
-        if ($request->hasFile('image')) {
-            if (Storage::exists(str_replace('storage', 'public', $site->image))) {
-                Storage::delete(str_replace('storage', 'public', $site->image));
-            }
-
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/site_images/', $image_name);
-
-            $data['image'] = 'storage/site_images/'.$image_name;
-        }
-
-        SitePll::update_site($site, $data);
-
-        SitePll::forget_cache('site.'.$site->id);
-        SitePll::forget_cache('sites.index');
+        SitePll::update_site($site, $request);
 
         return redirect()->route('sites.index')
             ->with('status', 'Site updated successfully')
@@ -134,12 +130,100 @@ class SiteController extends Controller
 
         SitePll::delete_site($site);
 
-        SitePll::forget_cache('site.'.$site->id);
-        SitePll::forget_cache('sites.index');
-
         return redirect()->route('sites.index')
             ->with('status', 'Site deleted successfully')
             ->with('class', 'bg-green-500');
+    }
+
+    public function maganage_sites_config_pay(Site $site): View
+    {
+        $site_id = $site->id;
+
+        $constants_opt = FieldsOptionalies::getAll();
+        $sites_fields = FieldpaysitePll::get_fields_site($site->id);
+
+        $filtered_constants_opt = [];
+
+        foreach ($constants_opt as $constant => $description) {
+            $exists_in_db = false;
+
+            foreach ($sites_fields as $site) {
+                if ($site->name === $constant) {
+                    $exists_in_db = true;
+                    break;
+                }
+            }
+
+            if (! $exists_in_db) {
+                $filtered_constants_opt[$constant] = $description;
+            }
+
+        }
+
+        return view('sites.fieldspaysite', compact('filtered_constants_opt', 'sites_fields', 'site_id'));
+    }
+
+    public function add_field(Request $request)
+    {
+        $request->validate([
+            'name_field' => 'required|string',
+            'name_field_useer_see' => 'required|string',
+            'field_type' => 'required|string',
+            'is_optional' => 'required|boolean',
+            'values' => 'nullable|string',
+            'is_mandatory' => 'required|boolean',
+            'is_modify' => 'required|boolean',
+            'site_id' => 'required|integer',
+        ]);
+
+        FieldpaysitePll::add_field_site($request);
+
+        return redirect()->route('sites.manage_config', ['site' => $request->site_id])
+            ->with('success', 'Redirection successful!');
+    }
+
+    public function field_destroy(int $field_pay_site_id): RedirectResponse
+    {
+        $site_id = FieldpaysitePll::delete_field_pay($field_pay_site_id);
+
+        return redirect()->route('sites.manage_config', ['site' => $site_id])
+            ->with('success', 'Redirection successful!');
+    }
+
+    public function form_site(Site $site): View
+    {
+        $sites_fields = FieldpaysitePll::get_fields_site($site->id);
+        foreach ($sites_fields as $site_field) {
+            $site_field->value_invoice = ' ';
+        }
+
+        $invoice_id = 0;
+
+        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
+    }
+
+    public function form_site_invoices(int $invoice_id): View
+    {
+        $invoice = InvoicePll::get_especific_invoice($invoice_id);
+        $invoice_id = $invoice->id;
+
+        $sites_fields = FieldpaysitePll::get_fields_site($invoice->site_id);
+
+        foreach ($sites_fields as $site_field) {
+            $site_field->value_invoice = ' ';
+
+            if ($site_field->name == 'total') {
+                $site_field->value_invoice = $invoice->amount;
+            }
+
+            if ($site_field->name == 'currency') {
+                $site_field->value_invoice = $invoice->currency;
+            }
+        }
+
+        $site = SitePll::get_specific_site($invoice->site_id);
+
+        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
     }
 
     public function get_enums(): array
@@ -148,36 +232,49 @@ class SiteController extends Controller
         if (is_null($categories)) {
             $categories = CategoryPll::get_all_categories();
 
-            $enumCurrentValues = SitePll::get_sites_enum_field_values('current_type');
-            preg_match('/^enum\((.*)\)$/', $enumCurrentValues, $matches);
-            $current_options = explode(',', $matches[1]);
-            $current_options = array_map(fn ($value) => trim($value, "'"), $current_options);
+            $enumCurrencyValues = SitePll::get_sites_enum_field_values('currency_type');
+            preg_match('/^enum\((.*)\)$/', $enumCurrencyValues, $matches);
+            $currency_options = explode(',', $matches[1]);
+            $currency_options = array_map(fn ($value) => trim($value, "'"), $currency_options);
 
             $enumSiteTypeValues = SitePll::get_sites_enum_field_values('site_type');
             preg_match('/^enum\((.*)\)$/', $enumSiteTypeValues, $matches);
             $site_type_options = explode(',', $matches[1]);
             $site_type_options = array_map(fn ($value) => trim($value, "'"), $site_type_options);
 
-            $enumDocumentTypeValues = SitePll::get_sites_enum_field_values('document_type');
-            preg_match('/^enum\((.*)\)$/', $enumDocumentTypeValues, $matches);
-            $document_types = explode(',', $matches[1]);
-            $document_types = array_map(fn ($value) => trim($value, "'"), $document_types);
-
             SitePll::save_cache('categories', $categories);
-            SitePll::save_cache('current_options', $current_options);
+            SitePll::save_cache('currency_options', $currency_options);
             SitePll::save_cache('site_type_options', $site_type_options);
-            SitePll::save_cache('document_types', $document_types);
         } else {
-            $current_options = SitePll::get_cache('current_options');
+            $currency_options = SitePll::get_cache('currency_options');
             $site_type_options = SitePll::get_cache('site_type_options');
-            $document_types = SitePll::get_cache('document_types');
         }
 
         return [
             'categories' => $categories,
-            'current_options' => $current_options,
+            'currency_options' => $currency_options,
             'site_type_options' => $site_type_options,
-            'document_types' => $document_types,
         ];
+    }
+
+    public function finish_session(string $payment_id): RedirectResponse
+    {
+        $payment = PaymentPll::get_especific_pay(intval($payment_id));
+
+        return redirect()->away($payment->url_session);
+    }
+
+    public function lose_session(int $payment_id): View
+    {
+        $site_id = PaymentPll::lose_session($payment_id);
+
+        return $this->show($site_id);
+    }
+
+    private function validate_role(): bool
+    {
+        $role_name = UserPll::get_user_auth();
+
+        return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
     }
 }
