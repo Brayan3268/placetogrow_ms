@@ -18,13 +18,27 @@ class UserPll extends PersistantLowLevel
             'guest_users' => $roles[2]->users];
     }
 
-    public static function get_specific_user(string $id)
+    public static function get_specific_user(int $id)
     {
         $user = Cache::get('user.'.$id);
         if (is_null($user)) {
             $user = User::find($id);
 
             Cache::put('user.'.$id, $user);
+        }
+
+        RolePll::forget_cache('users.roles');
+
+        return $user;
+    }
+
+    public static function get_specific_user_with_role(string $id)
+    {
+        $user = Cache::get('user.role.'.$id);
+        if (is_null($user)) {
+            $user = User::find($id);
+
+            Cache::put('user.role.'.$id, $user);
         }
 
         $role_name = $user->getRoleNames();

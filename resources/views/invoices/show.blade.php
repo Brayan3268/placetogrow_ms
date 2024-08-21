@@ -58,7 +58,7 @@
                 @enderror
             </div>
 
-            @can('super_user.show')
+            @can(['super_users.show'])
                 <div class="mb-6">
                     <label for="user_id" class="block text-gray-700 text-sm font-bold mb-2">User document:</label>
                     <select id="user_id" name="user_id" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('user_id') border-red-500 @enderror" requiered disabled>

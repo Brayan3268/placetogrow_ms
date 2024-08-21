@@ -68,7 +68,7 @@ class UserController extends Controller
     {
         $this->authorize('view', User::class);
 
-        $userData = UserPll::get_specific_user($id);
+        $userData = UserPll::get_specific_user_with_role($id);
 
         return view('users.show', [
             'user' => $userData['user'],
@@ -83,7 +83,7 @@ class UserController extends Controller
         $datos = $this->get_enums();
         $document_types = $datos['document_types'];
 
-        $userData = UserPll::get_specific_user($id);
+        $userData = UserPll::get_specific_user_with_role($id);
 
         return view('users.edit', ['user' => $userData['user'], 'document_types' => $document_types, 'role' => $userData['role']]);
     }

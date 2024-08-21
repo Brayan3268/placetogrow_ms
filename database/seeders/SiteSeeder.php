@@ -17,7 +17,6 @@ class SiteSeeder extends Seeder
         $site->expiration_time = 20;
         $site->currency_type = 'COP';
         $site->site_type = 'OPEN';
-        $site->return_url = 'http://127.0.0.1:8000/sites/1';
         $site->save();
 
         $site = new Site();
@@ -28,7 +27,6 @@ class SiteSeeder extends Seeder
         $site->expiration_time = 20;
         $site->currency_type = 'COP';
         $site->site_type = 'CLOSE';
-        $site->return_url = 'http://127.0.0.1:8000/sites/2';
         $site->save();
 
         $site = new Site();
@@ -39,7 +37,6 @@ class SiteSeeder extends Seeder
         $site->expiration_time = 20;
         $site->currency_type = 'COP';
         $site->site_type = 'SUSCRIPTION';
-        $site->return_url = 'http://127.0.0.1:8000/sites/3';
         $site->save();
     }
 }

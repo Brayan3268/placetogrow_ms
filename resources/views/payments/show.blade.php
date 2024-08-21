@@ -38,7 +38,7 @@
                 <label class="block font-bold w-full px-4 py-3">Site:<a href="{{ route('sites.show', $payment->site->id) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $payment->site->slug }}</a></label> 
             </div>  
 
-            @can('super_user.show')
+            @can('pays_info.show')
                 <div class="mb-4">
                     <label class="block font-bold w-full px-4 py-3">User document:<a href="{{ route('show.user', ['id' => $payment->user->id]) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $payment->user->document }}</a></label> 
                 </div>

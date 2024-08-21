@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants\FieldsOptionalies;
+use App\Constants\Permissions;
 use App\Http\PersistantsLowLevel\CategoryPll;
 use App\Http\PersistantsLowLevel\FieldpaysitePll;
 use App\Http\PersistantsLowLevel\InvoicePll;
@@ -12,15 +13,21 @@ use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\Requests\StoreFieldRequest;
 use App\Models\Site;
 use Exception;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class SiteController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index(): View
     {
+        $this->authorize('viewAny', Site::class);
+
         $sites = SitePll::get_all_sites();
 
         $classifiedSites = [
@@ -42,6 +49,8 @@ class SiteController extends Controller
 
     public function create(): View
     {
+        $this->authorize('create', Site::class);
+
         $datos = $this->get_enums();
         $categories = $datos['categories'];
         $currency_options = $datos['currency_options'];
@@ -52,6 +61,8 @@ class SiteController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $this->authorize('update', Site::class);
+
         $request->validate([
             'image' => 'required|image|max:2048',
         ]);
@@ -76,6 +87,8 @@ class SiteController extends Controller
 
     public function show(string $id): View
     {
+        $this->authorize('view', Site::class);
+
         $pay_exist = false;
         $pay = '';
         if (PaymentPll::validate_is_pending_rejected_pays(intval($id))) {
@@ -88,7 +101,8 @@ class SiteController extends Controller
         $site = SitePll::get_specific_site($id);
 
         if ($site->site_type == 'CLOSE') {
-            $invoices = ($this->validate_role()) ?
+            $user = UserPll::get_specific_user(Auth::user()->id);
+            $invoices = ($user->hasPermissionTo(Permissions::SITES_PAY)) ?
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
         }
@@ -102,6 +116,8 @@ class SiteController extends Controller
 
     public function edit(string $id): View
     {
+        $this->authorize('update', Site::class);
+
         $site = SitePll::get_specific_site($id);
 
         $datos = $this->get_enums();
@@ -114,6 +130,8 @@ class SiteController extends Controller
 
     public function update(Request $request, Site $site): RedirectResponse
     {
+        $this->authorize('update', Site::class);
+
         SitePll::update_site($site, $request);
 
         return redirect()->route('sites.index')
@@ -123,6 +141,8 @@ class SiteController extends Controller
 
     public function destroy(Site $site): RedirectResponse
     {
+        $this->authorize('delete', Site::class);
+
         $site->image = str_replace('storage', 'public', $site->image);
 
         if (Storage::exists(str_replace('storage', 'public', $site->image))) {
@@ -138,6 +158,8 @@ class SiteController extends Controller
 
     public function maganage_sites_config_pay(Site $site): View
     {
+        $this->authorize('manage_sites_config_pay', Site::class);
+
         $site_id = $site->id;
 
         $constants_opt = FieldsOptionalies::getAll();
@@ -166,6 +188,8 @@ class SiteController extends Controller
 
     public function add_field(StoreFieldRequest $request)
     {
+        $this->authorize('manage_sites_config_pay', Site::class);
+
         FieldpaysitePll::add_field_site($request);
 
         return redirect()->route('sites.manage_config', ['site' => $request->site_id])
@@ -174,6 +198,8 @@ class SiteController extends Controller
 
     public function field_destroy(int $field_pay_site_id): RedirectResponse
     {
+        $this->authorize('manage_sites_config_pay', Site::class);
+
         $site_id = FieldpaysitePll::delete_field_pay($field_pay_site_id);
 
         return redirect()->route('sites.manage_config', ['site' => $site_id])
@@ -182,6 +208,8 @@ class SiteController extends Controller
 
     public function form_site(Site $site): View
     {
+        $this->authorize('form_sites_pay', Site::class);
+
         $sites_fields = FieldpaysitePll::get_fields_site($site->id);
         foreach ($sites_fields as $site_field) {
             $site_field->value_invoice = ' ';
@@ -194,6 +222,8 @@ class SiteController extends Controller
 
     public function form_site_invoices(int $invoice_id): View
     {
+        $this->authorize('form_sites_pay', Site::class);
+
         $invoice = InvoicePll::get_especific_invoice($invoice_id);
         $invoice_id = $invoice->id;
 
@@ -249,6 +279,8 @@ class SiteController extends Controller
 
     public function finish_session(string $payment_id): RedirectResponse
     {
+        $this->authorize('form_sites_pay', Site::class);
+
         $payment = PaymentPll::get_especific_pay(intval($payment_id));
 
         return redirect()->away($payment->url_session);
@@ -256,15 +288,10 @@ class SiteController extends Controller
 
     public function lose_session(int $payment_id): View
     {
+        $this->authorize('form_sites_pay', Site::class);
+
         $site_id = PaymentPll::lose_session($payment_id);
 
         return $this->show($site_id);
-    }
-
-    private function validate_role(): bool
-    {
-        $role_name = UserPll::get_user_auth();
-
-        return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
     }
 }
