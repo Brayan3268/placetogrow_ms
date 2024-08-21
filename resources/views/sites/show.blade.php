@@ -73,14 +73,6 @@
                     </select>
                 </div>
 
-                <div class="mb-6">
-                    <label for="return_url" class="block text-gray-700 text-sm font-bold mb-2">Return url:</label>
-                    <input type="text" id="return_url" name="return_url" value="{{ old('return_url', $site->return_url) }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('return_url') border-red-500 @enderror" requiered disabled>
-                    @error('return_url')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
                 <button type="submit" class="my-button"><i class="fas fa-edit"></i></button>
             @endcan
         </form>

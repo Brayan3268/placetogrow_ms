@@ -64,7 +64,6 @@ class SitePll extends PersistantLowLevel
         $site->expiration_time = $request->expiration_time;
         $site->currency_type = $request->currency;
         $site->site_type = $request->site_type;
-        $site->return_url = $request->return_url;
         $site->image = 'storage/site_images/'.$image_name;
 
         dump($site);
@@ -98,7 +97,6 @@ class SitePll extends PersistantLowLevel
             'expiration_time' => $request['expiration_time'],
             'currency_type' => $request['currency'],
             'site_type' => $request['site_type'],
-            'return_url' => $request['return_url'],
         ];
 
         if ($request->hasFile('image')) {
@@ -121,7 +119,6 @@ class SitePll extends PersistantLowLevel
                 'expiration_time' => $data['expiration_time'],
                 'currency_type' => $data['currency_type'],
                 'site_type' => $data['site_type'],
-                'return_url' => $data['return_url'],
                 'image' => $data['image'],
             ]);
         } else {
@@ -132,7 +129,6 @@ class SitePll extends PersistantLowLevel
                 'expiration_time' => $data['expiration_time'],
                 'currency_type' => $data['currency_type'],
                 'site_type' => $data['site_type'],
-                'return_url' => $data['return_url'],
             ]);
         }
 
