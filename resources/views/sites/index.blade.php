@@ -20,27 +20,27 @@
             @can('site.manage')
             <div class="container mx-auto mt-5 flex flex-col space-y-4 items-center">
 
-                <h1 class="text-2xl font-bold mb-4">Create a new site</h1>
-                <a href="{{ route('sites.create') }}" class="my-button">Create New site</a>
+                <h1 class="text-2xl font-bold mb-4">{{ __('messages.create_new_site') }}</h1>
+                <a href="{{ route('sites.create') }}" class="my-button">{{ __('messages.create_new_site') }}</a>
             </div>
             <br>
             <br>
             <br>
             @endcan
             <div class="flex flex-col space-y-2">
-                <h1 class="text-2xl font-bold mb-2">Microsites open</h1>
+                <h1 class="text-2xl font-bold mb-2">{{ __('messages.microsites_donations') }}</h1>
 
             <div class="w-1/2 mb-4">
-                <input type="text" id="search_names_open_sites" placeholder="search by slug" class="border w-full p-2">
+                <input type="text" id="search_names_open_sites" placeholder="{{ __('messages.search_by_slug') }}" class="border w-full p-2">
             </div>
 
             <table class="table-auto w-full border-collapse border border-gray-200">
                 <thead>
                     <tr class="bg-gray-100">
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Name</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Slug</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Categories</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Actions</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.name') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.slug') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.categories') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody id="open_sites_table">
@@ -71,17 +71,17 @@
             </div>
 
             <div class="flex flex-col space-y-2">
-                <h1 class="text-2xl font-bold mb-2">Microsites Closed</h1>
+                <h1 class="text-2xl font-bold mb-2">{{ __('messages.microsites_invoices') }}</h1>
                 <div class="w-1/2 mb-4">
-                    <input type="text" id="search_name_close_sites" placeholder="search by slug" class="border w-full p-2">
+                    <input type="text" id="search_name_close_sites" placeholder="{{ __('messages.search_by_slug') }}" class="border w-full p-2">
                 </div>
                 <table class="table-auto w-full border-collapse border border-gray-200">
                     <thead>
                         <tr class="bg-gray-100">
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Name</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Slug</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Categories</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Actions</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.name') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.slug') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.categories') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody id="close_sites_table">
@@ -112,17 +112,17 @@
             </div>
 
             <div class="flex flex-col space-y-2">
-                <h1 class="text-2xl font-bold mb-2">Microsites Suscription</h1>
+                <h1 class="text-2xl font-bold mb-2">{{ __('messages.microsites_suscription') }}</h1>
                 <div class="w-1/2 mb-4">
-                    <input type="text" id="search_name_suscription_sites" placeholder="search by slug" class="border w-full p-2">
+                    <input type="text" id="search_name_suscription_sites" placeholder="{{ __('messages.search_by_slug') }}" class="border w-full p-2">
                 </div>
                 <table class="table-auto w-full border-collapse border border-gray-200">
                     <thead>
                         <tr class="bg-gray-100">
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Name</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Slug</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Categories</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Actions</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.name') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.slug') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.categories') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody id="suscription_sites_table">

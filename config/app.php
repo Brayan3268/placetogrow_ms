@@ -78,11 +78,12 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en'),
+    #'locale' => env('APP_LOCALE'),
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+    #'fallback_locale' => env('APP_FALLBACK_LOCALE'),
 
-    'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
+    'locale' => 'es', // Idioma por defecto
+'   fallback_locale' => 'es', // Idioma de respaldo en caso de que falte una traducción
 
     /*
     |--------------------------------------------------------------------------
