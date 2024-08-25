@@ -16,7 +16,7 @@ class LangRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'locale' => ['required', Rule::in(Languages::get_all_languages())]
+            'locale' => ['required', Rule::in(Languages::get_all_languages())],
         ];
     }
 }

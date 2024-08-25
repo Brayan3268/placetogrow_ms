@@ -12,10 +12,10 @@ Route::get('/dashboard', function () {
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LanguageController;
 use App\Http\Middleware\LocalizationMiddleware;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
