@@ -17,8 +17,8 @@
                     @csrf
                     <select name="locale">
                         <option value="" disabled selected><p>{{ __('messages.select_language') }}</p></option>
-                        <option value="es">Español</option>
-                        <option value="en">English</option>
+                        <option value="es">{{ __('messages.spanish') }}</option>
+                        <option value="en">{{ __('messages.english') }}</option>
                     </select>
                     <button type="submit" class="my-button">{{ __('messages.change_language') }}</button>
                 </form>

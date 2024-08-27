@@ -95,16 +95,16 @@
             <table class="table-auto w-full border-collapse border border-gray-200">
                 <thead>
                     <tr class="bg-gray-100">
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Reference</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Status</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.reference') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.status') }}</th>
                         @can('site.pay')
-                            <th scope="col" class="border border-gray-200 px-4 py-2">Amount</th>
-                            <th scope="col" class="border border-gray-200 px-4 py-2">Expiration date</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.amount') }}</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.date_expiration') }}</th>
                         @endcan
                         @can('invoices.see_admins_users')
-                            <th scope="col" class="border border-gray-200 px-4 py-2">User</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.users') }}</th>
                         @endcan
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Actions</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody id="invoices">
@@ -138,7 +138,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ $columns }}" class="border border-gray-200 px-4 py-2 text-center">No invoices available</td>
+                            <td colspan="{{ $columns }}" class="border border-gray-200 px-4 py-2 text-center">{{ __('messages.no_invoices_available') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -150,16 +150,16 @@
                   <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                   </svg>
-                  <span class="sr-only">Info</span>
-                  <h3 class="text-lg font-medium">You have a session in progress</h3>
+                  <span class="sr-only">{{ __('messages.information') }}</span>
+                  <h3 class="text-lg font-medium">{{ __('messages.session_in_progress') }}</h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
                     <ul>
-                        <li>Pay's reference: {{ $pay->reference }}</li>
-                        <li>Pay's amount: {{ $pay->amount }}</li>
-                        <li>Pay's currency: {{ $pay->currency }}</li>
-                        <li>Pay's status: {{ $pay->status }}</li>
-                        <li>Pay's url session: {{ $pay->url_session }}</li>
+                        <li>{{ __('messages.pay_reference') }}: {{ $pay->reference }}</li>
+                        <li>{{ __('messages.pay_amount') }}: {{ $pay->amount }}</li>
+                        <li>{{ __('messages.pay_currency') }}: {{ $pay->currency }}</li>
+                        <li>{{ __('messages.pay_status') }}: {{ $pay->status }}</li>
+                        <li>{{ __('messages.pay_url_session') }}: {{ $pay->url_session }}</li>
                     </ul>
                 </div>
                 <div class="flex">
@@ -167,16 +167,15 @@
                     <svg class="me-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
                       <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
                     </svg>
-                    Go to session
+                    {{ __('messages.go_to_session') }}
                   <a href="{{ route('sites.lose_session', ['value' => $pay->id]) }}"  data-dismiss-target="#alert-additional-content-1" aria-label="Close">
-                    Lose session
+                    {{ __('messages.lose_session') }}
                   </button>
                 </div>
               </div>
             @endif
         @endif
         <br>
-    </div>
+        </div>
     @endsection
-
 </x-app-layout>
