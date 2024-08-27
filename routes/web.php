@@ -12,9 +12,11 @@ Route::get('/dashboard', function () {
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\LocalizationMiddleware;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
@@ -32,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{id}', [UserController::class, 'show'])->name('show.user');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', LocalizationMiddleware::class)->group(function () {
     Route::resource('sites', SiteController::class);
     Route::get('/sites/{site}/manage_config', [SiteController::class, 'maganage_sites_config_pay'])->name('sites.manage_config');
     Route::post('/add_field', [SiteController::class, 'add_field'])->name('sites.add_field');
@@ -56,5 +58,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {});
+
+Route::post('lang/', [LanguageController::class, 'setLocale'])->name('lang.switch');
 
 require __DIR__.'/auth.php';

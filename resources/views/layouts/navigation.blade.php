@@ -13,10 +13,20 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6 mt-3">
-                <form action="{{ route('profile.show') }}" method="POST" class="max-w-lg mx-auto mt-5">
+                <form method="post" action="{{ route('lang.switch')}}" class="max-w-lg mx-auto mt-5 ml-5">
+                    @csrf
+                    <select name="locale">
+                        <option value="" disabled selected><p>{{ __('messages.select_language') }}</p></option>
+                        <option value="es">{{ __('messages.spanish') }}</option>
+                        <option value="en">{{ __('messages.english') }}</option>
+                    </select>
+                    <button type="submit" class="my-button">{{ __('messages.change_language') }}</button>
+                </form>
+
+                <form action="{{ route('profile.show') }}" method="POST" class="max-w-lg mx-auto ml-5 mt-5">
                     @csrf
                     @method('GET')
-                    <button type="submit" class="my-button">My profile</i></button>
+                    <button type="submit" class="my-button">{{ __('messages.my_profile') }}</i></button>
                 </form>
 
                 <!-- Authentication -->
@@ -24,7 +34,7 @@
                     @csrf
 
                     <button type="submit" class="my-button" onclick="event.preventDefault();
-                                        this.closest('form').submit();">Log out</i></button>
+                                        this.closest('form').submit();">{{ __('messages.log_out') }}</i></button>
                 </form>
             </div>
         </div>

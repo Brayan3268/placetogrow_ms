@@ -1,17 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('View Site') }}
+            {{ __('messages.view_site') }}
         </h2>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Site</title>
+    <title>{{ __('messages.view_site') }}</title>
     </x-slot>
 
     @section('content')
     <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
-        <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">View Site</h1>
+        <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.site_information') }}</h1>
         <form action="{{ route('sites.edit', $site->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
             @csrf
             @method('GET')
@@ -21,12 +21,12 @@
                     <img src= {{ URL::asset($site->image) }} class="img-responsive" alt="Perfil de {{ $site->name }}"
                     height="200" width="200">
                 @else
-                    <p>Not added a image for this site</p>
+                    <p>{{ __('messages.not_logo') }}</p>
                 @endif
             </div>
 
             <div class="mb-6">
-                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.name') }}:</label>
                 <input type="text" id="name" name="name" value="{{ old('name', $site->name) }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('name') border-red-500 @enderror" requiered disabled>
                 @error('name')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -35,7 +35,7 @@
 
             @can('site.manage')
                 <div class="mb-6">
-                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Slug:</label>
+                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.slug') }}:</label>
                     <input type="text" id="slug" name="slug" value="{{ old('slug', $site->slug) }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('slug') border-red-500 @enderror" requiered disabled>
                     @error('slug')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="mb-6">
-                    <label for="expiration_time" class="block text-gray-700 text-sm font-bold mb-2">Expiration time in minutes:</label>
+                    <label for="expiration_time" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.expiration_time') }}:</label>
                     <input type="number" id="expiration_time" name="expiration_time" placeholder="Enter a expiration time greater than 10" value="{{ old('expiration_time', $site->expiration_time) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('expiration_time') border-red-500 @enderror" requiered disabled>
                     @error('expiration_time')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -52,14 +52,14 @@
             @endcan
 
             <div class="mb-6">
-                <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
+                <label for="category" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.category') }}:</label>
                 <select id="category" name="category" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('Category') border-red-500 @enderror" requiered disabled>
                     <option value="" disabled selected>{{ old('category', $site->category->name) }}</option>
                 </select>
             </div>
 
             <div class="mb-6">
-                <label for="currency" class="block text-gray-700 text-sm font-bold mb-2">Currency:</label>
+                <label for="currency" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.currency') }}:</label>
                 <select id="currency" name="currency" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('role') border-red-500 @enderror" requiered disabled>
                     <option value="" disabled selected>{{ old('category', $site->currency_type) }}</option>
                 </select>
@@ -67,7 +67,7 @@
 
             @can('site.manage')
                 <div class="mb-6">
-                    <label for="site_type" class="block text-gray-700 text-sm font-bold mb-2">Site type:</label>
+                    <label for="site_type" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.site_type') }}:</label>
                     <select id="site_type" name="site_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('role') border-red-500 @enderror" requiered disabled>
                         <option value="" disabled selected>{{ old('category', $site->site_type) }}</option>
                     </select>
@@ -95,16 +95,16 @@
             <table class="table-auto w-full border-collapse border border-gray-200">
                 <thead>
                     <tr class="bg-gray-100">
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Reference</th>
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Status</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.reference') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.status') }}</th>
                         @can('site.pay')
-                            <th scope="col" class="border border-gray-200 px-4 py-2">Amount</th>
-                            <th scope="col" class="border border-gray-200 px-4 py-2">Expiration date</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.amount') }}</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.date_expiration') }}</th>
                         @endcan
                         @can('invoices.see_admins_users')
-                            <th scope="col" class="border border-gray-200 px-4 py-2">User</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.users') }}</th>
                         @endcan
-                        <th scope="col" class="border border-gray-200 px-4 py-2">Actions</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody id="invoices">
@@ -138,7 +138,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ $columns }}" class="border border-gray-200 px-4 py-2 text-center">No invoices available</td>
+                            <td colspan="{{ $columns }}" class="border border-gray-200 px-4 py-2 text-center">{{ __('messages.no_invoices_available') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -150,16 +150,16 @@
                   <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                   </svg>
-                  <span class="sr-only">Info</span>
-                  <h3 class="text-lg font-medium">You have a session in progress</h3>
+                  <span class="sr-only">{{ __('messages.information') }}</span>
+                  <h3 class="text-lg font-medium">{{ __('messages.session_in_progress') }}</h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
                     <ul>
-                        <li>Pay's reference: {{ $pay->reference }}</li>
-                        <li>Pay's amount: {{ $pay->amount }}</li>
-                        <li>Pay's currency: {{ $pay->currency }}</li>
-                        <li>Pay's status: {{ $pay->status }}</li>
-                        <li>Pay's url session: {{ $pay->url_session }}</li>
+                        <li>{{ __('messages.pay_reference') }}: {{ $pay->reference }}</li>
+                        <li>{{ __('messages.pay_amount') }}: {{ $pay->amount }}</li>
+                        <li>{{ __('messages.pay_currency') }}: {{ $pay->currency }}</li>
+                        <li>{{ __('messages.pay_status') }}: {{ $pay->status }}</li>
+                        <li>{{ __('messages.pay_url_session') }}: {{ $pay->url_session }}</li>
                     </ul>
                 </div>
                 <div class="flex">
@@ -167,16 +167,15 @@
                     <svg class="me-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
                       <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
                     </svg>
-                    Go to session
+                    {{ __('messages.go_to_session') }}
                   <a href="{{ route('sites.lose_session', ['value' => $pay->id]) }}"  data-dismiss-target="#alert-additional-content-1" aria-label="Close">
-                    Lose session
+                    {{ __('messages.lose_session') }}
                   </button>
                 </div>
               </div>
             @endif
         @endif
         <br>
-    </div>
+        </div>
     @endsection
-
 </x-app-layout>
