@@ -297,7 +297,7 @@ class SiteController extends Controller
         return $this->show($site_id);
     }
 
-    public function import_invoices(Request $request, int $site_id): View
+    public function import_invoices(Request $request, string $site_id): View
     {
         $request->validate([
             'file' => 'required|file|mimes:xlsx',

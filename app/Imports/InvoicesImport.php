@@ -11,7 +11,7 @@ class InvoicesImport implements ToArray, WithHeadingRow
 {
     protected $site_id;
 
-    protected $invoices = [];
+    protected $processedInvoices = [];
 
     public function __construct($site_id)
     {
@@ -32,10 +32,10 @@ class InvoicesImport implements ToArray, WithHeadingRow
 
             //dd($invoiceData['date_expiration']->format('d/m/Y'));
 
-            $processedInvoices[] = $invoiceData;
+            $this->processedInvoices[] = $invoiceData;
         }
 
-        InvoicePll::save_invoices_imported($processedInvoices, $this->site_id);
+        InvoicePll::save_invoices_imported($this->processedInvoices, $this->site_id);
 
     }
 
