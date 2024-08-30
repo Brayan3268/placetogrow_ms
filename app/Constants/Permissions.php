@@ -105,6 +105,7 @@ class Permissions
             self::INVOICES_SHOW,
             self::INVOICES_SEE_ADMINS_USERS,
             self::INVOICES_INFO_SHOW,
+            self::SITES_PAY,
         ];
     }
 
@@ -137,6 +138,7 @@ class Permissions
             self::INVOICES_SHOW,
             self::INVOICES_SEE_ADMINS_USERS,
             self::INVOICES_INFO_SHOW,
+            self::SITES_PAY,
         ];
     }
 

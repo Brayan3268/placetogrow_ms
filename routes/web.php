@@ -45,6 +45,7 @@ Route::middleware('auth', LocalizationMiddleware::class)->group(function () {
 
     Route::get('/finish_session/{value}', [SiteController::class, 'finish_session'])->name('sites.finish_session');
     Route::get('/lose_session/{value}', [SiteController::class, 'lose_session'])->name('sites.lose_session');
+    Route::post('/sites/import_invoices/{value}', [SiteController::class, 'import_invoices'])->name('sites.import_invoices');
 });
 
 Route::middleware('auth')->group(function () {

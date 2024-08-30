@@ -10,7 +10,7 @@ class FieldpaysitePll extends PersistantLowLevel
 {
     public static function save_default_fields(int $site_id, string $site_type)
     {
-        $fieldpaysite = new Fieldspaysite();
+        $fieldpaysite = new Fieldspaysite;
 
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
@@ -23,7 +23,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->save();
 
         if ($site_type == 'CLOSED') {
-            $fieldpaysite = new Fieldspaysite();
+            $fieldpaysite = new Fieldspaysite;
 
             $fieldpaysite->name = 'currency';
             $fieldpaysite->name_user_see = 'Currency for pay';
@@ -36,7 +36,7 @@ class FieldpaysitePll extends PersistantLowLevel
             $fieldpaysite->save();
         }
 
-        $fieldpaysite = new Fieldspaysite();
+        $fieldpaysite = new Fieldspaysite;
 
         $fieldpaysite->name = 'total';
         $fieldpaysite->name_user_see = 'Amount to pay';
@@ -58,7 +58,7 @@ class FieldpaysitePll extends PersistantLowLevel
 
     public static function add_field_site(Request $request)
     {
-        $fieldpaysite = new Fieldspaysite();
+        $fieldpaysite = new Fieldspaysite;
 
         $fieldpaysite->name = $request->name_field;
         $fieldpaysite->name_user_see = $request->name_field_user_see;

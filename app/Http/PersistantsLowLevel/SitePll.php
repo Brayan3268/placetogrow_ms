@@ -56,7 +56,7 @@ class SitePll extends PersistantLowLevel
     {
 
         dump($request);
-        $site = new Site();
+        $site = new Site;
 
         $site->slug = $request->slug;
         $site->name = $request->name;

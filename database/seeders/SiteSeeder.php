@@ -9,7 +9,7 @@ class SiteSeeder extends Seeder
 {
     public function run(): void
     {
-        $site = new Site();
+        $site = new Site;
 
         $site->slug = 'Motos_la_45';
         $site->name = 'Yamaha la 45';
@@ -19,7 +19,7 @@ class SiteSeeder extends Seeder
         $site->site_type = 'OPEN';
         $site->save();
 
-        $site = new Site();
+        $site = new Site;
 
         $site->slug = 'Ropa_la_45';
         $site->name = 'Euphoria';
@@ -29,7 +29,7 @@ class SiteSeeder extends Seeder
         $site->site_type = 'CLOSE';
         $site->save();
 
-        $site = new Site();
+        $site = new Site;
 
         $site->slug = 'Computadores_la_45';
         $site->name = "Lenovo pc's";

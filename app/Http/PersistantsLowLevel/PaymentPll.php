@@ -75,7 +75,7 @@ class PaymentPll extends PersistantLowLevel
     {
         $user_id = Auth::user()->id;
 
-        $payment = new Payment();
+        $payment = new Payment;
         $payment->reference = (is_null($request->reference)) ? date('ymdHis').'-'.strtoupper(Str::random(4)) : $request->reference;
         $payment->locale = $request->locale;
         $payment->amount = $request->total;
