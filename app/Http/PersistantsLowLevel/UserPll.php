@@ -57,7 +57,7 @@ class UserPll extends PersistantLowLevel
 
     public static function save_user(StoreUserRequest $request)
     {
-        $user = new User();
+        $user = new User;
         $user->name = $request->name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;

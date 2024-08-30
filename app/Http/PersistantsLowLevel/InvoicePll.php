@@ -129,7 +129,7 @@ class InvoicePll extends PersistantLowLevel
 
     public static function save_invoice(StoreInvoiceRequest $request)
     {
-        $invoice = new Invoice();
+        $invoice = new Invoice;
         $invoice->reference = $request->reference;
         $invoice->amount = $request->amount;
         $invoice->currency = $request->currency;
@@ -144,12 +144,12 @@ class InvoicePll extends PersistantLowLevel
         Cache::flush();
     }
 
-    public static function save_invoices_imported(Array $invoices, int $site_id)
+    public static function save_invoices_imported(array $invoices, int $site_id)
     {
         foreach ($invoices as $invoice_file) {
             $user = User::where('document', $invoice_file['user_id'])->first();
-            #dd($user->id);
-            $invoice = new Invoice();
+            //dd($user->id);
+            $invoice = new Invoice;
             $invoice->reference = $invoice_file['reference'];
             $invoice->amount = $invoice_file['amount'];
             $invoice->currency = $invoice_file['currency'];

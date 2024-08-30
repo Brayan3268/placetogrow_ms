@@ -23,7 +23,7 @@ class ImageTest extends TestCase
         $this->assertFile($image);*/
 
         // Crear una nueva instancia de Image
-        $image = new Image();
+        $image = new Image;
 
         // Obtener los atributos fillable del modelo
         $fillable = $image->getFillable();
