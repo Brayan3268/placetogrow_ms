@@ -17,7 +17,7 @@ return [
     'microsites_donations' => 'Micrositios de donaciones',
     'microsites_invoices' => 'Micrositios de facturas',
     'microsites_suscription' => 'Micrositios de suscripciones',
-    'categories' => 'Categorias',
+    'categories' => 'Categorías',
     'search_by_slug' => 'Buscar por nombre único',
     'create_site' => 'Crear sitio',
     'select_category' => 'Selecciona una categoria',

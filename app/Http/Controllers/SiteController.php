@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\InvoicesImport;
+
 class SiteController extends Controller
 {
     use AuthorizesRequests;
@@ -102,7 +105,7 @@ class SiteController extends Controller
 
         if ($site->site_type == 'CLOSE') {
             $user = UserPll::get_specific_user(Auth::user()->id);
-            $invoices = ($user->hasPermissionTo(Permissions::SITES_PAY)) ?
+            $invoices = ($user->hasPermissionTo(Permissions::SITES_PAY) && $user->hasPermissionTo(Permissions::SITES_MANAGE)) ?
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
         }
@@ -291,6 +294,19 @@ class SiteController extends Controller
         $this->authorize('form_sites_pay', Site::class);
 
         $site_id = PaymentPll::lose_session($payment_id);
+
+        return $this->show($site_id);
+    }
+
+    public function import_invoices(Request $request, int $site_id): View
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx',
+        ]);
+
+        $import = new InvoicesImport($site_id);
+
+        Excel::import($import, $request->file('file'));
 
         return $this->show($site_id);
     }

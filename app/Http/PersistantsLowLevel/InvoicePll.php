@@ -6,6 +6,7 @@ use App\Constants\InvoiceStatus;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -139,6 +140,27 @@ class InvoicePll extends PersistantLowLevel
         $invoice->date_expiration = $request->date_expiration;
         $invoice->payment_id = $request->payment_id;
         $invoice->save();
+
+        Cache::flush();
+    }
+
+    public static function save_invoices_imported(Array $invoices, int $site_id)
+    {
+        foreach ($invoices as $invoice_file) {
+            $user = User::where('document', $invoice_file['user_id'])->first();
+            #dd($user->id);
+            $invoice = new Invoice();
+            $invoice->reference = $invoice_file['reference'];
+            $invoice->amount = $invoice_file['amount'];
+            $invoice->currency = $invoice_file['currency'];
+            $invoice->status = 'not_payed';
+            $invoice->site()->associate($site_id);
+            $invoice->user()->associate($user->id);
+            $invoice->date_created = $invoice_file['date_created'];
+            $invoice->date_expiration = $invoice_file['date_expiration'];
+
+            $invoice->save();
+        }
 
         Cache::flush();
     }

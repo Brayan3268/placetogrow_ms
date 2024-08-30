@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Imports;
+
+use App\Http\PersistantsLowLevel\InvoicePll;
+use Maatwebsite\Excel\Concerns\ToArray;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Carbon\Carbon;
+
+class InvoicesImport implements ToArray, WithHeadingRow
+{
+    protected $site_id;
+
+    protected $invoices = [];
+
+    public function __construct($site_id)
+    {
+        $this->site_id = $site_id;
+    }
+
+    public function array(array $array)
+    {
+        foreach ($array as $row) {
+            $invoiceData = [
+                'reference' => $row['reference'],
+                'amount' => $row['amount'],
+                'currency' => $row['currency'],
+                'user_id' => $row['user_id'],
+                'date_created' => $this->convertToDate($row['date_created']),
+                'date_expiration' => $this->convertToDate($row['date_expiration']),
+            ];
+
+            #dd($invoiceData['date_expiration']->format('d/m/Y'));
+
+            $processedInvoices[] = $invoiceData;
+        }
+
+        InvoicePll::save_invoices_imported($processedInvoices, $this->site_id);
+
+    }
+
+    private function convertToDate($dateValue)
+    {
+        if (is_numeric($dateValue)) {
+            return Carbon::createFromFormat('Y-m-d', gmdate('Y-m-d', ($dateValue - 25569) * 86400));
+        } elseif (is_string($dateValue)) {
+            return Carbon::parse($dateValue);
+        } else {
+            return null;
+        }
+    }
+}
