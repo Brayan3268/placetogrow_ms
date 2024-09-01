@@ -29,7 +29,7 @@ class InvoicePolicy
 
     public function update(User $user): bool
     {
-        return $user->hasPermissionTo(Permissions::SITES_STORE);
+        return $user->hasPermissionTo(Permissions::INVOICES_STORE);
     }
 
     public function delete(User $user): bool

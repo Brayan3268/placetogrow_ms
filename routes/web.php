@@ -15,7 +15,9 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\SuscriptionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersuscriptionController;
 use App\Http\Middleware\LocalizationMiddleware;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
@@ -56,6 +58,14 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('invoices', InvoiceController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('suscriptions', SuscriptionController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('user_suscriptions', UsersuscriptionController::class);
 });
 
 Route::middleware('auth')->group(function () {});

@@ -135,6 +135,25 @@ return [
     'password_message' => 'Si dejas el campo vacio la contraseña no cambiará',
     'update_user' => 'Actualizar usuario',
     'view_user' => 'Ver usuario',
+
+    //Suscription
+    'suscription' => 'Suscripciones',
+    'create_suscription' => 'Crear plan',
+    'all_suscriptions' => 'Planes disponibles',
+    'search_by_slug_site' => 'Buscar por nombre único del sitio',
+    'slug_site' => 'Nombre único del sitio',
+    'amount_suscription' => 'Valor del plan',
+    'expiration_plan' => 'Duración plan',
+    'days' => 'Días',
+    'my_plans' => 'Mis planes',
+    'plan_name' => 'Nombre',
+    'search_by_name_suscription' => 'Buscar por nombre del plan',
+    'search_by_plan_time' => 'Buscar por duración del plan',
+    'users_plans' => 'Suscripciones de los usuarios',
+    'expiration_plan_days' => 'Duración del plan en días',
+    'hint_expiration_plan' => 'Digita un tiempo de expiración mayor a 7 (una semana)',
+    'frecuency_collection' => 'Frecuencia de cobro',
+    'select_frecuency_collection' => 'Selecciona una frecuencia de cobro',
 ];
 
 /*
