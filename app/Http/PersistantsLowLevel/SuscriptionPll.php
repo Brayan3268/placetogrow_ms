@@ -3,9 +3,7 @@
 namespace App\Http\PersistantsLowLevel;
 
 use App\Http\Requests\StoreSuscriptionRequest;
-use App\Http\Requests\StoreUserRequest;
 use App\Models\Suscription;
-use App\Models\UserSuscription;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +27,7 @@ class SuscriptionPll extends PersistantLowLevel
 
     public static function save_suscription(StoreSuscriptionRequest $request)
     {
-        $suscription = new Suscription();
+        $suscription = new Suscription;
         $suscription->name = $request->name;
         $suscription->description = $request->description;
         $suscription->amount = $request->amount;

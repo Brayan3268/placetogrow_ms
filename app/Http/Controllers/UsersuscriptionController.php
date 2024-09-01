@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usersuscription;
 use App\Http\Requests\StoreUsersuscriptionRequest;
 use App\Http\Requests\UpdateUsersuscriptionRequest;
+use App\Models\Usersuscription;
 
 class UsersuscriptionController extends Controller
 {

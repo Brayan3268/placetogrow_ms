@@ -7,22 +7,21 @@ use App\Http\PersistantsLowLevel\SitePll;
 use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
-use App\Models\Suscription;
 use App\Http\Requests\StoreSuscriptionRequest;
 use App\Http\Requests\UpdateSuscriptionRequest;
+use App\Models\Suscription;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class SuscriptionController extends Controller
 {
-
     use AuthorizesRequests;
 
     public function index(): View
     {
         $this->authorize('viewAny', Suscription::class);
-        
+
         $user_suscriptions = [];
 
         $suscriptions = SuscriptionPll::get_all_suscription();
@@ -33,12 +32,12 @@ class SuscriptionController extends Controller
 
             foreach ($user_suscriptions as $plan) {
                 foreach ($suscriptions as $key => $value) {
-                    if($plan->id == $value->id){
+                    if ($plan->id == $value->id) {
                         unset($suscriptions[$key]);
                     }
                 }
             }
-        }else{
+        } else {
             $user_suscriptions = UserSuscriptionPll::get_all_user_suscriptions();
         }
 
