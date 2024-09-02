@@ -240,7 +240,11 @@
                                             <a href="{{ route('user_suscriptions.store', $suscription_plan->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fa-solid fa-circle-plus"></i></a>
                                         @endcan
                                         @can('suscription.destroy')
-                                            <a href="{{ route('suscriptions.destroy', $suscription_plan->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-trash"></i></a>
+                                            <form action="{{ route('suscriptions.destroy', $suscription_plan->id) }}" method="POST" class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-trash"></i></button>
+                                            </form>
                                         @endcan
                                     </div>
                                 </div>
