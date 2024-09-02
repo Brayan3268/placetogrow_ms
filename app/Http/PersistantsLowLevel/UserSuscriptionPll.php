@@ -2,7 +2,7 @@
 
 namespace App\Http\PersistantsLowLevel;
 
-use App\Models\UserSuscription;
+use App\Models\Usersuscription;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +12,7 @@ class UserSuscriptionPll extends PersistantLowLevel
     {
         $user_suscription = Cache::get('usersuscription.index');
         if (is_null($user_suscription)) {
-            $user_suscription = UserSuscription::with('user', 'suscription')
+            $user_suscription = Usersuscription::with('user', 'suscription')
                 ->get();
 
             Cache::put('usersuscription.index', $user_suscription);
@@ -25,7 +25,7 @@ class UserSuscriptionPll extends PersistantLowLevel
     {
         $user_suscription = Cache::get('usersuscription.index');
         if (is_null($user_suscription)) {
-            $user_suscription = UserSuscription::with('user', 'suscription')
+            $user_suscription = Usersuscription::with('user', 'suscription')
                 ->where('user_id', $user_id)
                 ->get();
 

@@ -38,7 +38,7 @@ class User extends Authenticatable //implements MustVerifyEmail
 
     public function usersuscription()
     {
-        return $this->hasMany(UserSuscription::class);
+        return $this->hasMany(Usersuscription::class);
     }
 
     protected function casts(): array

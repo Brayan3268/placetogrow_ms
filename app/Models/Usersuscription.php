@@ -10,18 +10,14 @@ class Usersuscription extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = ['plan_name', 'site_id'];
+    protected $primaryKey = 'id';
 
     public $incrementing = false;
 
-    protected $keyType = 'string';
+    protected $keyType = 'array';
 
     protected $fillable = [
-        'name',
-        'last_name',
-        'document_type',
-        'document',
-        'email',
+        'reference',
         'suscription_id',
         'user_id',
     ];

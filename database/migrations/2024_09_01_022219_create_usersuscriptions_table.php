@@ -12,7 +12,7 @@ return new class extends Migration
             $table->string('reference', 100);
             $table->foreignId('user_id')->constrained();
             $table->primary(['reference', 'user_id']);
-            $table->foreignId('suscription_id')->constrained();
+            $table->foreignId('suscription_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

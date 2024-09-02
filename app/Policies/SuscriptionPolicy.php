@@ -12,6 +12,11 @@ class SuscriptionPolicy
         return $user->hasPermissionTo(Permissions::SUSCRIPTION_INDEX);
     }
 
+    public function view(User $user): bool
+    {
+        return $user->hasPermissionTo(Permissions::SUSCRIPTION_SHOW);
+    }
+
     public function create(User $user): bool
     {
         return $user->hasPermissionTo(Permissions::SUSCRIPTION_CREATE);
@@ -20,5 +25,15 @@ class SuscriptionPolicy
     public function update(User $user): bool
     {
         return $user->hasPermissionTo(Permissions::SUSCRIPTION_STORE);
+    }
+
+    public function delete(User $user): bool
+    {
+        return $user->hasPermissionTo(Permissions::SUSCRIPTION_DESTROY);
+    }
+
+    public function edit(User $user): bool
+    {
+        return $user->hasPermissionTo(Permissions::SUSCRIPTION_EDIT);
     }
 }

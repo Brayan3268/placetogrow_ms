@@ -9,7 +9,9 @@ use App\Http\PersistantsLowLevel\FieldpaysitePll;
 use App\Http\PersistantsLowLevel\InvoicePll;
 use App\Http\PersistantsLowLevel\PaymentPll;
 use App\Http\PersistantsLowLevel\SitePll;
+use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Http\PersistantsLowLevel\UserPll;
+use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StoreFieldRequest;
 use App\Imports\InvoicesImport;
 use App\Models\Site;
@@ -99,20 +101,37 @@ class SiteController extends Controller
         }
 
         $invoices = collect();
-        $invoices = collect();
         $site = SitePll::get_specific_site($id);
+        $user = UserPll::get_specific_user(Auth::user()->id);
 
         if ($site->site_type == 'CLOSE') {
-            $user = UserPll::get_specific_user(Auth::user()->id);
             $invoices = ($user->hasPermissionTo(Permissions::SITES_PAY) && $user->hasPermissionTo(Permissions::SITES_MANAGE)) ?
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
         }
 
+        $suscription_plans = collect();
+        $user_plans_get_suscribe = [];
+        if ($site->site_type == 'SUSCRIPTION') {
+            $suscription_plans = SuscriptionPll::get_site_suscription(intval($id));
+
+            if ($user->hasPermissionTo(Permissions::USER_GET_SUSCRIPTION)) {
+                $user_plans = UserSuscriptionPll::get_specific_user_suscriptions($user->id);
+                foreach ($user_plans as $key => $value) {
+                    foreach ($suscription_plans as $key_all => $value_all) {
+                        if ($value->suscription_id == $value_all->id) {
+                            array_push($user_plans_get_suscribe, $value_all);
+                            unset($suscription_plans[$key_all]);
+                        }
+                    }
+                }
+            }
+        }
+
         try {
-            return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay'));
+            return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay', 'suscription_plans', 'user_plans_get_suscribe'));
         } catch (Exception $e) {
-            return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay'));
+            return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay', 'suscription_plans', 'user_plans_get_suscribe'));
         }
     }
 

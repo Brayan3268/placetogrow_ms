@@ -8,9 +8,9 @@ use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StoreSuscriptionRequest;
-use App\Http\Requests\UpdateSuscriptionRequest;
 use App\Models\Suscription;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -69,22 +69,47 @@ class SuscriptionController extends Controller
 
     public function show(Suscription $suscription)
     {
-        //
+        $this->authorize('view', Suscription::class);
+
+        $suscription = SuscriptionPll::get_especific_suscription($suscription->id);
+
+        return view('suscriptions.show', compact('suscription'));
     }
 
     public function edit(Suscription $suscription)
     {
-        //
+        $this->authorize('edit', Suscription::class);
+
+        $suscription = SuscriptionPll::get_especific_suscription(intval($suscription->id));
+
+        $datos = $this->get_enums();
+        $currency_type = $datos['currency_type'];
+        $frecuency_collection = $datos['frecuency_collection'];
+        $sites = SitePll::get_sites_suscription();
+
+        return view('suscriptions.edit', compact('suscription', 'currency_type', 'frecuency_collection', 'sites'));
     }
 
-    public function update(UpdateSuscriptionRequest $request, Suscription $suscription)
+    public function update(Request $request, Suscription $suscription)
     {
-        //
+        $this->authorize('update', Suscription::class);
+
+        SuscriptionPll::update_suscription($request, $suscription);
+
+        return redirect()->route('suscriptions.index')
+            ->with('status', 'Suscription updated successfully')
+            ->with('class', 'bg-green-500');
     }
 
     public function destroy(Suscription $suscription)
     {
-        //
+        $this->authorize('delete', Suscription::class);
+
+        SuscriptionPll::delete_suscription($suscription);
+
+        return redirect()->route('suscriptions.index')
+            ->with('status', 'Suscription deleted successfully')
+            ->with('class', 'bg-green-500');
     }
 
     public function get_enums(): array

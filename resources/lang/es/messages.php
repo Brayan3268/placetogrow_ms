@@ -154,6 +154,12 @@ return [
     'hint_expiration_plan' => 'Digita un tiempo de expiración mayor a 7 (una semana)',
     'frecuency_collection' => 'Frecuencia de cobro',
     'select_frecuency_collection' => 'Selecciona una frecuencia de cobro',
+    'view_suscription' => 'Ver plan',
+    'edit_suscription' => 'Editar plan',
+
+    'all_plans' => 'Todos los planes',
+    'plans_can_get' => 'Planes que puedo adquirir',
+
 ];
 
 /*

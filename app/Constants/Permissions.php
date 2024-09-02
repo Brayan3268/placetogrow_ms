@@ -185,6 +185,7 @@ class Permissions
             self::INVOICES_SHOW,
             self::INVOICES_PAY,
             self::SUSCRIPTION_INDEX,
+            self::SUSCRIPTION_SHOW,
             self::SUSCRIPTIONS_SPECIFIC_USER,
             self::USER_GET_SUSCRIPTION,
         ];

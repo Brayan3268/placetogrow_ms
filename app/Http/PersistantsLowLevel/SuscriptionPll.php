@@ -4,6 +4,7 @@ namespace App\Http\PersistantsLowLevel;
 
 use App\Http\Requests\StoreSuscriptionRequest;
 use App\Models\Suscription;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +39,45 @@ class SuscriptionPll extends PersistantLowLevel
         $suscription->save();
 
         Cache::flush();
+    }
+
+    public static function update_suscription(Request $request, Suscription $suscription)
+    {
+        $suscription->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'amount' => $request->amount,
+            'currency_type' => $request->currency,
+            'expiration_time' => $request->expiration_time,
+            'frecuency_collection' => $request->frecuency_collection,
+            'site_id' => $request->site_id,
+        ]);
+
+        Cache::flush();
+    }
+
+    public static function delete_suscription(Suscription $suscription)
+    {
+        $suscription->delete();
+
+        Cache::flush();
+    }
+
+    public static function get_site_suscription(int $site_id)
+    {
+        $suscriptions = Cache::get('suscription.site');
+        if (is_null($suscriptions)) {
+            $suscriptions = Suscription::where('site_id', $site_id)
+                ->get();
+            Cache::put('suscription.site', $suscriptions);
+        }
+
+        return $suscriptions;
+    }
+
+    public static function get_especific_suscription(int $id)
+    {
+        return Suscription::find($id);
     }
 
     public static function get_cache(string $name)

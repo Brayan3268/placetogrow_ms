@@ -23,33 +23,21 @@ class UsersuscriptionController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Usersuscription $usersuscription)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Usersuscription $usersuscription)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateUsersuscriptionRequest $request, Usersuscription $usersuscription)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Usersuscription $usersuscription)
     {
         //

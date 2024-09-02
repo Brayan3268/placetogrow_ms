@@ -1,76 +1,60 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('messages.view_user') }}
+            {{ __('messages.view_suscription') }}
         </h2>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('messages.view_user') }}</title>
+    <title>{{ __('messages.view_suscription') }}</title>
     </x-slot>
 
     @section('content')
     <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
-        <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.view_user') }}</h1>
-        <form action="{{ route('users.edit', $user->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
+        <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.view_suscription') }}</h1>
+        <form action="{{ route('suscriptions.edit', $suscription->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
             @csrf
             @method('GET')
 
             <div class="mb-4">
+                <label for="site_id" class="block text-sm font-bold mb-2">{{ __('messages.site') }}:</label>
+                <select id="site_id" name="site_id" class="form-select block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('site_id') border-red-500 @enderror" disabled>
+                    <option value="" disabled selected>{{ old('site_id', $suscription->site->slug) }}</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
                 <label for="name" class="block text-sm font-bold mb-2">{{ __('messages.name') }}:</label>
-                <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('name') border-red-500 @enderror" required disabled>
-                @error('name')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-4">
-                <label for="last_name" class="block text-sm font-bold mb-2">{{ __('messages.last_name') }}:</label>
-                <input type="text" id="last_name" name="last_name" value="{{ old('last_name', $user->last_name) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('last_name') border-red-500 @enderror" required disabled>
-                @error('last_name')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-bold mb-2">{{ __('messages.email') }}:</label>
-                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('email') border-red-500 @enderror" required disabled>
-                @error('email')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
+                <input type="text" id="name" name="name" value="{{ old('name', $suscription->name) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('name') border-red-500 @enderror" disabled>
             </div>
 
             <div class="mb-6">
-                <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.phone') }}:</label>
-                <input type="number" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('phone') border-red-500 @enderror" requiered disabled>
-                @error('phone')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
+                <label for="description" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.description') }}:</label>
+                <textarea id="description" name="description" value="{{ old('description') }}" rows="4" cols="50" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('description') border-red-500 @enderror" disabled>{{ $suscription->description }} </textarea>
             </div>
 
             <div class="mb-6">
-                <label for="document" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.document') }}:</label>
-                <input type="number" id="document" name="document" value="{{ old('document', $user->document) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document') border-red-500 @enderror" requiered disabled>
-                @error('document')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label for="document_type" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.document_type') }}:</label>
-                <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" requiered disabled>
-                    <option value="" disabled selected>{{ old('document_type', $user->document_type) }}</option>
+                <label for="currency" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.currency') }}:</label>
+                <select id="currency" name="currency" class="form-select block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('currency') border-red-500 @enderror" disabled>
+                    <option value="" disabled selected>{{ old('currency', $suscription->currency_type) }}</option>
                 </select>
             </div>
 
             <div class="mb-4">
-                <label for="role" class="block text-sm font-bold mb-2">{{ __('messages.role') }}:</label>
-                <select id="role" name="role" class="form-select block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('role') border-red-500 @enderror" required disabled>
-                    <option value="" disabled selected>{{ old('role', $role_name[0]) }}</option>
+                <label for="amount" class="block text-sm font-bold mb-2">{{ __('messages.amount') }}:</label>
+                <input type="text" id="amount" name="amount" value="{{ old('amount', $suscription->amount) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('amount') border-red-500 @enderror" disabled>
+            </div>
+
+            <div class="mb-6">
+                <label for="expiration_time" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.expiration_plan_days') }}:</label>
+                <input type="number" id="expiration_time" name="expiration_time" value="{{ old('expiration_time', $suscription->expiration_time) }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('expiration_time') border-red-500 @enderror" disabled>
+            </div>
+
+            <div class="mb-6">
+                <label for="frecuency_collection" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.frecuency_collection') }}:</label>
+                <select id="frecuency_collection" name="frecuency_collection" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('frecuency_collection') border-red-500 @enderror" disabled>
+                    <option value="" disabled selected>{{ old('site_id', $suscription->frecuency_collection) }}</option>
                 </select>
-                @error('role')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
             </div>
 
             <button type="submit" class="my-button"><i class="fas fa-edit"></i></button>

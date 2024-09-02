@@ -27,6 +27,6 @@ class Suscription extends Model
 
     public function usersuscription()
     {
-        return $this->hasMany(UserSuscription::class);
+        return $this->hasMany(Usersuscription::class);
     }
 }

@@ -152,4 +152,8 @@ return [
     'hint_expiration_plan' => 'Enter a expiration time greater than 7 (a week)',
     'frecuency_collection' => 'Frecuency collection',
     'select_frecuency_collection' => 'Select a frecuency collection',
+    'view_suscription' => 'View plan',
+    'edit_suscription' => 'Editar plan',
+    'all_plans' => 'All plans',
+    'plans_can_get' => 'Plans can get',
 ];
