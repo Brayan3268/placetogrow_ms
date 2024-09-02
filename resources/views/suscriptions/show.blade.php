@@ -56,8 +56,9 @@
                     <option value="" disabled selected>{{ old('site_id', $suscription->frecuency_collection) }}</option>
                 </select>
             </div>
-
-            <button type="submit" class="my-button"><i class="fas fa-edit"></i></button>
+            @can('suscription.edit')
+                <button type="submit" class="my-button"><i class="fas fa-edit"></i></button>
+            @endcan
         </form>
     </div>
     @endsection
