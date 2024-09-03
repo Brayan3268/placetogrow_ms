@@ -237,7 +237,14 @@
                                     <div class="border-t border-gray-900 my-4"></div>
                                     <div class="card-footer">
                                         @can('suscriptions.user_get_suscription')
-                                            <a href="{{ route('user_suscriptions.store', $suscription_plan->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fa-solid fa-circle-plus"></i></a>
+                                            <form action="{{ route('user_suscriptions.store', $suscription_plan->id) }}" method="POST" class="text-orange-600 hover:purple-yellow-800 mr-2" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('POST')
+                                                <input type="hidden" name="suscription_id" value="{{ $suscription_plan->id }}" />
+                                                <button type="submit" class="text-orange-600 hover:purple-yellow-800 mr-2">
+                                                    <i class="fa-solid fa-circle-plus"></i>
+                                                </button>
+                                            </form>    
                                         @endcan
                                         @can('suscription.destroy')
                                             <form action="{{ route('suscriptions.destroy', $suscription_plan->id) }}" method="POST" class="inline-block">
@@ -261,12 +268,12 @@
                         <div class="flex flex-wrap gap-2">
                             @foreach ($user_plans_get_suscribe as $user_plan_get_suscribe)
                                 @php
-                                    $items = explode('.', $user_plan_get_suscribe->description);
+                                    $items = explode('.', $user_plan_get_suscribe->suscription->description);
                                 @endphp
                                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>{{ $user_plan_get_suscribe->name }}</h5>
+                                            <h5>{{ $user_plan_get_suscribe->suscription->name }}</h5>
                                         </div>
                                         <div class="card-body">
                                             <ul class="list-group">
@@ -278,7 +285,11 @@
                                         <div class="border-t border-gray-900 my-4"></div>
                                         <div class="card-footer">
                                             @can('suscriptions.user_get_suscription')
-                                                <a href="{{ route('user_suscriptions.destroy', $user_plan_get_suscribe->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fa-solid fa-circle-minus"></i></a>
+                                                <form action="{{ route('user_suscriptions.destroy', ['reference' => $user_plan_get_suscribe->reference, 'user_id' => $user_plan_get_suscribe->user_id]) }}" method="POST" class="inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-orange-500 hover:text-purple-800"><i class="fa-solid fa-circle-minus"></i></button>
+                                                </form>
                                             @endcan
                                         </div>
                                     </div>

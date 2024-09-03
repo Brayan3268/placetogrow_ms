@@ -120,7 +120,7 @@ class SiteController extends Controller
                 foreach ($user_plans as $key => $value) {
                     foreach ($suscription_plans as $key_all => $value_all) {
                         if ($value->suscription_id == $value_all->id) {
-                            array_push($user_plans_get_suscribe, $value_all);
+                            array_push($user_plans_get_suscribe, $value);
                             unset($suscription_plans[$key_all]);
                         }
                     }
