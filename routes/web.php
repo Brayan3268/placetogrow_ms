@@ -15,7 +15,9 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\SuscriptionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersuscriptionController;
 use App\Http\Middleware\LocalizationMiddleware;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
@@ -34,18 +36,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{id}', [UserController::class, 'show'])->name('show.user');
 });
 
-Route::middleware('auth', LocalizationMiddleware::class)->group(function () {
-    Route::resource('sites', SiteController::class);
-    Route::get('/sites/{site}/manage_config', [SiteController::class, 'maganage_sites_config_pay'])->name('sites.manage_config');
-    Route::post('/add_field', [SiteController::class, 'add_field'])->name('sites.add_field');
-    Route::delete('/field_destroy/{id}', [SiteController::class, 'field_destroy'])->name('sites.field_destroy');
-    Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
-    Route::get('/sites/{site}/form_site_invoices', [SiteController::class, 'form_site_invoices'])->name('sites.form_site_invoices');
-    Route::get('/sites/{id}', [SiteController::class, 'show'])->name('show.site');
+Route::middleware(LocalizationMiddleware::class)->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::resource('sites', SiteController::class);
+        Route::get('/sites/{site}/manage_config', [SiteController::class, 'maganage_sites_config_pay'])->name('sites.manage_config');
+        Route::post('/add_field', [SiteController::class, 'add_field'])->name('sites.add_field');
+        Route::delete('/field_destroy/{id}', [SiteController::class, 'field_destroy'])->name('sites.field_destroy');
+        Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
+        Route::get('/sites/{site}/form_site_invoices', [SiteController::class, 'form_site_invoices'])->name('sites.form_site_invoices');
+        Route::get('/sites/{id}', [SiteController::class, 'show'])->name('show.site');
 
-    Route::get('/finish_session/{value}', [SiteController::class, 'finish_session'])->name('sites.finish_session');
-    Route::get('/lose_session/{value}', [SiteController::class, 'lose_session'])->name('sites.lose_session');
-    Route::post('/sites/import_invoices/{value}', [SiteController::class, 'import_invoices'])->name('sites.import_invoices');
+        Route::get('/finish_session/{value}', [SiteController::class, 'finish_session'])->name('sites.finish_session');
+        Route::get('/lose_session/{value}', [SiteController::class, 'lose_session'])->name('sites.lose_session');
+        Route::post('/sites/import_invoices/{value}', [SiteController::class, 'import_invoices'])->name('sites.import_invoices');
+    });
 });
 
 Route::middleware('auth')->group(function () {
@@ -56,6 +60,15 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('invoices', InvoiceController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('suscriptions', SuscriptionController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('user_suscriptions', UsersuscriptionController::class);
+    Route::delete('/user_suscriptions/{reference}/{user_id}', [UsersuscriptionController::class, 'destroy'])->name('user_suscriptions.destroy');
 });
 
 Route::middleware('auth')->group(function () {});

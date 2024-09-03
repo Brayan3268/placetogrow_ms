@@ -70,6 +70,26 @@ class Permissions
 
     public const INVOICES_INFO_SHOW = 'invoices_info.show';
 
+    public const SUSCRIPTION_INDEX = 'suscription.index';
+
+    public const SUSCRIPTION_STORE = 'suscription.store';
+
+    public const SUSCRIPTION_CREATE = 'suscription.create';
+
+    public const SUSCRIPTION_DESTROY = 'suscription.destroy';
+
+    public const SUSCRIPTION_EDIT = 'suscription.edit';
+
+    public const SUSCRIPTION_SHOW = 'suscription.show';
+
+    public const SUSCRIPTION_MANAGE = 'suscription.manage';
+
+    public const SUSCRIPTIONS_SPECIFIC_USER = 'suscriptions_users.index';
+
+    public const USER_GET_SUSCRIPTION = 'suscriptions.user_get_suscription';
+
+    public const USER_SUSCRIPTION_STORE = 'user_suscriptions.store';
+
     public static function get_all_permissions(): array
     {
         return (new \ReflectionClass(self::class))->getConstants();
@@ -106,6 +126,13 @@ class Permissions
             self::INVOICES_SEE_ADMINS_USERS,
             self::INVOICES_INFO_SHOW,
             self::SITES_PAY,
+            self::SUSCRIPTION_INDEX,
+            self::SUSCRIPTION_STORE,
+            self::SUSCRIPTION_CREATE,
+            self::SUSCRIPTION_DESTROY,
+            self::SUSCRIPTION_EDIT,
+            self::SUSCRIPTION_SHOW,
+            self::SUSCRIPTION_MANAGE,
         ];
     }
 
@@ -139,6 +166,13 @@ class Permissions
             self::INVOICES_SEE_ADMINS_USERS,
             self::INVOICES_INFO_SHOW,
             self::SITES_PAY,
+            self::SUSCRIPTION_INDEX,
+            self::SUSCRIPTION_STORE,
+            self::SUSCRIPTION_CREATE,
+            self::SUSCRIPTION_DESTROY,
+            self::SUSCRIPTION_EDIT,
+            self::SUSCRIPTION_SHOW,
+            self::SUSCRIPTION_MANAGE,
         ];
     }
 
@@ -152,6 +186,11 @@ class Permissions
             self::INVOICES_INDEX,
             self::INVOICES_SHOW,
             self::INVOICES_PAY,
+            self::SUSCRIPTION_INDEX,
+            self::SUSCRIPTION_SHOW,
+            self::SUSCRIPTIONS_SPECIFIC_USER,
+            self::USER_GET_SUSCRIPTION,
+            self::USER_SUSCRIPTION_STORE,
         ];
     }
 }

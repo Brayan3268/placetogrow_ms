@@ -12,41 +12,40 @@
         <div class="container mx-auto mt-5 flex flex-col space-y-4">
 
             @if (session('status'))
-            <div class="container mx-auto mt-5 flex flex-col space-y-4 items-center">
-                <div class="alert {{ session('class') }} text-white p-4 rounded w-1/2 mb-4 text-center">
-                    {{ session('status') }}
+                <div class="container mx-auto mt-5 flex flex-col space-y-4 items-center">
+                    <div class="alert {{ session('class') }} text-white p-4 rounded w-1/2 mb-4 text-center">
+                        {{ session('status') }}
+                    </div>
                 </div>
-            </div>
             @endif
             @can('invoices_info.show')
                 <div class="container mx-auto mt-5 flex flex-col space-y-4 items-center">
                     <h1 class="text-2xl font-bold mb-4">{{ __('messages.create_new_invoice') }}</h1>
                     <a href="{{ route('invoices.create') }}" class="my-button">{{ __('messages.create_new_invoice') }}</a>
                 </div>
-            <br>
-            <br>
-            <br>
+                <br><br><br>
             @endcan
             <div class="flex flex-col space-y-2">
                 <h1 class="text-2xl font-bold mb-2">{{ __('messages.invoices') }}</h1>
 
-            <div class="flex flex-wrap -mx-2">
-                <div class="w-1/3 px-2 mb-4">
-                    <input type="text" id="search_reference" placeholder="{{ __('messages.search_by_reference') }}" class="border w-full p-2">
-                </div>
-            
-                <div class="w-1/3 px-2 mb-4">
-                    <input type="text" id="search_status" placeholder="{{ __('messages.search_by_status') }}" class="border w-full p-2">
-                </div>
-                
-                @can('invoices.see_admins_users')
+                <div class="flex flex-wrap -mx-2">
                     <div class="w-1/3 px-2 mb-4">
-                        <input type="text" id="search_user" placeholder="{{ __('messages.search_by_user') }}" class="border w-full p-2">
+                        <input type="text" id="search_reference" placeholder="{{ __('messages.search_by_reference') }}" class="border w-full p-2">
                     </div>
-                @endcan
-            
-                <div class="w-1/3 px-2 mb-4">
-                    <input type="text" id="search_site" placeholder="{{ __('messages.search_by_site') }}" class="border w-full p-2">
+                
+                    <div class="w-1/3 px-2 mb-4">
+                        <input type="text" id="search_status" placeholder="{{ __('messages.search_by_status') }}" class="border w-full p-2">
+                    </div>
+
+                    @can('invoices.see_admins_users')
+                        <div class="w-1/3 px-2 mb-4">
+                            <input type="text" id="search_user" placeholder="{{ __('messages.search_by_user') }}" class="border w-full p-2">
+                        </div>
+                    @endcan
+                    
+                    <div class="w-1/3 px-2 mb-4">
+                        <input type="text" id="search_site" placeholder="{{ __('messages.search_by_site') }}" class="border w-full p-2">
+                    </div>
                 </div>
             </div>
 
@@ -56,7 +55,7 @@
                         <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.reference') }}</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.status') }}</th>
                         @can('invoices.see_admins_users')
-                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.user') }}</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.user_document') }}</th>
                         @endcan
                         <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.site') }}</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.actions') }}</th>

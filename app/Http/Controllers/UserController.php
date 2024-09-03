@@ -34,34 +34,21 @@ class UserController extends Controller
         $datos = $this->get_enums();
         $document_types = $datos['document_types'];
 
-        if ($this->validate_role()) {
-            return view('users.create', compact('document_types'));
-        }
-
-        return redirect()->route('dashboard')
-            ->with('status', 'User not authorized for this route')
-            ->with('class', 'bg-red-500');
-
+        return view('users.create', compact('document_types'));
     }
 
     public function store(StoreUserRequest $request): RedirectResponse
     {
         $this->authorize('update', User::class);
 
-        if ($this->validate_role()) {
-            $user = UserPll::save_user($request);
-            $role = RolePll::get_specific_role($request->role);
+        $user = UserPll::save_user($request);
+        $role = RolePll::get_specific_role($request->role);
 
-            $user->assignRole($role);
+        $user->assignRole($role);
 
-            return redirect()->route('users.index')
-                ->with('status', 'User created successfully!')
-                ->with('class', 'bg-green-500');
-        }
-
-        return redirect()->route('dashboard')
-            ->with('status', 'User not authorized for this route')
-            ->with('class', 'bg-red-500');
+        return redirect()->route('users.index')
+            ->with('status', 'User created successfully!')
+            ->with('class', 'bg-green-500');
     }
 
     public function show(string $id): View|RedirectResponse
@@ -92,17 +79,11 @@ class UserController extends Controller
     {
         $this->authorize('update', User::class);
 
-        if ($this->validate_role()) {
-            $user = (empty($request['password'])) ? UserPll::update_user_without_password($user, $request) : UserPll::update_user_with_password($user, $request);
+        $user = (empty($request['password'])) ? UserPll::update_user_without_password($user, $request) : UserPll::update_user_with_password($user, $request);
 
-            return redirect()->route('users.index')
-                ->with('status', 'User updated successfully')
-                ->with('class', 'bg-green-500');
-        }
-
-        return redirect()->route('dashboard')
-            ->with('status', 'User not authorized for this route')
-            ->with('class', 'bg-red-500');
+        return redirect()->route('users.index')
+            ->with('status', 'User updated successfully')
+            ->with('class', 'bg-green-500');
     }
 
     public function destroy(User $user): RedirectResponse
@@ -131,13 +112,6 @@ class UserController extends Controller
         } else {
             return true;
         }
-    }
-
-    private function validate_role(): bool
-    {
-        $role_name = UserPll::get_user_auth();
-
-        return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
     }
 
     public function get_enums(): array

@@ -96,6 +96,13 @@
                             </svg>
                             {{ __('messages.pays') }}
                         </a>
+
+                        <a href="{{ route('suscriptions.index') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-purple-700 hover:text-white">
+                            <svg class="inline-block w-6 h-6 mr-2 text-orange-500 transition duration-200 group-hover:text-purple-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 3a7 7 0 100 14 7 7 0 000-14zm0 12a5 5 0 110-10 5 5 0 010 10zM7 10h6v1H7v-1z" />
+                            </svg>
+                            {{ __('messages.suscription') }}
+                        </a>
                     </nav>
                 </div>
 
