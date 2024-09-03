@@ -3,8 +3,12 @@
 namespace App\Http\PersistantsLowLevel;
 
 use App\Models\Usersuscription;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class UserSuscriptionPll extends PersistantLowLevel
 {
@@ -33,6 +37,34 @@ class UserSuscriptionPll extends PersistantLowLevel
         }
 
         return $user_suscription;
+    }
+
+    public function newUniqueId(): string
+    {
+        return (string) Uuid::uuid4();
+    }
+
+    public static function save_user_suscription(Request $request)
+    {
+        $suscription = SuscriptionPll::get_especific_suscription($request->suscription_id);
+        $user_id = Auth::user()->id;
+
+        $user_suscription = new UserSuscription;
+        $user_suscription->reference = Str::uuid();
+        $user_suscription->user()->associate($user_id);
+        $user_suscription->expiration_time = $suscription->expiration_time;
+        $user_suscription->suscription()->associate($suscription->id);
+
+        $user_suscription->save();
+
+        Cache::flush();
+    }
+
+    public static function delete_user_suscription(string $reference, int $user_id)
+    {
+        Usersuscription::where('reference', $reference)->where('user_id', $user_id)->delete();
+
+        Cache::flush();
     }
 
     public static function forget_cache(string $name_cache)

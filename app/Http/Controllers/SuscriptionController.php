@@ -23,16 +23,16 @@ class SuscriptionController extends Controller
         $this->authorize('viewAny', Suscription::class);
 
         $user_suscriptions = [];
-
         $suscriptions = SuscriptionPll::get_all_suscription();
 
         $user = UserPll::get_specific_user(Auth::user()->id);
+
         if ($user->hasPermissionTo(Permissions::SUSCRIPTIONS_SPECIFIC_USER)) {
             $user_suscriptions = UserSuscriptionPll::get_specific_user_suscriptions(Auth::user()->id);
 
             foreach ($user_suscriptions as $plan) {
                 foreach ($suscriptions as $key => $value) {
-                    if ($plan->id == $value->id) {
+                    if ($plan->suscription_id == $value->id) {
                         unset($suscriptions[$key]);
                     }
                 }

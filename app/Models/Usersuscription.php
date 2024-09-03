@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Ramsey\Uuid\Uuid;
 
 class Usersuscription extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $primaryKey = 'id';
 
@@ -21,6 +23,16 @@ class Usersuscription extends Model
         'suscription_id',
         'user_id',
     ];
+
+    public function newUniqueId(): string
+    {
+        return (string) Uuid::uuid4();
+    }
+
+    public function uniqueIds(): array
+    {
+        return ['reference'];
+    }
 
     public function suscription(): BelongsTo
     {

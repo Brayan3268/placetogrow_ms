@@ -83,7 +83,14 @@
                                         </form>
                                     @endcan
                                     @can('suscriptions.user_get_suscription')
-                                        <a href="{{ route('user_suscriptions.store', $suscription->id) }}" method="POST" class="text-orange-600 hover:purple-yellow-800 mr-2"><i class="fa-solid fa-circle-plus"></i></a>
+                                        <form action="{{ route('user_suscriptions.store', $suscription->id) }}" method="POST" class="text-orange-600 hover:purple-yellow-800 mr-2" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="suscription_id" value="{{ $suscription->id }}" />
+                                            <button type="submit" class="text-orange-600 hover:purple-yellow-800 mr-2">
+                                                <i class="fa-solid fa-circle-plus"></i>
+                                            </button>
+                                        </form>
                                     @endcan
                                 </td>
                             </tr>
@@ -157,7 +164,8 @@
                                 <td class="border border-gray-200 px-4 py-2">{{ $user_suscription->suscription->expiration_time }} {{ __('messages.days') }} </td>
                                 <td class="border border-gray-200 px-4 py-2 text-right">
                                     <a href="{{ route('suscriptions.show', $user_suscription->suscription->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
-                                     <form action="{{ route('suscriptions.destroy', $user_suscription->suscription->id) }}" method="POST" class="inline-block">
+                                    
+                                    <form action="{{ route('user_suscriptions.destroy', ['reference' => $user_suscription->reference, 'user_id' => $user_suscription->user_id]) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-purple-800"><i class="fa-solid fa-circle-minus"></i></button>

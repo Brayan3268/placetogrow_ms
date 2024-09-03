@@ -88,6 +88,8 @@ class Permissions
 
     public const USER_GET_SUSCRIPTION = 'suscriptions.user_get_suscription';
 
+    public const USER_SUSCRIPTION_STORE = 'user_suscriptions.store';
+
     public static function get_all_permissions(): array
     {
         return (new \ReflectionClass(self::class))->getConstants();
@@ -188,6 +190,7 @@ class Permissions
             self::SUSCRIPTION_SHOW,
             self::SUSCRIPTIONS_SPECIFIC_USER,
             self::USER_GET_SUSCRIPTION,
+            self::USER_SUSCRIPTION_STORE,
         ];
     }
 }

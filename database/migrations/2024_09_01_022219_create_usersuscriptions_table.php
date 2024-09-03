@@ -9,9 +9,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usersuscriptions', function (Blueprint $table) {
-            $table->string('reference', 100);
+            $table->uuid('reference');
             $table->foreignId('user_id')->constrained();
             $table->primary(['reference', 'user_id']);
+            $table->integer('expiration_time');
             $table->foreignId('suscription_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
