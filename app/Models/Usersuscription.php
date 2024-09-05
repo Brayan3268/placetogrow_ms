@@ -20,8 +20,10 @@ class Usersuscription extends Model
 
     protected $fillable = [
         'reference',
-        'suscription_id',
         'user_id',
+        'expiration_time',
+        'suscription_id',
+        'status',
     ];
 
     public function newUniqueId(): string

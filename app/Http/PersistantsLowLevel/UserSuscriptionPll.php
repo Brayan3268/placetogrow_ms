@@ -3,7 +3,6 @@
 namespace App\Http\PersistantsLowLevel;
 
 use App\Models\Usersuscription;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -44,10 +43,13 @@ class UserSuscriptionPll extends PersistantLowLevel
         return (string) Uuid::uuid4();
     }
 
-    public static function save_user_suscription(Request $request)
+    public static function save_user_suscription(Usersuscription $user_suscription)
     {
-        $suscription = SuscriptionPll::get_especific_suscription($request->suscription_id);
-        $user_id = Auth::user()->id;
+
+        $user_suscription->save();
+
+        //$suscription = SuscriptionPll::get_especific_suscription($request->suscription_id);
+        /*$user_id = Auth::user()->id;
 
         $user_suscription = new UserSuscription;
         $user_suscription->reference = Str::uuid();
@@ -55,7 +57,12 @@ class UserSuscriptionPll extends PersistantLowLevel
         $user_suscription->expiration_time = $suscription->expiration_time;
         $user_suscription->suscription()->associate($suscription->id);
 
-        $user_suscription->save();
+        $user_suscription->status = $suscription->expiration_time;
+        $user_suscription->expiration_time = $suscription->expiration_time;
+        $user_suscription->expiration_time = $suscription->expiration_time;
+        $user_suscription->expiration_time = $suscription->expiration_time;
+
+        $user_suscription->save();*/
 
         Cache::flush();
     }

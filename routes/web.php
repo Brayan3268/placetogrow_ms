@@ -68,7 +68,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('user_suscriptions', UsersuscriptionController::class);
-    Route::delete('/user_suscriptions/{reference}/{user_id}', [UsersuscriptionController::class, 'destroy'])->name('user_suscriptions.destroy');
+    Route::delete('/user_suscriptions/{reference}/{user_id}', [UsersuscriptionController::class, 'destroyy'])->name('user_suscriptions.destroyy');
+    Route::get('/user_suscriptions/return/{suscription_reference}', [UsersuscriptionController::class, 'return'])->name('user_suscriptions.return');
 });
 
 Route::middleware('auth')->group(function () {});

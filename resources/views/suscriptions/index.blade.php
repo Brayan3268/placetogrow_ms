@@ -165,7 +165,7 @@
                                 <td class="border border-gray-200 px-4 py-2 text-right">
                                     <a href="{{ route('suscriptions.show', $user_suscription->suscription->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                     
-                                    <form action="{{ route('user_suscriptions.destroy', ['reference' => $user_suscription->reference, 'user_id' => $user_suscription->user_id]) }}" method="POST" class="inline-block">
+                                    <form action="{{ route('user_suscriptions.destroyy', ['reference' => $user_suscription->reference, 'user_id' => $user_suscription->user_id]) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-purple-800"><i class="fa-solid fa-circle-minus"></i></button>

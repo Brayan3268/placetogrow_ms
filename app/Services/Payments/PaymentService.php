@@ -33,6 +33,26 @@ class PaymentService implements PaymentServiceContract
         return $response;
     }
 
+    public function create_suscription(array $buyer): PaymentResponse
+    {
+        $response = $this->gateway->prepare()
+            ->buyer($buyer)
+            ->payment_suscription($this->payment)
+            ->process();
+
+        //dd($this->payment);
+
+        unset($this->payment->invoice_id);
+
+        //dd($this->payment);
+
+        $this->payment->update([
+            'process_identifier' => $response->process_identifier,
+        ]);
+
+        return $response;
+    }
+
     public function query(): Payment
     {
         $response = $this->gateway->prepare()
