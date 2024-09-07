@@ -11,4 +11,9 @@ class UserSuscriptionPolicy
     {
         return $user->hasPermissionTo(Permissions::USER_SUSCRIPTION_STORE);
     }
+
+    public function view(User $user): bool
+    {
+        return $user->hasPermissionTo(Permissions::USER_SUSCRIPTION_SHOW);
+    }
 }

@@ -45,15 +45,19 @@
                         <input type="text" id="search_status" placeholder="{{ __('messages.search_by_status') }}" class="border w-full p-2">
                     </div>
                     
+                    <div class="w-1/3 px-2 mb-4">
+                        <input type="text" id="search_origin_pay" placeholder="{{ __('messages.search_by_origin_payment') }}" class="border w-full p-2">
+                    </div>
+
+                    <div class="w-1/3 px-2 mb-4">
+                        <input type="text" id="search_site" placeholder="{{ __('messages.search_by_site') }}" class="border w-full p-2">
+                    </div>
+
                     @can('payments.see_admins_users')
                         <div class="w-1/3 px-2 mb-4">
                             <input type="text" id="search_user" placeholder="{{ __('messages.search_by_user') }}" class="border w-full p-2">
                         </div>
                     @endcan
-                
-                    <div class="w-1/3 px-2 mb-4">
-                        <input type="text" id="search_site" placeholder="{{ __('messages.search_by_site') }}" class="border w-full p-2">
-                    </div>
                 </div>
 
                 <br>
@@ -67,10 +71,11 @@
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.amount_short') }}</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.currency') }}</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.status') }}</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.origin_payment') }}</th>
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.site') }}</th>
                             @can('payments.see_admins_users')
                                 <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.user') }}</th>
                             @endcan
-                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.site') }}</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.actions') }}</th>
                         </tr>
                     </thead>
@@ -81,14 +86,15 @@
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->amount }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->currency }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->status }}</td>
+                                <td class="border border-gray-200 px-4 py-2">{{ $pay->origin_payment }}</td>
+                                <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
+                                    <a href="{{ route('show.site', ['id' => $pay->site->id]) }}">{{ $pay->site->slug }}</a>
+                                </td>
                                 @can('payments.see_admins_users')
                                     <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
                                         <a href="{{ route('show.user', ['id' => $pay->user->id]) }}">{{ $pay->user->document }}</a>
                                     </td>
                                 @endcan
-                                <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
-                                    <a href="{{ route('show.site', ['id' => $pay->site->id]) }}">{{ $pay->site->slug }}</a>
-                                </td>
                                 <td class="border border-gray-200 px-4 py-2 text-right">
                                     <a href="{{ route('payment.show', $pay->id) }}" class="text-blue-600 hover:text-purple-800 mr-2">
                                         <i class="fas fa-eye"></i>
@@ -156,7 +162,7 @@
                     }
                 });
             });
-            document.getElementById('search_user').addEventListener('input', function() {
+            document.getElementById('search_origin_pay').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#pays_user tr');
     
@@ -182,6 +188,20 @@
                     }
                 });
             });
+            document.getElementById('search_user').addEventListener('input', function() {
+                let filter = this.value.toLowerCase();
+                let rows = document.querySelectorAll('#pays_user tr');
+    
+                rows.forEach(row => {
+                    let email = row.cells[6].textContent.toLowerCase();
+                    if (email.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+  
         </script>
     @endsection
 </x-app-layout>

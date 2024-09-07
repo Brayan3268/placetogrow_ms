@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->primary(['reference', 'user_id']);
             $table->integer('expiration_time');
+            $table->integer('days_until_next_payment')->nullable();
             $table->foreignId('suscription_id')->constrained()->onDelete('cascade');
             $table->enum('status', SuscriptionStatus::toArray())->default(SuscriptionStatus::PENDING);
             $table->string('request_id', 50)->nullable();

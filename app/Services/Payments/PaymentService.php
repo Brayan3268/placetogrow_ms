@@ -37,7 +37,7 @@ class PaymentService implements PaymentServiceContract
     {
         $response = $this->gateway->prepare()
             ->buyer($buyer)
-            ->payment_suscription($this->payment)
+            //->payment_suscription($this->payment)
             ->process();
 
         //dd($this->payment);

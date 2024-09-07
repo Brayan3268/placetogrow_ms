@@ -14,7 +14,7 @@ interface PaymentGateway
 
     public function payment(Payment $payment): self;
 
-    public function payment_suscription(Payment $payment): self;
+    //public function payment_suscription(Payment $payment): self;
 
     public function process(): PaymentResponse;
 

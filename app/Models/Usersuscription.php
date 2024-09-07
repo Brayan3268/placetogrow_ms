@@ -24,6 +24,8 @@ class Usersuscription extends Model
         'expiration_time',
         'suscription_id',
         'status',
+        'request_id',
+        'additional_data',
     ];
 
     public function newUniqueId(): string

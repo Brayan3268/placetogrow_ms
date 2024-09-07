@@ -91,7 +91,7 @@ class PlacetopayGateway implements PaymentGateway
         return $this;
     }
 
-    public function payment_suscription(Payment $payment): self
+    /*public function payment_suscription(Payment $payment): self
     {
         $this->data['locale'] = $payment->locale;
 
@@ -113,7 +113,7 @@ class PlacetopayGateway implements PaymentGateway
         $this->data['returnUrl'] = route('payment.show', compact('payment', 'invoice_id'));
 
         return $this;
-    }
+    }*/
 
     public function process(): PaymentResponse
     {

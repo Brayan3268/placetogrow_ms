@@ -96,6 +96,8 @@ return [
     'view_my_pay' => 'View my pay',
     'invoice_reference' => 'Invoice reference',
     'invoice_status' => 'Invoice status',
+    'search_by_origin_payment' => 'Search by pay origin',
+    'origin_payment' => 'Pay origin',
 
     //Navigation
     'select_language' => 'Select language',
@@ -156,4 +158,8 @@ return [
     'edit_suscription' => 'Editar plan',
     'all_plans' => 'All plans',
     'plans_can_get' => 'Plans can get',
+
+    //Usersuscription
+    'suscription_reference' => 'Reference payment suscription',
+    'suscription_status' => 'Status payment suscription',
 ];

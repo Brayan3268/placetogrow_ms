@@ -88,9 +88,23 @@ class InvoicePll extends PersistantLowLevel
         return $invoices;
     }
 
-    public static function update_invoice(int $invoice_id, string $status, int $payment_id)
+    public static function get_especific_invoice_with_reference(string $invoice_reference)
     {
-        $invoice = InvoicePll::get_especific_invoice($invoice_id);
+        $invoice = Cache::get('invoice.reference'.$invoice_reference);
+        if (is_null($invoice)) {
+            $invoice = Invoice::with('user', 'site')
+                ->where('reference', $invoice_reference)
+                ->first();
+
+            Cache::put('invoice.reference'.$invoice_reference, $invoice);
+        }
+
+        return $invoice;
+    }
+
+    public static function update_invoice(string $invoice_reference, string $status, int $payment_id)
+    {
+        $invoice = InvoicePll::get_especific_invoice_with_reference($invoice_reference);
         $invoice->update([
             'reference' => $invoice->reference,
             'amount' => $invoice->amount,
