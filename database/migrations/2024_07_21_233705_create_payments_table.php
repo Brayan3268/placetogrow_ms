@@ -2,6 +2,7 @@
 
 use App\Constants\CurrencyTypes;
 use App\Constants\LocalesTypes;
+use App\Constants\OriginPayment;
 use App\Constants\PaymentGateway;
 use App\Constants\PaymentStatus;
 use Illuminate\Database\Migrations\Migration;
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->foreignId('site_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('url_session')->nullable();
+            $table->enum('origin_payment', OriginPayment::toArray())->nullable();
             $table->timestamps();
         });
     }

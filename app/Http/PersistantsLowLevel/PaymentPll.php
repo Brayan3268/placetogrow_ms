@@ -2,10 +2,12 @@
 
 namespace App\Http\PersistantsLowLevel;
 
+use App\Constants\OriginPayment;
 use App\Constants\PaymentGateway;
 use App\Constants\PaymentStatus;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
+use App\Models\Usersuscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -97,11 +99,46 @@ class PaymentPll extends PersistantLowLevel
         return $payment;
     }
 
+    public static function save_payment_suscription(array $result, Usersuscription $user_suscription_updated)
+    {
+        $payment = new Payment;
+        $payment->locale = $result['request']['locale'];
+        $payment->reference = $result['request']['payment']['reference'];
+        $payment->description = $user_suscription_updated->suscription->description;
+        $payment->amount = $result['request']['payment']['amount']['total'];
+        $payment->currency = $result['request']['payment']['amount']['currency'];
+        $payment->status = $result['status']['status'];
+        $payment->gateway = PaymentGateway::PLACETOPAY->value;
+        $payment->process_identifier = $user_suscription_updated['request_id'];
+        $payment->site()->associate($user_suscription_updated->suscription->site_id);
+        $payment->user()->associate($user_suscription_updated->user_id);
+        $payment->url_session = json_decode($user_suscription_updated->additional_data);
+        $payment->origin_payment = OriginPayment::SUSCRIPTION->value;
+
+        $payment->save();
+        Cache::flush();
+
+        return $payment;
+    }
+
     public static function save_response_url_payment(Payment $payment, string $url_session)
     {
         $payment->url_session = $url_session;
 
         $payment->save();
+    }
+
+    public static function update_reference_pay(int $payment_id, string $new_reference)
+    {
+        Payment::where('id', $payment_id)
+            ->update([
+                'reference' => $new_reference,
+            ]);
+
+        $payment = Payment::where('id', $payment_id)
+            ->first();
+
+        return $payment;
     }
 
     public static function validate_is_pending_rejected_pays(int $site_id)

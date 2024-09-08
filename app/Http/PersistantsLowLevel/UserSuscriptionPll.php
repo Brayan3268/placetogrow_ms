@@ -2,12 +2,11 @@
 
 namespace App\Http\PersistantsLowLevel;
 
+use App\Constants\SuscriptionStatus;
 use App\Models\Usersuscription;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 
 class UserSuscriptionPll extends PersistantLowLevel
@@ -39,25 +38,79 @@ class UserSuscriptionPll extends PersistantLowLevel
         return $user_suscription;
     }
 
+    public static function get_specific_suscription(string $reference, int $user_id)
+    {
+        Cache::flush();
+
+        $user_suscription = Cache::get('usersuscription.especific');
+        if (is_null($user_suscription)) {
+            $user_suscription = Usersuscription::with('user', 'suscription')
+                ->where('user_id', $user_id)
+                ->where('reference', $reference)
+                ->first();
+
+            Cache::put('usersuscription.especific', $user_suscription);
+        }
+
+        return json_decode($user_suscription);
+    }
+
+    public static function get_specific_user_suscription_request_id(string $request_id)
+    {
+        Cache::flush();
+
+        $user_suscription = Cache::get('usersuscription.request_id');
+        if (is_null($user_suscription)) {
+            $user_suscription = Usersuscription::with('user', 'suscription')
+                ->where('request_id', $request_id)
+                ->first();
+
+            Cache::put('usersuscription.request_id', $user_suscription);
+        }
+
+        return $user_suscription;
+    }
+
     public function newUniqueId(): string
     {
         return (string) Uuid::uuid4();
     }
 
-    public static function save_user_suscription(Request $request)
+    public static function save_user_suscription(array $suscription_data)
     {
-        $suscription = SuscriptionPll::get_especific_suscription($request->suscription_id);
         $user_id = Auth::user()->id;
 
         $user_suscription = new UserSuscription;
-        $user_suscription->reference = Str::uuid();
+        $user_suscription->reference = $suscription_data['reference'];
         $user_suscription->user()->associate($user_id);
-        $user_suscription->expiration_time = $suscription->expiration_time;
-        $user_suscription->suscription()->associate($suscription->id);
+        $user_suscription->expiration_time = $suscription_data['expiration_time'];
+        $user_suscription->suscription()->associate($suscription_data['suscription_id']);
+
+        $user_suscription->status = $suscription_data['status'];
+        $user_suscription->request_id = $suscription_data['request_id'];
+        $user_suscription->additional_data = json_encode($suscription_data['additional_data']);
 
         $user_suscription->save();
 
         Cache::flush();
+    }
+
+    public static function update_suscription($user_suscription, SuscriptionStatus $status)
+    {
+        Usersuscription::with('user', 'suscription')
+            ->where('user_id', $user_suscription->user_id)
+            ->where('reference', $user_suscription->reference)
+            ->update([
+                'token' => $user_suscription->token,
+                'sub_token' => $user_suscription->sub_token,
+                'status' => $status,
+            ]);
+
+        $user_suscription_db = Usersuscription::where('user_id', $user_suscription->user_id)
+            ->where('reference', $user_suscription->reference)
+            ->first();
+
+        return $user_suscription_db;
     }
 
     public static function delete_user_suscription(string $reference, int $user_id)

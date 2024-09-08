@@ -285,7 +285,7 @@
                                         <div class="border-t border-gray-900 my-4"></div>
                                         <div class="card-footer">
                                             @can('suscriptions.user_get_suscription')
-                                                <form action="{{ route('user_suscriptions.destroy', ['reference' => $user_plan_get_suscribe->reference, 'user_id' => $user_plan_get_suscribe->user_id]) }}" method="POST" class="inline-block">
+                                                <form action="{{ route('user_suscriptions.destroyy', ['reference' => $user_plan_get_suscribe->reference, 'user_id' => $user_plan_get_suscribe->user_id]) }}" method="POST" class="inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-orange-500 hover:text-purple-800"><i class="fa-solid fa-circle-minus"></i></button>

@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('12345678'),
                 'document_type' => 'CC',
                 'phone' => '3111111112',
-                'document' => '0987654321',
+                'document' => '1001132555',
             ],
         ];
     }

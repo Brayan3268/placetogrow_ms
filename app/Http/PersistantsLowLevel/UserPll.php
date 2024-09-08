@@ -4,6 +4,7 @@ namespace App\Http\PersistantsLowLevel;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -124,7 +125,7 @@ class UserPll extends PersistantLowLevel
 
     public static function get_user_auth()
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::find(Auth::user()->id);
         $user = UserPll::get_role_names($user);
 
         return $user;

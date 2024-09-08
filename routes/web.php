@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('payment', PaymentController::class);
     Route::get('/payment/user/show/{id}', [PaymentController::class, 'pays_especific_user'])->name('payment.pays_user');
     Route::get('/payment/site/show/{id}', [PaymentController::class, 'pays_especific_site'])->name('payment.pays_site');
+    Route::get('/payment/suscription/show/{payment}', [PaymentController::class, 'show_suscription_pay'])->name('payment.suscription_show');
 });
 
 Route::middleware('auth')->group(function () {
@@ -68,7 +69,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('user_suscriptions', UsersuscriptionController::class);
-    Route::delete('/user_suscriptions/{reference}/{user_id}', [UsersuscriptionController::class, 'destroy'])->name('user_suscriptions.destroy');
+    Route::delete('/user_suscriptions/{reference}/{user_id}', [UsersuscriptionController::class, 'destroyy'])->name('user_suscriptions.destroyy');
+    Route::get('/user_suscriptions/return/{suscription_reference}', [UsersuscriptionController::class, 'return'])->name('user_suscriptions.return');
 });
 
 Route::middleware('auth')->group(function () {});

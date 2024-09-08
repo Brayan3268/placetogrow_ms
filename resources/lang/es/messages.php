@@ -94,9 +94,11 @@ return [
     'search_by_amount' => 'Buscar por monto',
     'search_by_currency' => 'Buscar por tipo de moneda',
     'amount_short' => 'Monto',
-    'view_my_pay' => 'Ver my pago',
+    'view_my_pay' => 'Ver mi pago',
     'invoice_reference' => 'Referencia de la factura',
     'invoice_status' => 'Estado del pago de la factura',
+    'search_by_origin_payment' => 'Buscar por origen del pago',
+    'origin_payment' => 'Origen del pago',
 
     //Navigation
     'select_language' => 'Seleccionar idioma',
@@ -159,6 +161,10 @@ return [
 
     'all_plans' => 'Todos los planes',
     'plans_can_get' => 'Planes que puedo adquirir',
+
+    //Usersuscription
+    'suscription_reference' => 'Referencia del pago de la suscripción',
+    'suscription_status' => 'Estado del pago de la suscripción',
 
 ];
 

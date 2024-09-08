@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -19,7 +20,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('viewAny', Invoice::class);
 
-        $user = UserPll::get_specific_user(auth()->user()->id);
+        $user = UserPll::get_specific_user(Auth::user()->id);
         $invoices = ($user->hasAnyRole('super_admin', 'admin')) ? InvoicePll::get_all_invoices() : InvoicePll::get_especific_user_invoices($user->id);
 
         return view('invoices.index', compact('invoices'));

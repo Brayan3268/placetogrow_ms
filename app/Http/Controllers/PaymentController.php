@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Constants\InvoiceStatus;
+use App\Constants\OriginPayment;
 use App\Constants\PaymentStatus;
 use App\Contracts\PaymentService;
 use App\Http\PersistantsLowLevel\InvoicePll;
 use App\Http\PersistantsLowLevel\PaymentPll;
 use App\Http\PersistantsLowLevel\UserPll;
+use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class PaymentController extends Controller
 {
@@ -80,10 +83,29 @@ class PaymentController extends Controller
         $payment_id = intval($payment->id);
         $status = '';
 
-        if ($invoice_id == 0) {
+        if ($payment->origin_payment == '') {
+            $payment->update([
+                'origin_payment' => ($invoice_id == 0 && $payment->origin_payment == '') ? OriginPayment::STANDART->value : OriginPayment::INVOICE->value,
+            ]);
+            Cache::flush();
+        }
+
+        if ($payment->origin_payment == OriginPayment::STANDART->value) {
             $invoice = InvoicePll::get_especific_invoice_with_pay_id($payment_id);
             $status = ($invoice !== '') ? $invoice->status : '';
-        } else {
+        }
+
+        $invoice = '';
+        if ($payment->origin_payment == OriginPayment::INVOICE->value) {
+            try {
+                $invoice = InvoicePll::get_especific_invoice($invoice_id);
+                if ($payment->reference != $invoice->reference) {
+                    $payment = PaymentPll::update_reference_pay($payment->id, $invoice->reference);
+                }
+            } catch (\Exception $e) {
+                dump('catch');
+            }
+
             $status_payment = $payment->status;
 
             switch ($status_payment) {
@@ -104,13 +126,22 @@ class PaymentController extends Controller
                     break;
             }
 
-            $invoice = InvoicePll::update_invoice($invoice_id, $status, $payment_id);
+            $invoice = InvoicePll::update_invoice($payment->reference, $status, $payment_id);
+        }
+
+        $suscription_status = '';
+        $user_suscription = '';
+        if ($payment->origin_payment == OriginPayment::SUSCRIPTION->value) {
+            $user_suscription = UserSuscriptionPll::get_specific_user_suscription_request_id($payment->process_identifier);
+            $suscription_status = $user_suscription->status;
         }
 
         return view('payments.show', [
             'payment' => $payment,
             'invoice_status' => $status,
             'invoice' => $invoice,
+            'suscription_status' => $suscription_status,
+            'user_suscription' => $user_suscription,
         ]);
     }
 
@@ -119,5 +150,10 @@ class PaymentController extends Controller
         $role_name = UserPll::get_user_auth();
 
         return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
+    }
+
+    public function show_suscription_pay(int $payment)
+    {
+        //dd($payment);
     }
 }
