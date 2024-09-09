@@ -24,4 +24,6 @@ class VerifyEmailController extends Controller
 
         return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
     }
+
+    protected function write_file(array $info) {}
 }

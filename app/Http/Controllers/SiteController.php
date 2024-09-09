@@ -21,10 +21,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Cache;
 
 class SiteController extends Controller
 {
@@ -122,7 +122,7 @@ class SiteController extends Controller
             $invoices = ($user->hasPermissionTo(Permissions::SITES_PAY) && $user->hasPermissionTo(Permissions::SITES_MANAGE)) ?
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
-            $log[] = 'Consultó las facturas pendientes del sitio ' . $site->id;
+            $log[] = 'Consultó las facturas pendientes del sitio '.$site->id;
         }
 
         $suscription_plans = collect();
@@ -143,7 +143,7 @@ class SiteController extends Controller
                     }
                 }
             }
-            $log[] = 'Consultó las suscripciones para el sitio ' . $site->id;
+            $log[] = 'Consultó las suscripciones para el sitio '.$site->id;
         }
 
         $this->write_file($log);
@@ -233,7 +233,7 @@ class SiteController extends Controller
 
         }
 
-        $log[] = 'Entró a la configuración de los campos requeridos del sitio ' . $site->id;
+        $log[] = 'Entró a la configuración de los campos requeridos del sitio '.$site->id;
         $this->write_file($log);
 
         return view('sites.fieldspaysite', compact('filtered_constants_opt', 'sites_fields', 'site_id'));
@@ -376,7 +376,7 @@ class SiteController extends Controller
 
         Excel::import($import, $request->file('file'));
 
-        $log[] = 'Importó facturas al sitio ' . $site_id;
+        $log[] = 'Importó facturas al sitio '.$site_id;
         $this->write_file($log);
 
         return $this->show($site_id);
@@ -387,8 +387,8 @@ class SiteController extends Controller
         $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
         $content = '';
 
-        foreach ($info as $key => $value){
-            $content .= '    ' . $value . ' en la fecha ' . $current_date_time;
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
         }
 
         Storage::disk('public_logs')->append('log.txt', $content);

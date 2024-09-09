@@ -9,8 +9,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
 use Spatie\Permission\Models\Role;
+use Tests\TestCase;
 
 class SitesControllerTest extends TestCase
 {
@@ -36,10 +36,10 @@ class SitesControllerTest extends TestCase
         $role->givePermissionTo('sites.index');
 
         $user->assignRole('admin');
-        #$this->seed_db();
+        //$this->seed_db();
 
         //TEST 1
-        
+
         $response = $this->actingAs($user)
             ->get(route('sites.index'));
 

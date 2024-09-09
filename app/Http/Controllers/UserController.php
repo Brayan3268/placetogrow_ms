@@ -9,8 +9,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -162,8 +162,8 @@ class UserController extends Controller
         $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
         $content = '';
 
-        foreach ($info as $key => $value){
-            $content .= '    ' . $value . ' en la fecha ' . $current_date_time;
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
         }
 
         Storage::disk('public_logs')->append('log.txt', $content);

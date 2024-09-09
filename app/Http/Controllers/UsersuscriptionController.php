@@ -13,8 +13,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UsersuscriptionController extends Controller
 {
@@ -35,7 +35,7 @@ class UsersuscriptionController extends Controller
         $this->authorize('update', Usersuscription::class);
 
         $suscription_db = SuscriptionPll::get_especific_suscription($request->suscription_id);
-        $log[] = 'Consultó la información de la suscripción ' . $request->suscription_id;
+        $log[] = 'Consultó la información de la suscripción '.$request->suscription_id;
 
         $suscription = [
             'reference' => Str::uuid(),
@@ -120,7 +120,7 @@ class UsersuscriptionController extends Controller
     {
         UserSuscriptionPll::delete_user_suscription($reference, $user_id);
 
-        $log[] = 'Eliminó la suscripción ' . $reference . ' del usuario ' . $user_id;
+        $log[] = 'Eliminó la suscripción '.$reference.' del usuario '.$user_id;
         $this->write_file($log);
 
         return redirect()->route('suscriptions.index')
@@ -144,7 +144,7 @@ class UsersuscriptionController extends Controller
         $session_information = Http::post('https://checkout-co.placetopay.dev/api/session/'.$user_suscription->request_id, $data);
 
         $log[] = 'Consulta la información de la sesion de suscripción';
-            
+
         $user_suscription->token = $session_information['subscription']['instrument'][0]['value'];
         $user_suscription->sub_token = $session_information['subscription']['instrument'][1]['value'];
 
@@ -194,6 +194,7 @@ class UsersuscriptionController extends Controller
 
         if (! $response->ok()) {
             $log[] = 'El cobro no se realiza correctamente';
+
             return redirect()->route('suscriptions.index')
                 ->with('status', 'Users suscription pay not maded successfully!')
                 ->with('class', 'bg-red-500');
@@ -234,8 +235,8 @@ class UsersuscriptionController extends Controller
         $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
         $content = '';
 
-        foreach ($info as $key => $value){
-            $content .= '    ' . $value . ' en la fecha ' . $current_date_time;
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
         }
 
         Storage::disk('public_logs')->append('log.txt', $content);

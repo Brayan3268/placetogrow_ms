@@ -32,7 +32,7 @@ class SiteSeeder extends Seeder
         $site = new Site;
 
         $site->slug = 'Netflix';
-        $site->name = "Netflix";
+        $site->name = 'Netflix';
         $site->category_id = 3;
         $site->expiration_time = 20;
         $site->currency_type = 'COP';

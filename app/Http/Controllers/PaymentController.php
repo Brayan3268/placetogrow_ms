@@ -48,7 +48,7 @@ class PaymentController extends Controller
     {
         $pays = PaymentPll::get_especific_user_pays($user_id);
 
-        $log[] = 'Consultó los pagos especificos del usuario con el id ' . $user_id;
+        $log[] = 'Consultó los pagos especificos del usuario con el id '.$user_id;
         $this->write_file($log);
 
         return view('payments.index', compact('pays'));
@@ -58,7 +58,7 @@ class PaymentController extends Controller
     {
         $pays = $this->validate_role() ? PaymentPll::get_especific_site_pays($site_id) : PaymentPll::get_especific_site_user_pays($site_id, Auth::user()->id);
 
-        $log[] = 'Consultó los pagos especificos del sitio con el id ' . $site_id;
+        $log[] = 'Consultó los pagos especificos del sitio con el id '.$site_id;
         $this->write_file($log);
 
         return view('payments.index', compact('pays'));
@@ -103,7 +103,7 @@ class PaymentController extends Controller
 
         if ($payment->status === PaymentStatus::PENDING->value) {
             $payment = $paymentService->query();
-            $log[] = 'Finalizó una sesion de pago en P2P de tipo ' . $payment->origin_payment;
+            $log[] = 'Finalizó una sesion de pago en P2P de tipo '.$payment->origin_payment;
         }
 
         $invoice_id = intval($request->query('invoice_id'));
@@ -163,7 +163,7 @@ class PaymentController extends Controller
             $suscription_status = $user_suscription->status;
         }
 
-        $log[] = 'Ingresó a payments.show ' . $payment->origin_payment;
+        $log[] = 'Ingresó a payments.show '.$payment->origin_payment;
         $this->write_file($log);
 
         return view('payments.show', [
@@ -193,8 +193,8 @@ class PaymentController extends Controller
         $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
         $content = '';
 
-        foreach ($info as $key => $value){
-            $content .= '    ' . $value . ' en la fecha ' . $current_date_time;
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
         }
 
         Storage::disk('public_logs')->append('log.txt', $content);

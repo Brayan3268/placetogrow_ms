@@ -9,8 +9,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
@@ -73,8 +73,8 @@ class ProfileController extends Controller
         $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
         $content = '';
 
-        foreach ($info as $key => $value){
-            $content .= '    ' . $value . ' en la fecha ' . $current_date_time;
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
         }
 
         Storage::disk('public_logs')->append('log.txt', $content);
