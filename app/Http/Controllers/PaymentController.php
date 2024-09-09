@@ -12,17 +12,34 @@ use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
     public function index(): View
     {
+        /*if ($user->hasPermissionTo(Permissions::USER_GET_SUSCRIPTION)) {
+            $user_plans = UserSuscriptionPll::get_specific_user_suscriptions($user->id);
+            foreach ($user_plans as $key => $value) {
+                foreach ($suscription_plans as $key_all => $value_all) {
+                    if ($value->suscription_id == $value_all->id) {
+                        array_push($user_plans_get_suscribe, $value);
+                        unset($suscription_plans[$key_all]);
+                    }
+                }
+            }
+        }*/
+
         $pays = $this->validate_role() ? PaymentPll::get_all_pays() : PaymentPll::get_especific_user_pays(Auth::user()->id);
+
+        $log[] = 'Ingresó a payment.index';
+        $this->write_file($log);
 
         return view('payments.index', compact('pays'));
     }
@@ -31,12 +48,18 @@ class PaymentController extends Controller
     {
         $pays = PaymentPll::get_especific_user_pays($user_id);
 
+        $log[] = 'Consultó los pagos especificos del usuario con el id ' . $user_id;
+        $this->write_file($log);
+
         return view('payments.index', compact('pays'));
     }
 
     public function pays_especific_site(int $site_id): View
     {
         $pays = $this->validate_role() ? PaymentPll::get_especific_site_pays($site_id) : PaymentPll::get_especific_site_user_pays($site_id, Auth::user()->id);
+
+        $log[] = 'Consultó los pagos especificos del sitio con el id ' . $site_id;
+        $this->write_file($log);
 
         return view('payments.index', compact('pays'));
     }
@@ -64,6 +87,9 @@ class PaymentController extends Controller
 
         PaymentPll::save_response_url_payment($payment, $response->url);
 
+        $log[] = 'Creó una sesion de pago para P2P';
+        $this->write_file($log);
+
         return redirect()->away($response->url);
     }
 
@@ -77,6 +103,7 @@ class PaymentController extends Controller
 
         if ($payment->status === PaymentStatus::PENDING->value) {
             $payment = $paymentService->query();
+            $log[] = 'Finalizó una sesion de pago en P2P de tipo ' . $payment->origin_payment;
         }
 
         $invoice_id = intval($request->query('invoice_id'));
@@ -136,6 +163,9 @@ class PaymentController extends Controller
             $suscription_status = $user_suscription->status;
         }
 
+        $log[] = 'Ingresó a payments.show ' . $payment->origin_payment;
+        $this->write_file($log);
+
         return view('payments.show', [
             'payment' => $payment,
             'invoice_status' => $status,
@@ -152,8 +182,21 @@ class PaymentController extends Controller
         return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
     }
 
+    //ELIMINAR ESTO Y CREAR LA POLICY Y ELIMINAR VALIDATE_ROL
     public function show_suscription_pay(int $payment)
     {
         //dd($payment);
+    }
+
+    protected function write_file(array $info)
+    {
+        $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
+        $content = '';
+
+        foreach ($info as $key => $value){
+            $content .= '    ' . $value . ' en la fecha ' . $current_date_time;
+        }
+
+        Storage::disk('public_logs')->append('log.txt', $content);
     }
 }

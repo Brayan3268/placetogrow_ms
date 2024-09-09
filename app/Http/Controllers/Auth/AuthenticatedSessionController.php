@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -22,6 +23,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $this->write_file([]);
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -34,5 +37,11 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    protected function write_file(array $info)
+    {
+        $content = 'El usuario con id ' . Auth::user()->id . ' y el email ' . Auth::user()->email . ' ingresó e hizo:' . "\n";
+        Storage::disk('public_logs')->append('log.txt', $content);
     }
 }

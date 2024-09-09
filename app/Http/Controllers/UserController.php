@@ -6,9 +6,11 @@ use App\Http\PersistantsLowLevel\RolePll;
 use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -24,6 +26,9 @@ class UserController extends Controller
         $admin_users = $response['admin_users'];
         $guest_users = $response['guest_users'];
 
+        $log[] = 'Ingresó a users.index';
+        $this->write_file($log);
+
         return view('users.index', compact(['super_admin_users', 'admin_users', 'guest_users']));
     }
 
@@ -33,6 +38,9 @@ class UserController extends Controller
 
         $datos = $this->get_enums();
         $document_types = $datos['document_types'];
+
+        $log[] = 'Ingresó a users.create';
+        $this->write_file($log);
 
         return view('users.create', compact('document_types'));
     }
@@ -46,6 +54,9 @@ class UserController extends Controller
 
         $user->assignRole($role);
 
+        $log[] = 'Creó un usuario';
+        $this->write_file($log);
+
         return redirect()->route('users.index')
             ->with('status', 'User created successfully!')
             ->with('class', 'bg-green-500');
@@ -56,6 +67,9 @@ class UserController extends Controller
         $this->authorize('view', User::class);
 
         $userData = UserPll::get_specific_user_with_role($id);
+
+        $log[] = 'Consultó la información de un usuario';
+        $this->write_file($log);
 
         return view('users.show', [
             'user' => $userData['user'],
@@ -72,6 +86,9 @@ class UserController extends Controller
 
         $userData = UserPll::get_specific_user_with_role($id);
 
+        $log[] = 'Ingresó a users.edit';
+        $this->write_file($log);
+
         return view('users.edit', ['user' => $userData['user'], 'document_types' => $document_types, 'role' => $userData['role']]);
     }
 
@@ -80,6 +97,9 @@ class UserController extends Controller
         $this->authorize('update', User::class);
 
         $user = (empty($request['password'])) ? UserPll::update_user_without_password($user, $request) : UserPll::update_user_with_password($user, $request);
+
+        $log[] = 'Editó la información de un usuario';
+        $this->write_file($log);
 
         return redirect()->route('users.index')
             ->with('status', 'User updated successfully')
@@ -93,10 +113,17 @@ class UserController extends Controller
         if ($this->valide_last_super_admin($user)) {
             UserPll::delete_user($user);
 
+            $log[] = 'Eliminó un usuario';
+            $this->write_file($log);
+
             return redirect()->route('users.index')
                 ->with('status', 'User deleted successfully')
                 ->with('class', 'bg-green-500');
         } else {
+
+            $log[] = 'Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario';
+            $this->write_file($log);
+
             return redirect()->route('users.index')
                 ->with('status', 'User not deleted because not exist more super admins users')
                 ->with('class', 'bg-yellow-500');
@@ -128,5 +155,17 @@ class UserController extends Controller
         //}
 
         return ['document_types' => $document_types];
+    }
+
+    protected function write_file(array $info)
+    {
+        $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
+        $content = '';
+
+        foreach ($info as $key => $value){
+            $content .= '    ' . $value . ' en la fecha ' . $current_date_time;
+        }
+
+        Storage::disk('public_logs')->append('log.txt', $content);
     }
 }
