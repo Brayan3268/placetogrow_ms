@@ -84,6 +84,7 @@ class UserSuscriptionPll extends PersistantLowLevel
         $user_suscription->reference = $suscription_data['reference'];
         $user_suscription->user()->associate($user_id);
         $user_suscription->expiration_time = $suscription_data['expiration_time'];
+        $user_suscription->days_until_next_payment = $suscription_data['days_until_next_payment'];
         $user_suscription->suscription()->associate($suscription_data['suscription_id']);
 
         $user_suscription->status = $suscription_data['status'];
@@ -113,11 +114,32 @@ class UserSuscriptionPll extends PersistantLowLevel
         return $user_suscription_db;
     }
 
+    public static function get_suscriptions_to_collect(){
+        return Usersuscription::where('days_until_next_payment', 25)->get();
+    }
+
+    public static function restore_days_until_next_payment(string $reference, int $user_id, int $days)
+    {
+        $user_subscription = Usersuscription::where('reference', $reference)
+        ->where('user_id', $user_id)
+        ->first();
+
+        $user_subscription->days_until_next_payment = $days;
+
+        $user_subscription->save();
+    }
+
     public static function delete_user_suscription(string $reference, int $user_id)
     {
         Usersuscription::where('reference', $reference)->where('user_id', $user_id)->delete();
 
         Cache::flush();
+    }
+
+    public static function decrement_day()
+    {
+        Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
+        ->decrement('days_until_next_payment');
     }
 
     public static function forget_cache(string $name_cache)

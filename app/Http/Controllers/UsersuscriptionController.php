@@ -34,13 +34,23 @@ class UsersuscriptionController extends Controller
     {
         $this->authorize('update', Usersuscription::class);
 
+        $days = [
+            'WEEK' => 7,
+            'FORTNIGHTLY' => 15,
+            'MONTH' => 30,
+            'QUARTERLY' => 90,
+            'BIANNUAL' => 180,
+            'ANNUAL' => 360,
+        ];
+
         $suscription_db = SuscriptionPll::get_especific_suscription($request->suscription_id);
         $log[] = 'Consultó la información de la suscripción '.$request->suscription_id;
 
         $suscription = [
             'reference' => Str::uuid(),
             'user_id' => Auth::user()->id,
-            'expiration_time' => 30,
+            'expiration_time' => $suscription_db->expiration_time,
+            'days_until_next_payment' => $days[$suscription_db->frecuency_collection],
             'suscription_id' => $suscription_db->id,
             'status' => SuscriptionStatus::PENDING,
         ];
@@ -164,11 +174,11 @@ class UsersuscriptionController extends Controller
                 'surname' => Auth::user()->last_name,
                 'email' => Auth::user()->email,
                 'documentType' => Auth::user()->document_type,
-                'document' => '1001132544',
+                'document' => Auth::user()->document,
                 'mobile' => Auth::user()->phone,
             ],
             'payment' => [
-                'reference' => substr(str($user_suscription_updated->reference), 0, 32),
+                'reference' => substr(str(Str::uuid()), 0, 32),
                 'description' => $user_suscription_updated->description,
                 'amount' => [
                     'currency' => $user_suscription_updated->suscription->currency_type,
