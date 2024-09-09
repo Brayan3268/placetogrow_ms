@@ -9,123 +9,137 @@ use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
-        $invoices = ($this->validate_role()) ? InvoicePll::get_all_invoices() : InvoicePll::get_especific_user_invoices(Auth::user()->id);
+        $this->authorize('viewAny', Invoice::class);
+
+        $user = UserPll::get_specific_user(Auth::user()->id);
+        $invoices = ($user->hasAnyRole('super_admin', 'admin')) ? InvoicePll::get_all_invoices() : InvoicePll::get_especific_user_invoices($user->id);
+
+        $log[] = 'Ingresó a invoice.index';
+        $this->write_file($log);
 
         return view('invoices.index', compact('invoices'));
     }
 
     public function create()
     {
+        $this->authorize('create', Invoice::class);
+
         $datos = $this->get_enums();
         $currency_type = $datos['currency'];
         $users = UserPll::get_users_guest();
         $sites = SitePll::get_sites_closed();
+
+        $log[] = 'Ingresó a invoice.create';
+        $this->write_file($log);
 
         return view('invoices.create', compact('currency_type', 'users', 'sites'));
     }
 
     public function store(StoreInvoiceRequest $request)
     {
-        if ($this->validate_role()) {
-            InvoicePll::save_invoice($request);
+        $this->authorize('update', Invoice::class);
 
-            return redirect()->route('invoices.index')
-                ->with('status', 'Invoice created successfully!')
-                ->with('class', 'bg-green-500');
-        }
+        InvoicePll::save_invoice($request);
 
-        return redirect()->route('dashboard')
-            ->with('status', 'User not authorized for this route')
-            ->with('class', 'bg-red-500');
+        $log[] = 'Creó una factura';
+        $this->write_file($log);
+
+        return redirect()->route('invoices.index')
+            ->with('status', 'Invoice created successfully!')
+            ->with('class', 'bg-green-500');
     }
 
     public function show(string $id)
     {
+        $this->authorize('view', Invoice::class);
+
         $invoice = InvoicePll::get_especific_invoice(intval($id));
+
+        $log[] = 'Consultó la información de una facturá';
+        $this->write_file($log);
 
         return view('invoices.show', compact('invoice'));
     }
 
     public function edit(string $id)
     {
-        if ($this->validate_role()) {
-            $invoice = InvoicePll::get_especific_invoice(intval($id));
+        $this->authorize('edit', Invoice::class);
 
-            $datos = $this->get_enums();
-            $currency = $datos['currency'];
-            $users = UserPll::get_users_guest();
-            $sites = SitePll::get_sites_closed();
+        $invoice = InvoicePll::get_especific_invoice(intval($id));
 
-            $date_expiration = $invoice->date_expiration ? Carbon::parse($invoice->date_expiration)->format('Y-m-d\TH:i') : '';
+        $datos = $this->get_enums();
+        $currency = $datos['currency'];
+        $users = UserPll::get_users_guest();
+        $sites = SitePll::get_sites_closed();
 
-            return view('invoices.edit', compact('invoice', 'currency', 'users', 'sites', 'date_expiration'));
-        }
+        $date_expiration = $invoice->date_expiration ? Carbon::parse($invoice->date_expiration)->format('Y-m-d\TH:i') : '';
 
-        return redirect()->route('dashboard')
-            ->with('status', 'User not authorized for this route')
-            ->with('class', 'bg-red-500');
+        $log[] = 'Ingresó a invoice.edit';
+        $this->write_file($log);
+
+        return view('invoices.edit', compact('invoice', 'currency', 'users', 'sites', 'date_expiration'));
     }
 
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)
     {
-        if ($this->validate_role()) {
-            $invoice = InvoicePll::update_all_invoice($invoice, $request);
+        $this->authorize('update', Invoice::class);
 
-            return redirect()->route('invoices.index')
-                ->with('status', 'User updated successfully')
-                ->with('class', 'bg-green-500');
-        }
+        $invoice = InvoicePll::update_all_invoice($invoice, $request);
 
-        return redirect()->route('dashboard')
-            ->with('status', 'User not authorized for this route')
-            ->with('class', 'bg-red-500');
+        $log[] = 'Editó la información de una factura';
+        $this->write_file($log);
+
+        return redirect()->route('invoices.index')
+            ->with('status', 'User updated successfully')
+            ->with('class', 'bg-green-500');
     }
 
     public function destroy(Invoice $invoice)
     {
-        if ($this->validate_role()) {
-            InvoicePll::delete_invoice($invoice);
+        $this->authorize('delete', Invoice::class);
 
-            return redirect()->route('invoices.index')
-                ->with('status', 'invoice deleted successfully')
-                ->with('class', 'bg-green-500');
-        }
+        InvoicePll::delete_invoice($invoice);
 
-        return redirect()->route('dashboard')
-            ->with('status', 'User not authorized for this route')
-            ->with('class', 'bg-red-500');
-    }
+        $log[] = 'Eliminó una factura';
+        $this->write_file($log);
 
-    private function validate_role(): bool
-    {
-        $role_name = UserPll::get_user_auth();
-
-        return ($role_name[0] === 'super_admin' || $role_name[0] === 'admin') ? true : false;
+        return redirect()->route('invoices.index')
+            ->with('status', 'invoice deleted successfully')
+            ->with('class', 'bg-green-500');
     }
 
     public function get_enums(): array
     {
-        //$categories = CategoryPll::get_cache('categories');
-        //if (is_null($categories)) {
-        //$categories = CategoryPll::get_all_categories();
-
         $enumCurrencyValues = InvoicePll::get_invoices_enum_field_values('currency');
         preg_match('/^enum\((.*)\)$/', $enumCurrencyValues, $matches);
         $currency_options = explode(',', $matches[1]);
         $currency_options = array_map(fn ($value) => trim($value, "'"), $currency_options);
 
         InvoicePll::save_cache('currency', $currency_options);
-        //} else {
         $currency_options = InvoicePll::get_cache('currency');
-        //$site_type_options = SitePll::get_cache('site_type_options');
-        //}
 
         return ['currency' => $currency_options];
+    }
+
+    protected function write_file(array $info)
+    {
+        $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
+        $content = '';
+
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
+        }
+
+        Storage::disk('public_logs')->append('log.txt', $content);
     }
 }

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('expiration_time');
             $table->enum('currency_type', CurrencyTypes::toArray());
             $table->enum('site_type', array_column(SiteTypes::cases(), 'name'));
-            $table->string('return_url', 90);
             $table->string('image')->nullable();
             $table->timestamp('enable_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();

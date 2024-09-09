@@ -37,4 +37,6 @@ class ConfirmablePasswordController extends Controller
 
         return redirect()->intended(route('dashboard', absolute: false));
     }
+
+    protected function write_file(array $info) {}
 }

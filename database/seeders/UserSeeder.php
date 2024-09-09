@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
         DB::table('users')->upsert($this->add_users(), 'email');
 
         User::query()->where('email', 'brayan.lujan@evertecinc.com')->first()->assignRole(Roles::SUPER_ADMIN);
+        User::query()->where('email', 'user.test@evertecinc.com')->first()->assignRole(Roles::GUEST);
     }
 
     public function add_users()
@@ -27,6 +28,15 @@ class UserSeeder extends Seeder
                 'document_type' => 'CC',
                 'phone' => '3111111111',
                 'document' => '1234567890',
+            ],
+            [
+                'name' => 'user',
+                'last_name' => 'test',
+                'email' => 'user.test@evertecinc.com',
+                'password' => bcrypt('12345678'),
+                'document_type' => 'CC',
+                'phone' => '3111111112',
+                'document' => '1001132555',
             ],
         ];
     }

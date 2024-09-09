@@ -4,6 +4,7 @@ namespace App\Http\PersistantsLowLevel;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -18,13 +19,27 @@ class UserPll extends PersistantLowLevel
             'guest_users' => $roles[2]->users];
     }
 
-    public static function get_specific_user(string $id)
+    public static function get_specific_user(int $id)
     {
         $user = Cache::get('user.'.$id);
         if (is_null($user)) {
             $user = User::find($id);
 
             Cache::put('user.'.$id, $user);
+        }
+
+        RolePll::forget_cache('users.roles');
+
+        return $user;
+    }
+
+    public static function get_specific_user_with_role(string $id)
+    {
+        $user = Cache::get('user.role.'.$id);
+        if (is_null($user)) {
+            $user = User::find($id);
+
+            Cache::put('user.role.'.$id, $user);
         }
 
         $role_name = $user->getRoleNames();
@@ -43,7 +58,7 @@ class UserPll extends PersistantLowLevel
 
     public static function save_user(StoreUserRequest $request)
     {
-        $user = new User();
+        $user = new User;
         $user->name = $request->name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
@@ -110,7 +125,7 @@ class UserPll extends PersistantLowLevel
 
     public static function get_user_auth()
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::find(Auth::user()->id);
         $user = UserPll::get_role_names($user);
 
         return $user;

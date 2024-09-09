@@ -41,4 +41,9 @@ class Site extends Model
     {
         return $this->hasMany(Invoice::class);
     }
+
+    public function suscription()
+    {
+        return $this->hasMany(Suscription::class);
+    }
 }

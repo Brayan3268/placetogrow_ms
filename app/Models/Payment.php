@@ -10,7 +10,7 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status', 'process_identifier', 'invoice_id'];
+    protected $fillable = ['status', 'process_identifier', 'invoice_id', 'origin_payment'];
 
     public function user(): BelongsTo
     {

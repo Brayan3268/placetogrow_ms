@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('values', 80)->nullable(true);
             $table->boolean('is_mandatory');
             $table->boolean('is_modify');
-            $table->foreignId('site_id')->constrained();
+            $table->foreignId('site_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

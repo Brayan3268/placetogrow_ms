@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return match (PaymentGateway::from($data['gateway'])) {
-                PaymentGateway::PLACETOPAY => new PlacetopayGateway(),
+                PaymentGateway::PLACETOPAY => new PlacetopayGateway,
             };
         });
         //$this->app->singleton(PaymentServiceContract::class, PlacetopayGateway::class);

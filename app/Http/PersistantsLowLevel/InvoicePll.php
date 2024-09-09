@@ -6,6 +6,7 @@ use App\Constants\InvoiceStatus;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -87,9 +88,23 @@ class InvoicePll extends PersistantLowLevel
         return $invoices;
     }
 
-    public static function update_invoice(int $invoice_id, string $status, int $payment_id)
+    public static function get_especific_invoice_with_reference(string $invoice_reference)
     {
-        $invoice = InvoicePll::get_especific_invoice($invoice_id);
+        $invoice = Cache::get('invoice.reference'.$invoice_reference);
+        if (is_null($invoice)) {
+            $invoice = Invoice::with('user', 'site')
+                ->where('reference', $invoice_reference)
+                ->first();
+
+            Cache::put('invoice.reference'.$invoice_reference, $invoice);
+        }
+
+        return $invoice;
+    }
+
+    public static function update_invoice(string $invoice_reference, string $status, int $payment_id)
+    {
+        $invoice = InvoicePll::get_especific_invoice_with_reference($invoice_reference);
         $invoice->update([
             'reference' => $invoice->reference,
             'amount' => $invoice->amount,
@@ -128,7 +143,7 @@ class InvoicePll extends PersistantLowLevel
 
     public static function save_invoice(StoreInvoiceRequest $request)
     {
-        $invoice = new Invoice();
+        $invoice = new Invoice;
         $invoice->reference = $request->reference;
         $invoice->amount = $request->amount;
         $invoice->currency = $request->currency;
@@ -139,6 +154,27 @@ class InvoicePll extends PersistantLowLevel
         $invoice->date_expiration = $request->date_expiration;
         $invoice->payment_id = $request->payment_id;
         $invoice->save();
+
+        Cache::flush();
+    }
+
+    public static function save_invoices_imported(array $invoices, int $site_id)
+    {
+        foreach ($invoices as $invoice_file) {
+            $user = User::where('document', $invoice_file['user_id'])->first();
+            //dd($user->id);
+            $invoice = new Invoice;
+            $invoice->reference = $invoice_file['reference'];
+            $invoice->amount = $invoice_file['amount'];
+            $invoice->currency = $invoice_file['currency'];
+            $invoice->status = 'not_payed';
+            $invoice->site()->associate($site_id);
+            $invoice->user()->associate($user->id);
+            $invoice->date_created = $invoice_file['date_created'];
+            $invoice->date_expiration = $invoice_file['date_expiration'];
+
+            $invoice->save();
+        }
 
         Cache::flush();
     }

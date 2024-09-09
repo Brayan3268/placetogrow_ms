@@ -9,7 +9,7 @@ class SiteSeeder extends Seeder
 {
     public function run(): void
     {
-        $site = new Site();
+        $site = new Site;
 
         $site->slug = 'Motos_la_45';
         $site->name = 'Yamaha la 45';
@@ -17,10 +17,9 @@ class SiteSeeder extends Seeder
         $site->expiration_time = 20;
         $site->currency_type = 'COP';
         $site->site_type = 'OPEN';
-        $site->return_url = 'http://127.0.0.1:8000/sites/1';
         $site->save();
 
-        $site = new Site();
+        $site = new Site;
 
         $site->slug = 'Ropa_la_45';
         $site->name = 'Euphoria';
@@ -28,18 +27,16 @@ class SiteSeeder extends Seeder
         $site->expiration_time = 20;
         $site->currency_type = 'COP';
         $site->site_type = 'CLOSE';
-        $site->return_url = 'http://127.0.0.1:8000/sites/2';
         $site->save();
 
-        $site = new Site();
+        $site = new Site;
 
-        $site->slug = 'Computadores_la_45';
-        $site->name = "Lenovo pc's";
+        $site->slug = 'Netflix';
+        $site->name = 'Netflix';
         $site->category_id = 3;
         $site->expiration_time = 20;
         $site->currency_type = 'COP';
         $site->site_type = 'SUSCRIPTION';
-        $site->return_url = 'http://127.0.0.1:8000/sites/3';
         $site->save();
     }
 }
