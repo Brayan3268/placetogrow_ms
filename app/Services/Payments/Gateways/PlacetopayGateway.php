@@ -91,30 +91,6 @@ class PlacetopayGateway implements PaymentGateway
         return $this;
     }
 
-    /*public function payment_suscription(Payment $payment): self
-    {
-        $this->data['locale'] = $payment->locale;
-
-        $this->data['payment'] = [
-            'reference' => $payment->reference,
-            'description' => $payment->description,
-            'amount' => [
-                'currency' => $payment->currency,
-                'total' => $payment->amount,
-            ],
-        ];
-
-        $this->data['returnUrl'] = route('payment.show', [
-            'payment' => $payment,
-        ]);
-
-        $invoice_id = $payment->getAttribute('invoice_id');
-
-        $this->data['returnUrl'] = route('payment.show', compact('payment', 'invoice_id'));
-
-        return $this;
-    }*/
-
     public function process(): PaymentResponse
     {
         $response = Http::post($this->config['url'], $this->data);
@@ -131,6 +107,7 @@ class PlacetopayGateway implements PaymentGateway
 
         $response = Http::post($url, $this->data);
         $response = $response->json();
+        //dd($response);
         $status = $response['status'];
 
         return new QueryPaymentResponse($status['reason'], $status['status']);

@@ -40,21 +40,6 @@ class SitePll extends PersistantLowLevel
         return $sites;
     }
 
-    public static function get_sites_suscription()
-    {
-        $sites = Cache::get('sites.suscription');
-        if (is_null($sites)) {
-            $sites = Site::whereIn('site_type', ['suscription'])
-                ->with('category:id,name')
-                ->select('name', 'slug', 'category_id', 'site_type', 'id')
-                ->get();
-
-            Cache::put('sites.suscription', $sites);
-        }
-
-        return $sites;
-    }
-
     public static function get_sites_enum_field_values(string $field)
     {
         return DB::select("SHOW COLUMNS FROM sites WHERE Field = '".$field."'")[0]->Type;
@@ -71,7 +56,7 @@ class SitePll extends PersistantLowLevel
     {
 
         dump($request);
-        $site = new Site;
+        $site = new Site();
 
         $site->slug = $request->slug;
         $site->name = $request->name;
@@ -79,6 +64,7 @@ class SitePll extends PersistantLowLevel
         $site->expiration_time = $request->expiration_time;
         $site->currency_type = $request->currency;
         $site->site_type = $request->site_type;
+        $site->return_url = $request->return_url;
         $site->image = 'storage/site_images/'.$image_name;
 
         dump($site);
@@ -112,6 +98,7 @@ class SitePll extends PersistantLowLevel
             'expiration_time' => $request['expiration_time'],
             'currency_type' => $request['currency'],
             'site_type' => $request['site_type'],
+            'return_url' => $request['return_url'],
         ];
 
         if ($request->hasFile('image')) {
@@ -134,6 +121,7 @@ class SitePll extends PersistantLowLevel
                 'expiration_time' => $data['expiration_time'],
                 'currency_type' => $data['currency_type'],
                 'site_type' => $data['site_type'],
+                'return_url' => $data['return_url'],
                 'image' => $data['image'],
             ]);
         } else {
@@ -144,6 +132,7 @@ class SitePll extends PersistantLowLevel
                 'expiration_time' => $data['expiration_time'],
                 'currency_type' => $data['currency_type'],
                 'site_type' => $data['site_type'],
+                'return_url' => $data['return_url'],
             ]);
         }
 

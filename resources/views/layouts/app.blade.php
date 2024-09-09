@@ -58,50 +58,42 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 6h18M3 18h18" />
                         </svg>
-                        <span class="text-2xl font-extrabold">{{ __('messages.menu') }}</span>
+                        <span class="text-2xl font-extrabold">Brand</span>
                     </a>    
                     <nav>
                         <a href="{{ route('dashboard') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-purple-700 hover:text-white">
                             <svg class="inline-block w-6 h-6 mr-2 text-orange-500 transition duration-200 group-hover:text-purple-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3a7 7 0 100 14 7 7 0 000-14zm0 12a5 5 0 110-10 5 5 0 010 10zM7 10h6v1H7v-1z" />
                             </svg>
-                            {{ __('messages.dashboard') }}
+                            Dashboard
                         </a>
                         @can(['users_menu.show'])
                         <a href="{{ route('users.index') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-purple-700 hover:text-white">
                             <svg class="inline-block w-6 h-6 mr-2 text-orange-500 transition duration-200 group-hover:text-purple-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3a7 7 0 100 14 7 7 0 000-14zm0 12a5 5 0 110-10 5 5 0 010 10zM7 10h6v1H7v-1z" />
                             </svg>
-                            {{ __('messages.users') }}
+                            Users
                         </a>
                         @endcan
                         <a href="{{ route('sites.index') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-purple-700 hover:text-white">
                             <svg class="inline-block w-6 h-6 mr-2 text-orange-500 transition duration-200 group-hover:text-purple-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3a7 7 0 100 14 7 7 0 000-14zm0 12a5 5 0 110-10 5 5 0 010 10zM7 10h6v1H7v-1z" />
                             </svg>
-                            {{ __('messages.microsites') }}
+                            Microsites
                         </a>
 
                         <a href="{{ route('invoices.index') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-purple-700 hover:text-white">
                             <svg class="inline-block w-6 h-6 mr-2 text-orange-500 transition duration-200 group-hover:text-purple-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3a7 7 0 100 14 7 7 0 000-14zm0 12a5 5 0 110-10 5 5 0 010 10zM7 10h6v1H7v-1z" />
                             </svg>
-                            {{ __('messages.invoices') }}
-                            
+                            Invoices
                         </a>
 
                         <a href="{{ route('payment.index') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-purple-700 hover:text-white">
                             <svg class="inline-block w-6 h-6 mr-2 text-orange-500 transition duration-200 group-hover:text-purple-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 3a7 7 0 100 14 7 7 0 000-14zm0 12a5 5 0 110-10 5 5 0 010 10zM7 10h6v1H7v-1z" />
                             </svg>
-                            {{ __('messages.pays') }}
-                        </a>
-
-                        <a href="{{ route('suscriptions.index') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-purple-700 hover:text-white">
-                            <svg class="inline-block w-6 h-6 mr-2 text-orange-500 transition duration-200 group-hover:text-purple-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10 3a7 7 0 100 14 7 7 0 000-14zm0 12a5 5 0 110-10 5 5 0 010 10zM7 10h6v1H7v-1z" />
-                            </svg>
-                            {{ __('messages.suscription') }}
+                            Pays
                         </a>
                     </nav>
                 </div>

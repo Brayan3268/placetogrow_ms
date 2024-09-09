@@ -47,10 +47,4 @@ DB_PASSWORD=
 
 15) For run the test:
 
-Download the file from: https://xdebug.org/wizard and follow the steps
-
-Add the following lines on your php.ini
-zend_extension = xdebug
-xdebug.mode=coverage
-
-php -dxdebug.mode=coverage ./vendor/bin/phpunit --coverage-html coverage/ tests/Feature/<filename>.php
+php - dxdebug.mode=coverage ./vendor/bin/phpunit --coverage-html coverage/ tests/Feature/<filename>.php

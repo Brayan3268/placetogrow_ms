@@ -21,6 +21,4 @@ class EmailVerificationNotificationController extends Controller
 
         return back()->with('status', 'verification-link-sent');
     }
-
-    protected function write_file(array $info) {}
 }

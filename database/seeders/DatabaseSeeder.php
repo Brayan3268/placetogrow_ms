@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             SiteSeeder::class,
             FieldspaysiteSeeder::class,
-            SuscriptionSeeder::class,
         ]);
     }
 }

@@ -9,7 +9,7 @@ class FieldspaysiteSeeder extends Seeder
 {
     public function run(): void
     {
-        $fieldpaysite = new Fieldspaysite;
+        $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
@@ -21,7 +21,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
 
-        $fieldpaysite = new Fieldspaysite;
+        $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = 'total';
         $fieldpaysite->name_user_see = 'Amount to pay';
@@ -33,7 +33,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->site_id = 1;
         $fieldpaysite->save();
 
-        $fieldpaysite = new Fieldspaysite;
+        $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
@@ -45,7 +45,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->site_id = 2;
         $fieldpaysite->save();
 
-        $fieldpaysite = new Fieldspaysite;
+        $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = 'total';
         $fieldpaysite->name_user_see = 'Amount to pay';
@@ -57,7 +57,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->site_id = 2;
         $fieldpaysite->save();
 
-        $fieldpaysite = new Fieldspaysite;
+        $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = 'currency';
         $fieldpaysite->name_user_see = 'Currency for pay';
@@ -69,7 +69,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->site_id = 2;
         $fieldpaysite->save();
 
-        $fieldpaysite = new Fieldspaysite;
+        $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = 'locale';
         $fieldpaysite->name_user_see = 'Language\'s session';
@@ -81,7 +81,7 @@ class FieldspaysiteSeeder extends Seeder
         $fieldpaysite->site_id = 3;
         $fieldpaysite->save();
 
-        $fieldpaysite = new Fieldspaysite;
+        $fieldpaysite = new Fieldspaysite();
 
         $fieldpaysite->name = 'total';
         $fieldpaysite->name_user_see = 'Amount to pay';

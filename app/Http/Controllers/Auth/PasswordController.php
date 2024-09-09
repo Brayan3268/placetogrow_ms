@@ -26,6 +26,4 @@ class PasswordController extends Controller
 
         return back()->with('status', 'password-updated');
     }
-
-    protected function write_file(array $info) {}
 }

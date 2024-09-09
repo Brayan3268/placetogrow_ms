@@ -47,6 +47,4 @@ class RegisteredUserController extends Controller
 
         return redirect(route('dashboard', absolute: false));
     }
-
-    protected function write_file(array $info) {}
 }
