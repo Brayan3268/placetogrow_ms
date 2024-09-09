@@ -11,6 +11,7 @@ use App\Models\Invoice;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -22,6 +23,9 @@ class InvoiceController extends Controller
 
         $user = UserPll::get_specific_user(Auth::user()->id);
         $invoices = ($user->hasAnyRole('super_admin', 'admin')) ? InvoicePll::get_all_invoices() : InvoicePll::get_especific_user_invoices($user->id);
+
+        $log[] = 'Ingresó a invoice.index';
+        $this->write_file($log);
 
         return view('invoices.index', compact('invoices'));
     }
@@ -35,6 +39,9 @@ class InvoiceController extends Controller
         $users = UserPll::get_users_guest();
         $sites = SitePll::get_sites_closed();
 
+        $log[] = 'Ingresó a invoice.create';
+        $this->write_file($log);
+
         return view('invoices.create', compact('currency_type', 'users', 'sites'));
     }
 
@@ -43,6 +50,9 @@ class InvoiceController extends Controller
         $this->authorize('update', Invoice::class);
 
         InvoicePll::save_invoice($request);
+
+        $log[] = 'Creó una factura';
+        $this->write_file($log);
 
         return redirect()->route('invoices.index')
             ->with('status', 'Invoice created successfully!')
@@ -54,6 +64,9 @@ class InvoiceController extends Controller
         $this->authorize('view', Invoice::class);
 
         $invoice = InvoicePll::get_especific_invoice(intval($id));
+
+        $log[] = 'Consultó la información de una facturá';
+        $this->write_file($log);
 
         return view('invoices.show', compact('invoice'));
     }
@@ -71,6 +84,9 @@ class InvoiceController extends Controller
 
         $date_expiration = $invoice->date_expiration ? Carbon::parse($invoice->date_expiration)->format('Y-m-d\TH:i') : '';
 
+        $log[] = 'Ingresó a invoice.edit';
+        $this->write_file($log);
+
         return view('invoices.edit', compact('invoice', 'currency', 'users', 'sites', 'date_expiration'));
     }
 
@@ -79,6 +95,9 @@ class InvoiceController extends Controller
         $this->authorize('update', Invoice::class);
 
         $invoice = InvoicePll::update_all_invoice($invoice, $request);
+
+        $log[] = 'Editó la información de una factura';
+        $this->write_file($log);
 
         return redirect()->route('invoices.index')
             ->with('status', 'User updated successfully')
@@ -90,6 +109,9 @@ class InvoiceController extends Controller
         $this->authorize('delete', Invoice::class);
 
         InvoicePll::delete_invoice($invoice);
+
+        $log[] = 'Eliminó una factura';
+        $this->write_file($log);
 
         return redirect()->route('invoices.index')
             ->with('status', 'invoice deleted successfully')
@@ -107,5 +129,17 @@ class InvoiceController extends Controller
         $currency_options = InvoicePll::get_cache('currency');
 
         return ['currency' => $currency_options];
+    }
+
+    protected function write_file(array $info)
+    {
+        $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
+        $content = '';
+
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
+        }
+
+        Storage::disk('public_logs')->append('log.txt', $content);
     }
 }

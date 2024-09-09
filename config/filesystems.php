@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'public_logs' => [
+            'driver' => 'local',
+            'root' => public_path('logs'),
+            'url' => env('APP_URL').'/logs',
+            'visibility' => 'public',
+        ],
     ],
 
     /*

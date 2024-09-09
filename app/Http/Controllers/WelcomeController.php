@@ -13,4 +13,6 @@ class WelcomeController extends Controller
 
         return view('welcome');
     }
+
+    protected function write_file(array $info) {}
 }

@@ -9,9 +9,11 @@ use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StoreSuscriptionRequest;
 use App\Models\Suscription;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class SuscriptionController extends Controller
@@ -41,6 +43,9 @@ class SuscriptionController extends Controller
             $user_suscriptions = UserSuscriptionPll::get_all_user_suscriptions();
         }
 
+        $log[] = 'Ingresó a suscriptions.index';
+        $this->write_file($log);
+
         return view('suscriptions.index', compact('suscriptions', 'user_suscriptions'));
     }
 
@@ -53,6 +58,9 @@ class SuscriptionController extends Controller
         $frecuency_collection = $datos['frecuency_collection'];
         $sites = SitePll::get_sites_suscription();
 
+        $log[] = 'Ingresó a suscriptions.create';
+        $this->write_file($log);
+
         return view('suscriptions.create', compact('currency_type', 'frecuency_collection', 'sites'));
     }
 
@@ -61,6 +69,9 @@ class SuscriptionController extends Controller
         $this->authorize('update', Suscription::class);
 
         SuscriptionPll::save_suscription($request);
+
+        $log[] = 'Creó una suscripción';
+        $this->write_file($log);
 
         return redirect()->route('suscriptions.index')
             ->with('status', 'Suscription plan created successfully!')
@@ -72,6 +83,9 @@ class SuscriptionController extends Controller
         $this->authorize('view', Suscription::class);
 
         $suscription = SuscriptionPll::get_especific_suscription($suscription->id);
+
+        $log[] = 'Consultó la información de una suscripción';
+        $this->write_file($log);
 
         return view('suscriptions.show', compact('suscription'));
     }
@@ -87,6 +101,9 @@ class SuscriptionController extends Controller
         $frecuency_collection = $datos['frecuency_collection'];
         $sites = SitePll::get_sites_suscription();
 
+        $log[] = 'Ingresó a suscriptions.edit';
+        $this->write_file($log);
+
         return view('suscriptions.edit', compact('suscription', 'currency_type', 'frecuency_collection', 'sites'));
     }
 
@@ -95,6 +112,9 @@ class SuscriptionController extends Controller
         $this->authorize('update', Suscription::class);
 
         SuscriptionPll::update_suscription($request, $suscription);
+
+        $log[] = 'Editó la información de una suscripción';
+        $this->write_file($log);
 
         return redirect()->route('suscriptions.index')
             ->with('status', 'Suscription updated successfully')
@@ -106,6 +126,9 @@ class SuscriptionController extends Controller
         $this->authorize('delete', Suscription::class);
 
         SuscriptionPll::delete_suscription($suscription);
+
+        $log[] = 'Eliminó una suscripción';
+        $this->write_file($log);
 
         return redirect()->route('suscriptions.index')
             ->with('status', 'Suscription deleted successfully')
@@ -134,5 +157,17 @@ class SuscriptionController extends Controller
             'currency_type' => $currency_options,
             'frecuency_collection' => $frecuency_collection_options,
         ];
+    }
+
+    protected function write_file(array $info)
+    {
+        $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
+        $content = '';
+
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
+        }
+
+        Storage::disk('public_logs')->append('log.txt', $content);
     }
 }

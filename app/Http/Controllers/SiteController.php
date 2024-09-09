@@ -15,11 +15,13 @@ use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StoreFieldRequest;
 use App\Imports\InvoicesImport;
 use App\Models\Site;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -48,6 +50,9 @@ class SiteController extends Controller
         $close_sites = $classifiedSites['CLOSE'];
         $suscription_sites = $classifiedSites['SUSCRIPTION'];
 
+        $log[] = 'Ingresó a sites.index';
+        $this->write_file($log);
+
         return view('sites.index', compact(['open_sites', 'close_sites', 'suscription_sites']));
     }
 
@@ -59,6 +64,9 @@ class SiteController extends Controller
         $categories = $datos['categories'];
         $currency_options = $datos['currency_options'];
         $site_type_options = $datos['site_type_options'];
+
+        $log[] = 'Ingresó a sites.create';
+        $this->write_file($log);
 
         return view('sites.create', compact('categories', 'currency_options', 'site_type_options'));
     }
@@ -84,6 +92,9 @@ class SiteController extends Controller
                 ->with('class', 'bg-green-500');
         }
 
+        $log[] = 'Creó un sitio';
+        $this->write_file($log);
+
         return redirect()->route('sites.index')
             ->with('status', 'Site created unsuccessfully!')
             ->with('class', 'bg-red-500');
@@ -93,11 +104,14 @@ class SiteController extends Controller
     {
         $this->authorize('view', Site::class);
 
+        $log[] = 'Ingresó a sites.show';
+
         $pay_exist = false;
         $pay = '';
         if (PaymentPll::validate_is_pending_rejected_pays(intval($id))) {
             $pay = PaymentPll::get_pays_not_approved_payments(intval($id));
             $pay_exist = true;
+            $log[] = 'Consultó la información de un pago pendiente';
         }
 
         $invoices = collect();
@@ -108,11 +122,14 @@ class SiteController extends Controller
             $invoices = ($user->hasPermissionTo(Permissions::SITES_PAY) && $user->hasPermissionTo(Permissions::SITES_MANAGE)) ?
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
+            $log[] = 'Consultó las facturas pendientes del sitio '.$site->id;
         }
 
         $suscription_plans = collect();
         $user_plans_get_suscribe = [];
         if ($site->site_type == 'SUSCRIPTION') {
+            Cache::flush();
+
             $suscription_plans = SuscriptionPll::get_site_suscription(intval($id));
 
             if ($user->hasPermissionTo(Permissions::USER_GET_SUSCRIPTION)) {
@@ -126,7 +143,10 @@ class SiteController extends Controller
                     }
                 }
             }
+            $log[] = 'Consultó las suscripciones para el sitio '.$site->id;
         }
+
+        $this->write_file($log);
 
         try {
             return view('sites.show', compact('site', 'invoices', 'pay_exist', 'pay', 'suscription_plans', 'user_plans_get_suscribe'));
@@ -146,6 +166,9 @@ class SiteController extends Controller
         $currency_options = $datos['currency_options'];
         $site_type_options = $datos['site_type_options'];
 
+        $log[] = 'Ingresó a sites.edit';
+        $this->write_file($log);
+
         return view('sites.edit', compact('site', 'categories', 'currency_options', 'site_type_options'));
     }
 
@@ -154,6 +177,9 @@ class SiteController extends Controller
         $this->authorize('update', Site::class);
 
         SitePll::update_site($site, $request);
+
+        $log[] = 'Editó la información de un sitio';
+        $this->write_file($log);
 
         return redirect()->route('sites.index')
             ->with('status', 'Site updated successfully')
@@ -171,6 +197,9 @@ class SiteController extends Controller
         }
 
         SitePll::delete_site($site);
+
+        $log[] = 'Eliminó un sitio';
+        $this->write_file($log);
 
         return redirect()->route('sites.index')
             ->with('status', 'Site deleted successfully')
@@ -204,6 +233,9 @@ class SiteController extends Controller
 
         }
 
+        $log[] = 'Entró a la configuración de los campos requeridos del sitio '.$site->id;
+        $this->write_file($log);
+
         return view('sites.fieldspaysite', compact('filtered_constants_opt', 'sites_fields', 'site_id'));
     }
 
@@ -212,6 +244,9 @@ class SiteController extends Controller
         $this->authorize('manage_sites_config_pay', Site::class);
 
         FieldpaysitePll::add_field_site($request);
+
+        $log[] = 'Agregó un campo para el formulario del sitio';
+        $this->write_file($log);
 
         return redirect()->route('sites.manage_config', ['site' => $request->site_id])
             ->with('success', 'Redirection successful!');
@@ -222,6 +257,9 @@ class SiteController extends Controller
         $this->authorize('manage_sites_config_pay', Site::class);
 
         $site_id = FieldpaysitePll::delete_field_pay($field_pay_site_id);
+
+        $log[] = 'Eliminó un campo para el formulario del sitio';
+        $this->write_file($log);
 
         return redirect()->route('sites.manage_config', ['site' => $site_id])
             ->with('success', 'Redirection successful!');
@@ -237,6 +275,9 @@ class SiteController extends Controller
         }
 
         $invoice_id = 0;
+
+        $log[] = 'Ingresó al formulario del sitio para crear una sesion';
+        $this->write_file($log);
 
         return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
     }
@@ -263,6 +304,9 @@ class SiteController extends Controller
         }
 
         $site = SitePll::get_specific_site($invoice->site_id);
+
+        $log[] = 'Ingresó al formulario del sitio para crear una sesion pagando una factura';
+        $this->write_file($log);
 
         return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
     }
@@ -304,6 +348,9 @@ class SiteController extends Controller
 
         $payment = PaymentPll::get_especific_pay(intval($payment_id));
 
+        $log[] = 'Ingresó una sesion de pago creada previamente';
+        $this->write_file($log);
+
         return redirect()->away($payment->url_session);
     }
 
@@ -312,6 +359,9 @@ class SiteController extends Controller
         $this->authorize('form_sites_pay', Site::class);
 
         $site_id = PaymentPll::lose_session($payment_id);
+
+        $log[] = 'Eliminó una sesion de pago';
+        $this->write_file($log);
 
         return $this->show($site_id);
     }
@@ -326,6 +376,21 @@ class SiteController extends Controller
 
         Excel::import($import, $request->file('file'));
 
+        $log[] = 'Importó facturas al sitio '.$site_id;
+        $this->write_file($log);
+
         return $this->show($site_id);
+    }
+
+    protected function write_file(array $info)
+    {
+        $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
+        $content = '';
+
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
+        }
+
+        Storage::disk('public_logs')->append('log.txt', $content);
     }
 }

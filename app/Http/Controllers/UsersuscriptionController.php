@@ -8,10 +8,12 @@ use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\UpdateUsersuscriptionRequest;
 use App\Models\Usersuscription;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UsersuscriptionController extends Controller
@@ -33,6 +35,7 @@ class UsersuscriptionController extends Controller
         $this->authorize('update', Usersuscription::class);
 
         $suscription_db = SuscriptionPll::get_especific_suscription($request->suscription_id);
+        $log[] = 'Consultó la información de la suscripción '.$request->suscription_id;
 
         $suscription = [
             'reference' => Str::uuid(),
@@ -43,7 +46,6 @@ class UsersuscriptionController extends Controller
         ];
 
         $auth = $this->get_auth();
-
         $data = [
             'auth' => [
                 'login' => $auth['login'],
@@ -70,8 +72,12 @@ class UsersuscriptionController extends Controller
 
         $response = Http::post('https://checkout-co.placetopay.dev/api/session', $data);
 
+        $log[] = 'Creó una sesion para realizar una suscripción';
+
         $result = $response->json();
         if (! $response->ok()) {
+            $log[] = 'La sesion no se creó correctamente';
+
             return redirect()->route('suscriptions.index')
                 ->with('status', 'Users suscription not created successfully!')
                 ->with('class', 'bg-red-500');
@@ -82,12 +88,18 @@ class UsersuscriptionController extends Controller
 
         UserSuscriptionPll::save_user_suscription($suscription);
 
+        $log[] = 'Redirige al usuario a la pasarela para la suscripción';
+        $this->write_file($log);
+
         return redirect()->away($result['processUrl']);
     }
 
     public function show(string $usersuscription_reference)
     {
         $this->authorize('view', Usersuscription::class);
+
+        $log[] = 'Ingresó a user_suscriptions.show';
+        $this->write_file($log);
 
         return view('user_suscriptions.show', compact('usersuscription_reference'));
     }
@@ -107,6 +119,9 @@ class UsersuscriptionController extends Controller
     public function destroyy(string $reference, int $user_id)
     {
         UserSuscriptionPll::delete_user_suscription($reference, $user_id);
+
+        $log[] = 'Eliminó la suscripción '.$reference.' del usuario '.$user_id;
+        $this->write_file($log);
 
         return redirect()->route('suscriptions.index')
             ->with('status', 'Suscription deleted successfully')
@@ -128,10 +143,13 @@ class UsersuscriptionController extends Controller
         ];
         $session_information = Http::post('https://checkout-co.placetopay.dev/api/session/'.$user_suscription->request_id, $data);
 
+        $log[] = 'Consulta la información de la sesion de suscripción';
+
         $user_suscription->token = $session_information['subscription']['instrument'][0]['value'];
         $user_suscription->sub_token = $session_information['subscription']['instrument'][1]['value'];
 
         $user_suscription_updated = UserSuscriptionPll::update_suscription($user_suscription, SuscriptionStatus::APPROVED);
+        $log[] = 'Actualiza la información de la sesion de suscripción del usuario';
 
         $auth = $this->get_auth();
         $data_pay = [
@@ -170,10 +188,13 @@ class UsersuscriptionController extends Controller
         ];
 
         $response = Http::post('https://checkout-co.placetopay.dev/api/collect', $data_pay);
+        $log[] = 'Realiza el cobro por token a la suscripción del usuario';
 
         $result = $response->json();
 
         if (! $response->ok()) {
+            $log[] = 'El cobro no se realiza correctamente';
+
             return redirect()->route('suscriptions.index')
                 ->with('status', 'Users suscription pay not maded successfully!')
                 ->with('class', 'bg-red-500');
@@ -183,6 +204,9 @@ class UsersuscriptionController extends Controller
         $invoice_status = '';
         $suscription_status = $user_suscription_updated->status;
         $user_suscription = $user_suscription_updated;
+
+        $log[] = 'Crea el payment del cobro automatico';
+        $this->write_file($log);
 
         return view('payments.show', compact('payment', 'invoice_status', 'suscription_status', 'user_suscription'));
     }
@@ -204,5 +228,17 @@ class UsersuscriptionController extends Controller
             'nonce' => $nonce,
             'seed' => $seed,
         ];
+    }
+
+    protected function write_file(array $info)
+    {
+        $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
+        $content = '';
+
+        foreach ($info as $key => $value) {
+            $content .= '    '.$value.' en la fecha '.$current_date_time;
+        }
+
+        Storage::disk('public_logs')->append('log.txt', $content);
     }
 }

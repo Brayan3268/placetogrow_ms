@@ -54,7 +54,6 @@ function display_help {
     echo
     echo "${YELLOW}Composer Commands:${NC}"
     echo "  ${GREEN}sail composer ...${NC}                       Run a Composer command"
-    echo "  ${GREEN}sail composer require laravel/sanctum${NC}"
     echo
     echo "${YELLOW}Node Commands:${NC}"
     echo "  ${GREEN}sail node ...${NC}         Run a Node command"

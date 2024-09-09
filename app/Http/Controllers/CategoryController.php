@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
@@ -41,5 +42,12 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    protected function write_file(array $info)
+    {
+        $content = 'Este es el contenido que quiero escribir en el archivo.';
+        $filePath = 'public\logs\logs.txt';
+        Storage::disk('local')->append($filePath, $content);
     }
 }
