@@ -22,6 +22,7 @@ class Usersuscription extends Model
         'reference',
         'user_id',
         'expiration_time',
+        'days_until_next_payment',
         'suscription_id',
         'status',
         'request_id',
