@@ -18,7 +18,7 @@ class SuscriptionSeeder extends Seeder
         $suscription->amount = 20000;
         $suscription->currency_type = CurrencyTypes::COP;
         $suscription->expiration_time = 180;
-        $suscription->frecuency_collection = FrecuencyCollection::MONTH;
+        $suscription->frecuency_collection = FrecuencyCollection::WEEK;
         $suscription->site_id = 3;
         $suscription->save();
     }
