@@ -70,7 +70,7 @@ class CollectCommand extends Command
             $requests[] = $data_pay;
         }
 
-        $length = min(count($user_suscriptions_to_collect), count($requests)); // Asegura que no se salga del rango
+        $length = min(count($user_suscriptions_to_collect), count($requests));
         for ($i = 0; $i < $length; $i++) {
             $response = Http::post('https://checkout-co.placetopay.dev/api/collect', $requests[$i]);
 
@@ -78,7 +78,7 @@ class CollectCommand extends Command
 
             PaymentPll::save_payment_suscription($result, $user_suscriptions_to_collect[$i]);
         }
-
+        
         foreach ($user_suscriptions_to_collect as $user_suscription) {
             UserSuscriptionPll::restore_days_until_next_payment($user_suscription->reference, $user_suscription->user->id, $days[$user_suscription->suscription->frecuency_collection]);
         }

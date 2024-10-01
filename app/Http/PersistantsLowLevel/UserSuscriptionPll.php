@@ -115,18 +115,14 @@ class UserSuscriptionPll extends PersistantLowLevel
     }
 
     public static function get_suscriptions_to_collect(){
-        return Usersuscription::where('days_until_next_payment', 25)->get();
+        return Usersuscription::where('days_until_next_payment', 0)->get();
     }
 
     public static function restore_days_until_next_payment(string $reference, int $user_id, int $days)
     {
-        $user_subscription = Usersuscription::where('reference', $reference)
-        ->where('user_id', $user_id)
-        ->first();
-
-        $user_subscription->days_until_next_payment = $days;
-
-        $user_subscription->save();
+        Usersuscription::where('reference', $reference)
+            ->where('user_id', $user_id)
+            ->update(['days_until_next_payment' => $days]);
     }
 
     public static function delete_user_suscription(string $reference, int $user_id)

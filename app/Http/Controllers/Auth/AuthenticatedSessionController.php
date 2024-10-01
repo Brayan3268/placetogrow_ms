@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
 
     protected function write_file(array $info)
     {
-        $content = 'El usuario con id '.Auth::user()->id.' y el email '.Auth::user()->email.' ingresó e hizo:'."\n";
+        $content = "\n".'El usuario con id '.Auth::user()->id.' y el email '.Auth::user()->email.' ingresó e hizo:';
         Storage::disk('public_logs')->append('log.txt', $content);
     }
 }
