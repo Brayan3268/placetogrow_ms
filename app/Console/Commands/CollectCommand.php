@@ -31,7 +31,7 @@ class CollectCommand extends Command
         foreach ($user_suscriptions_to_collect as $suscriptions) {
             $auth = $this->get_auth();
             $data_pay = [];
-            
+
             $data_pay = [
                 'auth' => [
                     'login' => $auth['login'],
@@ -78,7 +78,7 @@ class CollectCommand extends Command
 
             PaymentPll::save_payment_suscription($result, $user_suscriptions_to_collect[$i]);
         }
-        
+
         foreach ($user_suscriptions_to_collect as $user_suscription) {
             UserSuscriptionPll::restore_days_until_next_payment($user_suscription->reference, $user_suscription->user->id, $days[$user_suscription->suscription->frecuency_collection]);
         }

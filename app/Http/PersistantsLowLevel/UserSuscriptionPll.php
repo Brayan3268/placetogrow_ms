@@ -114,7 +114,8 @@ class UserSuscriptionPll extends PersistantLowLevel
         return $user_suscription_db;
     }
 
-    public static function get_suscriptions_to_collect(){
+    public static function get_suscriptions_to_collect()
+    {
         return Usersuscription::where('days_until_next_payment', 0)->get();
     }
 
@@ -135,7 +136,7 @@ class UserSuscriptionPll extends PersistantLowLevel
     public static function decrement_day()
     {
         Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
-        ->decrement('days_until_next_payment');
+            ->decrement('days_until_next_payment');
     }
 
     public static function forget_cache(string $name_cache)
