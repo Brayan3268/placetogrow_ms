@@ -87,6 +87,10 @@ return [
     'invoice_expirated' => 'La factura expira el día',
     'view_form_site' => 'Ver formulario del sitio',
     'complete_form_pay' => 'Complete el formulario de pago',
+    'search_by_date_created' => 'Buscar por fecha de creación',
+    'search_by_date_expired' => 'Buscar por fecha de expiración',
+    'date_created' => 'Factura creada',
+    'date_expired' => 'Factura expira',
 
     //Pays
     'payments' => 'Pagos',
@@ -99,6 +103,8 @@ return [
     'invoice_status' => 'Estado del pago de la factura',
     'search_by_origin_payment' => 'Buscar por origen del pago',
     'origin_payment' => 'Origen del pago',
+    'search_by_date' => 'Buscar por fecha',
+    'date' => 'Fecha',
 
     //Navigation
     'select_language' => 'Seleccionar idioma',
