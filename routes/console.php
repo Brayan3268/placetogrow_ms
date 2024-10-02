@@ -10,10 +10,12 @@ Artisan::command('inspire', function () {
 
 Schedule::call(function () {
     Artisan::call('app:reduce-days-command');
+    Artisan::call('app:reduce-expiration-time-command');
     Artisan::call('app:collect-command');
 })->everyMinute();
 
 /*Schedule::call(function () {
     Artisan::call('app:reduce-days-command');
+    Artisan::call('app:reduce-expiration-time-command');
     Artisan::call('app:collect-command');
 })->daily();*/
