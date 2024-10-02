@@ -116,10 +116,16 @@ class UserSuscriptionPll extends PersistantLowLevel
         Cache::flush();
     }
 
-    public static function decrement_day()
+    public static function decrement_day_until_next_payment()
     {
         Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
             ->decrement('days_until_next_payment');
+    }
+
+    public static function decrement_expiration_time()
+    {
+        Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
+            ->decrement('expiration_time');
     }
 
     public static function forget_cache(string $name_cache)
