@@ -30,11 +30,23 @@
 
                 <div class="flex flex-wrap -mx-2">
                     <div class="w-1/3 px-2 mb-4">
+                        <input type="text" id="search_date_created" placeholder="{{ __('messages.search_by_date_created') }}" class="border w-full p-2">
+                    </div>
+
+                    <div class="w-1/3 px-2 mb-4">
+                        <input type="text" id="search_date_expired" placeholder="{{ __('messages.search_by_date_expired') }}" class="border w-full p-2">
+                    </div>
+
+                    <div class="w-1/3 px-2 mb-4">
                         <input type="text" id="search_reference" placeholder="{{ __('messages.search_by_reference') }}" class="border w-full p-2">
                     </div>
                 
                     <div class="w-1/3 px-2 mb-4">
                         <input type="text" id="search_status" placeholder="{{ __('messages.search_by_status') }}" class="border w-full p-2">
+                    </div>
+
+                    <div class="w-1/3 px-2 mb-4">
+                        <input type="text" id="search_amount" placeholder="{{ __('messages.search_by_amount') }}" class="border w-full p-2">
                     </div>
 
                     @can('invoices.see_admins_users')
@@ -52,8 +64,11 @@
             <table class="table-auto w-full border-collapse border border-gray-200">
                 <thead>
                     <tr class="bg-gray-100">
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.date_created') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.date_expired') }}</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.reference') }}</th>
                         <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.status') }}</th>
+                        <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.amount') }}</th>
                         @can('invoices.see_admins_users')
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.user_document') }}</th>
                         @endcan
@@ -64,8 +79,11 @@
                 <tbody id="invoices">
                     @foreach($invoices as $invoice)
                         <tr>
+                            <td class="border border-gray-200 px-4 py-2">{{ $invoice->date_created }}</td>
+                            <td class="border border-gray-200 px-4 py-2">{{ $invoice->date_expiration }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $invoice->reference }}</td>
                             <td class="border border-gray-200 px-4 py-2">{{ $invoice->status }}</td>
+                            <td class="border border-gray-200 px-4 py-2">{{ $invoice->currency }} {{ $invoice->amount }}</td>
                             @can('invoices.see_admins_users')
                                 <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
                                     <a href="{{ route('show.user', ['id' => $invoice->user->id]) }}">{{ $invoice->user->document }}</a>
@@ -96,7 +114,7 @@
         </div>
 
         <script>
-            document.getElementById('search_reference').addEventListener('input', function() {
+            document.getElementById('search_date_created').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#invoices tr');
     
@@ -109,7 +127,7 @@
                     }
                 });
             });
-            document.getElementById('search_status').addEventListener('input', function() {
+            document.getElementById('search_date_expired').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#invoices tr');
     
@@ -122,7 +140,7 @@
                     }
                 });
             });
-            document.getElementById('search_user').addEventListener('input', function() {
+            document.getElementById('search_reference').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#invoices tr');
     
@@ -135,12 +153,51 @@
                     }
                 });
             });
-            document.getElementById('search_site').addEventListener('input', function() {
+            document.getElementById('search_status').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#invoices tr');
     
                 rows.forEach(row => {
                     let email = row.cells[3].textContent.toLowerCase();
+                    if (email.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            document.getElementById('search_amount').addEventListener('input', function() {
+                let filter = this.value.toLowerCase();
+                let rows = document.querySelectorAll('#invoices tr');
+    
+                rows.forEach(row => {
+                    let email = row.cells[4].textContent.toLowerCase();
+                    if (email.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            document.getElementById('search_user').addEventListener('input', function() {
+                let filter = this.value.toLowerCase();
+                let rows = document.querySelectorAll('#invoices tr');
+    
+                rows.forEach(row => {
+                    let email = row.cells[5].textContent.toLowerCase();
+                    if (email.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            document.getElementById('search_site').addEventListener('input', function() {
+                let filter = this.value.toLowerCase();
+                let rows = document.querySelectorAll('#invoices tr');
+    
+                rows.forEach(row => {
+                    let email = row.cells[6].textContent.toLowerCase();
                     if (email.includes(filter)) {
                         row.style.display = '';
                     } else {

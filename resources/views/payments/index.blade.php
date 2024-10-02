@@ -30,17 +30,17 @@
 
                 <div class="flex flex-wrap -mx-2">
                     <div class="w-1/3 px-2 mb-4">
+                        <input type="text" id="search_date" placeholder="{{ __('messages.search_by_date') }}" class="border w-full p-2">
+                    </div>
+
+                    <div class="w-1/3 px-2 mb-4">
                         <input type="text" id="search_reference" placeholder="{{ __('messages.search_by_reference') }}" class="border w-full p-2">
                     </div>
                 
                     <div class="w-1/3 px-2 mb-4">
                         <input type="text" id="search_amount" placeholder="{{ __('messages.search_by_amount') }}" class="border w-full p-2">
                     </div>
-                
-                    <div class="w-1/3 px-2 mb-4">
-                        <input type="text" id="search_currency" placeholder="{{ __('messages.search_by_currency') }}" class="border w-full p-2">
-                    </div>
-                
+
                     <div class="w-1/3 px-2 mb-4">
                         <input type="text" id="search_status" placeholder="{{ __('messages.search_by_status') }}" class="border w-full p-2">
                     </div>
@@ -67,9 +67,9 @@
                 <table class="table-auto w-full border-collapse border border-gray-200">
                     <thead>
                         <tr class="bg-gray-100">
+                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.date') }}</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.reference') }}</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.amount_short') }}</th>
-                            <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.currency') }}</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.status') }}</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.origin_payment') }}</th>
                             <th scope="col" class="border border-gray-200 px-4 py-2">{{ __('messages.site') }}</th>
@@ -82,9 +82,9 @@
                     <tbody id="pays_user">
                         @foreach($pays as $pay)
                             <tr>
+                                <td class="border border-gray-200 px-4 py-2">{{ $pay->created_at }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->reference }}</td>
-                                <td class="border border-gray-200 px-4 py-2">{{ $pay->amount }}</td>
-                                <td class="border border-gray-200 px-4 py-2">{{ $pay->currency }}</td>
+                                <td class="border border-gray-200 px-4 py-2">{{ $pay->currency }} {{ $pay->amount }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->status }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $pay->origin_payment }}</td>
                                 <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
@@ -110,7 +110,7 @@
         </div>
 
         <script>
-            document.getElementById('search_reference').addEventListener('input', function() {
+            document.getElementById('search_date').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#pays_user tr');
     
@@ -123,7 +123,7 @@
                     }
                 });
             });
-            document.getElementById('search_amount').addEventListener('input', function() {
+            document.getElementById('search_reference').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#pays_user tr');
     
@@ -136,7 +136,7 @@
                     }
                 });
             });
-            document.getElementById('search_currency').addEventListener('input', function() {
+            document.getElementById('search_amount').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#pays_user tr');
     
@@ -149,6 +149,7 @@
                     }
                 });
             });
+
             document.getElementById('search_status').addEventListener('input', function() {
                 let filter = this.value.toLowerCase();
                 let rows = document.querySelectorAll('#pays_user tr');

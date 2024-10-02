@@ -15,6 +15,10 @@
         <div class="flex flex-col max-w-lg mx-auto mt-4 items-center">
 
             <div class="mb-4">
+                <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.date') }}: {{ $payment->created_at }}</label>
+            </div>
+
+            <div class="mb-4">
                 <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.origin_payment') }}: {{ $payment->origin_payment }}</label>
             </div>
 

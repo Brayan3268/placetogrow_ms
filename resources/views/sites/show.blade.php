@@ -147,7 +147,7 @@
                                 <td class="border border-gray-200 px-4 py-2">{{ $invoice->reference }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $invoice->status }}</td>
                                 @can('site.pay')
-                                    <td class="border border-gray-200 px-4 py-2">{{ $invoice->amount }}</td>
+                                    <td class="border border-gray-200 px-4 py-2">{{ $invoice->currency }} {{ $invoice->amount }}</td>
                                     <td class="border border-gray-200 px-4 py-2">{{ $invoice->date_expiration }}</td>
                                 @endcan
                                 @can('invoices.see_admins_users')
@@ -225,7 +225,7 @@
                             <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{ $suscription_plan->name }}</h5>
+                                        <h5> {{ $suscription_plan->name }} - {{ $suscription_plan->currency_type }} {{ $suscription_plan->amount }} </h5>
                                     </div>
                                     <div class="card-body">
                                         <ul class="list-group">
@@ -273,7 +273,7 @@
                                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>{{ $user_plan_get_suscribe->suscription->name }}</h5>
+                                            <h5> {{ $user_plan_get_suscribe->suscription->name }} - {{ $user_plan_get_suscribe->suscription->currency_type }} {{ $user_plan_get_suscribe->suscription->amount }} </h5>
                                         </div>
                                         <div class="card-body">
                                             <ul class="list-group">

@@ -86,6 +86,10 @@ return [
     'user_document' => 'User\'s document',
     'invoice_created' => 'Invoice created at',
     'invoice_expirated' => 'Invoice expirated at',
+    'search_by_date_created' => 'Search by date created',
+    'search_by_date_expired' => 'search by date expired',
+    'date_created' => 'Invoice created',
+    'date_expired' => 'Invoice expired',
 
     //Pays
     'payments' => 'Pays',
@@ -98,6 +102,8 @@ return [
     'invoice_status' => 'Invoice status',
     'search_by_origin_payment' => 'Search by pay origin',
     'origin_payment' => 'Pay origin',
+    'search_by_date' => 'Search by date',
+    'date' => 'Date',
 
     //Navigation
     'select_language' => 'Select language',
