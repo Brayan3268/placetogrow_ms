@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,7 +42,9 @@ class AuthenticatedSessionController extends Controller
 
     protected function write_file(array $info)
     {
-        $content = "\n".'El usuario con id '.Auth::user()->id.' y el email '.Auth::user()->email.' ingresó e hizo:';
+        $current_date_time = Carbon::now('America/Bogota')->format('Y-m-d H:i:s');
+
+        $content = "\n".'El usuario con id '.Auth::user()->id.' y el email '.Auth::user()->email.' ingresó en la fecha '.$current_date_time.' e hizo:';
         Storage::disk('public_logs')->append('log.txt', $content);
     }
 }

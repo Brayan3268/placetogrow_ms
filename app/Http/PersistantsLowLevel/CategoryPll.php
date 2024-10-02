@@ -9,6 +9,8 @@ use Spatie\Permission\Models\Role;
 
 class CategoryPll extends PersistantLowLevel
 {
+    private const SECONDS = 300;
+
     public static function get_all_categories()
     {
         return Category::all();
@@ -16,19 +18,16 @@ class CategoryPll extends PersistantLowLevel
 
     public static function get_cache(string $name)
     {
-        return Cache::get($name);
+        return Cache::remember($name, self::SECONDS, function () use ($name) {
+            return Cache::get($name);
+        });
     }
 
     public static function get_specific_role(string $role_name)
     {
-        $role = Cache::get('role.'.$role_name);
-        if (is_null($role)) {
-            $role = Role::findByName($role_name);
-
-            Cache::put('role.'.$role_name, $role);
-        }
-
-        return $role;
+        return Cache::remember('role.'.$role_name, self::SECONDS, function ($role_name) {
+            return Role::findByName($role_name);
+        });
     }
 
     public static function count_super_admin_users()

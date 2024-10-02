@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\SuscriptionStatus;
 use App\Http\PersistantsLowLevel\PaymentPll;
+use App\Http\PersistantsLowLevel\SitePll;
 use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\UpdateUsersuscriptionRequest;
@@ -108,10 +109,17 @@ class UsersuscriptionController extends Controller
     {
         $this->authorize('view', Usersuscription::class);
 
+        $user_id = Auth::user()->id;
+
+        $user_suscription = UsersuscriptionPll::get_specific_suscription($usersuscription_reference, $user_id);
+        $site = SitePll::get_specific_site($user_suscription->suscription->site_id);
+
         $log[] = 'Ingresó a user_suscriptions.show';
         $this->write_file($log);
 
-        return view('user_suscriptions.show', compact('usersuscription_reference'));
+        //dd($user_suscription->suscription);
+
+        return view('user_suscriptions.show', compact('user_suscription', 'site'));
     }
 
     public function edit(Usersuscription $usersuscription)

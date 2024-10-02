@@ -11,46 +11,34 @@ use Ramsey\Uuid\Uuid;
 
 class UserSuscriptionPll extends PersistantLowLevel
 {
+    private const SECONDS = 300;
+
     public static function get_all_user_suscriptions()
     {
-        $user_suscription = Cache::get('usersuscription.index');
-        if (is_null($user_suscription)) {
-            $user_suscription = Usersuscription::with('user', 'suscription')
-                ->get();
-
-            Cache::put('usersuscription.index', $user_suscription);
-        }
-
-        return $user_suscription;
+        return Cache::remember('usersuscription.index', self::SECONDS, function () {
+            return Usersuscription::with('user', 'suscription')->get();
+        });
     }
 
     public static function get_specific_user_suscriptions(int $user_id)
     {
-        $user_suscription = Cache::get('usersuscription.index');
-        if (is_null($user_suscription)) {
-            $user_suscription = Usersuscription::with('user', 'suscription')
+        return Cache::remember('usersuscription.user.'.$user_id, self::SECONDS, function () use ($user_id) {
+            return Usersuscription::with('user', 'suscription')
                 ->where('user_id', $user_id)
                 ->get();
-
-            Cache::put('usersuscription.index', $user_suscription);
-        }
-
-        return $user_suscription;
+        });
     }
 
     public static function get_specific_suscription(string $reference, int $user_id)
     {
         Cache::flush();
 
-        $user_suscription = Cache::get('usersuscription.especific');
-        if (is_null($user_suscription)) {
-            $user_suscription = Usersuscription::with('user', 'suscription')
+        $user_suscription = Cache::remember('usersuscription.especific', self::SECONDS, function () use ($user_id, $reference) {
+            return Usersuscription::with('user', 'suscription')
                 ->where('user_id', $user_id)
                 ->where('reference', $reference)
                 ->first();
-
-            Cache::put('usersuscription.especific', $user_suscription);
-        }
+        });
 
         return json_decode($user_suscription);
     }
@@ -59,16 +47,11 @@ class UserSuscriptionPll extends PersistantLowLevel
     {
         Cache::flush();
 
-        $user_suscription = Cache::get('usersuscription.request_id');
-        if (is_null($user_suscription)) {
-            $user_suscription = Usersuscription::with('user', 'suscription')
+        return Cache::remember('usersuscription.request_id', self::SECONDS, function () use ($request_id) {
+            return Usersuscription::with('user', 'suscription')
                 ->where('request_id', $request_id)
                 ->first();
-
-            Cache::put('usersuscription.request_id', $user_suscription);
-        }
-
-        return $user_suscription;
+        });
     }
 
     public function newUniqueId(): string
@@ -151,6 +134,8 @@ class UserSuscriptionPll extends PersistantLowLevel
 
     public static function save_cache(string $name, $data)
     {
-        Cache::put($name, $data);
+        Cache::remember($name, self::SECONDS, function () use ($data) {
+            return $data;
+        });
     }
 }

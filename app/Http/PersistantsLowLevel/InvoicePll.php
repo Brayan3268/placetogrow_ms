@@ -13,17 +13,13 @@ use Illuminate\Support\Facades\DB;
 
 class InvoicePll extends PersistantLowLevel
 {
+    private const SECONDS = 300;
+
     public static function get_all_invoices()
     {
-        $invoices = Cache::get('invoices.index');
-        if (is_null($invoices)) {
-            $invoices = Invoice::with('user', 'site')
-                ->get();
-
-            Cache::put('invoices.index', $invoices);
-        }
-
-        return $invoices;
+        return Cache::remember('invoices.index', self::SECONDS, function () {
+            return Invoice::with('user', 'site')->get();
+        });
     }
 
     public static function get_especific_invoice(int $id)
@@ -40,14 +36,9 @@ class InvoicePll extends PersistantLowLevel
 
     public static function get_especific_user_invoices(int $user_id)
     {
-        $invoices = Cache::get('invoices.user'.$user_id);
-        if (is_null($invoices)) {
-            $invoices = Invoice::with('site')->where('user_id', $user_id)->get();
-
-            Cache::put('invoices.user'.$user_id, $invoices);
-        }
-
-        return $invoices;
+        return Cache::remember('invoices.user'.$user_id, self::SECONDS, function () use ($user_id) {
+            return Invoice::with('site')->where('user_id', $user_id)->get();
+        });
     }
 
     public static function get_invoices_enum_field_values(string $field)
@@ -57,49 +48,34 @@ class InvoicePll extends PersistantLowLevel
 
     public static function get_especific_site_invoices(int $site_id)
     {
-        $invoices = Cache::get('invoices.site'.$site_id);
-        if (is_null($invoices)) {
-            $invoices = Invoice::with('user')
+        return Cache::remember('invoices.site'.$site_id, self::SECONDS, function () use ($site_id) {
+            return Invoice::with('user')
                 ->where('site_id', $site_id)
                 ->where('status', InvoiceStatus::NOT_PAYED->value)
                 ->get();
-
-            Cache::put('invoices.site'.$site_id, $invoices);
-        }
-
-        return $invoices;
+        });
     }
 
     public static function get_especific_site_user_invoices(int $site_id)
     {
         $user_id = Auth::user()->id;
 
-        $invoices = Cache::get('invoices.site_user'.$site_id.'_'.$user_id);
-        if (is_null($invoices)) {
-            $invoices = Invoice::with('user', 'site')
+        return Cache::remember('invoices.site_user'.$site_id.'_'.$user_id, self::SECONDS, function () use ($site_id, $user_id) {
+            return Invoice::with('user', 'site')
                 ->where('site_id', $site_id)
                 ->where('user_id', $user_id)
                 ->where('status', InvoiceStatus::NOT_PAYED->value)
                 ->get();
-
-            Cache::put('invoices.site_user'.$site_id.'_'.$user_id, $invoices);
-        }
-
-        return $invoices;
+        });
     }
 
     public static function get_especific_invoice_with_reference(string $invoice_reference)
     {
-        $invoice = Cache::get('invoice.reference'.$invoice_reference);
-        if (is_null($invoice)) {
-            $invoice = Invoice::with('user', 'site')
+        return Cache::remember('invoice.reference'.$invoice_reference, self::SECONDS, function () use ($invoice_reference) {
+            return Invoice::with('user', 'site')
                 ->where('reference', $invoice_reference)
                 ->first();
-
-            Cache::put('invoice.reference'.$invoice_reference, $invoice);
-        }
-
-        return $invoice;
+        });
     }
 
     public static function update_invoice(string $invoice_reference, string $status, int $payment_id)
@@ -162,7 +138,7 @@ class InvoicePll extends PersistantLowLevel
     {
         foreach ($invoices as $invoice_file) {
             $user = User::where('document', $invoice_file['user_id'])->first();
-            //dd($user->id);
+
             $invoice = new Invoice;
             $invoice->reference = $invoice_file['reference'];
             $invoice->amount = $invoice_file['amount'];
@@ -198,6 +174,8 @@ class InvoicePll extends PersistantLowLevel
 
     public static function get_cache(string $name)
     {
-        return Cache::get($name);
+        return Cache::remember($name, self::SECONDS, function () use ($name) {
+            return Cache::get($name);
+        });
     }
 }

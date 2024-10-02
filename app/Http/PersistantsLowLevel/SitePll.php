@@ -10,49 +10,36 @@ use Illuminate\Support\Facades\Storage;
 
 class SitePll extends PersistantLowLevel
 {
+    private const SECONDS = 300;
+
     public static function get_all_sites()
     {
-        $sites = Cache::get('sites.index');
-        if (is_null($sites)) {
-            $sites = Site::whereIn('site_type', ['open', 'close', 'suscription'])
+        return Cache::remember('sites.index', self::SECONDS, function () {
+            return Site::whereIn('site_type', ['open', 'close', 'suscription'])
                 ->with('category:id,name')
                 ->select('name', 'slug', 'category_id', 'site_type', 'id')
                 ->get();
-
-            Cache::put('sites.index', $sites);
-        }
-
-        return $sites;
+        });
     }
 
     public static function get_sites_closed()
     {
-        $sites = Cache::get('sites.closed');
-        if (is_null($sites)) {
-            $sites = Site::whereIn('site_type', ['close'])
+        return Cache::remember('sites.closed', self::SECONDS, function () {
+            return Site::whereIn('site_type', ['close'])
                 ->with('category:id,name')
                 ->select('name', 'slug', 'category_id', 'site_type', 'id')
                 ->get();
-
-            Cache::put('sites.closed', $sites);
-        }
-
-        return $sites;
+        });
     }
 
     public static function get_sites_suscription()
     {
-        $sites = Cache::get('sites.suscription');
-        if (is_null($sites)) {
-            $sites = Site::whereIn('site_type', ['suscription'])
+        return Cache::remember('sites.suscription', self::SECONDS, function () {
+            return Site::whereIn('site_type', ['suscription'])
                 ->with('category:id,name')
                 ->select('name', 'slug', 'category_id', 'site_type', 'id')
                 ->get();
-
-            Cache::put('sites.suscription', $sites);
-        }
-
-        return $sites;
+        });
     }
 
     public static function get_sites_enum_field_values(string $field)
@@ -69,8 +56,6 @@ class SitePll extends PersistantLowLevel
 
     public static function save_site(Request $request, string $image_name)
     {
-
-        dump($request);
         $site = new Site;
 
         $site->slug = $request->slug;
@@ -80,8 +65,6 @@ class SitePll extends PersistantLowLevel
         $site->currency_type = $request->currency;
         $site->site_type = $request->site_type;
         $site->image = 'storage/site_images/'.$image_name;
-
-        dump($site);
 
         $site->save();
 
@@ -93,14 +76,9 @@ class SitePll extends PersistantLowLevel
 
     public static function get_specific_site(string $id)
     {
-        $site = Cache::get('site.'.$id);
-        if (is_null($site)) {
-            $site = Site::find($id);
-
-            Cache::put('site.'.$id, $site);
-        }
-
-        return $site;
+        return Cache::remember('site.'.$id, self::SECONDS, function () use ($id) {
+            return Site::find($id);
+        });
     }
 
     public static function update_site(Site $site, Request $request)
@@ -160,12 +138,16 @@ class SitePll extends PersistantLowLevel
 
     public static function save_cache(string $name, $data)
     {
-        Cache::put($name, $data);
+        return Cache::remember($name, self::SECONDS, function () use ($data) {
+            return $data;
+        });
     }
 
     public static function get_cache(string $name)
     {
-        return Cache::get($name);
+        return Cache::remember($name, self::SECONDS, function () use ($name) {
+            return Cache::get($name);
+        });
     }
 
     public static function forget_cache(string $name_cache)
