@@ -187,3 +187,4 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Ingresó a payment.index en la fecha 2024-10-01 20:37:59
     Ingresó a payment.index en la fecha 2024-10-01 20:38:13
     Ingresó a payment.index en la fecha 2024-10-01 20:38:24
+    Ingresó a payment.index en la fecha 2024-10-01 20:45:50
