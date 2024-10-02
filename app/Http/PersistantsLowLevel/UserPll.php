@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class UserPll extends PersistantLowLevel
 {
+    private const SECONDS = 300;
+
     public static function get_all_users()
     {
         $roles = RolePll::get_all_users_roles();
@@ -21,30 +23,22 @@ class UserPll extends PersistantLowLevel
 
     public static function get_specific_user(int $id)
     {
-        $user = Cache::get('user.'.$id);
-        if (is_null($user)) {
-            $user = User::find($id);
-
-            Cache::put('user.'.$id, $user);
-        }
-
         RolePll::forget_cache('users.roles');
 
-        return $user;
+        return Cache::remember('user.'.$id, self::SECONDS, function () use ($id) {
+            return User::find($id);
+        });
     }
 
     public static function get_specific_user_with_role(string $id)
     {
-        $user = Cache::get('user.role.'.$id);
-        if (is_null($user)) {
-            $user = User::find($id);
+        RolePll::forget_cache('users.roles');
 
-            Cache::put('user.role.'.$id, $user);
-        }
+        $user = Cache::remember('user.role.'.$id, self::SECONDS, function () use ($id) {
+            return User::find($id);
+        });
 
         $role_name = $user->getRoleNames();
-
-        RolePll::forget_cache('users.roles');
 
         return ['user' => $user, 'role' => $role_name];
     }
@@ -143,6 +137,8 @@ class UserPll extends PersistantLowLevel
 
     public static function save_cache(string $name, $data)
     {
-        Cache::put($name, $data);
+        Cache::remember($name, self::SECONDS, function () use ($data) {
+            return $data;
+        });
     }
 }

@@ -165,6 +165,7 @@ return [
     //Usersuscription
     'suscription_reference' => 'Referencia del pago de la suscripción',
     'suscription_status' => 'Estado del pago de la suscripción',
+    'days_until_next_payment' => 'Días restantes hasta el siguiente cobro',
 
 ];
 

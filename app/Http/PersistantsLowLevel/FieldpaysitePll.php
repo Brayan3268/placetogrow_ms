@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Cache;
 
 class FieldpaysitePll extends PersistantLowLevel
 {
+    private const SECONDS = 300;
+
     public static function save_default_fields(int $site_id, string $site_type)
     {
         $fieldpaysite = new Fieldspaysite;
@@ -82,12 +84,16 @@ class FieldpaysitePll extends PersistantLowLevel
 
     public static function save_cache(string $name, $data)
     {
-        Cache::put($name, $data);
+        Cache::remember($name, self::SECONDS, function () use ($data) {
+            return $data;
+        });
     }
 
     public static function get_cache(string $name)
     {
-        return Cache::get($name);
+        return Cache::remember($name, self::SECONDS, function () use ($name) {
+            return Cache::get($name);
+        });
     }
 
     public static function forget_cache(string $name_cache)
