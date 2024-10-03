@@ -138,6 +138,8 @@ class UsersuscriptionController extends Controller
     {
         UserSuscriptionPll::delete_user_suscription($reference, $user_id);
 
+        //Enviar petición para invaldiar el token
+
         $log[] = 'Eliminó la suscripción '.$reference.' del usuario '.$user_id;
         $this->write_file($log);
 
@@ -231,6 +233,7 @@ class UsersuscriptionController extends Controller
 
     public function get_auth()
     {
+        //Poner en el env y en el readmes
         $login = 'e3bba31e633c32c48011a4a70ff60497';
         $secretKey = 'ak5N6IPH2kjljHG3';
         $seed = date('c');

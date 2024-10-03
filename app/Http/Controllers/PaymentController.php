@@ -12,12 +12,14 @@ use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
+use App\Notifications\PayNotification;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
@@ -162,6 +164,15 @@ class PaymentController extends Controller
             $user_suscription = UserSuscriptionPll::get_specific_user_suscription_request_id($payment->process_identifier);
             $suscription_status = $user_suscription->status;
         }
+
+        Notification::send([Auth::user()], new PayNotification(
+            $payment,
+            $status,
+            $suscription_status,
+            $invoice,
+            $user_suscription,
+        ));
+        $log[] = 'Envió un correo con la información del movimiento transaccional';
 
         $log[] = 'Ingresó a payments.show '.$payment->origin_payment;
         $this->write_file($log);

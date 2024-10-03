@@ -31,11 +31,11 @@
             </div>
 
             <div class="mb-4">
-                <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.amount') }}: {{ $payment->amount }}</label>
+                <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.currency') }}: {{ $payment->currency }}</label>
             </div>
 
             <div class="mb-4">
-                <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.currency') }}: {{ $payment->currency }}</label>
+                <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.amount') }}: {{ $payment->amount }}</label>
             </div>
 
             <div class="mb-4">

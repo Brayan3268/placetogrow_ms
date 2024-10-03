@@ -163,7 +163,7 @@ class PaymentPll extends PersistantLowLevel
         $payment->status = 'EXPIRED';
         $payment->save();
 
-        return $payment->site_id;
+        return $payment;
     }
 
     public static function save_cache(string $name, $data)

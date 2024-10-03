@@ -7,9 +7,11 @@ use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
 use App\Models\User;
+use App\Notifications\ImportInvoiceNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class InvoicePll extends PersistantLowLevel
 {
@@ -137,19 +139,25 @@ class InvoicePll extends PersistantLowLevel
     public static function save_invoices_imported(array $invoices, int $site_id)
     {
         foreach ($invoices as $invoice_file) {
-            $user = User::where('document', $invoice_file['user_id'])->first();
+            if (! is_null($invoice_file['reference'])) {
+                $user = User::where('document', $invoice_file['user_id'])->first();
 
-            $invoice = new Invoice;
-            $invoice->reference = $invoice_file['reference'];
-            $invoice->amount = $invoice_file['amount'];
-            $invoice->currency = $invoice_file['currency'];
-            $invoice->status = 'not_payed';
-            $invoice->site()->associate($site_id);
-            $invoice->user()->associate($user->id);
-            $invoice->date_created = $invoice_file['date_created'];
-            $invoice->date_expiration = $invoice_file['date_expiration'];
+                $invoice = new Invoice;
+                $invoice->reference = $invoice_file['reference'];
+                $invoice->amount = $invoice_file['amount'];
+                $invoice->currency = $invoice_file['currency'];
+                $invoice->status = 'not_payed';
+                $invoice->site()->associate($site_id);
+                $invoice->user()->associate($user->id);
+                $invoice->date_created = $invoice_file['date_created'];
+                $invoice->date_expiration = $invoice_file['date_expiration'];
 
-            $invoice->save();
+                $invoice->save();
+
+                Notification::send([$user], new ImportInvoiceNotification(
+                    $invoice,
+                ));
+            }
         }
 
         Cache::flush();

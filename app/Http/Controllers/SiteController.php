@@ -15,6 +15,7 @@ use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StoreFieldRequest;
 use App\Imports\InvoicesImport;
 use App\Models\Site;
+use App\Notifications\LoseSessionNotification;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -22,6 +23,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -119,7 +121,7 @@ class SiteController extends Controller
         $user = UserPll::get_specific_user(Auth::user()->id);
 
         if ($site->site_type == 'CLOSE') {
-            $invoices = ($user->hasPermissionTo(Permissions::SITES_PAY) && $user->hasPermissionTo(Permissions::SITES_MANAGE)) ?
+            $invoices = ($user->hasPermissionTo(Permissions::INVOICES_CREATE) && $user->hasPermissionTo(Permissions::SITES_MANAGE)) ?
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
             $log[] = 'Consultó las facturas pendientes del sitio '.$site->id;
@@ -358,12 +360,17 @@ class SiteController extends Controller
     {
         $this->authorize('form_sites_pay', Site::class);
 
-        $site_id = PaymentPll::lose_session($payment_id);
+        $payment = PaymentPll::lose_session($payment_id);
+
+        Notification::send([Auth::user()], new LoseSessionNotification(
+            $payment,
+        ));
+        $log[] = 'Envió un correo con la información de la eliminación de la session';
 
         $log[] = 'Eliminó una sesion de pago';
         $this->write_file($log);
 
-        return $this->show($site_id);
+        return $this->show($payment->site->id);
     }
 
     public function import_invoices(Request $request, string $site_id): View
