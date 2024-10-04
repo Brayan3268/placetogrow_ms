@@ -3,23 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Constants\SuscriptionStatus;
+use App\Constants\UserSuscriptionTypesNotification;
 use App\Http\PersistantsLowLevel\PaymentPll;
 use App\Http\PersistantsLowLevel\SitePll;
 use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\UpdateUsersuscriptionRequest;
 use App\Models\Usersuscription;
+use App\Notifications\PayNotification;
+use App\Notifications\UserSuscriptionNotification;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UsersuscriptionController extends Controller
 {
     use AuthorizesRequests;
+
+    private const SECONDS_EMAIL = 10;
 
     public function index()
     {
@@ -136,9 +142,16 @@ class UsersuscriptionController extends Controller
 
     public function destroyy(string $reference, int $user_id)
     {
+        //Enviar petición para invaldiar el token
+
+        $user_suscription = UserSuscriptionPll::get_specific_suscription_with_out_decode($reference, $user_id);
         UserSuscriptionPll::delete_user_suscription($reference, $user_id);
 
-        //Enviar petición para invaldiar el token
+        $site = SitePll::get_specific_site($user_suscription->suscription->site_id);
+
+        $notification = new UserSuscriptionNotification($user_suscription, $site, UserSuscriptionTypesNotification::UNSUSCRIPTION->value);
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
+        $log[] = 'Envia notificación de la dessuscripcion del usuario';
 
         $log[] = 'Eliminó la suscripción '.$reference.' del usuario '.$user_id;
         $this->write_file($log);
@@ -224,6 +237,21 @@ class UsersuscriptionController extends Controller
         $invoice_status = '';
         $suscription_status = $user_suscription_updated->status;
         $user_suscription = $user_suscription_updated;
+
+        $site = SitePll::get_specific_site($user_suscription->suscription->site_id);
+        $notification_sus = new UserSuscriptionNotification($user_suscription, $site, UserSuscriptionTypesNotification::SUSCRIPTION->value);
+        Notification::send([Auth::user()], $notification_sus->delay(self::SECONDS_EMAIL));
+        $log[] = 'Envia notificación de la suscripcion del usuario';
+
+        $notification = new PayNotification(
+            $payment,
+            '',
+            $suscription_status,
+            '',
+            $user_suscription,
+        );
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
+        $log[] = 'Envia notificación del cobro automatico por suscripcion del usuario';
 
         $log[] = 'Crea el payment del cobro automatico';
         $this->write_file($log);

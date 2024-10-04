@@ -2,24 +2,21 @@
 
 namespace App\Notifications;
 
-use App\Models\Invoice;
-use App\Models\Payment;
+use App\Models\Site;
 use App\Models\Usersuscription;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PayNotification extends Notification implements ShouldQueue
+class UserSuscriptionNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public function __construct(
-        private Payment $payment,
-        private string $invoice_status,
-        private string $suscription_status,
-        private Invoice|string $invoice,
-        private Usersuscription|string $user_suscription
+        private Usersuscription $user_suscription,
+        private Site $site,
+        private string $type_notice
     ) {}
 
     public function via(object $notifiable): array
@@ -29,13 +26,11 @@ class PayNotification extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->view('notifications.pays', [
+        return (new MailMessage)->view('notifications.usersuscription', [
             'user' => $notifiable,
-            'payment' => $this->payment,
-            'invoice_status' => $this->invoice_status,
-            'suscription_status' => $this->suscription_status,
-            'invoice' => $this->invoice,
             'user_suscription' => $this->user_suscription,
+            'site' => $this->site,
+            'notice' => $this->type_notice,
         ]);
     }
 
@@ -44,7 +39,7 @@ class PayNotification extends Notification implements ShouldQueue
         return [
             'user_id' => $notifiable->id,
             'user_email' => $notifiable->email,
-            'payment_reference' => $this->payment->reference,
+            'user_suscription_reference' => $this->user_suscription->reference,
         ];
     }
 }

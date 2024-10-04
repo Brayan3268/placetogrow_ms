@@ -50,8 +50,8 @@ class InvoiceController extends Controller
         $this->authorize('update', Invoice::class);
 
         InvoicePll::save_invoice($request);
-
         $log[] = 'Creó una factura';
+
         $this->write_file($log);
 
         return redirect()->route('invoices.index')

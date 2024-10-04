@@ -17,6 +17,8 @@ class InvoicePll extends PersistantLowLevel
 {
     private const SECONDS = 300;
 
+    private const SECONDS_EMAIL = 10;
+
     public static function get_all_invoices()
     {
         return Cache::remember('invoices.index', self::SECONDS, function () {
@@ -134,6 +136,11 @@ class InvoicePll extends PersistantLowLevel
         $invoice->save();
 
         Cache::flush();
+
+        dump($invoice);
+
+        $notification = new ImportInvoiceNotification($invoice);
+        Notification::send([$invoice->user], $notification->delay(self::SECONDS_EMAIL));
     }
 
     public static function save_invoices_imported(array $invoices, int $site_id)
@@ -154,9 +161,8 @@ class InvoicePll extends PersistantLowLevel
 
                 $invoice->save();
 
-                Notification::send([$user], new ImportInvoiceNotification(
-                    $invoice,
-                ));
+                $notification = new ImportInvoiceNotification($invoice);
+                Notification::send([$user], $notification->delay(self::SECONDS_EMAIL));
             }
         }
 

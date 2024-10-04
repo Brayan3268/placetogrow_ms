@@ -32,6 +32,8 @@ class SiteController extends Controller
 {
     use AuthorizesRequests;
 
+    private const SECONDS_EMAIL = 10;
+
     public function index(): View
     {
         $this->authorize('viewAny', Site::class);
@@ -362,9 +364,8 @@ class SiteController extends Controller
 
         $payment = PaymentPll::lose_session($payment_id);
 
-        Notification::send([Auth::user()], new LoseSessionNotification(
-            $payment,
-        ));
+        $notification = new LoseSessionNotification($payment);
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
         $log[] = 'Envió un correo con la información de la eliminación de la session';
 
         $log[] = 'Eliminó una sesion de pago';

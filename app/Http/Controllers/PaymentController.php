@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
+    private const SECONDS_EMAIL = 10;
+
     public function index(): View
     {
         /*if ($user->hasPermissionTo(Permissions::USER_GET_SUSCRIPTION)) {
@@ -165,13 +167,15 @@ class PaymentController extends Controller
             $suscription_status = $user_suscription->status;
         }
 
-        Notification::send([Auth::user()], new PayNotification(
+        $notification = new PayNotification(
             $payment,
             $status,
             $suscription_status,
             $invoice,
             $user_suscription,
-        ));
+        );
+
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
         $log[] = 'Envió un correo con la información del movimiento transaccional';
 
         $log[] = 'Ingresó a payments.show '.$payment->origin_payment;

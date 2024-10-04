@@ -8,13 +8,17 @@ use App\Constants\PaymentStatus;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
 use App\Models\Usersuscription;
+use App\Notifications\PayNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class PaymentPll extends PersistantLowLevel
 {
     private const SECONDS = 300;
+
+    private const SECONDS_EMAIL = 10;
 
     public static function get_all_pays()
     {
@@ -93,6 +97,16 @@ class PaymentPll extends PersistantLowLevel
 
         $payment->save();
         Cache::flush();
+
+        $notification = new PayNotification(
+            $payment,
+            '',
+            $user_suscription_updated->status,
+            '',
+            $user_suscription_updated,
+        );
+
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
 
         return $payment;
     }
