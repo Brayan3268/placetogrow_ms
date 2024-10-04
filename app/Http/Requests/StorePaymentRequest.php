@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Constants\CurrencyTypes;
+use App\Constants\LocalesTypes;
 use App\Http\PersistantsLowLevel\SitePll;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -23,7 +24,7 @@ class StorePaymentRequest extends FormRequest
     {
         return [
             'site_id' => ['required', 'numeric', 'exists:sites,id'],
-            'locale' => ['string'],
+            'locale' => 'required|in:'.implode(',', array_column(LocalesTypes::cases(), 'name')),
             'total' => ['integer', 'min:1', 'max:999999999999'],
             'description' => ['string'],
             'currency' => ['nullable', Rule::in(CurrencyTypes::toArray())],

@@ -22,12 +22,27 @@ Follow these steps for run this proyect successfuly.
 5) Run the instruction: "cp .env.example .env"
 
 6) Config the .env file with the next config:
+
+DATABASE CREDENTIALS:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=ms_ptw
 DB_USERNAME=root
 DB_PASSWORD=
+
+PLACE TO PAY CREDENTIALS:
+PLACETOPAY_LOGIN=
+PLACETOPAY_SECRET_KEY=
+PLACETOPAY_URL=
+
+MAIL CREDENTIALS:
+MAIL_MAILER=
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_FROM_ADDRESS=
 
 7) Run the following comand if need it: "php artisan key:generate"
 

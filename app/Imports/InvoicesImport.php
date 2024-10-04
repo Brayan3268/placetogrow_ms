@@ -30,8 +30,6 @@ class InvoicesImport implements ToArray, WithHeadingRow
                 'date_expiration' => $this->convertToDate($row['date_expiration']),
             ];
 
-            //dd($invoiceData['date_expiration']->format('d/m/Y'));
-
             $this->processedInvoices[] = $invoiceData;
         }
 

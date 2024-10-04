@@ -3,15 +3,20 @@
 namespace App\Http\PersistantsLowLevel;
 
 use App\Constants\SuscriptionStatus;
+use App\Constants\UserSuscriptionTypesNotification;
 use App\Models\Usersuscription;
+use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Ramsey\Uuid\Uuid;
 
 class UserSuscriptionPll extends PersistantLowLevel
 {
     private const SECONDS = 300;
+
+    private const SECONDS_EMAIL = 10;
 
     public static function get_all_user_suscriptions()
     {
@@ -41,6 +46,20 @@ class UserSuscriptionPll extends PersistantLowLevel
         });
 
         return json_decode($user_suscription);
+    }
+
+    public static function get_specific_suscription_with_out_decode(string $reference, int $user_id)
+    {
+        Cache::flush();
+
+        $user_suscription = Cache::remember('usersuscription.especific', self::SECONDS, function () use ($user_id, $reference) {
+            return Usersuscription::with('user', 'suscription')
+                ->where('user_id', $user_id)
+                ->where('reference', $reference)
+                ->first();
+        });
+
+        return $user_suscription;
     }
 
     public static function get_specific_user_suscription_request_id(string $request_id)
@@ -118,14 +137,36 @@ class UserSuscriptionPll extends PersistantLowLevel
 
     public static function decrement_day_until_next_payment()
     {
-        Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
-            ->decrement('days_until_next_payment');
+        $user_suscriptions = Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
+            ->tap(function ($query) {
+                $query->decrement('days_until_next_payment');
+            })->get();
+
+        foreach ($user_suscriptions as $user_suscription) {
+            if ($user_suscription->days_until_next_payment <= 3) {
+                $site = SitePll::get_specific_site(strval($user_suscription->suscription->site_id));
+
+                $notification = new TestNotification($user_suscription, $site, UserSuscriptionTypesNotification::NOTICE_NEXT_PAYMENT->value);
+                Notification::send([$user_suscription->user], $notification->delay(self::SECONDS_EMAIL));
+            }
+        }
     }
 
     public static function decrement_expiration_time()
     {
-        Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
-            ->decrement('expiration_time');
+        $user_suscriptions = Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
+            ->tap(function ($query) {
+                $query->decrement('expiration_time');
+            })->get();
+
+        foreach ($user_suscriptions as $user_suscription) {
+            if ($user_suscription->expiration_time <= 3) {
+                $site = SitePll::get_specific_site(strval($user_suscription->suscription->site_id));
+
+                $notification = new TestNotification($user_suscription, $site, UserSuscriptionTypesNotification::NOTICE_EXPIRATION_SUSCRIPTION->value);
+                Notification::send([$user_suscription->user], $notification->delay(self::SECONDS_EMAIL));
+            }
+        }
     }
 
     public static function forget_cache(string $name_cache)
