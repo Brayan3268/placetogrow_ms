@@ -29,7 +29,7 @@ class TestNotification extends Notification
         dump($this->site);
         dump($this->type_notice);
 
-        return (new MailMessage)->view('notifications.testnoti', [
+        return (new MailMessage)->view('notifications.usersuscription', [
             'user' => $notifiable,
             'user_suscription' => $this->user_suscription,
             'site' => $this->site,
