@@ -5,7 +5,7 @@ namespace App\Http\PersistantsLowLevel;
 use App\Constants\SuscriptionStatus;
 use App\Constants\UserSuscriptionTypesNotification;
 use App\Models\Usersuscription;
-use App\Notifications\TestNotification;
+use App\Notifications\UserSuscriptionNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -146,7 +146,7 @@ class UserSuscriptionPll extends PersistantLowLevel
             if ($user_suscription->days_until_next_payment <= 3) {
                 $site = SitePll::get_specific_site(strval($user_suscription->suscription->site_id));
 
-                $notification = new TestNotification($user_suscription, $site, UserSuscriptionTypesNotification::NOTICE_NEXT_PAYMENT->value);
+                $notification = new UserSuscriptionNotification($user_suscription, $site, UserSuscriptionTypesNotification::NOTICE_NEXT_PAYMENT->value);
                 Notification::send([$user_suscription->user], $notification->delay(self::SECONDS_EMAIL));
             }
         }
@@ -163,9 +163,26 @@ class UserSuscriptionPll extends PersistantLowLevel
             if ($user_suscription->expiration_time <= 3) {
                 $site = SitePll::get_specific_site(strval($user_suscription->suscription->site_id));
 
-                $notification = new TestNotification($user_suscription, $site, UserSuscriptionTypesNotification::NOTICE_EXPIRATION_SUSCRIPTION->value);
+                $notification = new UserSuscriptionNotification($user_suscription, $site, UserSuscriptionTypesNotification::NOTICE_EXPIRATION_SUSCRIPTION->value);
                 Notification::send([$user_suscription->user], $notification->delay(self::SECONDS_EMAIL));
             }
+        }
+    }
+
+    public static function delete_user_suscription_expiration_time()
+    {
+        $updated_user_subscriptions = Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
+            ->where('expiration_time', 0)
+            ->tap(function ($query) {
+                $query->update(['status' => SuscriptionStatus::EXPIRATED->value]);
+            })
+            ->get();
+
+        foreach ($updated_user_subscriptions as $updated_user_subscription) {
+            $site = SitePll::get_specific_site(strval($updated_user_subscription->suscription->site_id));
+
+            $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_SUSCRIPTION->value);
+            Notification::send([$updated_user_subscription->user], $notification->delay(self::SECONDS_EMAIL));
         }
     }
 

@@ -511,3 +511,42 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a invoice.create en la fecha 2024-10-03 20:08:50
     Creó una factura en la fecha 2024-10-03 20:08:59
     Ingresó a invoice.index en la fecha 2024-10-03 20:08:59
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-05 10:47:43 e hizo:
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 10:47:49 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-05 10:47:50
+    Ingresó a suscriptions.index en la fecha 2024-10-05 10:53:36
+    Ingresó a suscriptions.index en la fecha 2024-10-05 10:58:09
+    Ingresó a suscriptions.index en la fecha 2024-10-05 11:20:59
+    Ingresó a suscriptions.index en la fecha 2024-10-05 11:21:10
+    Ingresó a suscriptions.index en la fecha 2024-10-05 11:22:24
+    Ingresó a suscriptions.index en la fecha 2024-10-05 11:23:50
+    Ingresó a suscriptions.index en la fecha 2024-10-05 11:24:02
+    Ingresó a suscriptions.index en la fecha 2024-10-05 11:24:31
+    Ingresó a payment.index en la fecha 2024-10-05 11:32:00
+    Ingresó a payment.index en la fecha 2024-10-05 11:32:05
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-05 11:32:39    Ingresó a payments.show suscription en la fecha 2024-10-05 11:32:39
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-05 11:37:26    Ingresó a payments.show suscription en la fecha 2024-10-05 11:37:26
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-05 11:39:06    Ingresó a payments.show suscription en la fecha 2024-10-05 11:39:06
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-05 11:40:09    Ingresó a payments.show suscription en la fecha 2024-10-05 11:40:09
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 11:54:15 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-05 11:54:17
+    Ingresó a payment.index en la fecha 2024-10-05 11:54:18
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-05 11:54:33    Ingresó a payments.show suscription en la fecha 2024-10-05 11:54:33
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 14:02:14 e hizo:
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-05 14:02:18    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-05 14:02:18    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-05 14:02:18    Envia notificación de la suscripcion del usuario en la fecha 2024-10-05 14:02:18    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-05 14:02:18    Crea el payment del cobro automatico en la fecha 2024-10-05 14:02:18
+    Ingresó a sites.index en la fecha 2024-10-05 14:02:23
+    Ingresó a sites.show en la fecha 2024-10-05 14:02:24
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-05 14:02:25
+    Creó una sesion de pago para P2P en la fecha 2024-10-05 14:02:31
+    Ingresó a sites.index en la fecha 2024-10-05 14:10:09
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-05 14:10:16 e hizo:
+    Ingresó a sites.index en la fecha 2024-10-05 14:10:17
+    Ingresó a invoice.index en la fecha 2024-10-05 14:10:20
+    Ingresó a invoice.create en la fecha 2024-10-05 14:10:21
+    Creó una factura en la fecha 2024-10-05 14:10:42
+    Ingresó a invoice.index en la fecha 2024-10-05 14:10:43

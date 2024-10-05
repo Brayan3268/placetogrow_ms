@@ -106,7 +106,7 @@ class PaymentPll extends PersistantLowLevel
             $user_suscription_updated,
         );
 
-        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
+        Notification::send([$user_suscription_updated->user], $notification->delay(self::SECONDS_EMAIL));
 
         return $payment;
     }

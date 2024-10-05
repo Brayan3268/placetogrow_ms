@@ -12,6 +12,8 @@ enum UserSuscriptionTypesNotification: string
 
     case NOTICE_EXPIRATION_SUSCRIPTION = 'notice_expiration_suscription';
 
+    case NOTICE_DELETED_SUSCRIPTION = 'notice_deleted_suscription';
+
     public static function toArray(): array
     {
         return array_column(self::cases(), 'value');
