@@ -42,14 +42,34 @@
             <div class="mb-4">
                 <label class="block mb-2 w-full font-bold px-4 py-3"> Le informamos que su suscripción hacia el sitio <strong>{{ $site->name }} - {{ $site->slug}} </strong> tiene el siguiente estado: </label><br>
                 <label class="block mb-2 w-full font-bold px-4 py-3"> <h3>{{ $user_suscription->status }}</h3> </label>
+                <label class="block mb-2 w-full font-bold px-4 py-3"> <h1>HOLA 8</h1> </label>
             </div>
 
             <div class="mb-4">
                 <label class="block mb-2 w-full font-bold px-4 py-3"> Y faltan {{ $user_suscription->expiration_time }} días para que se termine tu suscripción !Renuevala con nosotros ingresando al sitio! </label>
+                <label class="block mb-2 w-full font-bold px-4 py-3"> <h1>HOLA 9</h1> </label>
             </div>
 
             <div class="mb-4">
                 <label class="block mb-2 w-full font-bold px-4 py-3"> Esta es la información de tu suscripción: </label>
+                <label class="block mb-2 w-full font-bold px-4 py-3"> <h1>HOLA 10</h1> </label>
+            </div>
+            @break
+        @case('notice_deleted_suscription')
+            <div class="mb-4">
+                <label class="block mb-2 w-full font-bold px-4 py-3"> Le informamos que su suscripción hacia el sitio <strong>{{ $site->name }} - {{ $site->slug}} </strong> tiene el siguiente estado: </label><br>
+                <label class="block mb-2 w-full font-bold px-4 py-3"> <h3>{{ $user_suscription->status }}</h3> </label>
+                <label class="block mb-2 w-full font-bold px-4 py-3"> <h1>HOLA 11</h1> </label>
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 w-full font-bold px-4 py-3"> Su suscripción ha expirado !Renuevala con nosotros ingresando al sitio! </label>
+                <label class="block mb-2 w-full font-bold px-4 py-3"> <h1>HOLA 12</h1> </label>
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 w-full font-bold px-4 py-3"> Esta es la información de la suscripción eliminada: </label>
+                <label class="block mb-2 w-full font-bold px-4 py-3"> <h1>HOLA 13</h1> </label>
             </div>
             @break
     @endswitch
@@ -95,10 +115,21 @@
             @case('notice_expiration_suscription')
                 <div class="mb-4">
                     <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.reference') }}: <a href="{{ route('user_suscriptions.show', $user_suscription->reference) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $user_suscription->reference }}</a></label>
+    <label class="block mb-2 w-full font-bold px-4 py-3"> <h1>HOLA 22</h1> </label>
                 </div>
                 
                 <div class="mb-4">
                     <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.expiration_plan') }}: {{ $user_suscription->expiration_time }} {{ __('messages.days') }} </label>
+    <label class="block mb-2 w-full font-bold px-4 py-3"> <h1>HOLA 23</h1> </label>
+                </div>
+                @break
+            @case('notice_deleted_suscription')
+                <div class="mb-4">
+                    <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.date_deleted') }}: {{ $user_suscription->updated_at }}</label>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.site') }}: <a href="{{ route('sites.show', $site->id) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $site->slug }}</a></label>
                 </div>
                 @break
         @endswitch
