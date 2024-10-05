@@ -171,13 +171,18 @@ class UserSuscriptionPll extends PersistantLowLevel
 
     public static function delete_user_suscription_expiration_time()
     {
-        $updated_user_subscriptions = Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
-            ->where('expiration_time', 0)
-            ->tap(function ($query) {
-                $query->update(['status' => SuscriptionStatus::EXPIRATED->value]);
-            })
-            ->get();
+        $updated_user_subscriptions = DB::transaction(function () {
+            $records = Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
+                ->where('expiration_time', 0)
+                ->get();
 
+            Usersuscription::whereIn('reference', $records->pluck('reference'))
+                ->update(['status' => SuscriptionStatus::EXPIRATED->value]);
+
+            return Usersuscription::whereIn('reference', $records->pluck('reference'))->get();
+        });
+
+        dump($updated_user_subscriptions);
         foreach ($updated_user_subscriptions as $updated_user_subscription) {
             $site = SitePll::get_specific_site(strval($updated_user_subscription->suscription->site_id));
 
