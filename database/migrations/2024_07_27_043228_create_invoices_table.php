@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->integer('payment_id')->nullable();
             $table->date('date_created');
+            $table->date('date_surcharge');
+            $table->unsignedBigInteger('amount_surcharge');
             $table->date('date_expiration');
 
             $table->timestamps();

@@ -134,7 +134,7 @@ class PaymentController extends Controller
                     $payment = PaymentPll::update_reference_pay($payment->id, $invoice->reference);
                 }
             } catch (\Exception $e) {
-                dump('catch');
+                echo 'catch';
             }
 
             $status_payment = $payment->status;

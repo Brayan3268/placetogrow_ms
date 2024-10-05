@@ -91,6 +91,9 @@ return [
     'search_by_date_expired' => 'Buscar por fecha de expiración',
     'date_created' => 'Factura creada',
     'date_expired' => 'Factura expira',
+    'date_surcharge' => 'Factura recargo',
+    'invoice_surcharge' => 'La factura obtiene recargo el día',
+    'amount_surcharge' => 'Recargo para la factura',
 
     //Pays
     'payments' => 'Pagos',

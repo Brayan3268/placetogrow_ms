@@ -24,6 +24,14 @@
         </div>
 
         <div class="mb-4">
+            <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.date_surcharge') }}: {{ $invoice->date_surcharge }}</label>
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.amount_surcharge') }}: {{ $invoice->amount_surcharge }}</label>
+        </div>
+
+        <div class="mb-4">
             <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.date') }}: {{ $invoice->date_expiration }}</label>
         </div>
 

@@ -64,6 +64,22 @@
             </div>
     
             <div class="mb-6">
+                <label for="date_surcharge" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.date_surcharge') }}:</label>
+                <input type="datetime-local" id="date_surcharge" name="date_surcharge" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('date_surcharge') border-red-500 @enderror" required>
+                @error('date_surcharge')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="amount_surcharge" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.amount_surcharge') }}:</label>
+                <input type="number" id="amount_surcharge" name="amount_surcharge" value="{{ old('amount_surcharge') }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('amount_surcharge') border-red-500 @enderror" required>
+                @error('amount_surcharge')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
                 <label for="date_expiration" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.date_expiration') }}:</label>
                 <input type="datetime-local" id="date_expiration" name="date_expiration" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('date_expiration') border-red-500 @enderror" required>
                 @error('date_expiration')
