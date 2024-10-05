@@ -94,6 +94,8 @@ class InvoicePll extends PersistantLowLevel
             'user_id' => $invoice->user_id,
             'payment_id' => $payment_id,
             'date_created' => $invoice->date_created,
+            'date_surcharge' => $invoice->date_surcharge,
+            'amount_surcharge' => $invoice->amount_surcharge,
             'date_expiration' => $invoice->date_expiration,
         ]);
 
@@ -113,6 +115,8 @@ class InvoicePll extends PersistantLowLevel
             'user_id' => $request->user_id,
             'payment_id' => $invoice->payment_id,
             'date_created' => $invoice->date_created,
+            'date_surcharge' => $request->date_surcharge,
+            'amount_surcharge' => $request->amount_surcharge,
             'date_expiration' => $request->date_expiration,
         ]);
 
@@ -131,13 +135,13 @@ class InvoicePll extends PersistantLowLevel
         $invoice->site()->associate($request->site_id);
         $invoice->user()->associate($request->user_id);
         $invoice->date_created = date('ymdHis');
+        $invoice->date_surcharge = $request->date_surcharge;
+        $invoice->amount_surcharge = $request->amount_surcharge;
         $invoice->date_expiration = $request->date_expiration;
         $invoice->payment_id = $request->payment_id;
         $invoice->save();
 
         Cache::flush();
-
-        dump($invoice);
 
         $notification = new ImportInvoiceNotification($invoice);
         Notification::send([$invoice->user], $notification->delay(self::SECONDS_EMAIL));
@@ -157,6 +161,8 @@ class InvoicePll extends PersistantLowLevel
                 $invoice->site()->associate($site_id);
                 $invoice->user()->associate($user->id);
                 $invoice->date_created = $invoice_file['date_created'];
+                $invoice->date_surcharge = $invoice_file['date_surcharge'];
+                $invoice->amount_surcharge = $invoice_file['amount_surcharge'];
                 $invoice->date_expiration = $invoice_file['date_expiration'];
 
                 $invoice->save();

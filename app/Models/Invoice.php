@@ -19,6 +19,8 @@ class Invoice extends Model
         'user_id',
         'payment_id',
         'date_created',
+        'date_surcharge',
+        'amount_surcharge',
         'date_expiration',
     ];
 

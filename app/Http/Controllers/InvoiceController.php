@@ -82,12 +82,13 @@ class InvoiceController extends Controller
         $users = UserPll::get_users_guest();
         $sites = SitePll::get_sites_closed();
 
+        $date_surcharge = $invoice->date_surcharge ? Carbon::parse($invoice->date_surcharge)->format('Y-m-d\TH:i') : '';
         $date_expiration = $invoice->date_expiration ? Carbon::parse($invoice->date_expiration)->format('Y-m-d\TH:i') : '';
 
         $log[] = 'Ingresó a invoice.edit';
         $this->write_file($log);
 
-        return view('invoices.edit', compact('invoice', 'currency', 'users', 'sites', 'date_expiration'));
+        return view('invoices.edit', compact('invoice', 'currency', 'users', 'sites', 'date_expiration', 'date_surcharge'));
     }
 
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)

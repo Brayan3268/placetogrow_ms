@@ -90,6 +90,9 @@ return [
     'search_by_date_expired' => 'search by date expired',
     'date_created' => 'Invoice created',
     'date_expired' => 'Invoice expired',
+    'date_surcharge' => 'Invoice surcharge',
+    'invoice_surcharge' => 'Invoice get surcharge at',
+    'amount_surcharge' => 'surcharge for invoice',
 
     //Pays
     'payments' => 'Pays',

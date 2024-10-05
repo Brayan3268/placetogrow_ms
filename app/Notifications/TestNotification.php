@@ -25,9 +25,9 @@ class TestNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        dump($this->user_suscription);
-        dump($this->site);
-        dump($this->type_notice);
+        //dump($this->user_suscription);
+        //dump($this->site);
+        //dump($this->type_notice);
 
         return (new MailMessage)->view('notifications.testnoti', [
             'user' => $notifiable,
