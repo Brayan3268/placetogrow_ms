@@ -12,7 +12,8 @@ Schedule::call(function () {
     Artisan::call('app:reduce-days-command');
     Artisan::call('app:reduce-expiration-time-command');
     Artisan::call('app:collect-command');
-})->everyMinute();
+    Artisan::call('app:delete-user-suscription-command');
+})->everyTwoMinutes();
 
 /*Schedule::call(function () {
     Artisan::call('app:reduce-days-command');
