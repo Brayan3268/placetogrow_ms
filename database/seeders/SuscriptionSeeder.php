@@ -20,6 +20,8 @@ class SuscriptionSeeder extends Seeder
         $suscription->expiration_time = 180;
         $suscription->frecuency_collection = FrecuencyCollection::WEEK;
         $suscription->site_id = 3;
+        $suscription->number_trys = 3;
+        $suscription->how_often_days = 2;
         $suscription->save();
 
         $suscription = new Suscription;
@@ -31,6 +33,8 @@ class SuscriptionSeeder extends Seeder
         $suscription->expiration_time = 360;
         $suscription->frecuency_collection = FrecuencyCollection::MONTH;
         $suscription->site_id = 3;
+        $suscription->number_trys = 3;
+        $suscription->how_often_days = 2;
         $suscription->save();
 
         $suscription = new Suscription;
@@ -42,6 +46,8 @@ class SuscriptionSeeder extends Seeder
         $suscription->expiration_time = 15;
         $suscription->frecuency_collection = FrecuencyCollection::WEEK;
         $suscription->site_id = 3;
+        $suscription->number_trys = 3;
+        $suscription->how_often_days = 2;
         $suscription->save();
 
         $suscription = new Suscription;
@@ -53,6 +59,8 @@ class SuscriptionSeeder extends Seeder
         $suscription->expiration_time = 7;
         $suscription->frecuency_collection = FrecuencyCollection::WEEK;
         $suscription->site_id = 3;
+        $suscription->number_trys = 3;
+        $suscription->how_often_days = 2;
         $suscription->save();
     }
 }
