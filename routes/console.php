@@ -13,6 +13,8 @@ Schedule::call(function () {
     Artisan::call('app:reduce-expiration-time-command');
     Artisan::call('app:collect-command');
     Artisan::call('app:delete-user-suscription-command');
+    Artisan::call('app:surcharge-invoice-command');
+    Artisan::call('app:expired-invoice-command');
 })->everyTwoMinutes();
 
 /*Schedule::call(function () {

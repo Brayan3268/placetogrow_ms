@@ -192,6 +192,23 @@ class InvoicePll extends PersistantLowLevel
         }
     }
 
+    public static function expired_invoices()
+    {
+        $invoices = Invoice::whereDate('date_expiration', Carbon::today())
+            ->whereIn('status', [
+                InvoiceStatus::NOT_PAYED->value,
+                InvoiceStatus::PENDING->value,
+                InvoiceStatus::UNKNOW->value])->get();
+
+        foreach ($invoices as $invoice) {
+            $invoice->status = InvoiceStatus::EXPIRATED->value;
+            $invoice->save();
+
+            $notification = new InvoiceNotification($invoice, SurchargeInvoiceTypesNotification::EXPIRATED->value);
+            Notification::send([$invoice->user], $notification->delay(self::SECONDS_EMAIL));
+        }
+    }
+
     public static function delete_invoice(Invoice $invoice)
     {
         $invoice->delete();

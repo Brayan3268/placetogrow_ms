@@ -566,3 +566,88 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Consultó la información de una facturá en la fecha 2024-10-05 19:21:40
     Consultó la información de una facturá en la fecha 2024-10-05 19:21:44
     Consultó la información de una facturá en la fecha 2024-10-05 19:21:56
+    Consultó la información de una facturá en la fecha 2024-10-05 19:40:32
+    Consultó la información de una facturá en la fecha 2024-10-05 19:42:39
+    Consultó la información de una facturá en la fecha 2024-10-05 19:43:07
+    Consultó la información de una facturá en la fecha 2024-10-05 19:44:59
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 23:24:21 e hizo:
+    Ingresó a sites.show en la fecha 2024-10-05 23:24:22    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-05 23:24:22
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-05 23:25:27 e hizo:
+    Ingresó a payment.index en la fecha 2024-10-05 23:25:29
+    Ingresó a sites.index en la fecha 2024-10-05 23:25:30
+    Ingresó a invoice.index en la fecha 2024-10-05 23:25:30
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 23:25:49 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-05 23:25:50
+    Ingresó a sites.index en la fecha 2024-10-05 23:26:31
+    Ingresó a sites.show en la fecha 2024-10-05 23:26:32    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-05 23:26:32
+    Ingresó a invoice.index en la fecha 2024-10-05 23:26:39
+    Ingresó a sites.show en la fecha 2024-10-05 23:26:43    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-05 23:26:43
+    Ingresó a invoice.index en la fecha 2024-10-05 23:26:46
+    Consultó la información de una facturá en la fecha 2024-10-05 23:28:17
+    Consultó la información de una facturá en la fecha 2024-10-05 23:28:22
+    Ingresó a invoice.index en la fecha 2024-10-05 23:28:24
+    Ingresó a invoice.index en la fecha 2024-10-05 23:30:03
+    Ingresó a invoice.index en la fecha 2024-10-05 23:30:51
+    Ingresó a invoice.index en la fecha 2024-10-05 23:30:53
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 23:31:01 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-05 23:31:04
+    Ingresó a invoice.index en la fecha 2024-10-05 23:32:37
+    Ingresó a invoice.index en la fecha 2024-10-05 23:32:47
+    Ingresó a invoice.index en la fecha 2024-10-05 23:32:49
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 23:32:57 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-05 23:32:58
+    Ingresó a invoice.index en la fecha 2024-10-05 23:33:07
+    Ingresó a invoice.index en la fecha 2024-10-05 23:33:08
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 23:33:15 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-05 23:33:17
+    Ingresó a invoice.index en la fecha 2024-10-05 23:33:23
+    Ingresó a invoice.index en la fecha 2024-10-05 23:34:25
+    Ingresó a suscriptions.index en la fecha 2024-10-05 23:34:52
+    Ingresó a invoice.index en la fecha 2024-10-05 23:34:55
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 23:36:15 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-05 23:36:16
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-05 23:36:23 e hizo:
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-05 23:36:32 e hizo:
+    Ingresó a sites.index en la fecha 2024-10-05 23:36:33
+    Importó facturas al sitio 2 en la fecha 2024-10-05 23:36:40
+    Ingresó a sites.show en la fecha 2024-10-05 23:36:40    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-05 23:36:40
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 23:37:00 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-05 23:37:02
+    Ingresó a sites.show en la fecha 2024-10-05 23:37:08    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-05 23:37:08
+    Ingresó a invoice.index en la fecha 2024-10-05 23:37:35
+    Ingresó a invoice.index en la fecha 2024-10-05 23:38:48
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-05 23:39:14 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-05 23:39:15
+    Ingresó a invoice.index en la fecha 2024-10-05 23:39:16
+    Ingresó a sites.show en la fecha 2024-10-05 23:39:24    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-05 23:39:24
+    Ingresó a invoice.index en la fecha 2024-10-05 23:39:27
+    Ingresó a invoice.index en la fecha 2024-10-05 23:40:09
+    Consultó la información de una facturá en la fecha 2024-10-05 23:41:53
+    Consultó la información de una facturá en la fecha 2024-10-05 23:42:07
+    Consultó la información de una facturá en la fecha 2024-10-05 23:43:38
+    Consultó la información de una facturá en la fecha 2024-10-05 23:43:58
+    Consultó la información de una facturá en la fecha 2024-10-05 23:44:21
+    Consultó la información de una facturá en la fecha 2024-10-05 23:44:38
+    Consultó la información de una facturá en la fecha 2024-10-05 23:46:07
+    Consultó la información de una facturá en la fecha 2024-10-05 23:48:04
+    Consultó la información de una facturá en la fecha 2024-10-05 23:48:43
+    Consultó la información de una facturá en la fecha 2024-10-05 23:49:01
+    Consultó la información de una facturá en la fecha 2024-10-05 23:56:58
+    Consultó la información de una facturá en la fecha 2024-10-05 23:58:15
+    Consultó la información de una facturá en la fecha 2024-10-06 00:00:06
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-06 00:01:11 e hizo:
+    Ingresó a sites.index en la fecha 2024-10-06 00:01:12
+    Importó facturas al sitio 2 en la fecha 2024-10-06 00:01:16
+    Ingresó a sites.show en la fecha 2024-10-06 00:01:16    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-06 00:01:16
