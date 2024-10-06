@@ -8,12 +8,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ImportInvoiceNotification extends Notification implements ShouldQueue
+class InvoiceNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public function __construct(
         private Invoice $invoice,
+        private string $type_notice
     ) {}
 
     public function via(object $notifiable): array
@@ -23,9 +24,10 @@ class ImportInvoiceNotification extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->view('notifications.importinvoice', [
+        return (new MailMessage)->view('notifications.invoice', [
             'user' => $notifiable,
             'invoice' => $this->invoice,
+            'notice' => $this->type_notice,
         ]);
     }
 

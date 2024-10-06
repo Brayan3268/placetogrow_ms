@@ -550,3 +550,19 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a invoice.create en la fecha 2024-10-05 14:10:21
     Creó una factura en la fecha 2024-10-05 14:10:42
     Ingresó a invoice.index en la fecha 2024-10-05 14:10:43
+
+    Consultó la información de una facturá en la fecha 2024-10-05 18:41:19
+    Consultó la información de una facturá en la fecha 2024-10-05 19:08:30
+    Consultó la información de una facturá en la fecha 2024-10-05 19:08:39
+    Consultó la información de una facturá en la fecha 2024-10-05 19:09:11
+    Consultó la información de una facturá en la fecha 2024-10-05 19:10:55
+    Consultó la información de una facturá en la fecha 2024-10-05 19:11:02
+    Consultó la información de una facturá en la fecha 2024-10-05 19:11:21
+    Consultó la información de una facturá en la fecha 2024-10-05 19:14:10
+    Consultó la información de una facturá en la fecha 2024-10-05 19:14:47
+    Consultó la información de una facturá en la fecha 2024-10-05 19:14:48
+    Consultó la información de una facturá en la fecha 2024-10-05 19:20:19
+    Consultó la información de una facturá en la fecha 2024-10-05 19:21:08
+    Consultó la información de una facturá en la fecha 2024-10-05 19:21:40
+    Consultó la información de una facturá en la fecha 2024-10-05 19:21:44
+    Consultó la información de una facturá en la fecha 2024-10-05 19:21:56
