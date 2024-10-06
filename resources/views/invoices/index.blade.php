@@ -95,8 +95,10 @@
                             <td class="border border-gray-200 px-4 py-2 text-right">
                                 <a href="{{ route('invoices.show', $invoice->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                 @can('pay_invoices.see_user')
-                                    <a href="{{ route('show.site', $invoice->site->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
-                                @endcan
+                                    @if($invoice->status == 'not_payed')
+                                        <a href="{{ route('show.site', $invoice->site->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
+                                    @endif
+                                    @endcan
                                 @can('invoices.see_admins_users')
                                     <a href="{{ route('invoices.edit', $invoice->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
 
