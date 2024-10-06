@@ -168,6 +168,11 @@ return [
     'all_plans' => 'All plans',
     'plans_can_get' => 'Plans can get',
 
+    'number_trys' => 'Number of collection attempts',
+    'hint_number_trys' => 'Number of trys when pay is rejected',
+    'how_often_days' => 'For how many days',
+    'hint_how_often_days' => 'Number of days for try a new collect',
+
     //Usersuscription
     'suscription_reference' => 'Reference payment suscription',
     'suscription_status' => 'Status payment suscription',

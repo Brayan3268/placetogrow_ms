@@ -170,6 +170,10 @@ return [
 
     'all_plans' => 'Todos los planes',
     'plans_can_get' => 'Planes que puedo adquirir',
+    'number_trys' => 'Número de intentos de cobro',
+    'hint_number_trys' => 'Numero de intentos cuando el pago es rechazado',
+    'how_often_days' => 'Cada cuantos días',
+    'hint_how_often_days' => 'Cada cuantos días se reintará el cobro',
 
     //Usersuscription
     'suscription_reference' => 'Referencia del pago de la suscripción',

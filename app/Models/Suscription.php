@@ -18,6 +18,9 @@ class Suscription extends Model
         'expiration_time',
         'frecuency_collection',
         'site_id',
+        'number_trys',
+        'how_often_days',
+        'date_try',
     ];
 
     public function site(): BelongsTo

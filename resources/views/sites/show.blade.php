@@ -122,6 +122,8 @@
                     </form>
                 @endif
             @endcan
+            <div class="border-t border-gray-900 my-4"></div>
+            <br>
             @if ($site->site_type == "CLOSE" && !$pay_exist)
                 @php
                     $columns = 5;

@@ -34,6 +34,8 @@ class SuscriptionPll extends PersistantLowLevel
         $suscription->expiration_time = $request->expiration_time;
         $suscription->frecuency_collection = $request->frecuency_collection;
         $suscription->site()->associate($request->site_id);
+        $suscription->number_trys = $request->number_trys;
+        $suscription->how_often_days = $request->how_often_days;
         $suscription->save();
 
         Cache::flush();
@@ -49,6 +51,8 @@ class SuscriptionPll extends PersistantLowLevel
             'expiration_time' => $request->expiration_time,
             'frecuency_collection' => $request->frecuency_collection,
             'site_id' => $request->site_id,
+            'number_trys' => $request->number_trys,
+            'how_often_days' => $request->how_often_days,
         ]);
 
         Cache::flush();

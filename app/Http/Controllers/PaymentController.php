@@ -28,18 +28,6 @@ class PaymentController extends Controller
 
     public function index(): View
     {
-        /*if ($user->hasPermissionTo(Permissions::USER_GET_SUSCRIPTION)) {
-            $user_plans = UserSuscriptionPll::get_specific_user_suscriptions($user->id);
-            foreach ($user_plans as $key => $value) {
-                foreach ($suscription_plans as $key_all => $value_all) {
-                    if ($value->suscription_id == $value_all->id) {
-                        array_push($user_plans_get_suscribe, $value);
-                        unset($suscription_plans[$key_all]);
-                    }
-                }
-            }
-        }*/
-
         $pays = $this->validate_role() ? PaymentPll::get_all_pays() : PaymentPll::get_especific_user_pays(Auth::user()->id);
 
         $log[] = 'Ingresó a payment.index';
