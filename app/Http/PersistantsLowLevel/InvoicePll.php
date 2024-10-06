@@ -3,11 +3,13 @@
 namespace App\Http\PersistantsLowLevel;
 
 use App\Constants\InvoiceStatus;
+use App\Constants\SurchargeInvoiceTypesNotification;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
 use App\Models\User;
-use App\Notifications\ImportInvoiceNotification;
+use App\Notifications\InvoiceNotification;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -143,7 +145,7 @@ class InvoicePll extends PersistantLowLevel
 
         Cache::flush();
 
-        $notification = new ImportInvoiceNotification($invoice);
+        $notification = new InvoiceNotification($invoice, SurchargeInvoiceTypesNotification::CREATED->value);
         Notification::send([$invoice->user], $notification->delay(self::SECONDS_EMAIL));
     }
 
@@ -167,12 +169,27 @@ class InvoicePll extends PersistantLowLevel
 
                 $invoice->save();
 
-                $notification = new ImportInvoiceNotification($invoice);
+                $notification = new InvoiceNotification($invoice, SurchargeInvoiceTypesNotification::CREATED->value);
                 Notification::send([$user], $notification->delay(self::SECONDS_EMAIL));
             }
         }
 
         Cache::flush();
+    }
+
+    public static function add_surcharge()
+    {
+        $invoices = Invoice::whereDate('date_surcharge', Carbon::today())
+            ->where('status', InvoiceStatus::NOT_PAYED->value)
+            ->get();
+
+        foreach ($invoices as $invoice) {
+            $invoice->amount += $invoice->amount_surcharge;
+            $invoice->save();
+
+            $notification = new InvoiceNotification($invoice, SurchargeInvoiceTypesNotification::SURCHARGE->value);
+            Notification::send([$invoice->user], $notification->delay(self::SECONDS_EMAIL));
+        }
     }
 
     public static function delete_invoice(Invoice $invoice)

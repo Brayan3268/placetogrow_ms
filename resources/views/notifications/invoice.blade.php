@@ -3,9 +3,18 @@
         <label class="block mb-2 w-full font-bold px-4 py-3"> Hola <strong>{{ $user->name }}</strong>.  </label><br><br>
     </div>
 
-    <div class="mb-4">
-        <label class="block mb-2 w-full font-bold px-4 py-3"> Le informamos que se ha creado una factura a su nombre para el sitio <strong>{{ $invoice->site->name }} - {{ $invoice->site->slug}} </strong>  con la siguiente información. </label><br><br>
-    </div>
+    @switch($notice)
+        @case('created')
+            <div class="mb-4">
+                <label class="block mb-2 w-full font-bold px-4 py-3"> Le informamos que se ha creado una factura a su nombre para el sitio <strong>{{ $invoice->site->name }} - {{ $invoice->site->slug}} </strong>  con la siguiente información. </label><br><br>
+            </div>
+            @break
+        @case('surcharge')
+            <div class="mb-4">
+                <label class="block mb-2 w-full font-bold px-4 py-3"> Le informamos que se ha aplicado recargo a una factura a su nombre para el sitio <strong>{{ $invoice->site->name }} - {{ $invoice->site->slug}} </strong>  con la siguiente información. </label><br><br>
+            </div>
+            @break
+    @endswitch
 
     <div class="mb-4">
         <label class="block mb-2 w-full font-bold px-4 py-3"> Puedes ingresar al sitio mediante el siguiente enlace para realizar el pago de tu factura. </label><br>
@@ -16,7 +25,7 @@
         </div>
 
         <div class="mb-4">
-            <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.date') }}: {{ $invoice->reference }}</label>
+            <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.reference') }}: {{ $invoice->reference }}</label>
         </div>
          
         <div class="mb-4">
@@ -35,8 +44,26 @@
             <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.date') }}: {{ $invoice->date_expiration }}</label>
         </div>
 
-        <div class="mb-4">
-            <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.date') }}: {{ $invoice->currency }} {{ $invoice->amount }} </label>
-        </div>
+        @switch($notice)
+            @case('created')
+                <div class="mb-4">
+                    <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.amount') }}: {{ $invoice->currency }} {{ $invoice->amount }} </label>
+                </div>
+                @break
+            @case('surcharge')
+                <div class="mb-4">
+                    <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.new_amount') }}: {{ $invoice->currency }} {{ $invoice->amount }} </label>
+                </div>
+                @break
+        @endswitch
     </div>
 </div>
+
+
+
+
+
+
+
+
+
