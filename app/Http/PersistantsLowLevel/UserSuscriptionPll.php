@@ -10,9 +10,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Facades\Http;
 
 class UserSuscriptionPll extends PersistantLowLevel
 {
@@ -275,7 +275,7 @@ class UserSuscriptionPll extends PersistantLowLevel
                 ],
             ],
         ];
-        
+
         $response = Http::post('https://checkout-co.placetopay.dev/gateway/invalidate', $data_pay);
         $result = $response->json();
 
