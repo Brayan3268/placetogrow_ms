@@ -718,3 +718,101 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a suscriptions.index en la fecha 2024-10-06 14:55:55
     Consultó la información de una suscripción en la fecha 2024-10-06 14:55:58
     Consultó la información de una suscripción en la fecha 2024-10-06 14:57:36
+    Consultó la información de una suscripción en la fecha 2024-10-06 15:24:51
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-06 18:05:05 e hizo:
+    Consultó la información de una suscripción en la fecha 2024-10-06 18:05:05
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:05:08
+    Consultó la información de la suscripción 1 en la fecha 2024-10-06 18:05:12    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:05:12    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:05:12
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-06 18:05:45    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-06 18:05:45    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-06 18:05:45    Envia notificación de la suscripcion del usuario en la fecha 2024-10-06 18:05:45    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-06 18:05:45    Crea el payment del cobro automatico en la fecha 2024-10-06 18:05:45
+    Ingresó a sites.index en la fecha 2024-10-06 18:06:22
+    Ingresó a payment.index en la fecha 2024-10-06 18:06:25
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:06:26
+    Consultó la información de la suscripción 5 en la fecha 2024-10-06 18:06:31    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:06:31    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:06:31
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-06 18:06:53    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-06 18:06:53    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-06 18:06:53    Envia notificación de la suscripcion del usuario en la fecha 2024-10-06 18:06:53    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-06 18:06:53    Crea el payment del cobro automatico en la fecha 2024-10-06 18:06:53
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:06:56
+    Consultó la información de la suscripción 2 en la fecha 2024-10-06 18:06:58    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:06:58    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:06:58
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-06 18:07:23    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-06 18:07:23    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-06 18:07:23    Envia notificación de la suscripcion del usuario en la fecha 2024-10-06 18:07:23    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-06 18:07:23    Crea el payment del cobro automatico en la fecha 2024-10-06 18:07:23
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:07:25
+    Consultó la información de la suscripción 3 en la fecha 2024-10-06 18:07:27    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:07:27    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:07:27
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-06 18:07:54    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-06 18:07:54    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-06 18:07:54    Envia notificación de la suscripcion del usuario en la fecha 2024-10-06 18:07:54    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-06 18:07:54    Crea el payment del cobro automatico en la fecha 2024-10-06 18:07:54
+    Ingresó a invoice.index en la fecha 2024-10-06 18:07:56
+    Ingresó a sites.index en la fecha 2024-10-06 18:07:57
+    Ingresó a sites.show en la fecha 2024-10-06 18:08:01    Consultó las suscripciones para el sitio 3 en la fecha 2024-10-06 18:08:01
+    Consultó la información de la suscripción 4 en la fecha 2024-10-06 18:08:07    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:08:07    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:08:07
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-06 18:08:30    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-06 18:08:30    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-06 18:08:30    Envia notificación de la suscripcion del usuario en la fecha 2024-10-06 18:08:30    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-06 18:08:30    Crea el payment del cobro automatico en la fecha 2024-10-06 18:08:30
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:08:32
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-06 18:11:36 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:11:38
+    Consultó la información de la suscripción 2 en la fecha 2024-10-06 18:12:30    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:12:30    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:12:30
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-06 18:13:33    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-06 18:13:33    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-06 18:13:33    Envia notificación de la suscripcion del usuario en la fecha 2024-10-06 18:13:33    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-06 18:13:33    Crea el payment del cobro automatico en la fecha 2024-10-06 18:13:33
+    Ingresó a user_suscriptions.show en la fecha 2024-10-06 18:13:44
+    Consultó la información de la suscripción 2 en la fecha 2024-10-06 18:14:31    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:14:31    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:14:31
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-06 18:18:17 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-06 18:18:19
+    Ingresó a sites.index en la fecha 2024-10-06 18:18:20
+    Ingresó a sites.show en la fecha 2024-10-06 18:18:22    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-06 18:18:22
+    Ingresó a sites.show en la fecha 2024-10-06 18:18:25    Consultó la información de un pago pendiente en la fecha 2024-10-06 18:18:25    Consultó las suscripciones para el sitio 3 en la fecha 2024-10-06 18:18:25
+    Envió un correo con la información de la eliminación de la session en la fecha 2024-10-06 18:18:26    Eliminó una sesion de pago en la fecha 2024-10-06 18:18:26
+    Ingresó a sites.show en la fecha 2024-10-06 18:18:27    Consultó las suscripciones para el sitio 3 en la fecha 2024-10-06 18:18:27
+    Consultó la información de la suscripción 4 en la fecha 2024-10-06 18:18:33    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:18:33    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:18:33
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-06 18:18:52    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-06 18:18:52    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-06 18:18:52    Envia notificación de la suscripcion del usuario en la fecha 2024-10-06 18:18:52    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-06 18:18:52    Crea el payment del cobro automatico en la fecha 2024-10-06 18:18:52
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:28:03
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-06 18:28:12 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:28:14
+    Consultó la información de una suscripción en la fecha 2024-10-06 18:28:16
+    Ingresó a user_suscriptions.show en la fecha 2024-10-06 18:28:18
+    Ingresó a invoice.index en la fecha 2024-10-06 18:28:21
+    Ingresó a payment.index en la fecha 2024-10-06 18:28:22
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-06 18:42:44 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:42:49
+    Consultó la información de la suscripción 4 en la fecha 2024-10-06 18:42:54    Creó una sesion para realizar una suscripción en la fecha 2024-10-06 18:42:54    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-06 18:42:54
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-06 18:43:15    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-06 18:43:15    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-06 18:43:15    Envia notificación de la suscripcion del usuario en la fecha 2024-10-06 18:43:15    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-06 18:43:15    Crea el payment del cobro automatico en la fecha 2024-10-06 18:43:15
+    Ingresó a payment.index en la fecha 2024-10-06 18:43:26
+    Ingresó a suscriptions.index en la fecha 2024-10-06 18:43:27
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 16:20:19 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-07 16:20:22
+    Consultó la información de la suscripción 4 en la fecha 2024-10-07 16:20:26    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 16:20:26    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 16:20:26
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 16:20:57    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 16:20:57    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 16:20:57    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 16:20:57    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 16:20:57    Crea el payment del cobro automatico en la fecha 2024-10-07 16:20:57
+    Ingresó a payment.index en la fecha 2024-10-07 16:21:28
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-07 16:21:30    Ingresó a payments.show suscription en la fecha 2024-10-07 16:21:30
+    Ingresó a user_suscriptions.show en la fecha 2024-10-07 16:22:27
+    Ingresó a user_suscriptions.show en la fecha 2024-10-07 16:22:39
+    Ingresó a suscriptions.index en la fecha 2024-10-07 17:31:32
+    Consultó la información de la suscripción 1 en la fecha 2024-10-07 17:31:35    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 17:31:35    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 17:31:35
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 17:31:56    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 17:31:56    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 17:31:56    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 17:31:56    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 17:31:56    Crea el payment del cobro automatico en la fecha 2024-10-07 17:31:56
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 18:26:43 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-07 18:26:46
+    Ingresó a sites.index en la fecha 2024-10-07 18:26:47
+    Ingresó a sites.show en la fecha 2024-10-07 18:26:49    Consultó las suscripciones para el sitio 3 en la fecha 2024-10-07 18:26:49
+    Consultó la información de la suscripción 4 en la fecha 2024-10-07 18:26:53    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 18:26:53    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 18:26:53
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 18:27:12    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 18:27:12    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 18:27:12    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 18:27:12    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 18:27:12    Crea el payment del cobro automatico en la fecha 2024-10-07 18:27:12
+    Ingresó a suscriptions.index en la fecha 2024-10-07 18:27:20
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 18:29:16 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-07 18:29:18
+    Consultó la información de la suscripción 4 en la fecha 2024-10-07 18:29:20    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 18:29:20    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 18:29:20
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 18:29:36    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 18:29:36    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 18:29:36    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 18:29:36    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 18:29:36    Crea el payment del cobro automatico en la fecha 2024-10-07 18:29:36
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 18:43:11 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-07 18:43:14
+    Consultó la información de la suscripción 4 en la fecha 2024-10-07 18:43:17    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 18:43:17    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 18:43:17
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 18:43:35    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 18:43:35    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 18:43:35    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 18:43:35    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 18:43:35    Crea el payment del cobro automatico en la fecha 2024-10-07 18:43:35
+    Ingresó a suscriptions.index en la fecha 2024-10-07 18:43:38
+    Consultó la información de la suscripción 3 en la fecha 2024-10-07 18:43:43    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 18:43:43    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 18:43:43
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 18:44:01    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 18:44:01    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 18:44:01    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 18:44:01    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 18:44:01    Crea el payment del cobro automatico en la fecha 2024-10-07 18:44:01
+    Ingresó a suscriptions.index en la fecha 2024-10-07 18:44:03
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 19:04:38 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-07 19:04:39
+    Consultó la información de la suscripción 4 en la fecha 2024-10-07 19:04:42    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 19:04:42    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 19:04:42
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 19:05:06    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 19:05:06    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 19:05:06    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 19:05:06    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 19:05:06    Crea el payment del cobro automatico en la fecha 2024-10-07 19:05:06
+    Ingresó a suscriptions.index en la fecha 2024-10-07 19:05:09
+    Consultó la información de la suscripción 2 en la fecha 2024-10-07 19:05:14    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 19:05:14    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 19:05:14
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 19:05:36    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 19:05:36    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 19:05:36    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 19:05:36    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 19:05:36    Crea el payment del cobro automatico en la fecha 2024-10-07 19:05:36

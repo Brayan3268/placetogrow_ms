@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreignId('site_id')->constrained();
             $table->integer('number_trys');
             $table->integer('how_often_days');
-            $table->date('date_try')->nullable();
             $table->timestamps();
         });
     }

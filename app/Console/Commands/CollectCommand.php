@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Constants\PaymentStatus;
+use App\Constants\SuscriptionStatus;
 use App\Http\PersistantsLowLevel\PaymentPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use Illuminate\Console\Command;
@@ -73,8 +75,21 @@ class CollectCommand extends Command
         $length = min(count($user_suscriptions_to_collect), count($requests));
         for ($i = 0; $i < $length; $i++) {
             $response = Http::post('https://checkout-co.placetopay.dev/api/collect', $requests[$i]);
-
             $result = $response->json();
+
+            switch ($result['status']['status']) {
+                case PaymentStatus::APPROVED->value:
+                    UserSuscriptionPll::change_status($user_suscriptions_to_collect[$i]->reference, SuscriptionStatus::APPROVED->value);
+                    break;
+
+                case PaymentStatus::REJECTED->value:
+                    UserSuscriptionPll::change_status($user_suscriptions_to_collect[$i]->reference, SuscriptionStatus::REJECTED->value);
+                    break;
+
+                default:
+                    UserSuscriptionPll::change_status($user_suscriptions_to_collect[$i]->reference, SuscriptionStatus::FAILED->value);
+                    break;
+            }
 
             PaymentPll::save_payment_suscription($result, $user_suscriptions_to_collect[$i]);
         }
