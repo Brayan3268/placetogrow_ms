@@ -125,12 +125,17 @@ class UserSuscriptionPll extends PersistantLowLevel
 
             return Usersuscription::where(function ($query) {
                 $query->where('days_until_next_payment', 0)
-                      ->where('status', SuscriptionStatus::APPROVED->value);
+                    ->where('status', SuscriptionStatus::APPROVED->value);
             })
             ->orWhere(function ($query) {
                 $query->whereDate('date_try', Carbon::now('America/Bogota')->format('Y-m-d'))
-                      ->where('status', '!=', SuscriptionStatus::APPROVED->value)
-                      ->whereColumn('attempts_realised', '<', 'suscriptions.number_trys');
+                    ->whereIn('status', [
+                        SuscriptionStatus::REJECTED->value,
+                        SuscriptionStatus::FAILED->value,
+                        SuscriptionStatus::PENDING->value,
+
+                    ])
+                    ->whereColumn('attempts_realised', '<', 'suscriptions.number_trys');
             })
             ->join('suscriptions', 'usersuscriptions.suscription_id', '=', 'suscriptions.id')
             ->get();
@@ -188,8 +193,7 @@ class UserSuscriptionPll extends PersistantLowLevel
     public static function delete_user_suscription_expiration_time()
     {
         $updated_user_subscriptions = DB::transaction(function () {
-            $records = Usersuscription::where('status', SuscriptionStatus::APPROVED->value)
-                ->where('expiration_time', 0)
+            $records = Usersuscription::where('expiration_time', 0)
                 ->get();
 
             Usersuscription::whereIn('reference', $records->pluck('reference'))
