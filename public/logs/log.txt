@@ -816,3 +816,36 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Ingresó a suscriptions.index en la fecha 2024-10-07 19:05:09
     Consultó la información de la suscripción 2 en la fecha 2024-10-07 19:05:14    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 19:05:14    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 19:05:14
     Consulta la información de la sesion de suscripción en la fecha 2024-10-07 19:05:36    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 19:05:36    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 19:05:36    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 19:05:36    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 19:05:36    Crea el payment del cobro automatico en la fecha 2024-10-07 19:05:36
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 19:35:55 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-07 19:35:56
+    Ingresó a suscriptions.index en la fecha 2024-10-07 19:35:57
+    Consultó la información de la suscripción 4 en la fecha 2024-10-07 19:36:02    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 19:36:02    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 19:36:02
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 19:36:18    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 19:36:18    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 19:36:18    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 19:36:18    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 19:36:18    Crea el payment del cobro automatico en la fecha 2024-10-07 19:36:18
+    Ingresó a suscriptions.index en la fecha 2024-10-07 19:36:22
+    Ingresó a payment.index en la fecha 2024-10-07 19:36:27
+    Ingresó a suscriptions.index en la fecha 2024-10-07 19:36:29
+    Consultó la información de la suscripción 2 en la fecha 2024-10-07 19:36:32    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 19:36:32    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 19:36:32
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-07 19:37:13    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-07 19:37:13    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-07 19:37:13    Envia notificación de la suscripcion del usuario en la fecha 2024-10-07 19:37:13    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-07 19:37:13    Crea el payment del cobro automatico en la fecha 2024-10-07 19:37:13
+    Ingresó a payment.index en la fecha 2024-10-07 19:37:15
+    Ingresó a payment.index en la fecha 2024-10-07 19:38:07
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 19:39:23 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-07 19:39:25
+    Ingresó a payment.index en la fecha 2024-10-07 19:39:26
+    Ingresó a payment.index en la fecha 2024-10-07 19:45:06
+    Ingresó a payment.index en la fecha 2024-10-07 19:46:13
+    Ingresó a payment.index en la fecha 2024-10-07 19:47:23
+    Ingresó a payment.index en la fecha 2024-10-07 19:47:27
+    Ingresó a payment.index en la fecha 2024-10-07 19:48:24
+    Ingresó a payment.index en la fecha 2024-10-07 19:48:48
+    Ingresó a payment.index en la fecha 2024-10-07 19:50:06
+    Ingresó a payment.index en la fecha 2024-10-07 19:50:49
+    Ingresó a payment.index en la fecha 2024-10-07 19:50:53
+    Ingresó a suscriptions.index en la fecha 2024-10-07 21:01:42
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 21:02:47 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-07 21:02:49
+    Consultó la información de la suscripción 3 en la fecha 2024-10-07 21:14:13    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 21:14:13    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 21:14:13
+    Ingresó a suscriptions.index en la fecha 2024-10-07 21:16:48
+    Ingresó a suscriptions.index en la fecha 2024-10-07 21:18:05
