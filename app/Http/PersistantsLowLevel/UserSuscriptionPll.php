@@ -119,14 +119,14 @@ class UserSuscriptionPll extends PersistantLowLevel
 
     public static function get_suscriptions_to_collect()
     {
-         /*Usersuscription::where('days_until_next_payment', 0)
-            ->where('status', SuscriptionStatus::APPROVED->value)
-            ->get();*/
+        /*Usersuscription::where('days_until_next_payment', 0)
+           ->where('status', SuscriptionStatus::APPROVED->value)
+           ->get();*/
 
-            return Usersuscription::where(function ($query) {
-                $query->where('days_until_next_payment', 0)
-                    ->where('status', SuscriptionStatus::APPROVED->value);
-            })
+        return Usersuscription::where(function ($query) {
+            $query->where('days_until_next_payment', 0)
+                ->where('status', SuscriptionStatus::APPROVED->value);
+        })
             ->orWhere(function ($query) {
                 $query->whereDate('date_try', Carbon::now('America/Bogota')->format('Y-m-d'))
                     ->whereIn('status', [
@@ -218,7 +218,7 @@ class UserSuscriptionPll extends PersistantLowLevel
 
         $user_suscription->status = $status;
         $user_suscription->date_try = $date;
-        $user_suscription->attempts_realised = ($status == SuscriptionStatus::REJECTED->value) ? $user_suscription->attempts_realised + 1: 0;
+        $user_suscription->attempts_realised = ($status == SuscriptionStatus::REJECTED->value) ? $user_suscription->attempts_realised + 1 : 0;
 
         $user_suscription->save();
     }
