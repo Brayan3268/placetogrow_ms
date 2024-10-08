@@ -849,3 +849,10 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Consultó la información de la suscripción 3 en la fecha 2024-10-07 21:14:13    Creó una sesion para realizar una suscripción en la fecha 2024-10-07 21:14:13    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-07 21:14:13
     Ingresó a suscriptions.index en la fecha 2024-10-07 21:16:48
     Ingresó a suscriptions.index en la fecha 2024-10-07 21:18:05
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-08 10:04:39 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-08 10:04:41
+    Consultó la información de la suscripción 4 en la fecha 2024-10-08 10:04:48    Creó una sesion para realizar una suscripción en la fecha 2024-10-08 10:04:48    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-08 10:04:48
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-08 10:05:56    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-08 10:05:56    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-08 10:05:56    Envia notificación de la suscripcion del usuario en la fecha 2024-10-08 10:05:56    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-08 10:05:56    Crea el payment del cobro automatico en la fecha 2024-10-08 10:05:56
+    Ingresó a invoice.index en la fecha 2024-10-08 10:10:04
+    Ingresó a suscriptions.index en la fecha 2024-10-08 10:10:05
