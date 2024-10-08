@@ -205,7 +205,7 @@ class UserSuscriptionPll extends PersistantLowLevel
         foreach ($updated_user_subscriptions as $updated_user_subscription) {
             $site = SitePll::get_specific_site(strval($updated_user_subscription->suscription->site_id));
 
-            $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_SUSCRIPTION->value);
+            $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_EXPIRATION_SUSCRIPTION->value);
             Notification::send([$updated_user_subscription->user], $notification->delay(self::SECONDS_EMAIL));
         }
     }
@@ -241,7 +241,7 @@ class UserSuscriptionPll extends PersistantLowLevel
         foreach ($updated_user_subscriptions as $updated_user_subscription) {
             $site = SitePll::get_specific_site(strval($updated_user_subscription->suscription->site_id));
 
-            $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_SUSCRIPTION->value);
+            $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_NOT_PAYED_SUSCRIPTION->value);
             Notification::send([$updated_user_subscription->user], $notification->delay(self::SECONDS_EMAIL));
         }
     }

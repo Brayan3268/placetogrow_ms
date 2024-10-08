@@ -833,3 +833,12 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
 El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-07 19:39:23 e hizo:
     Ingresó a suscriptions.index en la fecha 2024-10-07 19:39:25
     Ingresó a payment.index en la fecha 2024-10-07 19:39:26
+    Ingresó a payment.index en la fecha 2024-10-07 19:45:06
+    Ingresó a payment.index en la fecha 2024-10-07 19:46:13
+    Ingresó a payment.index en la fecha 2024-10-07 19:47:23
+    Ingresó a payment.index en la fecha 2024-10-07 19:47:27
+    Ingresó a payment.index en la fecha 2024-10-07 19:48:24
+    Ingresó a payment.index en la fecha 2024-10-07 19:48:48
+    Ingresó a payment.index en la fecha 2024-10-07 19:50:06
+    Ingresó a payment.index en la fecha 2024-10-07 19:50:49
+    Ingresó a payment.index en la fecha 2024-10-07 19:50:53

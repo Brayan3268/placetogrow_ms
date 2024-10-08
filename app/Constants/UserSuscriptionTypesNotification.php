@@ -12,7 +12,9 @@ enum UserSuscriptionTypesNotification: string
 
     case NOTICE_EXPIRATION_SUSCRIPTION = 'notice_expiration_suscription';
 
-    case NOTICE_DELETED_SUSCRIPTION = 'notice_deleted_suscription';
+    case NOTICE_DELETED_EXPIRATION_SUSCRIPTION = 'notice_deleted_expiration_suscription';
+
+    case NOTICE_DELETED_NOT_PAYED_SUSCRIPTION = 'notice_deleted_not_payed_suscription';
 
     public static function toArray(): array
     {
