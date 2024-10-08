@@ -15,6 +15,7 @@ Schedule::call(function () {
     Artisan::call('app:delete-user-suscription-command');
     Artisan::call('app:surcharge-invoice-command');
     Artisan::call('app:expired-invoice-command');
+    Artisan::call('app:delete-not-payed-user-suscription-command');
 })->everyTwoMinutes();
 
 /*Schedule::call(function () {

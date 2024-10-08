@@ -223,6 +223,29 @@ class UserSuscriptionPll extends PersistantLowLevel
         $user_suscription->save();
     }
 
+    public static function delete_not_payed_user_suscription()
+    {
+        $updated_user_subscriptions = DB::transaction(function () {
+            $records = Usersuscription::whereColumn('attempts_realised', '=', 'suscriptions.number_trys')
+                ->join('suscriptions', 'usersuscriptions.suscription_id', '=', 'suscriptions.id')
+                ->get();
+
+            Usersuscription::whereIn('reference', $records->pluck('reference'))
+                ->update(['status' => SuscriptionStatus::EXPIRATED->value]);
+
+            return Usersuscription::whereIn('reference', $records->pluck('reference'))->get();
+        });
+
+        dump($updated_user_subscriptions);
+
+        foreach ($updated_user_subscriptions as $updated_user_subscription) {
+            $site = SitePll::get_specific_site(strval($updated_user_subscription->suscription->site_id));
+
+            $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_SUSCRIPTION->value);
+            Notification::send([$updated_user_subscription->user], $notification->delay(self::SECONDS_EMAIL));
+        }
+    }
+
     public static function forget_cache(string $name_cache)
     {
         Cache::forget($name_cache);
