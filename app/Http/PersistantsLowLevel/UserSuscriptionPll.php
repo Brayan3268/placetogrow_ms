@@ -6,6 +6,7 @@ use App\Constants\SuscriptionStatus;
 use App\Constants\UserSuscriptionTypesNotification;
 use App\Models\Usersuscription;
 use App\Notifications\UserSuscriptionNotification;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -118,13 +119,28 @@ class UserSuscriptionPll extends PersistantLowLevel
 
     public static function get_suscriptions_to_collect()
     {
-        return Usersuscription::where('days_until_next_payment', 0)->get();
+         /*Usersuscription::where('days_until_next_payment', 0)
+            ->where('status', SuscriptionStatus::APPROVED->value)
+            ->get();*/
+
+            return Usersuscription::where(function ($query) {
+                $query->where('days_until_next_payment', 0)
+                      ->where('status', SuscriptionStatus::APPROVED->value);
+            })
+            ->orWhere(function ($query) {
+                $query->whereDate('date_try', Carbon::now('America/Bogota')->format('Y-m-d'))
+                      ->where('status', '!=', SuscriptionStatus::APPROVED->value)
+                      ->whereColumn('attempts_realised', '<', 'suscriptions.number_trys');
+            })
+            ->join('suscriptions', 'usersuscriptions.suscription_id', '=', 'suscriptions.id')
+            ->get();
     }
 
     public static function restore_days_until_next_payment(string $reference, int $user_id, int $days)
     {
         Usersuscription::where('reference', $reference)
             ->where('user_id', $user_id)
+            ->where('status', SuscriptionStatus::APPROVED->value)
             ->update(['days_until_next_payment' => $days]);
     }
 
@@ -182,13 +198,25 @@ class UserSuscriptionPll extends PersistantLowLevel
             return Usersuscription::whereIn('reference', $records->pluck('reference'))->get();
         });
 
-        dump($updated_user_subscriptions);
         foreach ($updated_user_subscriptions as $updated_user_subscription) {
             $site = SitePll::get_specific_site(strval($updated_user_subscription->suscription->site_id));
 
             $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_SUSCRIPTION->value);
             Notification::send([$updated_user_subscription->user], $notification->delay(self::SECONDS_EMAIL));
         }
+    }
+
+    public static function change_status(string $reference, string $status)
+    {
+        $user_suscription = Usersuscription::where('reference', $reference)->first();
+
+        $date = ($status == SuscriptionStatus::REJECTED->value) ? Carbon::now('America/Bogota')->addDays($user_suscription->suscription->how_often_days)->format('Y-m-d') : null;
+
+        $user_suscription->status = $status;
+        $user_suscription->date_try = $date;
+        $user_suscription->attempts_realised = ($status == SuscriptionStatus::REJECTED->value) ? $user_suscription->attempts_realised + 1: 0;
+
+        $user_suscription->save();
     }
 
     public static function forget_cache(string $name_cache)

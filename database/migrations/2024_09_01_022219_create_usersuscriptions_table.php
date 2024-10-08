@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('token', 70)->nullable();
             $table->string('sub_token', 50)->nullable();
             $table->json('additional_data')->nullable();
+            $table->date('date_try')->nullable();
+            $table->integer('attempts_realised')->default(0);
             $table->timestamps();
         });
     }
