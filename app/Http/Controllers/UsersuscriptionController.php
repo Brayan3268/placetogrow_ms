@@ -123,8 +123,6 @@ class UsersuscriptionController extends Controller
         $log[] = 'Ingresó a user_suscriptions.show';
         $this->write_file($log);
 
-        //dd($user_suscription->suscription);
-
         return view('user_suscriptions.show', compact('user_suscription', 'site'));
     }
 
@@ -142,8 +140,6 @@ class UsersuscriptionController extends Controller
 
     public function destroyy(string $reference, int $user_id)
     {
-        //Enviar petición para invaldiar el token
-
         $user_suscription = UserSuscriptionPll::get_specific_suscription_with_out_decode($reference, $user_id);
         UserSuscriptionPll::delete_user_suscription($reference, $user_id);
 
@@ -174,6 +170,7 @@ class UsersuscriptionController extends Controller
                 'seed' => $auth['seed'],
             ],
         ];
+
         $session_information = Http::post('https://checkout-co.placetopay.dev/api/session/'.$user_suscription->request_id, $data);
 
         $log[] = 'Consulta la información de la sesion de suscripción';

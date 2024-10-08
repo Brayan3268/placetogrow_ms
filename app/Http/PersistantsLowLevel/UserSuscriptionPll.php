@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\Http;
 
 class UserSuscriptionPll extends PersistantLowLevel
 {
@@ -151,7 +152,14 @@ class UserSuscriptionPll extends PersistantLowLevel
 
     public static function delete_user_suscription(string $reference, int $user_id)
     {
-        Usersuscription::where('reference', $reference)->where('user_id', $user_id)->delete();
+        $user_suscription = Usersuscription::where('reference', $reference)
+            ->where('user_id', $user_id)
+            ->first();
+
+        $user_suscription->status = SuscriptionStatus::EXPIRATED->value;
+        $user_suscription->save();
+
+        self::invalidate_token($user_suscription);
 
         Cache::flush();
     }
@@ -203,6 +211,8 @@ class UserSuscriptionPll extends PersistantLowLevel
         });
 
         foreach ($updated_user_subscriptions as $updated_user_subscription) {
+            self::invalidate_token($updated_user_subscription);
+
             $site = SitePll::get_specific_site(strval($updated_user_subscription->suscription->site_id));
 
             $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_EXPIRATION_SUSCRIPTION->value);
@@ -239,11 +249,56 @@ class UserSuscriptionPll extends PersistantLowLevel
         dump($updated_user_subscriptions);
 
         foreach ($updated_user_subscriptions as $updated_user_subscription) {
+            self::invalidate_token($updated_user_subscription);
+
             $site = SitePll::get_specific_site(strval($updated_user_subscription->suscription->site_id));
 
             $notification = new UserSuscriptionNotification($updated_user_subscription, $site, UserSuscriptionTypesNotification::NOTICE_DELETED_NOT_PAYED_SUSCRIPTION->value);
             Notification::send([$updated_user_subscription->user], $notification->delay(self::SECONDS_EMAIL));
         }
+    }
+
+    public static function invalidate_token(Usersuscription $user_suscription)
+    {
+        $auth = self::get_auth();
+
+        $data_pay = [
+            'auth' => [
+                'login' => $auth['login'],
+                'tranKey' => $auth['tranKey'],
+                'nonce' => $auth['nonce'],
+                'seed' => $auth['seed'],
+            ],
+            'instrument' => [
+                'token' => [
+                    'token' => $user_suscription->token,
+                ],
+            ],
+        ];
+        
+        $response = Http::post('https://checkout-co.placetopay.dev/gateway/invalidate', $data_pay);
+        $result = $response->json();
+
+        dd($result);
+    }
+
+    public static function get_auth()
+    {
+        $login = 'e3bba31e633c32c48011a4a70ff60497';
+        $secretKey = 'ak5N6IPH2kjljHG3';
+        $seed = date('c');
+        $nonce = (string) rand();
+
+        $tranKey = base64_encode(hash('sha256', $nonce.$seed.$secretKey, true));
+
+        $nonce = base64_encode($nonce);
+
+        return [
+            'login' => $login,
+            'tranKey' => $tranKey,
+            'nonce' => $nonce,
+            'seed' => $seed,
+        ];
     }
 
     public static function forget_cache(string $name_cache)
