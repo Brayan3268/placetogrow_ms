@@ -890,3 +890,85 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Ingresó a payment.index en la fecha 2024-10-08 21:15:55
     Ingresó a suscriptions.index en la fecha 2024-10-08 21:15:56
     Ingresó a payment.index en la fecha 2024-10-08 21:15:57
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-09 17:04:34 e hizo:
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-09 17:04:41 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-09 17:04:43
+    Ingresó a invoice.index en la fecha 2024-10-09 17:04:44
+    Ingresó a sites.index en la fecha 2024-10-09 17:04:45
+    Ingresó a invoice.index en la fecha 2024-10-09 17:04:48
+    Ingresó a sites.index en la fecha 2024-10-09 17:04:50
+    Ingresó a sites.show en la fecha 2024-10-09 17:04:56    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 17:04:56
+    Ingresó a invoice.index en la fecha 2024-10-09 17:04:59
+    Ingresó a invoice.create en la fecha 2024-10-09 17:05:00
+    Ingresó a invoice.create en la fecha 2024-10-09 17:08:38
+    Ingresó a sites.index en la fecha 2024-10-09 17:09:15
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:09:17
+    Ingresó a invoice.create en la fecha 2024-10-09 17:09:32
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:09:32
+    Ingresó a invoice.create en la fecha 2024-10-09 17:09:37
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:09:37
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:09:42
+    Ingresó a invoice.create en la fecha 2024-10-09 17:09:43
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:09:46
+    Ingresó a invoice.create en la fecha 2024-10-09 17:09:47
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:10:13
+    Ingresó a invoice.create en la fecha 2024-10-09 17:10:13
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:10:42
+    Ingresó a invoice.create en la fecha 2024-10-09 17:10:42
+    Ingresó a invoice.create en la fecha 2024-10-09 17:10:45
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:13:03
+    Ingresó a invoice.create en la fecha 2024-10-09 17:13:03
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:13:11
+    Ingresó a invoice.create en la fecha 2024-10-09 17:13:11
+    Ingresó a invoice.create en la fecha 2024-10-09 17:13:55
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:13:56
+    Ingresó a invoice.create en la fecha 2024-10-09 17:14:16
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:14:17
+    Ingresó a suscriptions.index en la fecha 2024-10-09 17:14:27
+    Ingresó a sites.index en la fecha 2024-10-09 17:14:29
+    Ingresó a invoice.index en la fecha 2024-10-09 17:14:29
+    Ingresó a invoice.create en la fecha 2024-10-09 17:14:31
+    Ingresó a invoice.create en la fecha 2024-10-09 17:15:13
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:15:13
+    Ingresó a invoice.create en la fecha 2024-10-09 17:15:58
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:15:58
+    Ingresó a invoice.create en la fecha 2024-10-09 17:16:14
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:16:14
+    Ingresó a invoice.create en la fecha 2024-10-09 17:16:26
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:16:26
+    Ingresó a invoice.create en la fecha 2024-10-09 17:16:37
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:16:37
+    Ingresó a invoice.create en la fecha 2024-10-09 17:17:56
+    Entró a la configuración de los campos requeridos del sitio 2 en la fecha 2024-10-09 17:17:56
+    Ingresó a invoice.create en la fecha 2024-10-09 17:18:04
+    Ingresó a invoice.create en la fecha 2024-10-09 17:18:42
+    Ingresó a invoice.create en la fecha 2024-10-09 17:18:56
+    Ingresó a invoice.create en la fecha 2024-10-09 17:19:02
+    Ingresó a invoice.create en la fecha 2024-10-09 17:20:34
+    Ingresó a invoice.create en la fecha 2024-10-09 17:21:19
+    Ingresó a invoice.create en la fecha 2024-10-09 17:21:29
+    Ingresó a invoice.create en la fecha 2024-10-09 17:21:35
+    Ingresó a invoice.create en la fecha 2024-10-09 17:21:43
+    Ingresó a invoice.create en la fecha 2024-10-09 17:21:58
+    Ingresó a invoice.create en la fecha 2024-10-09 17:23:41
+    Ingresó a invoice.create en la fecha 2024-10-09 17:24:01
+    Ingresó a invoice.create en la fecha 2024-10-09 17:24:19
+    Ingresó a invoice.create en la fecha 2024-10-09 17:24:31
+    Ingresó a invoice.create en la fecha 2024-10-09 17:25:19
+    Ingresó a invoice.create en la fecha 2024-10-09 17:26:11
+    Ingresó a invoice.create en la fecha 2024-10-09 17:26:22
+    Ingresó a invoice.create en la fecha 2024-10-09 17:27:21
+    Ingresó a invoice.create en la fecha 2024-10-09 17:27:25
+    Ingresó a invoice.create en la fecha 2024-10-09 17:27:27
+    Ingresó a invoice.create en la fecha 2024-10-09 17:27:59
+    Ingresó a invoice.create en la fecha 2024-10-09 17:28:02
+    Ingresó a invoice.create en la fecha 2024-10-09 17:28:14
+    Ingresó a invoice.create en la fecha 2024-10-09 17:28:20
+    Ingresó a invoice.create en la fecha 2024-10-09 17:29:39
+    Ingresó a invoice.create en la fecha 2024-10-09 17:30:32
+    Ingresó a invoice.create en la fecha 2024-10-09 17:30:44
+    Ingresó a invoice.create en la fecha 2024-10-09 17:30:50
+    Cambió el idioma a en en la fecha 2024-10-09 17:30:56
+    Ingresó a invoice.create en la fecha 2024-10-09 17:30:56

@@ -93,6 +93,7 @@ return [
     'date_surcharge' => 'Invoice surcharge',
     'invoice_surcharge' => 'Invoice get surcharge at',
     'amount_surcharge' => 'surcharge for invoice',
+    'percentage_error' => 'If you use the surcharge in percetage, you need to use a number between 0 y 100',
 
     //Pays
     'payments' => 'Pays',

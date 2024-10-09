@@ -94,6 +94,7 @@ return [
     'date_surcharge' => 'Factura recargo',
     'invoice_surcharge' => 'La factura obtiene recargo el día',
     'amount_surcharge' => 'Recargo para la factura',
+    'percentage_error' => 'El número debe estar entre 0 y 100 si vas a poner el recargo en porcentajes',
 
     //Pays
     'payments' => 'Pagos',
