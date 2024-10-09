@@ -981,3 +981,31 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a invoice.create en la fecha 2024-10-09 17:50:54
     Creó una factura en la fecha 2024-10-09 17:51:17
     Ingresó a invoice.index en la fecha 2024-10-09 17:51:17
+    Ingresó a sites.index en la fecha 2024-10-09 17:55:06
+    Importó facturas al sitio 2 en la fecha 2024-10-09 17:55:13
+    Ingresó a sites.show en la fecha 2024-10-09 17:55:13    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 17:55:13
+    Ingresó a invoice.index en la fecha 2024-10-09 17:56:44
+    Ingresó a sites.index en la fecha 2024-10-09 17:56:46
+    Importó facturas al sitio 2 en la fecha 2024-10-09 17:58:44
+    Ingresó a sites.show en la fecha 2024-10-09 17:58:44    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 17:58:44
+    Ingresó a sites.index en la fecha 2024-10-09 17:59:23
+    Importó facturas al sitio 2 en la fecha 2024-10-09 17:59:27
+    Ingresó a sites.show en la fecha 2024-10-09 17:59:27    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 17:59:27
+    Ingresó a sites.index en la fecha 2024-10-09 18:00:50
+    Importó facturas al sitio 2 en la fecha 2024-10-09 18:01:03
+    Ingresó a sites.show en la fecha 2024-10-09 18:01:03    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 18:01:03
+    Ingresó a sites.index en la fecha 2024-10-09 18:01:29
+    Importó facturas al sitio 2 en la fecha 2024-10-09 18:01:32
+    Ingresó a sites.show en la fecha 2024-10-09 18:01:32    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 18:01:32
+    Ingresó a sites.index en la fecha 2024-10-09 18:03:07
+    Importó facturas al sitio 2 en la fecha 2024-10-09 18:03:11
+    Ingresó a sites.show en la fecha 2024-10-09 18:03:11    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 18:03:11
+    Ingresó a sites.index en la fecha 2024-10-09 18:03:33
+    Importó facturas al sitio 2 en la fecha 2024-10-09 18:03:37
+    Ingresó a sites.show en la fecha 2024-10-09 18:03:37    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 18:03:37
+    Ingresó a sites.index en la fecha 2024-10-09 18:04:07
+    Importó facturas al sitio 2 en la fecha 2024-10-09 18:04:11
+    Ingresó a sites.show en la fecha 2024-10-09 18:04:11    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 18:04:11
+    Ingresó a sites.index en la fecha 2024-10-09 18:07:33
+    Importó facturas al sitio 2 en la fecha 2024-10-09 18:07:37
+    Ingresó a sites.show en la fecha 2024-10-09 18:07:37    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 18:07:37
