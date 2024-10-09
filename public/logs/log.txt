@@ -972,3 +972,12 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a invoice.create en la fecha 2024-10-09 17:30:50
     Cambió el idioma a en en la fecha 2024-10-09 17:30:56
     Ingresó a invoice.create en la fecha 2024-10-09 17:30:56
+    Creó una factura en la fecha 2024-10-09 17:48:30
+    Ingresó a invoice.index en la fecha 2024-10-09 17:48:31
+    Consultó la información de una facturá en la fecha 2024-10-09 17:48:34
+    Creó una factura en la fecha 2024-10-09 17:50:34
+    Ingresó a invoice.index en la fecha 2024-10-09 17:50:34
+    Consultó la información de una facturá en la fecha 2024-10-09 17:50:36
+    Ingresó a invoice.create en la fecha 2024-10-09 17:50:54
+    Creó una factura en la fecha 2024-10-09 17:51:17
+    Ingresó a invoice.index en la fecha 2024-10-09 17:51:17
