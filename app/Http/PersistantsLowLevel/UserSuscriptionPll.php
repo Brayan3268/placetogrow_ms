@@ -276,7 +276,7 @@ class UserSuscriptionPll extends PersistantLowLevel
             ],
         ];
 
-        $response = Http::post('https://checkout-co.placetopay.dev/gateway/invalidate', $data_pay);
+        $response = Http::post('https://checkout-co.placetopay.dev/api/instrument/invalidate', $data_pay);
         $result = $response->json();
 
         dd($result);
