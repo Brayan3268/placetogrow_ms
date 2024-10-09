@@ -73,7 +73,8 @@
 
             <div class="mb-6">
                 <label for="amount_surcharge" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.amount_surcharge') }}:</label>
-                <input type="number" id="amount_surcharge" name="amount_surcharge" value="{{ old('amount_surcharge') }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('amount_surcharge') border-red-500 @enderror" required>
+                <input type="text" id="amount_surcharge" name="amount_surcharge" oninput="validateInput(this)" value="{{ old('amount_surcharge') }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('amount_surcharge') border-red-500 @enderror" required>
+                <span id="error-message" style="color: red; display: none;">{{ __('messages.percentage_error') }}</span>
                 @error('amount_surcharge')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -90,5 +91,24 @@
             <button type="submit" class="my-button">{{ __('messages.create_invoice') }}</button>
         </form>
     </div>
+    <script>
+        function validateInput(input) {
+        let value = input.value;
+        let validValue = value.match(/^[0-9]*%?$/);
+        let errorMessage = document.getElementById('error-message');
+
+        if (!validValue) {
+            input.value = value.slice(0, -1);
+        } else {
+            if (value.includes('%')) {
+                let number = parseInt(value.replace('%', ''));
+
+                errorMessage.style.display = (number < 0 || number > 100) ? 'inline' : 'none';
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        }
+    }
+        </script>
     @endsection
 </x-app-layout>
