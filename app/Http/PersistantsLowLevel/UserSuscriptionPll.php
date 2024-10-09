@@ -130,10 +130,6 @@ class UserSuscriptionPll extends PersistantLowLevel
 
     public static function get_suscriptions_to_collect()
     {
-        /*Usersuscription::where('days_until_next_payment', 0)
-           ->where('status', SuscriptionStatus::APPROVED->value)
-           ->get();*/
-
         return Usersuscription::where(function ($query) {
             $query->where('days_until_next_payment', 0)
                 ->where('status', SuscriptionStatus::APPROVED->value);
@@ -291,8 +287,8 @@ class UserSuscriptionPll extends PersistantLowLevel
 
     public static function get_auth()
     {
-        $login = 'e3bba31e633c32c48011a4a70ff60497';
-        $secretKey = 'ak5N6IPH2kjljHG3';
+        $login = config('app.placetopay_login');
+        $secretKey = config('app.placetopay_secret_key');
         $seed = date('c');
         $nonce = (string) rand();
 

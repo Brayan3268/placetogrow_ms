@@ -15,11 +15,6 @@ class StorePaymentRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -42,19 +37,13 @@ class StorePaymentRequest extends FormRequest
     {
         $data = parent::all($keys);
 
-        //dd($data);
-
         if (! isset($data['description'])) {
             $data['description'] = 'Valor por defecto';
         }
 
-        //dd($data);
-
         if (! isset($data['currency'])) {
             $data['currency'] = SitePll::get_site_currecy($data['site_id']);
         }
-
-        //dd($data);
 
         return $data;
     }

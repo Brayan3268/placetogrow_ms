@@ -2,13 +2,8 @@
 
 return [
     'placetopay' => [
-        'login' => env('PLACETOPAY_LOGIN'),
-        'secret_key' => env('PLACETOPAY_SECRET_KEY'),
-        'url' => env('PLACETOPAY_URL'),
-    ],
-    'paypal' => [
-        'login' => env('PLACETOPAY_LOGIN'),
-        'secret_key' => env('PLACETOPAY_SECRET_KEY'),
-        'url' => env('PLACETOPAY_URL'),
+        'login' => config('app.placetopay_login'),
+        'secret_key' => config('app.placetopay_secret_key'),
+        'url' => config('app.placetopay_url'),
     ],
 ];

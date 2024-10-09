@@ -186,10 +186,7 @@ class PaymentController extends Controller
     }
 
     //ELIMINAR ESTO Y CREAR LA POLICY Y ELIMINAR VALIDATE_ROL
-    public function show_suscription_pay(int $payment)
-    {
-        //dd($payment);
-    }
+    public function show_suscription_pay(int $payment) {}
 
     protected function write_file(array $info)
     {

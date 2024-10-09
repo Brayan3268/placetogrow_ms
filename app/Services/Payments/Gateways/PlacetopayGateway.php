@@ -64,7 +64,6 @@ class PlacetopayGateway implements PaymentGateway
 
     public function payment(Payment $payment): self
     {
-        //dd($payment);
         $this->data['locale'] = $payment->locale;
 
         $this->data['payment'] = [
@@ -74,7 +73,6 @@ class PlacetopayGateway implements PaymentGateway
                 'currency' => $payment->currency,
                 'total' => $payment->amount,
             ],
-            //'expiration' => $payment->expiration,
         ];
 
         $this->data['returnUrl'] = route('payment.show', [
@@ -82,38 +80,11 @@ class PlacetopayGateway implements PaymentGateway
         ]);
 
         $invoice_id = $payment->getAttribute('invoice_id');
-        //$invoice_id = $payment->invoice_id;
 
         $this->data['returnUrl'] = route('payment.show', compact('payment', 'invoice_id'));
-
-        //dd($this->data);
 
         return $this;
     }
-
-    /*public function payment_suscription(Payment $payment): self
-    {
-        $this->data['locale'] = $payment->locale;
-
-        $this->data['payment'] = [
-            'reference' => $payment->reference,
-            'description' => $payment->description,
-            'amount' => [
-                'currency' => $payment->currency,
-                'total' => $payment->amount,
-            ],
-        ];
-
-        $this->data['returnUrl'] = route('payment.show', [
-            'payment' => $payment,
-        ]);
-
-        $invoice_id = $payment->getAttribute('invoice_id');
-
-        $this->data['returnUrl'] = route('payment.show', compact('payment', 'invoice_id'));
-
-        return $this;
-    }*/
 
     public function process(): PaymentResponse
     {
