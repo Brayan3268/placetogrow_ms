@@ -3,7 +3,7 @@ name: ptw_ptp
 on:
     push:
         branches: 
-            [feature/*]
+            [feature/*, fix/*, refactor/*, style/*]
     
     pull_request:
         types: [opened, synchronize]

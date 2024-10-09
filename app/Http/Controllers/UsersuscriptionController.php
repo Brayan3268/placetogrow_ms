@@ -63,7 +63,7 @@ class UsersuscriptionController extends Controller
             'status' => SuscriptionStatus::PENDING,
         ];
 
-        $auth = $this->get_auth();
+        $auth = UserSuscriptionPll::get_auth();
         $data = [
             'auth' => [
                 'login' => $auth['login'],
@@ -88,7 +88,7 @@ class UsersuscriptionController extends Controller
             ],
         ];
 
-        $response = Http::post('https://checkout-co.placetopay.dev/api/session', $data);
+        $response = Http::post(config('app.placetopay_url').'session', $data);
 
         $log[] = 'Creó una sesion para realizar una suscripción';
 
@@ -162,7 +162,7 @@ class UsersuscriptionController extends Controller
     {
         $user_suscription = UserSuscriptionPll::get_specific_suscription($user_suscription, intval(Auth::user()->id));
 
-        $auth = $this->get_auth();
+        $auth = UserSuscriptionPll::get_auth();
         $data = [
             'auth' => [
                 'login' => $auth['login'],
@@ -172,7 +172,7 @@ class UsersuscriptionController extends Controller
             ],
         ];
 
-        $session_information = Http::post('https://checkout-co.placetopay.dev/api/session/'.$user_suscription->request_id, $data);
+        $session_information = Http::post(config('app.placetopay_url').'session/'.$user_suscription->request_id, $data);
 
         $log[] = 'Consulta la información de la sesion de suscripción';
 
@@ -182,7 +182,7 @@ class UsersuscriptionController extends Controller
         $user_suscription_updated = UserSuscriptionPll::update_suscription($user_suscription, SuscriptionStatus::APPROVED);
         $log[] = 'Actualiza la información de la sesion de suscripción del usuario';
 
-        $auth = $this->get_auth();
+        $auth = UserSuscriptionPll::get_auth();
         $data_pay = [
             'auth' => [
                 'login' => $auth['login'],
@@ -218,7 +218,7 @@ class UsersuscriptionController extends Controller
             ]),
         ];
 
-        $response = Http::post('https://checkout-co.placetopay.dev/api/collect', $data_pay);
+        $response = Http::post(config('app.placetopay_url').'collect', $data_pay);
         $log[] = 'Realiza el cobro por token a la suscripción del usuario';
 
         $result = $response->json();
@@ -264,26 +264,6 @@ class UsersuscriptionController extends Controller
         $this->write_file($log);
 
         return view('payments.show', compact('payment', 'invoice_status', 'suscription_status', 'user_suscription'));
-    }
-
-    public function get_auth()
-    {
-        //Poner en el env y en el readmes
-        $login = 'e3bba31e633c32c48011a4a70ff60497';
-        $secretKey = 'ak5N6IPH2kjljHG3';
-        $seed = date('c');
-        $nonce = (string) rand();
-
-        $tranKey = base64_encode(hash('sha256', $nonce.$seed.$secretKey, true));
-
-        $nonce = base64_encode($nonce);
-
-        return [
-            'login' => $login,
-            'tranKey' => $tranKey,
-            'nonce' => $nonce,
-            'seed' => $seed,
-        ];
     }
 
     protected function write_file(array $info)

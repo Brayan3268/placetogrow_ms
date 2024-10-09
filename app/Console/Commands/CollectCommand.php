@@ -31,7 +31,7 @@ class CollectCommand extends Command
         $user_suscriptions_to_collect = UserSuscriptionPll::get_suscriptions_to_collect();
 
         foreach ($user_suscriptions_to_collect as $suscriptions) {
-            $auth = $this->get_auth();
+            $auth = UserSuscriptionPll::get_auth();
             $data_pay = [];
 
             $data_pay = [
@@ -74,7 +74,7 @@ class CollectCommand extends Command
 
         $length = min(count($user_suscriptions_to_collect), count($requests));
         for ($i = 0; $i < $length; $i++) {
-            $response = Http::post('https://checkout-co.placetopay.dev/api/collect', $requests[$i]);
+            $response = Http::post(config('app.placetopay_url').'collect', $requests[$i]);
             $result = $response->json();
 
             switch ($result['status']['status']) {
@@ -99,24 +99,5 @@ class CollectCommand extends Command
         }
 
         $this->info('Comando ejecutado con éxito!');
-    }
-
-    public function get_auth()
-    {
-        $login = 'e3bba31e633c32c48011a4a70ff60497';
-        $secretKey = 'ak5N6IPH2kjljHG3';
-        $seed = date('c');
-        $nonce = (string) rand();
-
-        $tranKey = base64_encode(hash('sha256', $nonce.$seed.$secretKey, true));
-
-        $nonce = base64_encode($nonce);
-
-        return [
-            'login' => $login,
-            'tranKey' => $tranKey,
-            'nonce' => $nonce,
-            'seed' => $seed,
-        ];
     }
 }

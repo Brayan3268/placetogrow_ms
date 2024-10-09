@@ -78,12 +78,8 @@ return [
     |
     */
 
-    //'locale' => env('APP_LOCALE'),
-
-    //'fallback_locale' => env('APP_FALLBACK_LOCALE'),
-
-    'locale' => 'es', // Idioma por defecto
-    '   fallback_locale' => 'es', // Idioma de respaldo en caso de que falte una traducción
+    'locale' => 'es',
+    '   fallback_locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -124,4 +120,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    //Variables to use in the program
+
+    'placetopay_login' => env('PLACETOPAY_LOGIN', 'placetopay_login_not_exist'),
+    'placetopay_secret_key' => env('PLACETOPAY_SECRET_KEY', 'placetopay_secret_key_not_exist'),
+    'placetopay_url' => env('PLACETOPAY_URL', 'placetopay_url_not_exist'),
 ];
