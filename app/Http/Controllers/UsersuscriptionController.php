@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\PaymentStatus;
 use App\Constants\SuscriptionStatus;
 use App\Constants\UserSuscriptionTypesNotification;
 use App\Http\PersistantsLowLevel\PaymentPll;
@@ -141,7 +142,7 @@ class UsersuscriptionController extends Controller
     public function destroyy(string $reference, int $user_id)
     {
         $user_suscription = UserSuscriptionPll::get_specific_suscription_with_out_decode($reference, $user_id);
-        UserSuscriptionPll::delete_user_suscription($reference, $user_id);
+        UserSuscriptionPll::delete_user_suscription($reference, $user_id, SuscriptionStatus::EXPIRATED->value);
 
         $site = SitePll::get_specific_site($user_suscription->suscription->site_id);
 
@@ -234,6 +235,15 @@ class UsersuscriptionController extends Controller
         $invoice_status = '';
         $suscription_status = $user_suscription_updated->status;
         $user_suscription = $user_suscription_updated;
+
+        switch ($result['status']['status']) {
+            case PaymentStatus::APPROVED->value:
+                break;
+
+            default:
+                UserSuscriptionPll::delete_user_suscription($user_suscription->reference, $user_suscription->user->id, SuscriptionStatus::REJECTED->value);
+                break;
+        }
 
         $site = SitePll::get_specific_site($user_suscription->suscription->site_id);
         $notification_sus = new UserSuscriptionNotification($user_suscription, $site, UserSuscriptionTypesNotification::SUSCRIPTION->value);

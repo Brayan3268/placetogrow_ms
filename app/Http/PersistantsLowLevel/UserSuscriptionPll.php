@@ -36,6 +36,16 @@ class UserSuscriptionPll extends PersistantLowLevel
         });
     }
 
+    public static function get_specific_user_suscriptions_approved(int $user_id)
+    {
+        return Cache::remember('usersuscription.user.'.$user_id, self::SECONDS, function () use ($user_id) {
+            return Usersuscription::with('user', 'suscription')
+                ->where('user_id', $user_id)
+                ->where('status', SuscriptionStatus::APPROVED->value)
+                ->get();
+        });
+    }
+
     public static function get_specific_suscription(string $reference, int $user_id)
     {
         Cache::flush();
@@ -150,13 +160,13 @@ class UserSuscriptionPll extends PersistantLowLevel
             ->update(['days_until_next_payment' => $days]);
     }
 
-    public static function delete_user_suscription(string $reference, int $user_id)
+    public static function delete_user_suscription(string $reference, int $user_id, string $status)
     {
         $user_suscription = Usersuscription::where('reference', $reference)
             ->where('user_id', $user_id)
             ->first();
 
-        $user_suscription->status = SuscriptionStatus::EXPIRATED->value;
+        $user_suscription->status = $status;
         $user_suscription->save();
 
         self::invalidate_token($user_suscription);
@@ -276,10 +286,7 @@ class UserSuscriptionPll extends PersistantLowLevel
             ],
         ];
 
-        $response = Http::post('https://checkout-co.placetopay.dev/api/instrument/invalidate', $data_pay);
-        $result = $response->json();
-
-        dd($result);
+        Http::post('https://checkout-co.placetopay.dev/api/instrument/invalidate', $data_pay);
     }
 
     public static function get_auth()

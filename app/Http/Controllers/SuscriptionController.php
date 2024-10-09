@@ -30,7 +30,7 @@ class SuscriptionController extends Controller
         $user = UserPll::get_specific_user(Auth::user()->id);
 
         if ($user->hasPermissionTo(Permissions::SUSCRIPTIONS_SPECIFIC_USER)) {
-            $user_suscriptions = UserSuscriptionPll::get_specific_user_suscriptions(Auth::user()->id);
+            $user_suscriptions = UserSuscriptionPll::get_specific_user_suscriptions_approved(Auth::user()->id);
 
             foreach ($user_suscriptions as $plan) {
                 foreach ($suscriptions as $key => $value) {
