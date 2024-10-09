@@ -139,7 +139,7 @@ class InvoicePll extends PersistantLowLevel
         $invoice->date_created = date('ymdHis');
         $invoice->date_surcharge = $request->date_surcharge;
         $surcharge = $request->amount_surcharge;
-        $invoice->amount_surcharge = (str_contains($surcharge, '%'))  ?
+        $invoice->amount_surcharge = (str_contains($surcharge, '%')) ?
             self::percentage_value($surcharge, $request->amount) :
             $surcharge;
         $invoice->date_expiration = $request->date_expiration;
@@ -155,6 +155,7 @@ class InvoicePll extends PersistantLowLevel
     public static function percentage_value(string $surcharge_percentage, int $amount)
     {
         $surcharge = floatval(preg_replace('/%/', '', $surcharge_percentage)) / 100;
+
         return $amount *= $surcharge;
     }
 
