@@ -1200,3 +1200,18 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a invoice.index en la fecha 2024-10-10 15:57:10
     Ingresó a payment.index en la fecha 2024-10-10 15:57:11
     Ingresó a suscriptions.index en la fecha 2024-10-10 15:57:13
+    Ingresó a dashboard.index en la fecha 2024-10-10 16:00:58
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 16:01:04 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 16:01:04
+    Ingresó a sites.index en la fecha 2024-10-10 16:01:05
+    Ingresó a invoice.index en la fecha 2024-10-10 16:01:06
+    Ingresó a payment.index en la fecha 2024-10-10 16:01:08
+    Ingresó a profile.show en la fecha 2024-10-10 16:01:09
+    Ingresó a sites.index en la fecha 2024-10-10 16:01:15
+    Ingresó a invoice.index en la fecha 2024-10-10 16:01:16
+    Ingresó a suscriptions.index en la fecha 2024-10-10 16:01:17
+    Ingresó a payment.index en la fecha 2024-10-10 16:01:18
+    Ingresó a invoice.index en la fecha 2024-10-10 16:01:18
+    Ingresó a sites.index en la fecha 2024-10-10 16:01:19
+    Ingresó a dashboard.index en la fecha 2024-10-10 16:01:24

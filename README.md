@@ -44,6 +44,14 @@ MAIL_USERNAME=
 MAIL_PASSWORD=
 MAIL_FROM_ADDRESS=
 
+# For production env:
+APP_ENV=production
+APP_DEBUG=false
+
+# For dev env:
+APP_ENV=local
+APP_DEBUG=true
+
 7) Run the following comand if need it: "php artisan key:generate"
 
 8) Run the command: "php artisan migrate"
