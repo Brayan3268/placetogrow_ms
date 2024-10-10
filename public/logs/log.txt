@@ -1151,3 +1151,44 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Cambió el idioma a en en la fecha 2024-10-10 12:42:00
     Cambió el idioma a es en la fecha 2024-10-10 12:45:56
     Ingresó a dashboard.index en la fecha 2024-10-10 12:45:58
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:41:39
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:47:04
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:53:24
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:53:47
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 13:53:54 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:53:54
+    Ingresó a sites.index en la fecha 2024-10-10 13:54:00
+    Ingresó a payment.index en la fecha 2024-10-10 13:54:02
+    Ingresó a sites.index en la fecha 2024-10-10 13:54:04
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 13:56:24 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:56:24
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:56:37
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 13:59:15 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:59:26
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:06
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:22
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:24
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:43
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:47
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 14:01:56 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:56
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 14:20:01 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:02
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 14:20:12 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:12
+    Ingresó a suscriptions.index en la fecha 2024-10-10 14:20:13
+    Ingresó a sites.index en la fecha 2024-10-10 14:20:15
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:16
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 14:20:22 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:22
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 14:20:32 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:32
+    Ingresó a sites.index en la fecha 2024-10-10 14:20:40

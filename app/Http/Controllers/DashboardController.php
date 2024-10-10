@@ -6,15 +6,22 @@ use App\Constants\InvoiceStatus;
 use App\Http\PersistantsLowLevel\InvoicePll;
 use App\Http\PersistantsLowLevel\SitePll;
 use App\Http\PersistantsLowLevel\UserPll;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class DashboardController extends Controller
 {
+
+    use AuthorizesRequests;
+
     public function index()
     {
+        $this->authorize('view', User::class);
+
         $sites = SitePll::get_sites_closed();
         
         $log[] = 'Ingresó a dashboard.index';
@@ -25,6 +32,8 @@ class DashboardController extends Controller
 
     public function show_site(Request $request)
     {
+        $this->authorize('view_graphics', User::class);
+
         $invoices_counts = InvoicePll::get_especific_site_invoices_grouped($request->site_id);
         $site = SitePll::get_specific_site($request->site_id);
 
