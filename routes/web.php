@@ -1,24 +1,25 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WelcomeController;
-use Illuminate\Support\Facades\Route;
-
-Route::get('/', WelcomeController::class);
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SuscriptionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersuscriptionController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\LocalizationMiddleware;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', WelcomeController::class);
+
+Route::middleware('auth')->group(function () {
+    Route::resource('dashboard', DashboardController::class)->only(['index']);
+    Route::get('/dashboard/show_site', [DashboardController::class, 'show_site'])->name('dashboard.show_site');
+});
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')

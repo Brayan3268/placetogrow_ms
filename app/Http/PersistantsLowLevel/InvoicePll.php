@@ -221,6 +221,16 @@ class InvoicePll extends PersistantLowLevel
         }
     }
 
+    public static function get_especific_site_invoices_grouped(int $site_id)
+    {
+        $invoice_counts = Invoice::selectRaw('status, COUNT(*) as total')
+            ->where('site_id', $site_id)
+            ->groupBy('status')
+            ->get();
+
+        return $invoice_counts;
+    }
+
     public static function delete_invoice(Invoice $invoice)
     {
         $invoice->delete();

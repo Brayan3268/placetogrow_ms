@@ -1009,3 +1009,186 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a sites.index en la fecha 2024-10-09 18:07:33
     Importó facturas al sitio 2 en la fecha 2024-10-09 18:07:37
     Ingresó a sites.show en la fecha 2024-10-09 18:07:37    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-09 18:07:37
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-09 22:45:43 e hizo:
+    Ingresó a invoice.index en la fecha 2024-10-09 22:53:46
+    Ingresó a profile.show en la fecha 2024-10-09 22:53:58
+    Ingresó a invoice.index en la fecha 2024-10-09 22:54:27
+    Ingresó a invoice.index en la fecha 2024-10-09 22:54:39
+    Ingresó a invoice.index en la fecha 2024-10-09 22:54:40
+    Ingresó a invoice.index en la fecha 2024-10-09 22:54:45
+    Ingresó a invoice.index en la fecha 2024-10-09 23:07:31
+    Ingresó a invoice.index en la fecha 2024-10-09 23:07:38
+    Ingresó a invoice.index en la fecha 2024-10-09 23:07:46
+    Ingresó a invoice.index en la fecha 2024-10-09 23:07:57
+    Ingresó a invoice.index en la fecha 2024-10-09 23:08:02
+    Ingresó a invoice.index en la fecha 2024-10-09 23:08:41
+    Ingresó a invoice.index en la fecha 2024-10-09 23:08:50
+    Ingresó a invoice.index en la fecha 2024-10-09 23:08:58
+    Ingresó a invoice.index en la fecha 2024-10-09 23:09:10
+    Ingresó a invoice.index en la fecha 2024-10-09 23:09:14
+    Ingresó a invoice.index en la fecha 2024-10-09 23:09:56
+    Ingresó a invoice.index en la fecha 2024-10-09 23:10:11
+    Ingresó a invoice.index en la fecha 2024-10-09 23:12:44
+    Ingresó a invoice.index en la fecha 2024-10-09 23:13:08
+    Ingresó a invoice.index en la fecha 2024-10-09 23:13:36
+    Ingresó a invoice.index en la fecha 2024-10-09 23:14:55
+    Ingresó a invoice.index en la fecha 2024-10-09 23:16:05
+    Ingresó a invoice.index en la fecha 2024-10-09 23:16:12
+    Ingresó a invoice.index en la fecha 2024-10-09 23:16:20
+    Ingresó a invoice.index en la fecha 2024-10-09 23:17:29
+    Ingresó a invoice.index en la fecha 2024-10-09 23:17:39
+    Ingresó a invoice.index en la fecha 2024-10-09 23:17:45
+    Ingresó a invoice.index en la fecha 2024-10-09 23:17:57
+    Ingresó a invoice.index en la fecha 2024-10-09 23:18:01
+    Ingresó a invoice.index en la fecha 2024-10-09 23:18:19
+    Ingresó a invoice.index en la fecha 2024-10-09 23:18:25
+    Ingresó a invoice.index en la fecha 2024-10-09 23:18:29
+    Ingresó a invoice.index en la fecha 2024-10-09 23:20:00
+    Ingresó a invoice.index en la fecha 2024-10-09 23:20:59
+    Ingresó a invoice.index en la fecha 2024-10-09 23:24:33
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:25:54
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:26:20
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:26:52
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:27:31
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:27:58
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:31:23
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:32:52
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:33:05
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:33:44
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:34:18
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:35:06
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:35:27
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:35:44
+    Ingresó a users.index en la fecha 2024-10-09 23:35:51
+    Ingresó a sites.index en la fecha 2024-10-09 23:35:52
+    Ingresó a users.index en la fecha 2024-10-09 23:35:53
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:35:53
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:37:06
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:37:07
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:38:03
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:38:27
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:38:38
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:38:48
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:39:33
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:41:58
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:42:21
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:42:34
+    Ingresó a dashboard.index en la fecha 2024-10-09 23:57:51
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:09:50
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:13:55
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:14:49
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:15:25
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:20:41
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:20:57
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:21:42
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:24:16
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:24:40
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:25:02
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:33:59
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:35:15
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:35:58
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:37:05
+    Ingresó a dashboard.index en la fecha 2024-10-10 00:39:51
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 11:33:53 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:34:14
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 11:34:22 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:35:46
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 11:35:51 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:35:51
+    Ingresó a sites.index en la fecha 2024-10-10 11:36:33
+    Importó facturas al sitio 2 en la fecha 2024-10-10 11:36:39
+    Ingresó a sites.show en la fecha 2024-10-10 11:36:39    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-10 11:36:39
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:36:42
+    Ingresó a users.index en la fecha 2024-10-10 11:37:19
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:37:20
+    Ingresó a sites.index en la fecha 2024-10-10 11:59:44
+    Ingresó a sites.create en la fecha 2024-10-10 12:12:54
+    Ingresó a sites.create en la fecha 2024-10-10 12:13:15
+    Ingresó a sites.index en la fecha 2024-10-10 12:13:29
+    Ingresó a sites.show en la fecha 2024-10-10 12:13:32    Consultó las facturas pendientes del sitio 4 en la fecha 2024-10-10 12:13:32
+    Ingresó a sites.show en la fecha 2024-10-10 12:13:37
+    Ingresó a sites.show en la fecha 2024-10-10 12:13:39    Consultó las facturas pendientes del sitio 4 en la fecha 2024-10-10 12:13:39
+    Importó facturas al sitio 4 en la fecha 2024-10-10 12:14:56
+    Ingresó a sites.show en la fecha 2024-10-10 12:14:56    Consultó las facturas pendientes del sitio 4 en la fecha 2024-10-10 12:14:56
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:15:01
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 12:16:27 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:16:27
+    Ingresó a sites.index en la fecha 2024-10-10 12:16:31
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:16:33
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:20:30
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:24:31
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:24:50
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:25:17
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:25:32
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:26:03
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:26:12
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:26:29
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:26:50
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:03
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:22
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:32
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:35
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:39
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:53
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:58
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 12:30:47 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:30:47
+    Ingresó a sites.index en la fecha 2024-10-10 12:36:13
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:36:17
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:38:10
+    Cambió el idioma a en en la fecha 2024-10-10 12:39:40
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:39:50
+    Cambió el idioma a en en la fecha 2024-10-10 12:39:53
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:39:53
+    Cambió el idioma a es en la fecha 2024-10-10 12:40:02
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:41:56
+    Cambió el idioma a en en la fecha 2024-10-10 12:42:00
+    Cambió el idioma a es en la fecha 2024-10-10 12:45:56
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:45:58
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:41:39
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:47:04
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:53:24
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:53:47
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 13:53:54 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:53:54
+    Ingresó a sites.index en la fecha 2024-10-10 13:54:00
+    Ingresó a payment.index en la fecha 2024-10-10 13:54:02
+    Ingresó a sites.index en la fecha 2024-10-10 13:54:04
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 13:56:24 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:56:24
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:56:37
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 13:59:15 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 13:59:26
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:06
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:22
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:24
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:43
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:47
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 14:01:56 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:01:56
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 14:20:01 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:02
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 14:20:12 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:12
+    Ingresó a suscriptions.index en la fecha 2024-10-10 14:20:13
+    Ingresó a sites.index en la fecha 2024-10-10 14:20:15
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:16
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 14:20:22 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:22
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 14:20:32 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 14:20:32
+    Ingresó a sites.index en la fecha 2024-10-10 14:20:40
