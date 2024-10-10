@@ -6,6 +6,10 @@ return [
     'currency' => 'Moneda',
     'select_currency' => 'Selecciona una moneda',
 
+    //DASHBOARD
+    'selec_site' => 'Selecciona un sitio para graficar',
+    'choose_site' => 'Graficar',
+
     //SITES:
     'name' => 'Nombre',
     'slug' => 'Nombre único',

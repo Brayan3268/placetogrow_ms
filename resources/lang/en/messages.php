@@ -4,6 +4,10 @@ return [
     //APP:
     'actions' => 'Actions',
 
+    //DASHBOARD
+    'selec_site' => 'Select a site to draw graphic',
+    'choose_site' => 'Get graphic',
+
     //SITES:
     'name' => 'Name',
     'slug' => 'Slug',
