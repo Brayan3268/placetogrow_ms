@@ -54,11 +54,9 @@ MAIL_FROM_ADDRESS=
 
 11) Run the command: "npm install"
 
-12) Run the command: "npm run dev"
-
 13) Run the command: "php artisan serve"
 
-14) Run the command: "npm run dev"
+14) Run the command: "npm run build"
 
 15) For run the test:
 
