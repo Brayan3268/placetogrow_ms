@@ -15,7 +15,7 @@ return [
     'payed_not_payed' => 'Facturas pagadas y no pagadas:',
     'not_payed_expirated' => 'Facturas no pagadas y expiradas:',
     'payed_expirated' => 'Facturas pagadas y expiradas:',
-    
+
     //SITES:
     'name' => 'Nombre',
     'slug' => 'Nombre único',

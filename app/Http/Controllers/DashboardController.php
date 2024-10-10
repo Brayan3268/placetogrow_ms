@@ -5,17 +5,14 @@ namespace App\Http\Controllers;
 use App\Constants\InvoiceStatus;
 use App\Http\PersistantsLowLevel\InvoicePll;
 use App\Http\PersistantsLowLevel\SitePll;
-use App\Http\PersistantsLowLevel\UserPll;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
-
     use AuthorizesRequests;
 
     public function index()
@@ -23,7 +20,7 @@ class DashboardController extends Controller
         $this->authorize('view', User::class);
 
         $sites = SitePll::get_sites_closed();
-        
+
         $log[] = 'Ingresó a dashboard.index';
         $this->write_file($log);
 
@@ -45,21 +42,21 @@ class DashboardController extends Controller
             if (in_array($invoice->status, [InvoiceStatus::PAYED->value, InvoiceStatus::NOT_PAYED->value])) {
                 $payed_not_payed[] = [
                     'status' => $invoice->status,
-                    'total' => $invoice->total
+                    'total' => $invoice->total,
                 ];
             }
-    
+
             if (in_array($invoice->status, [InvoiceStatus::NOT_PAYED->value, InvoiceStatus::EXPIRATED->value])) {
                 $not_payed_expirated[] = [
                     'status' => $invoice->status,
-                    'total' => $invoice->total
+                    'total' => $invoice->total,
                 ];
             }
 
             if (in_array($invoice->status, [InvoiceStatus::PAYED->value, InvoiceStatus::EXPIRATED->value])) {
                 $payed_expirated[] = [
                     'status' => $invoice->status,
-                    'total' => $invoice->total
+                    'total' => $invoice->total,
                 ];
             }
         }
