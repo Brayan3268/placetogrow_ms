@@ -26,29 +26,36 @@ class DashboardController extends Controller
     public function show_site(Request $request)
     {
         $invoices_counts = InvoicePll::get_especific_site_invoices_grouped($request->site_id);
+        $site = SitePll::get_specific_site($request->site_id);
 
-        $approved_pending = [];
-        $pending_expirated = [];
+        $payed_not_payed = [];
+        $not_payed_expirated = [];
+        $payed_expirated = [];
 
         foreach ($invoices_counts as $invoice) {
-            // Aprobadas y Pendientes
             if (in_array($invoice->status, [InvoiceStatus::PAYED->value, InvoiceStatus::NOT_PAYED->value])) {
-                $approved_pending[] = [
+                $payed_not_payed[] = [
                     'status' => $invoice->status,
                     'total' => $invoice->total
                 ];
             }
     
-            // Pendientes y Expiradas
             if (in_array($invoice->status, [InvoiceStatus::NOT_PAYED->value, InvoiceStatus::EXPIRATED->value])) {
-                $pending_expirated[] = [
+                $not_payed_expirated[] = [
+                    'status' => $invoice->status,
+                    'total' => $invoice->total
+                ];
+            }
+
+            if (in_array($invoice->status, [InvoiceStatus::PAYED->value, InvoiceStatus::EXPIRATED->value])) {
+                $payed_expirated[] = [
                     'status' => $invoice->status,
                     'total' => $invoice->total
                 ];
             }
         }
 
-        return view('dashboards.graphics', compact('approved_pending', 'pending_expirated'));
+        return view('dashboards.graphics', compact('payed_not_payed', 'not_payed_expirated', 'payed_expirated', 'site'));
     }
 
     protected function write_file(array $info)

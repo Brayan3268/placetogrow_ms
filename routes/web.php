@@ -18,7 +18,7 @@ Route::get('/', WelcomeController::class);
 
 Route::middleware('auth')->group(function () {
     Route::resource('dashboard', DashboardController::class)->only(['index']);
-    Route::post('/dashboard/show_site', [DashboardController::class, 'show_site'])->name('dashboard.show_site');
+    Route::get('/dashboard/show_site', [DashboardController::class, 'show_site'])->name('dashboard.show_site');
 });
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])

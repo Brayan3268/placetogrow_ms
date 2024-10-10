@@ -26,7 +26,7 @@ class AuthenticatedSessionController extends Controller
 
         $this->write_file([]);
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('dashboard.index', absolute: false));
     }
 
     public function destroy(Request $request): RedirectResponse

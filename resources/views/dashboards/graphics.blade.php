@@ -5,8 +5,8 @@
         </h2>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <style>
-            #chart-approved-pending, #chart-pending-expirated {
-                max-width: 500px;
+            #chart-approved-pending, #chart-pending-expirated, #chart-approved-expirated {
+                max-width: 700px;
                 margin: 0 auto;
             }
         </style>
@@ -14,53 +14,64 @@
 
     @section('content')
         <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
-            <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.adasd') }}</h1>
-            <h1>Total de facturas por estado</h1>
+            <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.graphics_site') }} {{ $site->name }} - {{ $site->slug }}</h1>
+            <h1>{{ __('messages.graphics_label') }}</h1>
 
-            <!-- Gráfico para APROBADAS y PENDIENTES -->
-            <h2>Aprobadas y Pendientes</h2>
+            <h2>{{ __('messages.payed_not_payed') }}</h2>
             <div id="chart-approved-pending"></div>
 
-            <!-- Gráfico para PENDIENTES y EXPIRADAS -->
-            <h2>Pendientes y Expiradas</h2>
+            <h2>{{ __('messages.not_payed_expirated') }}</h2>
             <div id="chart-pending-expirated"></div>
+
+            <h2>{{ __('messages.payed_expirated') }}</h2>
+            <div id="chart-approved-expirated"></div>
+        
         </div>
         <script>
-            // Extraer datos de los arrays para el gráfico Aprobadas y Pendientes
-            var approvedPendingTotals = @json(array_column($approved_pending, 'total'));
-            var approvedPendingLabels = @json(array_column($approved_pending, 'status'));
+            var payed_not_payed_totals = @json(array_column($payed_not_payed, 'total'));
+            var payed_not_payed_labels = @json(array_column($payed_not_payed, 'status'));
     
-            // Extraer datos de los arrays para el gráfico Pendientes y Expiradas
-            var pendingExpiratedTotals = @json(array_column($pending_expirated, 'total'));
-            var pendingExpiratedLabels = @json(array_column($pending_expirated, 'status'));
-    
-            // Gráfico para APROBADAS y PENDIENTES
-            var optionsApprovedPending = {
+            var not_payed_expirated_totals = @json(array_column($not_payed_expirated, 'total'));
+            var not_payed_expirated_labels = @json(array_column($not_payed_expirated, 'status'));
+
+            var payed_expirated_totals = @json(array_column($payed_expirated, 'total'));
+            var payed_expirated_labels = @json(array_column($payed_expirated, 'status'));
+
+            var options_payed_not_payed = {
                 chart: {
                     type: 'pie',
                     width: 300,
                     height: 300
                 },
-                series: approvedPendingTotals, // Totales para aprobadas y pendientes
-                labels: approvedPendingLabels, // Estados: APROBADO, PENDIENTE
+                series: payed_not_payed_totals,
+                labels: payed_not_payed_labels,
             };
-    
-            var chartApprovedPending = new ApexCharts(document.querySelector("#chart-approved-pending"), optionsApprovedPending);
+            var chartApprovedPending = new ApexCharts(document.querySelector("#chart-approved-pending"), options_payed_not_payed);
             chartApprovedPending.render();
     
-            // Gráfico para PENDIENTES y EXPIRADAS
-            var optionsPendingExpirated = {
+            var options_not_payed_expirated = {
                 chart: {
                     type: 'pie',
                     width: 300,
                     height: 300
                 },
-                series: pendingExpiratedTotals, // Totales para pendientes y expiradas
-                labels: pendingExpiratedLabels, // Estados: PENDIENTE, EXPIRADA
+                series: not_payed_expirated_totals,
+                labels: not_payed_expirated_labels,
             };
-    
-            var chartPendingExpirated = new ApexCharts(document.querySelector("#chart-pending-expirated"), optionsPendingExpirated);
+            var chartPendingExpirated = new ApexCharts(document.querySelector("#chart-pending-expirated"), options_not_payed_expirated);
             chartPendingExpirated.render();
+
+            var options_payed_expirated = {
+                chart: {
+                    type: 'pie',
+                    width: 300,
+                    height: 300
+                },
+                series: payed_expirated_totals,
+                labels: payed_expirated_labels,
+            };
+            var chartApprovedExpirated = new ApexCharts(document.querySelector("#chart-approved-expirated"), options_payed_expirated);
+            chartApprovedExpirated.render();
         </script>
     @endsection
 </x-app-layout>

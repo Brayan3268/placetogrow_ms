@@ -9,7 +9,13 @@ return [
     //DASHBOARD
     'selec_site' => 'Selecciona un sitio para graficar',
     'choose_site' => 'Graficar',
-
+    'dashboard_graphics' => 'Panel graficos',
+    'graphics_site' => 'Estos son los graficos para el sitio: ',
+    'graphics_label' => 'Graficos circulares: ',
+    'payed_not_payed' => 'Facturas pagadas y no pagadas:',
+    'not_payed_expirated' => 'Facturas no pagadas y expiradas:',
+    'payed_expirated' => 'Facturas pagadas y expiradas:',
+    
     //SITES:
     'name' => 'Nombre',
     'slug' => 'Nombre único',

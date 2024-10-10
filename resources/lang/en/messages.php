@@ -7,6 +7,12 @@ return [
     //DASHBOARD
     'selec_site' => 'Select a site to draw graphic',
     'choose_site' => 'Get graphic',
+    'dashboard_graphics' => 'Panel graphics',
+    'graphics_site' => 'This are the graphics for the site: ',
+    'graphics_label' => 'Pie graphics: ',
+    'payed_not_payed' => 'Invoices payeds and not payeds:',
+    'not_payed_expirated' => 'Invoices not payeds and expirateds:',
+    'payed_expirated' => 'Invoices payeds and expirateds:',
 
     //SITES:
     'name' => 'Name',

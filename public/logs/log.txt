@@ -1090,3 +1090,64 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a dashboard.index en la fecha 2024-10-10 00:35:58
     Ingresó a dashboard.index en la fecha 2024-10-10 00:37:05
     Ingresó a dashboard.index en la fecha 2024-10-10 00:39:51
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 11:33:53 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:34:14
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 11:34:22 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:35:46
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 11:35:51 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:35:51
+    Ingresó a sites.index en la fecha 2024-10-10 11:36:33
+    Importó facturas al sitio 2 en la fecha 2024-10-10 11:36:39
+    Ingresó a sites.show en la fecha 2024-10-10 11:36:39    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-10 11:36:39
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:36:42
+    Ingresó a users.index en la fecha 2024-10-10 11:37:19
+    Ingresó a dashboard.index en la fecha 2024-10-10 11:37:20
+    Ingresó a sites.index en la fecha 2024-10-10 11:59:44
+    Ingresó a sites.create en la fecha 2024-10-10 12:12:54
+    Ingresó a sites.create en la fecha 2024-10-10 12:13:15
+    Ingresó a sites.index en la fecha 2024-10-10 12:13:29
+    Ingresó a sites.show en la fecha 2024-10-10 12:13:32    Consultó las facturas pendientes del sitio 4 en la fecha 2024-10-10 12:13:32
+    Ingresó a sites.show en la fecha 2024-10-10 12:13:37
+    Ingresó a sites.show en la fecha 2024-10-10 12:13:39    Consultó las facturas pendientes del sitio 4 en la fecha 2024-10-10 12:13:39
+    Importó facturas al sitio 4 en la fecha 2024-10-10 12:14:56
+    Ingresó a sites.show en la fecha 2024-10-10 12:14:56    Consultó las facturas pendientes del sitio 4 en la fecha 2024-10-10 12:14:56
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:15:01
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-10 12:16:27 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:16:27
+    Ingresó a sites.index en la fecha 2024-10-10 12:16:31
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:16:33
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:20:30
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:24:31
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:24:50
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:25:17
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:25:32
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:26:03
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:26:12
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:26:29
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:26:50
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:03
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:22
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:32
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:35
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:39
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:53
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:27:58
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-10 12:30:47 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:30:47
+    Ingresó a sites.index en la fecha 2024-10-10 12:36:13
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:36:17
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:38:10
+    Cambió el idioma a en en la fecha 2024-10-10 12:39:40
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:39:50
+    Cambió el idioma a en en la fecha 2024-10-10 12:39:53
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:39:53
+    Cambió el idioma a es en la fecha 2024-10-10 12:40:02
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:41:56
+    Cambió el idioma a en en la fecha 2024-10-10 12:42:00
+    Cambió el idioma a es en la fecha 2024-10-10 12:45:56
+    Ingresó a dashboard.index en la fecha 2024-10-10 12:45:58
