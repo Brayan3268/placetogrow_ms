@@ -1215,3 +1215,24 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Ingresó a invoice.index en la fecha 2024-10-10 16:01:18
     Ingresó a sites.index en la fecha 2024-10-10 16:01:19
     Ingresó a dashboard.index en la fecha 2024-10-10 16:01:24
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-12 10:36:08 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-12 10:36:09
+    Ingresó a sites.index en la fecha 2024-10-12 10:36:12
+    Ingresó a sites.show en la fecha 2024-10-12 10:36:14
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-12 10:36:14
+    Creó una sesion de pago para P2P en la fecha 2024-10-12 10:36:25
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-12 10:36:47    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-12 10:36:47    Ingresó a payments.show standart en la fecha 2024-10-12 10:36:47
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-12 10:36:51    Ingresó a payments.show standart en la fecha 2024-10-12 10:36:51
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-12 10:36:52    Ingresó a payments.show standart en la fecha 2024-10-12 10:36:52
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-12 10:36:53    Ingresó a payments.show standart en la fecha 2024-10-12 10:36:53
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-12 10:37:26    Ingresó a payments.show standart en la fecha 2024-10-12 10:37:26
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-12 10:37:27    Ingresó a payments.show standart en la fecha 2024-10-12 10:37:27
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-12 10:37:41 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-12 10:37:41
+    Ingresó a sites.index en la fecha 2024-10-12 10:37:42
+    Ingresó a sites.show en la fecha 2024-10-12 10:37:43
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-12 10:37:44
+    Creó una sesion de pago para P2P en la fecha 2024-10-12 10:37:50
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-12 10:38:10    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-12 10:38:10    Ingresó a payments.show standart en la fecha 2024-10-12 10:38:10

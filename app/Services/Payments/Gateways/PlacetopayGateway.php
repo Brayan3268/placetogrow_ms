@@ -88,7 +88,7 @@ class PlacetopayGateway implements PaymentGateway
 
     public function process(): PaymentResponse
     {
-        $response = Http::post($this->config['url'], $this->data);
+        $response = Http::post($this->config['url'].'session', $this->data);
 
         //AQUI HAY QUE HACER QUE EL PAYMENTRESPONSE EVALUE LAS DIFERENTES RESPUESTAS, ESTE SOLO ES EL CAMINO FELIZ
         $response = $response->json();
@@ -98,7 +98,7 @@ class PlacetopayGateway implements PaymentGateway
 
     public function get(Payment $payment): QueryPaymentResponse
     {
-        $url = $this->config['url'].'/'.$payment->process_identifier;
+        $url = $this->config['url'].'session'.'/'.$payment->process_identifier;
 
         $response = Http::post($url, $this->data);
         $response = $response->json();
