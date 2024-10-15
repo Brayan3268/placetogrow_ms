@@ -10,9 +10,9 @@
             <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
                 <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.selec_site') }}</h1>
             
-                <form action="{{ route('dashboard.show_site') }}" method="POST" class="max-w-lg mx-auto mt-5" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.show_site') }}" method="GET" class="max-w-lg mx-auto mt-5" enctype="multipart/form-data">
                     @csrf
-                    @method('POST')
+                    @method('GET')
 
                     <div class="mb-6">
                         <label for="site_id" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.sites') }}:</label>

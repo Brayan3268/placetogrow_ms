@@ -28,7 +28,7 @@
               @if($input['type'] === 'text')
                 <input type="text" id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if($input['is_optional'] == 0) required @endif @if($input['is_modify'] == 0) value="{{ $input['value_invoice'] }}" readonly @endif class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('{{ $input->name }}') border-red-500 @enderror">
               @elseif($input['type'] === 'number')
-                <input type="number" min="1" id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if($input['is_optional'] == 0) required @endif @if($input['is_modify'] == 0) value="{{ $input['value_invoice'] }}" readonly @endif class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('{{ $input->name }}') border-red-500 @enderror">
+                <input type="number" min="1" step="0.01" id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if($input['is_optional'] == 0) required @endif @if($input['is_modify'] == 0) value="{{ $input['value_invoice'] }}" readonly @endif class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('{{ $input->name }}') border-red-500 @enderror">
               @elseif($input['type'] === 'select')
                 @php
                   if ($input->value_invoice == " ") {
