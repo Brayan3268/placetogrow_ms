@@ -64,7 +64,7 @@ class PaymentPll extends PersistantLowLevel
 
         $payment = new Payment;
         $payment->reference = (is_null($request->reference)) ? date('ymdHis').'-'.strtoupper(Str::random(4)) : $request->reference;
-        $payment->locale = $request->locale;
+        $payment->locale = $request->input('locale');
         $payment->amount = $request->total;
         $payment->description = $request->description;
         $payment->currency = $request->currency;
