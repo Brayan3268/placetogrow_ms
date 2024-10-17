@@ -54,7 +54,7 @@
         <img src="{{ asset('images/welcome.jpg') }}" alt="Welcome Image" class="welcome-image">
         <br>
         <div class="button-container">
-            <a href="https://placetogrow-docu.vercel.app/" target="_blank" class="login-button">Docu</a>
+            <a href="https://placetogrow-docu.vercel.app/" target="_blank" rel="noopener" class="login-button">Docu</a>
             <a href="{{ route('login') }}" class="login-button">Login</a>
         </div>
     </div>
