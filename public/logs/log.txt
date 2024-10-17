@@ -1353,3 +1353,173 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Importó facturas al sitio 2 en la fecha 2024-10-14 19:29:18
     Ingresó a sites.show en la fecha 2024-10-14 19:29:19    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-14 19:29:19
     Ingresó a dashboard.index en la fecha 2024-10-14 19:29:21
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-15 19:12:39 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-15 19:12:39
+    Cambió el idioma a en en la fecha 2024-10-15 19:14:07
+    Ingresó a dashboard.index en la fecha 2024-10-15 19:14:07
+    Ingresó a invoice.index en la fecha 2024-10-15 19:16:07
+    Ingresó a invoice.create en la fecha 2024-10-15 20:26:40
+    Ingresó a invoice.index en la fecha 2024-10-15 20:53:25
+    Consultó la información de una facturá en la fecha 2024-10-15 20:53:30
+    Ingresó a invoice.edit en la fecha 2024-10-15 20:54:23
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-15 21:48:28 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-15 21:48:29
+    Ingresó a payment.index en la fecha 2024-10-15 21:48:30
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-15 21:48:38 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-15 21:48:38
+    Ingresó a dashboard.index en la fecha 2024-10-15 21:48:40
+    Ingresó a sites.index en la fecha 2024-10-15 21:48:40
+    Ingresó a sites.show en la fecha 2024-10-15 21:48:47
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-15 21:48:49
+    Creó una sesion de pago para P2P en la fecha 2024-10-15 21:49:00
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-15 21:49:33    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 21:49:33    Ingresó a payments.show standart en la fecha 2024-10-15 21:49:33
+    Ingresó a invoice.index en la fecha 2024-10-15 21:49:35
+    Ingresó a sites.show en la fecha 2024-10-15 21:49:44    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-15 21:49:44
+    Ingresó al formulario del sitio para crear una sesion pagando una factura en la fecha 2024-10-15 21:53:39
+    Creó una sesion de pago para P2P en la fecha 2024-10-15 21:53:44
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-15 21:56:09    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 21:56:09    Ingresó a payments.show invoice en la fecha 2024-10-15 21:56:09
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 21:56:11    Ingresó a payments.show invoice en la fecha 2024-10-15 21:56:11
+    Ingresó a payment.index en la fecha 2024-10-15 21:58:44
+    Ingresó a sites.index en la fecha 2024-10-15 22:02:32
+    Ingresó a sites.show en la fecha 2024-10-15 22:03:40
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-15 22:03:41
+    Ingresó a invoice.index en la fecha 2024-10-15 22:03:49
+    Ingresó a sites.show en la fecha 2024-10-15 22:03:51    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-15 22:03:51
+    Ingresó al formulario del sitio para crear una sesion pagando una factura en la fecha 2024-10-15 22:03:53
+    Creó una sesion de pago para P2P en la fecha 2024-10-15 22:03:57
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-15 22:04:21    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 22:04:21    Ingresó a payments.show invoice en la fecha 2024-10-15 22:04:21
+    Ingresó a invoice.index en la fecha 2024-10-15 22:04:24
+    Ingresó a sites.index en la fecha 2024-10-15 22:04:26
+    Ingresó a sites.show en la fecha 2024-10-15 22:04:27
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-15 22:04:28
+    Creó una sesion de pago para P2P en la fecha 2024-10-15 22:04:37
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-15 22:04:41    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 22:04:41    Ingresó a payments.show standart en la fecha 2024-10-15 22:04:41
+    Ingresó a sites.index en la fecha 2024-10-15 22:04:49
+    Ingresó a sites.show en la fecha 2024-10-15 22:04:51    Consultó la información de un pago pendiente en la fecha 2024-10-15 22:04:51
+    Ingresó a payment.index en la fecha 2024-10-15 22:04:55
+    Envió un correo con la información de la eliminación de la session en la fecha 2024-10-15 22:04:59    Eliminó una sesion de pago en la fecha 2024-10-15 22:04:59
+    Ingresó a sites.show en la fecha 2024-10-15 22:04:59
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-15 22:05:00
+    Creó una sesion de pago para P2P en la fecha 2024-10-15 22:05:07
+    Ingresó a dashboard.index en la fecha 2024-10-15 22:05:16
+    Ingresó a payment.index en la fecha 2024-10-15 22:05:18
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-15 22:26:17 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-15 22:26:18
+    Ingresó a payment.index en la fecha 2024-10-15 22:26:19
+    Cambió el idioma a en en la fecha 2024-10-15 22:26:22
+    Ingresó a payment.index en la fecha 2024-10-15 22:26:22
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 22:35:50    Ingresó a payments.show standart en la fecha 2024-10-15 22:35:50
+    Ingresó a sites.index en la fecha 2024-10-15 22:52:11
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-15 22:52:18 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-15 22:52:18
+    Ingresó a sites.index en la fecha 2024-10-15 22:52:20
+    Ingresó a sites.show en la fecha 2024-10-15 22:52:22    Consultó la información de un pago pendiente en la fecha 2024-10-15 22:52:22
+    Cambió el idioma a en en la fecha 2024-10-15 22:52:31
+    Ingresó a sites.show en la fecha 2024-10-15 22:52:32    Consultó la información de un pago pendiente en la fecha 2024-10-15 22:52:32
+    Envió un correo con la información de la eliminación de la session en la fecha 2024-10-15 22:54:19    Eliminó una sesion de pago en la fecha 2024-10-15 22:54:19
+    Ingresó a sites.show en la fecha 2024-10-15 22:54:19
+    Cambió el idioma a es en la fecha 2024-10-15 22:54:25
+    Ingresó a sites.show en la fecha 2024-10-15 22:54:25
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-15 22:54:27
+    Creó una sesion de pago para P2P en la fecha 2024-10-15 22:54:32
+    Ingresó a dashboard.index en la fecha 2024-10-15 22:54:37
+    Ingresó a sites.index en la fecha 2024-10-15 22:54:39
+    Ingresó a sites.show en la fecha 2024-10-15 22:54:40    Consultó la información de un pago pendiente en la fecha 2024-10-15 22:54:40
+    Cambió el idioma a en en la fecha 2024-10-15 22:54:45
+    Ingresó a sites.show en la fecha 2024-10-15 22:54:46    Consultó la información de un pago pendiente en la fecha 2024-10-15 22:54:46
+    Cambió el idioma a es en la fecha 2024-10-15 22:54:51
+    Ingresó a sites.show en la fecha 2024-10-15 22:54:52    Consultó la información de un pago pendiente en la fecha 2024-10-15 22:54:52
+    Ingresó a payment.index en la fecha 2024-10-15 22:58:00
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-15 22:58:07    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 22:58:07    Ingresó a payments.show standart en la fecha 2024-10-15 22:58:07
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-15 23:08:07 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-15 23:08:07
+    Ingresó a suscriptions.index en la fecha 2024-10-15 23:08:08
+    Consultó la información de la suscripción 1 en la fecha 2024-10-15 23:08:11    Creó una sesion para realizar una suscripción en la fecha 2024-10-15 23:08:11    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-15 23:08:11
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-15 23:08:29    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-15 23:08:29    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-15 23:08:29    Envia notificación de la suscripcion del usuario en la fecha 2024-10-15 23:08:29    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-15 23:08:29    Crea el payment del cobro automatico en la fecha 2024-10-15 23:08:29
+    Ingresó a invoice.index en la fecha 2024-10-15 23:09:14
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-15 23:09:24 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-15 23:09:24
+    Ingresó a payment.index en la fecha 2024-10-15 23:09:25
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 23:09:28    Ingresó a payments.show invoice en la fecha 2024-10-15 23:09:28
+    Cambió el idioma a en en la fecha 2024-10-15 23:09:36
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 23:09:37    Ingresó a payments.show invoice en la fecha 2024-10-15 23:09:37
+    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-15 23:10:40    Ingresó a payments.show suscription en la fecha 2024-10-15 23:10:40
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-16 09:05:23 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-16 09:05:23
+    Ingresó a sites.index en la fecha 2024-10-16 09:05:41
+    Ingresó a dashboard.index en la fecha 2024-10-16 09:33:08
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-16 17:49:49 e hizo:
+    Ingresó a suscriptions.index en la fecha 2024-10-16 17:49:49
+    Ingresó a payment.index en la fecha 2024-10-16 17:49:51
+    Ingresó a suscriptions.index en la fecha 2024-10-16 17:49:52
+    Cambió el idioma a en en la fecha 2024-10-16 17:50:12
+    Ingresó a suscriptions.index en la fecha 2024-10-16 17:50:12
+    Consultó la información de una suscripción en la fecha 2024-10-16 18:01:09
+    Consultó la información de una suscripción en la fecha 2024-10-16 18:26:44
+    Consultó la información de una suscripción en la fecha 2024-10-16 18:27:14
+    Ingresó a suscriptions.index en la fecha 2024-10-16 18:27:24
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-16 18:28:42 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-16 18:28:42
+    Ingresó a suscriptions.index en la fecha 2024-10-16 18:28:43
+    Ingresó a user_suscriptions.show en la fecha 2024-10-16 18:28:45
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-16 18:29:02 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-16 18:29:03
+    Ingresó a suscriptions.index en la fecha 2024-10-16 18:29:04
+    Ingresó a user_suscriptions.show en la fecha 2024-10-16 18:29:06
+    Consultó la información de la suscripción 1 en la fecha 2024-10-16 18:29:08    Creó una sesion para realizar una suscripción en la fecha 2024-10-16 18:29:08    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-16 18:29:08
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-16 18:30:02 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-16 18:30:02
+    Ingresó a payment.index en la fecha 2024-10-16 18:30:03
+    Ingresó a suscriptions.index en la fecha 2024-10-16 18:30:04
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-16 18:33:05 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-16 18:33:05
+    Ingresó a suscriptions.index en la fecha 2024-10-16 18:33:06
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-16 18:54:14 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-16 18:54:14
+    Ingresó a suscriptions.index en la fecha 2024-10-16 18:54:18
+    Ingresó a suscriptions.index en la fecha 2024-10-16 18:56:01
+    Consultó la información de una suscripción en la fecha 2024-10-16 19:26:06
+    Cambió el idioma a en en la fecha 2024-10-16 19:26:24
+    Consultó la información de una suscripción en la fecha 2024-10-16 19:26:24
+    Ingresó a suscriptions.edit en la fecha 2024-10-16 19:27:15
+    Ingresó a sites.index en la fecha 2024-10-16 19:28:19
+    Ingresó a sites.show en la fecha 2024-10-16 19:28:22    Consultó las suscripciones para el sitio 3 en la fecha 2024-10-16 19:28:22
+    Ingresó a suscriptions.index en la fecha 2024-10-16 19:29:24
+    Ingresó a suscriptions.create en la fecha 2024-10-16 19:29:26
+    Ingresó a suscriptions.index en la fecha 2024-10-16 19:36:44
+    Ingresó a sites.index en la fecha 2024-10-16 19:36:47
+    Ingresó a sites.show en la fecha 2024-10-16 19:36:48    Consultó las suscripciones para el sitio 3 en la fecha 2024-10-16 19:36:48
+    Ingresó a suscriptions.index en la fecha 2024-10-16 19:36:51
+    Consultó la información de una suscripción en la fecha 2024-10-16 19:36:55
+    Ingresó a suscriptions.edit en la fecha 2024-10-16 19:36:56
+    Ingresó a suscriptions.edit en la fecha 2024-10-16 19:38:52
+    Editó la información de una suscripción en la fecha 2024-10-16 19:39:18
+    Ingresó a suscriptions.index en la fecha 2024-10-16 19:39:18
+    Ingresó a sites.index en la fecha 2024-10-16 19:39:22
+    Ingresó a sites.show en la fecha 2024-10-16 19:39:23    Consultó las suscripciones para el sitio 3 en la fecha 2024-10-16 19:39:23
+    Ingresó a suscriptions.index en la fecha 2024-10-16 19:40:40
+    Consultó la información de una suscripción en la fecha 2024-10-16 19:40:41
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-16 20:03:28 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-16 20:03:28
+    Cambió el idioma a en en la fecha 2024-10-16 20:03:33
+    Ingresó a dashboard.index en la fecha 2024-10-16 20:03:33
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-16 20:03:41 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-16 20:03:41
+    Cambió el idioma a en en la fecha 2024-10-16 20:03:44
+    Ingresó a dashboard.index en la fecha 2024-10-16 20:03:44
