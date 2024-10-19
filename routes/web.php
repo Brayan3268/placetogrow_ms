@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment/user/show/{id}', [PaymentController::class, 'pays_especific_user'])->name('payment.pays_user');
     Route::get('/payment/site/show/{id}', [PaymentController::class, 'pays_especific_site'])->name('payment.pays_site');
     Route::get('/payment/suscription/show/{payment}', [PaymentController::class, 'show_suscription_pay'])->name('payment.suscription_show');
+    Route::get('/payment/suscription/show_pay/{payment_id}', [PaymentController::class, 'show_pays'])->name('payment.show_pays');
 });
 
 Route::middleware('auth')->group(function () {

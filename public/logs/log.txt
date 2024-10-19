@@ -2110,3 +2110,86 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Ingresó a sites.index en la fecha 2024-10-19 04:49:57
     Ingresó a sites.show en la fecha 2024-10-19 04:49:59    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-19 04:49:59
     Ingresó a payment.index en la fecha 2024-10-19 04:50:05
+    Ingresó a dashboard.index en la fecha 2024-10-19 05:20:38
+    Ingresó a invoice.index en la fecha 2024-10-19 05:20:46
+    Ingresó a payment.index en la fecha 2024-10-19 05:20:49
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-19 05:30:29 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-19 05:30:29
+    Ingresó a sites.index en la fecha 2024-10-19 05:30:30
+    Ingresó a sites.show en la fecha 2024-10-19 05:30:33
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-19 05:30:34
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-19 05:30:37
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 05:30:43
+    Ingresó a sites.index en la fecha 2024-10-19 05:38:50
+    Ingresó a sites.show en la fecha 2024-10-19 05:38:51
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-19 05:38:52
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 05:38:56
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-19 05:39:08    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-19 05:39:08    Ingresó a payments.show standart en la fecha 2024-10-19 05:39:08
+    Ingresó a suscriptions.index en la fecha 2024-10-19 05:40:12
+    Ingresó a payment.index en la fecha 2024-10-19 05:40:14
+    Ingresó a suscriptions.index en la fecha 2024-10-19 05:40:30
+    Consultó la información de la suscripción 1 en la fecha 2024-10-19 05:40:32    Creó una sesion para realizar una suscripción en la fecha 2024-10-19 05:40:32    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-19 05:40:32
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-19 05:40:48    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-19 05:40:48    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-19 05:40:48    Envia notificación de la suscripcion del usuario en la fecha 2024-10-19 05:40:48    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-19 05:40:48    Crea el payment del cobro automatico en la fecha 2024-10-19 05:40:48
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-19 05:41:15 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-19 05:41:15
+    Ingresó a payment.index en la fecha 2024-10-19 05:41:17
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-19 05:42:03 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-19 05:42:03
+    Ingresó a invoice.index en la fecha 2024-10-19 05:42:05
+    Ingresó a sites.show en la fecha 2024-10-19 05:42:06    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-19 05:42:06
+    Ingresó al formulario del sitio para crear una sesion pagando una factura en la fecha 2024-10-19 05:42:07
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 05:42:11
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-19 05:42:24    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-19 05:42:24    Ingresó a payments.show invoice en la fecha 2024-10-19 05:42:24
+    Ingresó a suscriptions.index en la fecha 2024-10-19 05:42:27
+    Ingresó a payment.index en la fecha 2024-10-19 05:42:27
+    Consultó la información de una facturá en la fecha 2024-10-19 05:42:32
+    Ingresó a sites.show en la fecha 2024-10-19 05:42:37    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-19 05:42:37
+    Ingresó a payment.index en la fecha 2024-10-19 05:42:39
+    Ingresó a invoice.index en la fecha 2024-10-19 05:42:40
+    Ingresó a payment.index en la fecha 2024-10-19 05:42:46
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-19 05:50:52 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-19 05:50:52
+    Ingresó a sites.index en la fecha 2024-10-19 05:50:55
+    Ingresó a sites.show en la fecha 2024-10-19 05:50:59
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-19 05:51:02
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 05:51:08
+    Ingresó a dashboard.index en la fecha 2024-10-19 05:52:00
+    Ingresó a sites.index en la fecha 2024-10-19 05:52:02
+    Ingresó a sites.show en la fecha 2024-10-19 05:52:03
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-19 05:52:04
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 05:52:13
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-19 05:52:24    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-19 05:52:24    Ingresó a payments.show standart en la fecha 2024-10-19 05:52:24
+    Ingresó a invoice.index en la fecha 2024-10-19 05:52:27
+    Ingresó a sites.show en la fecha 2024-10-19 05:52:28    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-19 05:52:28
+    Ingresó al formulario del sitio para crear una sesion pagando una factura en la fecha 2024-10-19 05:52:30
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 05:52:33
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-19 05:52:45    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-19 05:52:45    Ingresó a payments.show invoice en la fecha 2024-10-19 05:52:45
+    Ingresó a suscriptions.index en la fecha 2024-10-19 05:52:47
+    Consultó la información de la suscripción 2 en la fecha 2024-10-19 05:52:49    Creó una sesion para realizar una suscripción en la fecha 2024-10-19 05:52:49    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-19 05:52:49
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-19 05:53:05    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-19 05:53:05    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-19 05:53:05    Envia notificación de la suscripcion del usuario en la fecha 2024-10-19 05:53:05    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-19 05:53:05    Crea el payment del cobro automatico en la fecha 2024-10-19 05:53:05
+    Ingresó a payment.index en la fecha 2024-10-19 05:53:08
+    Consultó el pago 7 de tipo  en la fecha 2024-10-19 05:53:35    standart en la fecha 2024-10-19 05:53:35
+    Consultó el pago 8 de tipo  en la fecha 2024-10-19 05:53:41    invoice en la fecha 2024-10-19 05:53:41
+    Consultó el pago 9 de tipo  en la fecha 2024-10-19 05:53:48    suscription en la fecha 2024-10-19 05:53:48
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-19 06:11:23 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-19 06:11:24
+    Ingresó a sites.index en la fecha 2024-10-19 06:11:41
+    Ingresó a sites.show en la fecha 2024-10-19 06:11:43
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-19 06:11:45
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 06:11:51
+    Ingresó a dashboard.index en la fecha 2024-10-19 06:13:04
+    Ingresó a sites.index en la fecha 2024-10-19 06:13:05
+    Ingresó a sites.show en la fecha 2024-10-19 06:13:13
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-19 06:13:14
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 06:13:19
+    Ingresó a dashboard.index en la fecha 2024-10-19 06:14:50
+    Ingresó a sites.index en la fecha 2024-10-19 06:15:31
+    Ingresó a sites.show en la fecha 2024-10-19 06:15:32
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-19 06:15:34
+    Creó una sesion de pago para P2P en la fecha 2024-10-19 06:15:43
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-19 06:15:56    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-19 06:15:56    Ingresó a payments.show standart en la fecha 2024-10-19 06:15:56
