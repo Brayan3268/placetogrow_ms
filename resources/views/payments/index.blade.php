@@ -96,7 +96,7 @@
                                     </td>
                                 @endcan
                                 <td class="border border-gray-200 px-4 py-2 text-right">
-                                    <a href="{{ route('payment.show', $pay->id) }}" class="text-blue-600 hover:text-purple-800 mr-2">
+                                    <a href="{{ route('payment.show_pays', $pay->id) }}" class="text-blue-600 hover:text-purple-800 mr-2">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>

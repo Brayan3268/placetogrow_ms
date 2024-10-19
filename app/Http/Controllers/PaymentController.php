@@ -105,22 +105,11 @@ class PaymentController extends Controller
 
         if ($payment->origin_payment == '') {
             $payment->update([
-                //'origin_payment' => ($invoice_reference == 0 && $payment->origin_payment == '') ? OriginPayment::STANDART->value : OriginPayment::INVOICE->value,
-                
-                #'origin_payment' => ($invoice_reference === 0 || $invoice_reference === '0') && $payment->origin_payment === '' 
-                #? OriginPayment::STANDART->value 
-                #: OriginPayment::INVOICE->value,
-
-                'origin_payment' => (is_numeric($invoice_reference) && $invoice_reference == 0 && $payment->origin_payment == '') 
-                ? OriginPayment::STANDART->value 
-                : OriginPayment::INVOICE->value,
-                        
+                //@phpstan-ignore-next-line
+                'origin_payment' => ($invoice_reference == 0 && $payment->origin_payment == '') ? OriginPayment::STANDART->value : OriginPayment::INVOICE->value,
             ]);
             Cache::flush();
         }
-
-
-
 
         if ($payment->origin_payment == OriginPayment::STANDART->value) {
             $invoice = InvoicePll::get_especific_invoice_with_pay_id($payment_id);
@@ -200,6 +189,45 @@ class PaymentController extends Controller
 
     //ELIMINAR ESTO Y CREAR LA POLICY Y ELIMINAR VALIDATE_ROL
     public function show_suscription_pay(int $payment) {}
+
+    public function show_pays(int $payment_id)
+    {
+        $payment = PaymentPll::get_especific_pay($payment_id);
+        $invoice = '';
+        $status = '';
+        $suscription_status = '';
+        $user_suscription = '';
+
+        $log[] = 'Consultó el pago '.$payment_id.' de tipo ';
+
+        switch ($payment->origin_payment) {
+            case OriginPayment::INVOICE->value:
+                $invoice = InvoicePll::get_especific_invoice($payment->reference, intval($payment->site->id));
+                $status = $invoice->status;
+                $log[] = OriginPayment::INVOICE->value;
+                break;
+
+            case OriginPayment::SUSCRIPTION->value:
+                $user_suscription = UserSuscriptionPll::get_specific_user_suscription_request_id($payment->process_identifier);
+                $suscription_status = $user_suscription->status;
+                $log[] = OriginPayment::SUSCRIPTION->value;
+                break;
+
+            default:
+                $log[] = OriginPayment::STANDART->value;
+                break;
+        }
+
+        $this->write_file($log);
+
+        return view('payments.show', [
+            'payment' => $payment,
+            'invoice_status' => $status,
+            'invoice' => $invoice,
+            'suscription_status' => $suscription_status,
+            'user_suscription' => $user_suscription,
+        ]);
+    }
 
     protected function write_file(array $info)
     {
