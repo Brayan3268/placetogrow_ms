@@ -63,7 +63,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('view', Invoice::class);
 
-        $invoice = InvoicePll::get_especific_invoice($reference,intval( $site_id));
+        $invoice = InvoicePll::get_especific_invoice($reference, intval($site_id));
 
         $log[] = 'Consultó la información de una facturá';
         $this->write_file($log);
@@ -75,7 +75,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('edit', Invoice::class);
 
-        $invoice = InvoicePll::get_especific_invoice($reference,intval( $site_id));
+        $invoice = InvoicePll::get_especific_invoice($reference, intval($site_id));
 
         $datos = $this->get_enums();
         $currency = $datos['currency'];

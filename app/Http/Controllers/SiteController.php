@@ -290,7 +290,7 @@ class SiteController extends Controller
     {
         $this->authorize('form_sites_pay', Site::class);
 
-        $invoice = InvoicePll::get_especific_invoice($reference,intval( $site_id));
+        $invoice = InvoicePll::get_especific_invoice($reference, intval($site_id));
         $invoice_reference = $invoice->reference;
 
         $sites_fields = FieldpaysitePll::get_fields_site($invoice->site_id);

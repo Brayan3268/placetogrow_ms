@@ -27,8 +27,8 @@ class StorePaymentRequest extends FormRequest
                 function ($attribute, $value, $fail) {
                     $site_id = $this->get('site_id');
                     if ($value !== null && $value !== '0' && ! \App\Models\Invoice::where('reference', $value)
-                            ->where('site_id', $site_id)
-                            ->exists()) {
+                        ->where('site_id', $site_id)
+                        ->exists()) {
                         $fail('El valor de invoice_reference debe existir en la base de datos.');
                     }
                 },
