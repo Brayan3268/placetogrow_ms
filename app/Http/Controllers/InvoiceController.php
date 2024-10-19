@@ -59,11 +59,11 @@ class InvoiceController extends Controller
             ->with('class', 'bg-green-500');
     }
 
-    public function show(string $id)
+    public function show(string $reference, int $site_id)
     {
         $this->authorize('view', Invoice::class);
 
-        $invoice = InvoicePll::get_especific_invoice(intval($id));
+        $invoice = InvoicePll::get_especific_invoice($reference,intval( $site_id));
 
         $log[] = 'Consultó la información de una facturá';
         $this->write_file($log);
@@ -71,11 +71,11 @@ class InvoiceController extends Controller
         return view('invoices.show', compact('invoice'));
     }
 
-    public function edit(string $id)
+    public function edit(string $reference, int $site_id)
     {
         $this->authorize('edit', Invoice::class);
 
-        $invoice = InvoicePll::get_especific_invoice(intval($id));
+        $invoice = InvoicePll::get_especific_invoice($reference,intval( $site_id));
 
         $datos = $this->get_enums();
         $currency = $datos['currency'];

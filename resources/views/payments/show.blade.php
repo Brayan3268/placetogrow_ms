@@ -54,7 +54,7 @@
 
             @if ($invoice_status != "")
                 <div class="mb-4">
-                    <label class="block font-bold w-full px-4 py-3">{{ __('messages.invoice_reference') }}:<a href="{{ route('invoices.show', $invoice->id) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $invoice->reference }}</a></label> 
+                    <label class="block font-bold w-full px-4 py-3">{{ __('messages.invoice_reference') }}:<a href="{{ route('invoices.show', ['reference' => $invoice->reference, 'site_id' => $invoice->site_id]) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $invoice->reference }}</a></label> 
                 </div>  
 
                 <div class="mb-4">
