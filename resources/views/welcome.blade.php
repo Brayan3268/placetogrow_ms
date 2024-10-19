@@ -23,14 +23,14 @@
             height: auto;
             padding: 10px 20px;
             border-radius: 10px;
-            margin-bottom: 20px; /* Cambié el margen inferior para un mejor espaciado */
+            margin-bottom: 20px;
         }
         .button-container {
             display: flex;
-            justify-content: space-between; /* Distribuye los botones a los extremos */
-            width: 100%; /* Ocupa el ancho completo del contenedor */
-            max-width: 400px; /* Ajusta el ancho máximo según tu preferencia */
-            padding: 10px 20px; /* Añade espacio alrededor del contenedor */
+            justify-content: space-between;
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 20px;
         }
         .login-button {
             padding: 10px 20px;
@@ -40,8 +40,8 @@
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
-            flex: 1; /* Permite que los botones crezcan y ocupen espacio */
-            margin: 0 110px; /* Espacio entre los botones */
+            flex: 1;
+            margin: 0 110px;
         }
         .login-button:hover {
             background-color: #702bd8;

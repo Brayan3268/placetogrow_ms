@@ -20,7 +20,7 @@ class PaymentService implements PaymentServiceContract
             ->payment($this->payment)
             ->process();
 
-        unset($this->payment->invoice_id);
+        unset($this->payment->invoice_reference);
 
         $this->payment->update([
             'process_identifier' => $response->process_identifier,
@@ -35,7 +35,7 @@ class PaymentService implements PaymentServiceContract
             ->buyer($buyer)
             ->process();
 
-        unset($this->payment->invoice_id);
+        unset($this->payment->invoice_reference);
 
         $this->payment->update([
             'process_identifier' => $response->process_identifier,

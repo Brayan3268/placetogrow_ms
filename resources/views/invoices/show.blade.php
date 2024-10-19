@@ -13,7 +13,7 @@
 
     <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
         <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.view_invoice') }}</h1>
-        <form action="{{ route('invoices.edit', $invoice->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
+        <form action="{{ route('invoices.edit', ['reference' => $invoice->reference, 'site_id' => $invoice->site_id]) }}" method="POST" class="max-w-lg mx-auto mt-5">
             @csrf
             @method('GET')
 

@@ -60,7 +60,7 @@ class PaymentController extends Controller
     {
         $payment = PaymentPll::save_payment($request);
 
-        $payment->setAttribute('invoice_id', $request->invoice_id);
+        $payment->setAttribute('invoice_reference', $request->invoice_reference);
 
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
@@ -87,6 +87,7 @@ class PaymentController extends Controller
 
     public function show(Request $request, Payment $payment): View
     {
+
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
             'payment' => $payment,
@@ -98,16 +99,28 @@ class PaymentController extends Controller
             $log[] = 'Finalizó una sesion de pago en P2P de tipo '.$payment->origin_payment;
         }
 
-        $invoice_id = intval($request->query('invoice_id'));
+        $invoice_reference = $request->query('invoice_reference');
         $payment_id = intval($payment->id);
         $status = '';
 
         if ($payment->origin_payment == '') {
             $payment->update([
-                'origin_payment' => ($invoice_id == 0 && $payment->origin_payment == '') ? OriginPayment::STANDART->value : OriginPayment::INVOICE->value,
+                //'origin_payment' => ($invoice_reference == 0 && $payment->origin_payment == '') ? OriginPayment::STANDART->value : OriginPayment::INVOICE->value,
+                
+                #'origin_payment' => ($invoice_reference === 0 || $invoice_reference === '0') && $payment->origin_payment === '' 
+                #? OriginPayment::STANDART->value 
+                #: OriginPayment::INVOICE->value,
+
+                'origin_payment' => (is_numeric($invoice_reference) && $invoice_reference == 0 && $payment->origin_payment == '') 
+                ? OriginPayment::STANDART->value 
+                : OriginPayment::INVOICE->value,
+                        
             ]);
             Cache::flush();
         }
+
+
+
 
         if ($payment->origin_payment == OriginPayment::STANDART->value) {
             $invoice = InvoicePll::get_especific_invoice_with_pay_id($payment_id);
@@ -117,7 +130,7 @@ class PaymentController extends Controller
         $invoice = '';
         if ($payment->origin_payment == OriginPayment::INVOICE->value) {
             try {
-                $invoice = InvoicePll::get_especific_invoice($invoice_id);
+                $invoice = InvoicePll::get_especific_invoice($invoice_reference, intval($payment->site_id));
                 if ($payment->reference != $invoice->reference) {
                     $payment = PaymentPll::update_reference_pay($payment->id, $invoice->reference);
                 }
@@ -145,7 +158,7 @@ class PaymentController extends Controller
                     break;
             }
 
-            $invoice = InvoicePll::update_invoice($payment->reference, $status, $payment_id);
+            $invoice = InvoicePll::update_invoice($payment->reference, $status, $payment_id, $payment->site_id);
         }
 
         $suscription_status = '';

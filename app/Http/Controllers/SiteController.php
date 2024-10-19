@@ -278,20 +278,20 @@ class SiteController extends Controller
             $site_field->value_invoice = ' ';
         }
 
-        $invoice_id = 0;
+        $invoice_reference = 0;
 
         $log[] = 'Ingresó al formulario del sitio para crear una sesion';
         $this->write_file($log);
 
-        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
+        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_reference'));
     }
 
-    public function form_site_invoices(int $invoice_id): View
+    public function form_site_invoices(string $reference, int $site_id): View
     {
         $this->authorize('form_sites_pay', Site::class);
 
-        $invoice = InvoicePll::get_especific_invoice($invoice_id);
-        $invoice_id = $invoice->id;
+        $invoice = InvoicePll::get_especific_invoice($reference, intval($site_id));
+        $invoice_reference = $invoice->reference;
 
         $sites_fields = FieldpaysitePll::get_fields_site($invoice->site_id);
 
@@ -312,7 +312,7 @@ class SiteController extends Controller
         $log[] = 'Ingresó al formulario del sitio para crear una sesion pagando una factura';
         $this->write_file($log);
 
-        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
+        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_reference'));
     }
 
     public function get_enums(): array

@@ -18,8 +18,8 @@
 
           <input type="hidden" name="site_id" value="{{ $site->id }}"/>
 
-          @if ($invoice_id != 0)
-            <input type="hidden" name="invoice_id" value="{{ $invoice_id }}"/>
+          @if ($invoice_reference != 0)
+            <input type="hidden" name="invoice_reference" value="{{ $invoice_reference }}"/>
           @endif
 
           @foreach($sites_fields as $input)

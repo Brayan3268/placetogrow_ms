@@ -12,7 +12,7 @@
     @section('content')
     <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
         <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.edit_invoice') }}</h1>
-        <form action="{{ route('invoices.update', $invoice->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
+        <form action="{{ route('invoices.update', $invoice->reference) }}" method="POST" class="max-w-lg mx-auto mt-5">
             @csrf
             @method('PUT')
 

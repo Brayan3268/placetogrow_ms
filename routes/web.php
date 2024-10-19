@@ -44,7 +44,7 @@ Route::middleware(LocalizationMiddleware::class)->group(function () {
         Route::post('/add_field', [SiteController::class, 'add_field'])->name('sites.add_field');
         Route::delete('/field_destroy/{id}', [SiteController::class, 'field_destroy'])->name('sites.field_destroy');
         Route::get('/sites/{site}/form_site', [SiteController::class, 'form_site'])->name('sites.form_site');
-        Route::get('/sites/{site}/form_site_invoices', [SiteController::class, 'form_site_invoices'])->name('sites.form_site_invoices');
+        Route::get('/sites/{reference}/{site_id}/form_site_invoices', [SiteController::class, 'form_site_invoices'])->name('sites.form_site_invoices');
         Route::get('/sites/{id}', [SiteController::class, 'show'])->name('show.site');
 
         Route::get('/finish_session/{value}', [SiteController::class, 'finish_session'])->name('sites.finish_session');
@@ -61,7 +61,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::resource('invoices', InvoiceController::class);
+    Route::resource('invoices', InvoiceController::class)->only(['index', 'create', 'store', 'update', 'destroy']);
+    Route::get('/invoices/show/{reference}/{site_id}', [InvoiceController::class, 'show'])->name('invoices.show');
+    Route::get('/invoices/edit/{reference}/{site_id}', [InvoiceController::class, 'edit'])->name('invoices.edit');
+
 });
 
 Route::middleware('auth')->group(function () {

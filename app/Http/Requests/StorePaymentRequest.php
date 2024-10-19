@@ -23,10 +23,13 @@ class StorePaymentRequest extends FormRequest
             'total' => ['integer', 'min:1', 'max:999999999999'],
             'description' => ['string'],
             'currency' => ['nullable', Rule::in(CurrencyTypes::toArray())],
-            'invoice_id' => [
+            'invoice_reference' => [
                 function ($attribute, $value, $fail) {
-                    if ($value !== null && $value !== '0' && ! \App\Models\Invoice::where('id', $value)->exists()) {
-                        $fail('El valor de invoice_id debe existir en la base de datos.');
+                    $site_id = $this->get('site_id');
+                    if ($value !== null && $value !== '0' && ! \App\Models\Invoice::where('reference', $value)
+                        ->where('site_id', $site_id)
+                        ->exists()) {
+                        $fail('El valor de invoice_reference debe existir en la base de datos.');
                     }
                 },
             ],

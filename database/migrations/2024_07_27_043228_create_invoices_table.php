@@ -11,8 +11,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->id();
-            $table->string('reference')->unique();
+            //$table->id();
+            $table->string('reference');
             $table->unsignedBigInteger('amount');
             $table->enum('currency', CurrencyTypes::toArray());
             $table->enum('status', InvoiceStatus::toArray());
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('date_surcharge');
             $table->unsignedBigInteger('amount_surcharge');
             $table->date('date_expiration');
+            $table->primary(['reference', 'site_id']);
 
             $table->timestamps();
         });

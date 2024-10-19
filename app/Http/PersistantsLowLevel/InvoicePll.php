@@ -28,9 +28,12 @@ class InvoicePll extends PersistantLowLevel
         });
     }
 
-    public static function get_especific_invoice(int $id)
+    public static function get_especific_invoice(string $reference, int $site_id)
     {
-        return Invoice::find($id);
+        return Invoice::with('user', 'site')
+            ->where('reference', $reference)
+            ->where('site_id', $site_id)
+            ->first();
     }
 
     public static function get_especific_invoice_with_pay_id(int $id)
@@ -75,31 +78,34 @@ class InvoicePll extends PersistantLowLevel
         });
     }
 
-    public static function get_especific_invoice_with_reference(string $invoice_reference)
+    public static function get_especific_invoice_with_reference(string $invoice_reference, int $site_id)
     {
-        return Cache::remember('invoice.reference'.$invoice_reference, self::SECONDS, function () use ($invoice_reference) {
+        return Cache::remember('invoice.reference'.$invoice_reference, self::SECONDS, function () use ($invoice_reference, $site_id) {
             return Invoice::with('user', 'site')
                 ->where('reference', $invoice_reference)
+                ->where('site_id', $site_id)
                 ->first();
         });
     }
 
-    public static function update_invoice(string $invoice_reference, string $status, int $payment_id)
+    public static function update_invoice(string $invoice_reference, string $status, int $payment_id, int $site_id)
     {
-        $invoice = InvoicePll::get_especific_invoice_with_reference($invoice_reference);
-        $invoice->update([
-            'reference' => $invoice->reference,
-            'amount' => $invoice->amount,
-            'currency' => $invoice->currency,
-            'status' => $status,
-            'site_id' => $invoice->site_id,
-            'user_id' => $invoice->user_id,
-            'payment_id' => $payment_id,
-            'date_created' => $invoice->date_created,
-            'date_surcharge' => $invoice->date_surcharge,
-            'amount_surcharge' => $invoice->amount_surcharge,
-            'date_expiration' => $invoice->date_expiration,
-        ]);
+        $invoice = InvoicePll::get_especific_invoice_with_reference($invoice_reference, $site_id);
+        Invoice::where('reference', $invoice->reference)
+            ->where('site_id', $invoice->site_id)
+            ->update([
+                'reference' => $invoice->reference,
+                'amount' => $invoice->amount,
+                'currency' => $invoice->currency,
+                'status' => $status,
+                'site_id' => $invoice->site_id,
+                'user_id' => $invoice->user_id,
+                'payment_id' => $payment_id,
+                'date_created' => $invoice->date_created,
+                'date_surcharge' => $invoice->date_surcharge,
+                'amount_surcharge' => $invoice->amount_surcharge,
+                'date_expiration' => $invoice->date_expiration,
+            ]);
 
         Cache::flush();
 
@@ -108,19 +114,21 @@ class InvoicePll extends PersistantLowLevel
 
     public static function update_all_invoice(Invoice $invoice, UpdateInvoiceRequest $request)
     {
-        $invoice->update([
-            'reference' => $request->reference,
-            'amount' => $request->amount,
-            'currency' => $request->currency,
-            'status' => $invoice->status,
-            'site_id' => $request->site_id,
-            'user_id' => $request->user_id,
-            'payment_id' => $invoice->payment_id,
-            'date_created' => $invoice->date_created,
-            'date_surcharge' => $request->date_surcharge,
-            'amount_surcharge' => $request->amount_surcharge,
-            'date_expiration' => $request->date_expiration,
-        ]);
+        Invoice::where('reference', $invoice->reference)
+            ->where('site_id', $invoice->site_id)
+            ->update([
+                'reference' => $request->reference,
+                'amount' => $request->amount,
+                'currency' => $request->currency,
+                'status' => $invoice->status,
+                'site_id' => $request->site_id,
+                'user_id' => $request->user_id,
+                'payment_id' => $invoice->payment_id,
+                'date_created' => $invoice->date_created,
+                'date_surcharge' => $request->date_surcharge,
+                'amount_surcharge' => $request->amount_surcharge,
+                'date_expiration' => $request->date_expiration,
+            ]);
 
         Cache::flush();
 
@@ -149,7 +157,7 @@ class InvoicePll extends PersistantLowLevel
         Cache::flush();
 
         $notification = new InvoiceNotification($invoice, SurchargeInvoiceTypesNotification::CREATED->value);
-        Notification::send([$invoice->user], $notification->delay(self::SECONDS_EMAIL));
+        Notification::send([$invoice->user], $notification);
     }
 
     public static function percentage_value(string $surcharge_percentage, int $amount)
