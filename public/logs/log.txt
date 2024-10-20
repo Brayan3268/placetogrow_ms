@@ -2826,3 +2826,7 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 15:00:20
     Editó la información de un usuario en la fecha 2024-10-20 15:00:22
     Ingresó a sites.index en la fecha 2024-10-20 15:00:23
+    Ingresó a sites.index en la fecha 2024-10-20 15:07:20
+    Ingresó a sites.create en la fecha 2024-10-20 15:07:29
+    Ingresó a sites.index en la fecha 2024-10-20 15:09:16
+    Ingresó a sites.create en la fecha 2024-10-20 15:09:24

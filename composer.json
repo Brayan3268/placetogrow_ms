@@ -67,11 +67,11 @@
         ],
         "tests_coverage":
         [
-            "php -dxdebug.mode=coverage ./vendor/bin/phpunit --coverage-html coverage/ tests/Feature/UsersControllerTest.php tests/Feature/SitesControllerTest.php"
+            "php -dxdebug.mode=coverage ./vendor/bin/phpunit --coverage-html coverage/ tests/Feature/SitesControllerTest.php"
         ],
         "tests_no_coverage":
         [
-            "./vendor/bin/phpunit tests/Feature/UsersControllerTest.php"
+            "./vendor/bin/phpunit tests/Feature/SitesControllerTest.php"
         ]
     },
     "extra": {
