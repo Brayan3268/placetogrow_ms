@@ -2211,3 +2211,33 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Ingresó a users.index en la fecha 2024-10-19 16:27:14
     Ingresó a users.index en la fecha 2024-10-19 16:28:41
     Ingresó a users.index en la fecha 2024-10-19 16:28:48
+    Ingresó a users.index en la fecha 2024-10-19 16:29:29
+    Ingresó a users.index en la fecha 2024-10-19 16:29:42
+    Ingresó a users.index en la fecha 2024-10-19 16:32:13
+    Ingresó a users.index en la fecha 2024-10-19 16:35:11
+    Ingresó a users.create en la fecha 2024-10-19 16:35:12
+    Ingresó a users.index en la fecha 2024-10-19 16:35:19
+    Ingresó a users.create en la fecha 2024-10-19 16:35:20
+    Ingresó a users.index en la fecha 2024-10-19 16:40:44
+    Ingresó a users.create en la fecha 2024-10-19 16:40:45
+    Ingresó a users.index en la fecha 2024-10-19 16:41:44
+    Ingresó a users.create en la fecha 2024-10-19 16:41:45
+    Ingresó a users.index en la fecha 2024-10-19 16:42:34
+    Ingresó a users.create en la fecha 2024-10-19 16:42:35
+    Ingresó a users.index en la fecha 2024-10-19 16:42:51
+    Ingresó a users.create en la fecha 2024-10-19 16:42:52
+    Creó un usuario en la fecha 2024-10-19 16:42:52
+    Ingresó a users.index en la fecha 2024-10-19 16:42:58
+    Ingresó a users.create en la fecha 2024-10-19 16:42:59
+    Creó un usuario en la fecha 2024-10-19 16:43:00
+    Ingresó a users.index en la fecha 2024-10-19 16:44:18
+    Ingresó a users.create en la fecha 2024-10-19 16:44:19
+    Creó un usuario en la fecha 2024-10-19 16:44:19
+    Ingresó a users.index en la fecha 2024-10-19 16:44:42
+    Ingresó a users.create en la fecha 2024-10-19 16:44:43
+    Ingresó a users.index en la fecha 2024-10-19 16:44:51
+    Ingresó a users.create en la fecha 2024-10-19 16:44:52
+    Creó un usuario en la fecha 2024-10-19 16:44:53
+    Ingresó a users.index en la fecha 2024-10-19 16:44:59
+    Ingresó a users.create en la fecha 2024-10-19 16:44:59
+    Creó un usuario en la fecha 2024-10-19 16:45:00

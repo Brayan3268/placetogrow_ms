@@ -4,12 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
-use App\Constants\Permissions;
-use App\Http\PersistantsLowLevel\UserPll;
 use Spatie\Permission\Models\Permission;
 
 class UsersControllerTest extends TestCase
@@ -20,15 +16,26 @@ class UsersControllerTest extends TestCase
     {
         parent::setUp();
 
-        $permission = Permission::firstOrCreate(['name' => 'users.index']);
-        
+        $permissions = [
+            'users.index',
+            'users.create',
+            'users.edit',
+            'users.delete',
+            'users.store',
+        ];
+    
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
+
+
         $superAdminRole = Role::firstOrCreate(['name' => 'super_admin']);
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $guestRole = Role::firstOrCreate(['name' => 'guest']);
 
-        $superAdminRole->givePermissionTo($permission);
-        $adminRole->givePermissionTo($permission);
-        $guestRole->givePermissionTo($permission);
+        $superAdminRole->givePermissionTo($permissions); // Asignar todos los permisos
+        $adminRole->givePermissionTo(['users.index', 'users.create', 'users.edit']); // Asignar permisos específicos
+        $guestRole->givePermissionTo('users.index'); // Solo permitir ver usuarios
     }
 
     public function test_super_admin_user_can_access_index()
@@ -78,105 +85,56 @@ class UsersControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-/**
-     * Test to check that an unauthenticated user is redirected to the login page.
-     *
-     * @return void
-     */
-    /*public function test_unauthenticated_user_is_redirected_to_login()
+    public function test_super_admin_user_can_access_create()
     {
-        $response = $this->get('/dashboard'); // Ruta protegida
-        $response->assertRedirect('/login');  // Verificamos redirección a login
-    }*/
+        $this->withoutExceptionHandling();
 
-    /**
-     * Test to check that an authenticated user can access the dashboard.
-     *
-     * @return void
-     */
-    /*public function test_authenticated_user_can_access_dashboard()
+        $superAdminUser = User::factory()->create();
+        $superAdminUser->assignRole('super_admin');
+
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
+        $this->actingAs($superAdminUser);
+
+        $response = $this->get(route('users.create'));
+
+        $response->assertStatus(200);
+
+        //$response->assertViewIs('users.create');
+    }
+
+    public function test_store_creates_user_and_redirects()
     {
-        if (!Role::where('name', 'admin')->exists()) {
-            Role::create(['name' => 'admin']);
-        }
+        $this->withoutExceptionHandling();
+        
+        $superAdminUser = User::factory()->create();
+        $superAdminUser->assignRole('super_admin');
 
-        // Crea un usuario utilizando la factory
-        $user = User::factory()->create()->first();
-        //dd(gettype($user));
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
+        $this->actingAs($superAdminUser);
 
-        $user->assignRole('admin');
-        //$this->assertInstanceOf(User::class, $user);
-        $this->assertTrue($user->hasRole('admin'));
-        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
-        // Simulamos el login
-        //$response = $this->actingAs($user)->get('/dashboard'); // Ruta protegida
-
-        // Verificamos que el usuario autenticado tiene acceso al dashboard
-        //$response->assertStatus(200);  // Código de respuesta 200 significa que tuvo éxito
-    /*}*/
-
-    /**
-     * Test to check if the user is authenticated after login.
-     *
-     * @return void
-     */
-    /*public function test_user_is_authenticated_after_login()
-    {
-        // Crea un usuario utilizando la factory
-        $user = User::factory()->create([
-            'password' => bcrypt($password = 'password'), // Contraseña de prueba
-        ]);
-
-        // Intentamos hacer el login
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => $password,
-        ]);
-
-        // Verificamos que se redirige a la página de inicio o al dashboard
-        $response->assertRedirect('/dashboard');
-
-        // Verificamos que el usuario esté autenticado
-        $this->assertAuthenticatedAs($user);
-    }*/
-
-    /**
-     * Test to check that incorrect credentials do not authenticate the user.
-     *
-     * @return void
-     */
-    /*public function test_incorrect_credentials_do_not_authenticate()
-    {
-        // Crea un usuario con una contraseña
-        $user = User::factory()->create([
+        $response = $this->withSession([])->post(route('users.store'), [
+            '_token' => csrf_token(),
+            'name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john@example.com',
+            'phone' => '123456789',
             'password' => bcrypt('password'),
+            'document' => '123456789',
+            'document_type' => 'CC',
+            'role' => 'admin',
         ]);
 
-        // Intentamos hacer login con credenciales incorrectas
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'wrong-password', // Contraseña incorrecta
+        $response->assertRedirect(route('users.index'));
+
+        $response->assertSessionHas('status', 'User created successfully!');
+        $response->assertSessionHas('class', 'bg-green-500');
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'john@example.com',
         ]);
-
-        // Verificamos que no redirige al dashboard
-        $response->assertSessionHasErrors('email');
-
-        // Verificamos que el usuario no esté autenticado
-        $this->assertGuest();
-    }*/
+    }
 
 
-
-
-
-
-
-
-
-    /*private function seed_db()
-    {
-        Artisan::call('db:seed');
-    }*/
 
     /*public function testItCannotListUsersWithUnauthenticated(): void
     {
