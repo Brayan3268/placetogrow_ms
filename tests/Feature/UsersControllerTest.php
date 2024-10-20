@@ -5,11 +5,9 @@ namespace Tests\Feature;
 use App\Http\PersistantsLowLevel\UserPll;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Hash;
 
 class UsersControllerTest extends TestCase
 {
@@ -28,19 +26,18 @@ class UsersControllerTest extends TestCase
             'users.show',
             'users.destroy',
         ];
-    
+
         foreach ($permissions as $permission) {
             Permission::firstOrCreate(['name' => $permission]);
         }
-
 
         $superAdminRole = Role::firstOrCreate(['name' => 'super_admin']);
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $guestRole = Role::firstOrCreate(['name' => 'guest']);
 
-        $superAdminRole->givePermissionTo($permissions); // Asignar todos los permisos
-        $adminRole->givePermissionTo($permissions /*['asdasd', 'asdasd', 'asdasd']*/); // Asignar permisos específicos
-        $guestRole->givePermissionTo('users.index'); // Solo permitir ver usuarios
+        $superAdminRole->givePermissionTo($permissions);
+        $adminRole->givePermissionTo($permissions);
+        $guestRole->givePermissionTo('users.index');
     }
 
     public function test_super_admin_user_can_access_index()
@@ -99,14 +96,12 @@ class UsersControllerTest extends TestCase
         $response = $this->get(route('users.create'));
 
         $response->assertStatus(200);
-
-        //$response->assertViewIs('users.create');
     }
 
     public function test_store_creates_user_and_redirects()
     {
         $this->withoutExceptionHandling();
-        
+
         $superAdminUser = User::factory()->create();
         $superAdminUser->assignRole('super_admin');
 
@@ -138,7 +133,7 @@ class UsersControllerTest extends TestCase
     public function test_show_user_and_redirects()
     {
         $this->withoutExceptionHandling();
-        
+
         $superAdminUser = User::factory()->create();
         $superAdminUser->assignRole('super_admin');
 
@@ -146,7 +141,7 @@ class UsersControllerTest extends TestCase
 
         /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
         $this->actingAs($superAdminUser);
-        
+
         $response = $this->get(route('users.show', [
             'user' => $userToView,
             'role_name' => [$userToView->getRoleNames()],
@@ -156,7 +151,7 @@ class UsersControllerTest extends TestCase
         $response->assertViewIs('users.show');
         $response->assertViewHas('user', $userToView);
 
-        $roleName = $userToView->getRoleNames()->first(); // Obtén el rol del usuario visualizado
+        $roleName = $userToView->getRoleNames()->first();
         $response->assertViewHas('role_name', $roleName);
     }
 
@@ -187,7 +182,7 @@ class UsersControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('users.edit');
         $response->assertViewHas('user', $userToEdit);
-    
+
         $roleData = UserPll::get_specific_user_with_role($userToEdit->id);
         $response->assertViewHas('role', $roleData['role']);
     }
@@ -209,7 +204,7 @@ class UsersControllerTest extends TestCase
             'document' => '987654321',
             'document_type' => 'CC',
         ]);
-    
+
         $data = [
             'name' => 'John',
             'last_name' => 'Doe',
@@ -268,30 +263,22 @@ class UsersControllerTest extends TestCase
     public function test_destroy_prevents_last_super_admin_deletion()
     {
         $this->withoutExceptionHandling();
-    
-        // Crea un usuario en la base de datos y asigna el rol de super admin
+
         $superAdminUser1 = User::factory()->create();
         $superAdminUser1->assignRole('super_admin');
-    
-        // Crea un segundo super admin
-        //$superAdminUser2 = User::factory()->create();
-        //$superAdminUser2->assignRole('super_admin');
-    
+
         /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser1 */
         $this->actingAs($superAdminUser1);
-    
-        // Realiza la solicitud de eliminación del primer super admin
+
         $response = $this->withSession([])->withHeaders([
             'X-CSRF-TOKEN' => csrf_token(),
         ])->delete(route('users.destroy', $superAdminUser1->id));
-    
-        // Afirmaciones
+
         $response->assertStatus(302);
         $response->assertRedirect(route('users.index'));
         $response->assertSessionHas('status', 'User not deleted because not exist more super admins users');
         $response->assertSessionHas('class', 'bg-yellow-500');
-    
-        // Verifica que el usuario no haya sido eliminado
+
         $this->assertDatabaseHas('users', [
             'id' => $superAdminUser1->id,
         ]);
@@ -314,7 +301,7 @@ class UsersControllerTest extends TestCase
             'document' => '987654321',
             'document_type' => 'CC',
         ]);
-    
+
         $data = [
             'name' => 'John',
             'last_name' => 'Doe',
@@ -342,199 +329,4 @@ class UsersControllerTest extends TestCase
             'phone' => '1234567890',
         ]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //TEST 1
-      /*  $user = User::find(1);
-        $response = $this->actingAs($user)
-            ->get(route('users.index'));
-
-        $response->assertOk();
-*/
-        //TEST 2
-        /*$user = User::find(3);
-        $response = $this->actingAs($user)
-            ->get(route('users.index'));
-
-        $response->assertRedirect(route('dashboard'));
-
-        //TEST 3
-        $user = User::find(2);
-        $response = $this->actingAs($user)
-            ->delete("/users/{$user->id}");
-
-        $response->assertRedirect(route('users.index'));
-
-        //TEST 4
-        $user = User::find(1);
-        $response = $this->actingAs($user)
-            ->delete("/users/{$user->id}");
-
-        $response->assertRedirect(route('users.index'));
-
-        //TEST 5
-        $user = User::find(3);
-        $response = $this->actingAs($user)
-            ->delete("/users/{$user->id}");
-
-        $response->assertRedirect(route('dashboard'));
-
-        //TEST 6
-        $user = User::find(1);
-        $response = $this->actingAs($user)
-            ->get(route('users.create'));
-
-        $response->assertOk();
-
-        //TEST 7
-        $user = User::find(3);
-        $response = $this->actingAs($user)
-            ->get(route('users.create'));
-
-        $response->assertRedirect(route('dashboard'));
-
-        //TEST 8
-        $user = User::find(1);
-
-        $userData = [
-            'name' => 'John Doe',
-            'email' => 'john.doe@example.com',
-            'password' => '12345678',
-        ];
-        $userData['password'] = bcrypt($userData['password']);
-
-        $response = $this->actingAs($user)->post(route('users.store'), $userData);
-
-        //$response->assertRedirect(route('users.index'));
-
-        $role = Role::findByName('admin');
-
-        $createdUser = User::where('email', 'john.doe@example.com')->first();
-        $createdUser->assignRole($role);
-
-        $this->assertDatabaseHas('users', [
-            'name' => 'John Doe',
-            'email' => 'john.doe@example.com',
-        ]);
-
-        //$this->assertTrue(Hash::check('password123', $createdUser->password));
-
-        //TEST 9
-        $user = User::find(1);
-        $response = $this->actingAs($user)
-            ->get(route('users.show', ['user' => $user->id]));
-
-        $response->assertOk();
-
-        //TEST 10
-        $user = User::find(3);
-        $response = $this->actingAs($user)
-            ->get(route('users.show', ['user' => $user->id]));
-
-        $response->assertRedirect(route('dashboard'));
-
-        //TEST 11
-        $user = User::find(1);
-        $response = $this->actingAs($user)
-            ->get(route('users.edit', ['user' => $user->id]));
-
-        $response->assertOk();
-
-        //TEST 12
-        $user = User::find(3);
-        $response = $this->actingAs($user)
-            ->get(route('users.edit', ['user' => $user->id]));
-
-        $response->assertRedirect(route('dashboard'));
-
-        //TEST 13
-        $user = User::find(1);
-        $user_ud = User::find(3);
-
-        $newUserData = [
-            'name' => 'Jane Doe',
-            'email' => 'jane.doe@example.com',
-            'role' => 'super_admin',
-        ];
-
-        if (empty($newUserData['password'])) {
-            $response = $this->actingAs($user)->put(route('users.update', ['user' => $user_ud->id]), $newUserData);
-        } else {
-            $newUserData['password'] = '12345678';
-            $response = $this->actingAs($user)->put(route('users.update', ['user' => $user_ud->id]), $newUserData);
-        }
-        $user_ud->syncRoles([$newUserData['role']]);
-        //$response->assertRedirect(route('users.show'));
-
-        $user_ud->refresh();
-
-        $this->assertEquals('Jane Doe', $user_ud->name);
-        $this->assertEquals('jane.doe@example.com', $user_ud->email);
-        //$this->assertTrue(Hash::check('newpassword', $user_ud->password)); // Verifica que la nueva contraseña esté encriptada correctamente
-
-        //TEST 14
-        $user = User::find(1);
-        $user_ud = User::find(3);
-
-        $newUserData = [
-            'name' => 'Jane Doe',
-            'email' => 'jane.doe@example.com',
-            'password' => '1234456788',
-            'role' => 'super_admin',
-        ];
-
-        if (empty($newUserData['password'])) {
-            $response = $this->actingAs($user)->put(route('users.update', ['user' => $user_ud->id]), $newUserData);
-        } else {
-            $newUserData['password'] = '12345678';
-            $response = $this->actingAs($user)->put(route('users.update', ['user' => $user_ud->id]), $newUserData);
-        }
-        $user_ud->syncRoles([$newUserData['role']]);
-        //$response->assertRedirect(route('users.show'));
-
-        $user_ud->refresh();
-
-        $this->assertEquals('Jane Doe', $user_ud->name);
-        $this->assertEquals('jane.doe@example.com', $user_ud->email);
-        //$this->assertTrue(Hash::check('newpassword', $user_ud->password)); // Verifica que la nueva contraseña esté encriptada correctamente
-
-        //TEST 15
-        $user = User::find(3);
-        $user_ud = User::find(1);
-        $newUserData = [
-            'name' => 'Jane Doe',
-            'email' => 'jane.doe@example.com',
-            'role' => 'super_admin',
-        ];
-
-        $response->assertStatus(302);
-        //$response->assertRedirect(route('dashboard'));*/
-    //}
 }
