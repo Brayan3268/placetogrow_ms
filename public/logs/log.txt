@@ -2472,3 +2472,100 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Consultó la información de un usuario en la fecha 2024-10-20 00:53:19
     Editó la información de un usuario en la fecha 2024-10-20 00:53:20
     Editó la información de un usuario en la fecha 2024-10-20 00:53:20
+    Ingresó a users.index en la fecha 2024-10-20 00:55:22
+    Ingresó a users.create en la fecha 2024-10-20 00:55:22
+    Creó un usuario en la fecha 2024-10-20 00:55:23
+    Consultó la información de un usuario en la fecha 2024-10-20 00:55:24
+    Ingresó a users.edit en la fecha 2024-10-20 00:55:24
+    Editó la información de un usuario en la fecha 2024-10-20 00:55:25
+    Editó la información de un usuario en la fecha 2024-10-20 00:55:25
+    Ingresó a users.index en la fecha 2024-10-20 00:57:50
+    Ingresó a users.create en la fecha 2024-10-20 00:57:51
+    Creó un usuario en la fecha 2024-10-20 00:57:51
+    Consultó la información de un usuario en la fecha 2024-10-20 00:57:52
+    Editó la información de un usuario en la fecha 2024-10-20 00:57:53
+    Editó la información de un usuario en la fecha 2024-10-20 00:57:54
+    Ingresó a users.index en la fecha 2024-10-20 00:58:07
+    Ingresó a users.create en la fecha 2024-10-20 00:58:07
+    Creó un usuario en la fecha 2024-10-20 00:58:08
+    Consultó la información de un usuario en la fecha 2024-10-20 00:58:08
+    Ingresó a users.edit en la fecha 2024-10-20 00:58:09
+    Editó la información de un usuario en la fecha 2024-10-20 00:58:09
+    Editó la información de un usuario en la fecha 2024-10-20 00:58:10
+    Ingresó a users.index en la fecha 2024-10-20 00:58:43
+    Ingresó a users.create en la fecha 2024-10-20 00:58:44
+    Creó un usuario en la fecha 2024-10-20 00:58:45
+    Consultó la información de un usuario en la fecha 2024-10-20 00:58:45
+    Ingresó a users.edit en la fecha 2024-10-20 00:58:45
+    Editó la información de un usuario en la fecha 2024-10-20 00:58:46
+    Editó la información de un usuario en la fecha 2024-10-20 00:58:47
+    Ingresó a users.index en la fecha 2024-10-20 00:59:41
+    Ingresó a users.create en la fecha 2024-10-20 00:59:42
+    Creó un usuario en la fecha 2024-10-20 00:59:42
+    Consultó la información de un usuario en la fecha 2024-10-20 00:59:43
+    Ingresó a users.edit en la fecha 2024-10-20 00:59:44
+    Editó la información de un usuario en la fecha 2024-10-20 00:59:44
+    Editó la información de un usuario en la fecha 2024-10-20 00:59:45
+    Ingresó a users.index en la fecha 2024-10-20 00:59:53
+    Ingresó a users.create en la fecha 2024-10-20 00:59:54
+    Creó un usuario en la fecha 2024-10-20 00:59:54
+    Consultó la información de un usuario en la fecha 2024-10-20 00:59:55
+    Ingresó a users.edit en la fecha 2024-10-20 00:59:55
+    Editó la información de un usuario en la fecha 2024-10-20 00:59:56
+    Editó la información de un usuario en la fecha 2024-10-20 00:59:57
+    Ingresó a users.index en la fecha 2024-10-20 01:00:23
+    Ingresó a users.create en la fecha 2024-10-20 01:00:24
+    Creó un usuario en la fecha 2024-10-20 01:00:25
+    Consultó la información de un usuario en la fecha 2024-10-20 01:00:25
+    Ingresó a users.edit en la fecha 2024-10-20 01:00:26
+    Editó la información de un usuario en la fecha 2024-10-20 01:00:26
+    Editó la información de un usuario en la fecha 2024-10-20 01:00:27
+    Ingresó a users.index en la fecha 2024-10-20 01:00:36
+    Ingresó a users.create en la fecha 2024-10-20 01:00:37
+    Creó un usuario en la fecha 2024-10-20 01:00:37
+    Consultó la información de un usuario en la fecha 2024-10-20 01:00:38
+    Ingresó a users.edit en la fecha 2024-10-20 01:00:38
+    Editó la información de un usuario en la fecha 2024-10-20 01:00:39
+    Editó la información de un usuario en la fecha 2024-10-20 01:00:39
+    Ingresó a users.index en la fecha 2024-10-20 01:00:47
+    Ingresó a users.create en la fecha 2024-10-20 01:00:48
+    Creó un usuario en la fecha 2024-10-20 01:00:49
+    Consultó la información de un usuario en la fecha 2024-10-20 01:00:49
+    Ingresó a users.edit en la fecha 2024-10-20 01:00:50
+    Editó la información de un usuario en la fecha 2024-10-20 01:00:50
+    Editó la información de un usuario en la fecha 2024-10-20 01:00:51
+    Ingresó a users.index en la fecha 2024-10-20 01:00:59
+    Ingresó a users.create en la fecha 2024-10-20 01:00:59
+    Creó un usuario en la fecha 2024-10-20 01:01:00
+    Consultó la información de un usuario en la fecha 2024-10-20 01:01:01
+    Ingresó a users.edit en la fecha 2024-10-20 01:01:01
+    Editó la información de un usuario en la fecha 2024-10-20 01:01:02
+    Editó la información de un usuario en la fecha 2024-10-20 01:01:02
+    Ingresó a users.index en la fecha 2024-10-20 01:01:07
+    Ingresó a users.create en la fecha 2024-10-20 01:01:08
+    Creó un usuario en la fecha 2024-10-20 01:01:09
+    Consultó la información de un usuario en la fecha 2024-10-20 01:01:09
+    Ingresó a users.edit en la fecha 2024-10-20 01:01:10
+    Editó la información de un usuario en la fecha 2024-10-20 01:01:10
+    Editó la información de un usuario en la fecha 2024-10-20 01:01:11
+    Ingresó a users.index en la fecha 2024-10-20 01:01:41
+    Ingresó a users.create en la fecha 2024-10-20 01:01:41
+    Creó un usuario en la fecha 2024-10-20 01:01:42
+    Consultó la información de un usuario en la fecha 2024-10-20 01:01:42
+    Ingresó a users.edit en la fecha 2024-10-20 01:01:43
+    Editó la información de un usuario en la fecha 2024-10-20 01:01:43
+    Editó la información de un usuario en la fecha 2024-10-20 01:01:44
+    Ingresó a users.index en la fecha 2024-10-20 01:01:57
+    Ingresó a users.create en la fecha 2024-10-20 01:01:57
+    Creó un usuario en la fecha 2024-10-20 01:01:58
+    Consultó la información de un usuario en la fecha 2024-10-20 01:01:58
+    Ingresó a users.edit en la fecha 2024-10-20 01:01:59
+    Editó la información de un usuario en la fecha 2024-10-20 01:01:59
+    Editó la información de un usuario en la fecha 2024-10-20 01:02:00
+    Ingresó a users.index en la fecha 2024-10-20 01:02:08
+    Ingresó a users.create en la fecha 2024-10-20 01:02:09
+    Creó un usuario en la fecha 2024-10-20 01:02:09
+    Consultó la información de un usuario en la fecha 2024-10-20 01:02:10
+    Ingresó a users.edit en la fecha 2024-10-20 01:02:10
+    Editó la información de un usuario en la fecha 2024-10-20 01:02:11
+    Editó la información de un usuario en la fecha 2024-10-20 01:02:12

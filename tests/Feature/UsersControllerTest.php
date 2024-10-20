@@ -162,33 +162,34 @@ class UsersControllerTest extends TestCase
     public function test_edit_returns_correct_view_with_user_data()
     {
         $this->withoutExceptionHandling();
-        // Crea un usuario en la base de datos
+
         $user = User::factory()->create();
         $user->assignRole('super_admin');
 
-        // Mocks el método get_specific_user_with_role para que retorne datos de prueba
-        $this->mock(UserPll::class, function ($mock) use ($user) {
-            $mock->shouldReceive('get_specific_user_with_role')
-                 ->with($user->id)
-                 ->andReturn([
-                     'user' => $user,
-                     'role' => ['admin'],
-                 ]);
-        });
-
-        // Simula autorización
         /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $this->actingAs($user);
 
-        // Realiza la solicitud al método edit
-        $response = $this->get(route('users.edit', $user->id));
+        $userToEdit = User::factory()->create([
+            'name' => 'Jane',
+            'last_name' => 'Doe',
+            'email' => 'jane@example.com',
+            'phone' => '0987654321',
+            'document' => '987654321',
+            'document_type' => 'CC',
+        ]);
+        $userToEdit->assignRole('admin');
 
-        // Afirmaciones
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->get(route('users.edit', $userToEdit->id));
+
         $response->assertStatus(200);
         $response->assertViewIs('users.edit');
-        $response->assertViewHas('user', $user);
-        $response->assertViewHas('role', ['admin']);
-    }*/
+        $response->assertViewHas('user', $userToEdit);
+    
+        $roleData = UserPll::get_specific_user_with_role($userToEdit->id);
+        $response->assertViewHas('role', $roleData['role']);
+    }
 
     public function test_update_user_data_without_pass_and_redirects()
     {
