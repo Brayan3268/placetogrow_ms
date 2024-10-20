@@ -22,6 +22,7 @@ class UsersControllerTest extends TestCase
             'users.edit',
             'users.delete',
             'users.store',
+            'users.show',
         ];
     
         foreach ($permissions as $permission) {
@@ -134,6 +135,28 @@ class UsersControllerTest extends TestCase
         ]);
     }
 
+    public function test_show_user_and_redirects()
+    {
+        $this->withoutExceptionHandling();
+        
+        $superAdminUser = User::factory()->create();
+        $superAdminUser->assignRole('super_admin');
+
+        $userToView = User::factory()->create();
+
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
+        $this->actingAs($superAdminUser);
+
+        $response = $this->get(route('users.show', ['user' => $userToView->id]));
+
+        $response->assertStatus(200);
+        $response->assertRedirect(route('users.show'));
+        $response->assertViewIs('users.show');
+        $response->assertViewHas('user', $userToView);
+
+        $roleName = $userToView->getRoleNames()->first(); // Obtén el rol del usuario visualizado
+        $response->assertViewHas('role_name', $roleName);
+    }
 
     /*public function testItCannotListUsersWithUnauthenticated(): void
     {

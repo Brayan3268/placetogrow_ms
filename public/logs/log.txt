@@ -2241,3 +2241,10 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Ingresó a users.index en la fecha 2024-10-19 16:44:59
     Ingresó a users.create en la fecha 2024-10-19 16:44:59
     Creó un usuario en la fecha 2024-10-19 16:45:00
+    Ingresó a users.index en la fecha 2024-10-19 21:12:20
+    Ingresó a users.create en la fecha 2024-10-19 21:12:26
+    Creó un usuario en la fecha 2024-10-19 21:12:30
+    Ingresó a users.index en la fecha 2024-10-19 21:13:12
+    Ingresó a users.create en la fecha 2024-10-19 21:13:13
+    Creó un usuario en la fecha 2024-10-19 21:13:14
+    Consultó la información de un usuario en la fecha 2024-10-19 21:13:52
