@@ -79,11 +79,10 @@ class SiteController extends Controller
     {
         $this->authorize('update', Site::class);
 
-        $request->validate([
-            'image' => 'required|image|max:2048',
-        ]);
-
         if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'required|image|max:2048',
+            ]);
             $image = $request->file('image');
 
             $image_name = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
@@ -91,13 +90,13 @@ class SiteController extends Controller
 
             SitePll::save_site($request, $image_name);
 
+            $log[] = 'Creó un sitio';
+            $this->write_file($log);
+            
             return redirect()->route('sites.index')
                 ->with('status', 'Site created successfully!')
                 ->with('class', 'bg-green-500');
         }
-
-        $log[] = 'Creó un sitio';
-        $this->write_file($log);
 
         return redirect()->route('sites.index')
             ->with('status', 'Site created unsuccessfully!')

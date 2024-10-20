@@ -2,12 +2,19 @@
 
 namespace Tests\Feature;
 
+use App\Constants\CurrencyTypes;
+use App\Constants\SiteTypes;
+use App\Models\Category;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Validation\ValidationException;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 class SitesControllerTest extends TestCase
 {
@@ -27,6 +34,7 @@ class SitesControllerTest extends TestCase
             'users.destroy',
             'sites.index',
             'sites.create',
+            'sites.store',
         ];
 
         foreach ($permissions as $permission) {
@@ -52,12 +60,10 @@ class SitesControllerTest extends TestCase
         /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
         $this->actingAs($superAdminUser);
 
-        // Mockear los sitios
         $sites = Site::factory()->count(3)->create([
             'site_type' => 'OPEN',
         ]);
 
-        // Simular la vista
         $response = $this->get(route('sites.index'));
 
         $response->assertStatus(200);
@@ -77,15 +83,82 @@ class SitesControllerTest extends TestCase
         /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
         $this->actingAs($superAdminUser);
 
-        // Simular la vista
         $response = $this->get(route('sites.create'));
 
         $response->assertStatus(200);
         $response->assertViewIs('sites.create');
         $response->assertViewHasAll([
-            'categories', 'currency_options', 'site_type_options'
+            'categories', 'currency_options', 'site_type_options',
         ]);
     }
+
+    public function test_store_creates_new_site_with_image()
+    {
+        $this->withoutExceptionHandling();
+
+        $superAdminUser = User::factory()->create();
+        $superAdminUser->assignRole('super_admin');
+
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
+        $this->actingAs($superAdminUser);
+        Storage::fake('public');
+
+        $file = UploadedFile::fake()->image('site.jpg');
+    
+        $category = Category::factory()->create();
+        $siteData = [
+            'slug' => Str::slug('Sitio de Prueba'),
+            'name' => 'Sitio de Prueba',
+            'category' => $category->id,
+            'expiration_time' => rand(10, 30),
+            'currency' => CurrencyTypes::toArray()[array_rand(CurrencyTypes::toArray())],
+            'site_type' => SiteTypes::cases()[array_rand(SiteTypes::cases())]->name,
+            'image' => $file,
+        ];
+
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->post(route('sites.store'), $siteData);
+
+        //$imageName = $file->getClientOriginalName() . time() . '.' . $file->getClientOriginalExtension();
+        //$this->assertTrue(Storage::disk('public')->exists('site_images/' . $imageName));
+
+        $response->assertRedirect(route('sites.index'));
+        $response->assertSessionHas([
+            'status' => 'Site created successfully!',
+            'class' => 'bg-green-500',
+        ]);
+    }
+
+    public function test_store_redirects_on_image_validation_failure()
+{
+    $this->withoutExceptionHandling();
+
+    $superAdminUser = User::factory()->create();
+    $superAdminUser->assignRole('super_admin');
+
+    /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
+    $this->actingAs($superAdminUser);
+
+    $siteData = [
+        'slug' => Str::slug('Sitio de Prueba'),
+        'name' => 'Sitio de Prueba',
+        'expiration_time' => rand(10, 30),
+        'currency' => CurrencyTypes::toArray()[array_rand(CurrencyTypes::toArray())],
+        'site_type' => SiteTypes::cases()[array_rand(SiteTypes::cases())]->name,
+    ];
+
+    $response = $this->withSession([])->withHeaders([
+        'X-CSRF-TOKEN' => csrf_token(),
+    ])->post(route('sites.store'), $siteData);
+
+    $response->assertRedirect(route('sites.index'));
+    $response->assertSessionHas([
+        'status' => 'Site created unsuccessfully!',
+        'class' => 'bg-red-500',
+    ]);
+}
+
 
     /*public function testItCanListSitesWithAuthenticated(): void
     {

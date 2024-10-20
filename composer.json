@@ -63,7 +63,7 @@
         ],
         "tests_ok":
         [
-            "php artisan test tests/Feature/UsersControllerTest.php"
+            "php artisan test tests/Feature/SitesControllerTest.php"
         ],
         "tests_coverage":
         [
