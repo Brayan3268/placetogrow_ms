@@ -2974,3 +2974,45 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a sites.create en la fecha 2024-10-20 18:09:11
     Creó un sitio en la fecha 2024-10-20 18:09:12
     Ingresó a sites.show en la fecha 2024-10-20 18:09:14    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:09:14    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:09:14
+    Ingresó a sites.index en la fecha 2024-10-20 18:14:41
+    Ingresó a sites.create en la fecha 2024-10-20 18:14:53
+    Creó un sitio en la fecha 2024-10-20 18:14:55
+    Ingresó a sites.show en la fecha 2024-10-20 18:14:56    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:14:56    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:14:56
+    Ingresó a sites.edit en la fecha 2024-10-20 18:14:58
+    Ingresó a sites.index en la fecha 2024-10-20 18:23:00
+    Ingresó a sites.create en la fecha 2024-10-20 18:23:01
+    Creó un sitio en la fecha 2024-10-20 18:23:02
+    Ingresó a sites.show en la fecha 2024-10-20 18:23:04    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:23:04    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:23:04
+    Ingresó a sites.edit en la fecha 2024-10-20 18:23:05
+    Ingresó a sites.index en la fecha 2024-10-20 18:24:43
+    Ingresó a sites.create en la fecha 2024-10-20 18:24:44
+    Creó un sitio en la fecha 2024-10-20 18:24:45
+    Ingresó a sites.show en la fecha 2024-10-20 18:24:46    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:24:46    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:24:46
+    Ingresó a sites.edit en la fecha 2024-10-20 18:24:47
+    Ingresó a sites.index en la fecha 2024-10-20 18:28:01
+    Ingresó a sites.create en la fecha 2024-10-20 18:28:12
+    Creó un sitio en la fecha 2024-10-20 18:28:14
+    Ingresó a sites.show en la fecha 2024-10-20 18:28:16    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:28:16    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:28:16
+    Ingresó a sites.edit en la fecha 2024-10-20 18:28:17
+    Ingresó a sites.index en la fecha 2024-10-20 18:35:56
+    Ingresó a sites.create en la fecha 2024-10-20 18:36:04
+    Creó un sitio en la fecha 2024-10-20 18:36:06
+    Ingresó a sites.show en la fecha 2024-10-20 18:36:07    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:36:07    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:36:07
+    Ingresó a sites.edit en la fecha 2024-10-20 18:36:09
+    Ingresó a sites.index en la fecha 2024-10-20 18:36:54
+    Ingresó a sites.create en la fecha 2024-10-20 18:36:55
+    Creó un sitio en la fecha 2024-10-20 18:36:56
+    Ingresó a sites.show en la fecha 2024-10-20 18:36:58    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:36:58    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:36:58
+    Ingresó a sites.edit en la fecha 2024-10-20 18:36:59
+    Ingresó a sites.index en la fecha 2024-10-20 18:38:07
+    Ingresó a sites.create en la fecha 2024-10-20 18:38:08
+    Creó un sitio en la fecha 2024-10-20 18:38:09
+    Ingresó a sites.show en la fecha 2024-10-20 18:38:10    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:38:10    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:38:10
+    Ingresó a sites.edit en la fecha 2024-10-20 18:38:11
+    Editó la información de un sitio en la fecha 2024-10-20 18:38:12
+    Ingresó a sites.index en la fecha 2024-10-20 18:38:51
+    Ingresó a sites.create en la fecha 2024-10-20 18:38:52
+    Creó un sitio en la fecha 2024-10-20 18:38:53
+    Ingresó a sites.show en la fecha 2024-10-20 18:38:54    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:38:54    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:38:54
+    Ingresó a sites.edit en la fecha 2024-10-20 18:38:55
+    Editó la información de un sitio en la fecha 2024-10-20 18:38:55

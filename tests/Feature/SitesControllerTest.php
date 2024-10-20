@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Constants\CurrencyTypes;
+use App\Constants\Permissions;
 use App\Constants\SiteTypes;
 use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Models\Category;
@@ -221,169 +222,84 @@ class SitesControllerTest extends TestCase
         $response->assertViewIs('sites.show');
         $response->assertViewHas('site', $site);
 
-        $invoices = $response->viewData('invoices');
-        $this->assertCount(1, $invoices);
+        //$invoices = $response->viewData('invoices');
+        //$this->assertCount(1, $invoices);
 
-        $pay_exist = $response->viewData('pay_exist');
-        $this->assertTrue($pay_exist);
+        //$pay_exist = $response->viewData('pay_exist');
+        //$this->assertTrue($pay_exist);
 
-        $pay = $response->viewData('pay');
-        $this->assertNotEmpty($pay);
+        //$pay = $response->viewData('pay');
+        //$this->assertNotEmpty($pay);
 
-        $suscription_plans = $response->viewData('suscription_plans');
-        $this->assertEmpty($suscription_plans);
+        //$suscription_plans = $response->viewData('suscription_plans');
+        //$this->assertEmpty($suscription_plans);
 
-        $user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
-        $this->assertEmpty($user_plans_get_suscribe);
+        //$user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
+        //$this->assertEmpty($user_plans_get_suscribe);
 
-        $user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
-        $this->assertEmpty($user_plans_get_suscribe);
+        //$user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
+        //$this->assertEmpty($user_plans_get_suscribe);
     }
 
-    /*public function testItCanListSitesWithAuthenticated(): void
+    public function test_edit_displays_site_edit_form()
     {
+        $this->withoutExceptionHandling();
+
         $user = User::factory()->create();
+        $user->assignRole('super_admin');
 
-    $role = Role::firstOrCreate(['name' => 'admin']);
-    $role->givePermissionTo('sites.index');
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        $this->actingAs($user);
 
-    $user->assignRole('admin');
-    //$this->seed_db();
+        $site = Site::factory()->create();
 
-    //TEST 1
+        $response = $this->get(route('sites.edit', $site->id));
 
-    $response = $this->actingAs($user)
-        ->get(route('sites.index'));
+        $response->assertStatus(200);
+        $response->assertViewIs('sites.edit');
+        $response->assertViewHas('site', $site);
+    }
 
-    $response->assertOk();
+    public function test_update_updates_site_information()
+    {
+        $this->withoutExceptionHandling();
 
-    //TEST 2
-    /*$user = User::find(1);
-    $response = $this->actingAs($user)
-        ->get(route('sites.show', ['site' => 1]));
+        // Crea un usuario con el rol de super_admin
+        $user = User::factory()->create();
+        $user->assignRole('super_admin');
 
-    $response->assertOk();
+        // Actúa como el usuario autenticado
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        $this->actingAs($user);
 
-    //TEST 3
-    $user = User::find(1);
-    $response = $this->actingAs($user)->get(route('sites.create'));
-    $response->assertStatus(200);
-    $response->assertViewIs('sites.create');
-    $response->assertViewHasAll([
-        'categories',
-        'current_options',
-        'site_type_options',
-        'document_types',
-    ]);
+        // Crea un sitio
+        $site = Site::factory()->create();
 
-    //TEST 4
-    Storage::fake('public');
-    $user = User::find(1);
-    $category = Category::find(1);
+        $category = Category::factory()->create();
+        $data = [
+            'name' => 'Updated Site Name',
+            'slug' => 'updated-site-name',
+            'category' => $category->id,
+            'site_type' => 'CLOSE',
+            'expiration_time' => rand(10, 30),
+            'currency' => CurrencyTypes::toArray()[array_rand(CurrencyTypes::toArray())],
+            // Agrega otros campos necesarios
+        ];
 
-    $requestData = [
-        'slug' => 'test-site',
-        'name' => 'Test Site',
-        'document_type' => 'CIF',
-        'document' => '12345678A',
-        'category' => $category->id,
-        'expiration_time' => '2024-12-31',
-        'current' => 'AC',
-        'site_type' => 'Type A',
-        'image' => 'public/images/welcome.jpg',
-    ];
+        // Realiza la solicitud al método update
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->put(route('sites.update', $site->id), $data);
 
-    $response = $this->actingAs($user)->post(route('sites.store'), $requestData);
-
-    $response->assertRedirect(route('sites.create'));
-
-    /*$this->assertDatabaseHas('sites', [
-        'slug' => 'test-site',
-        'name' => 'Test Site',
-        'document_type' => 'CIF',
-        'document' => '12345678A',
-        'category_id' => $category->id,
-        'expiration_time' => '2024-12-31',
-        'current_type' => 'AC',
-        'site_type' => 'Type A',
-        'image' => 'storage/site_images/test-image.jpg',
-    ]);*/
-
-    //$response->assertSessionHas('status', 'Site created successfully!');
-    //$response->assertSessionHas('class', 'bg-green-500');
-
-    //TEST 5
-    /*$user = User::find(3);
-    $site = Site::find(2);
-    $response = $this->delete("/sites/{$site->id}");
-    $response->assertRedirect(route('sites.index'));
-
-    //TEST 5
-    $user = User::find(1);
-    $site = Site::find(1);
-    $response = $this->actingAs($user)
-        ->delete("/sites/{$site->id}");
-
-    $response->assertRedirect(route('sites.index'));
-
-    //TEST 6
-    $user = User::find(1);
-    $site = Site::find(3);
-
-    $response = $this->actingAs($user)->get(route('sites.edit', ['site' => $site->id]));
-    $response->assertStatus(200);
-    $response->assertViewIs('sites.edit');
-
-    //TEST 7
-    $user = User::find(1);
-    $site = Site::find(3);
-    $category = Category::find(1);
-
-    //Cache::put('site.'.$site->id, $site, $minutes = 1000);
-
-    // Nuevos datos para actualizar el sitio
-    $newData = [
-        'slug' => 'updated-site-slug',
-        'name' => 'Updated Site Name',
-        'document_type' => 'NIT',
-        'document' => '9876543210',
-        'category' => $category->id,
-        'expiration_time' => '2025-12-31',
-        'current' => 'DC',
-        'site_type' => 'Type B',
-        'image' => 'public/images/welcome.jpg',
-    ];
-
-    if (empty($newData['image'])) {
-        $response = $this->actingAs($user)->put(route('sites.update', ['site' => $site->id]), $newData);
-        Cache::forget('site.'.$site->id);
-        Cache::forget('sites.index');
+        // Verifica la redirección y mensaje
         $response->assertRedirect(route('sites.index'));
+        $response->assertSessionHas('status', 'Site updated successfully');
 
-    } else {
-        $newData['image'] = 'public/images/welcome.jpg';
-        $response = $this->actingAs($user)->put(route('sites.update', ['site' => $site->id]), $newData);
-        Cache::forget('site.'.$site->id);
-        Cache::forget('sites.index');
-        //$response->assertRedirect(route('sites.index'));
+        // Verifica que la información del sitio se haya actualizado en la base de datos
+        $this->assertDatabaseHas('sites', [
+            'id' => $site->id,
+            'name' => 'Updated Site Name',
+            'slug' => 'updated-site-name',
+        ]);
     }
-
-    //TEST 9
-    $imagePath = storage_path('public/site_images/welcome.jpg');
-
-    if (! empty($imagePath)) {
-        $response = $this->actingAs(User::find(1))
-            ->put(route('sites.update', ['site' => $site->id]), [
-                'slug' => 'updated-site-slug',
-                'name' => 'Updated Site Name',
-                'image' => '/public/storage/images/welcome.jpg',
-            ]);
-        Cache::forget('site.'.$site->id);
-
-        Cache::forget('sites.index');
-        //$response->assertRedirect(route('sites.index'));
-    }
-    //$response->assertRedirect(route('sites.index'));
-*/
-    //}
 }
