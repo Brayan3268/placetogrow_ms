@@ -135,7 +135,6 @@ class UsersControllerTest extends TestCase
     }
 
 
-
     /*public function testItCannotListUsersWithUnauthenticated(): void
     {
         $response = $this->get(route('users.index'));
