@@ -60,6 +60,18 @@
         ],
         "pint": [
             "./vendor/bin/pint"
+        ],
+        "tests_ok":
+        [
+            "php artisan test tests/Feature/UsersControllerTest.php"
+        ],
+        "tests_coverage":
+        [
+            "php -dxdebug.mode=coverage ./vendor/bin/phpunit --coverage-html coverage/ tests/Feature/UsersControllerTest.php"
+        ],
+        "tests_no_coverage":
+        [
+            "./vendor/bin/phpunit tests/Feature/UsersControllerTest.php"
         ]
     },
     "extra": {

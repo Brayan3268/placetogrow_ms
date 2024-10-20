@@ -2683,3 +2683,97 @@ El usuario con id 3 y el email brayan2.lujan@evertecinc.com ingresó en la fecha
     Eliminó un usuario en la fecha 2024-10-20 01:51:54
     Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 01:51:54
     Editó la información de un usuario en la fecha 2024-10-20 01:51:55
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-20 02:16:40 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-20 02:16:40
+    Ingresó a users.index en la fecha 2024-10-20 02:16:48
+    Consultó la información de un usuario en la fecha 2024-10-20 02:16:51
+    Ingresó a users.create en la fecha 2024-10-20 02:16:53
+    Ingresó a sites.index en la fecha 2024-10-20 02:17:00
+    Importó facturas al sitio 2 en la fecha 2024-10-20 02:17:09
+    Ingresó a sites.show en la fecha 2024-10-20 02:17:09    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-20 02:17:09
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-20 02:18:24 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-20 02:18:24
+    Ingresó a sites.index en la fecha 2024-10-20 02:18:25
+    Importó facturas al sitio 2 en la fecha 2024-10-20 02:18:33
+    Ingresó a sites.show en la fecha 2024-10-20 02:18:33    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-20 02:18:33
+    Ingresó a sites.show en la fecha 2024-10-20 02:19:46    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-20 02:19:46
+    Ingresó a invoice.index en la fecha 2024-10-20 02:19:57
+    Ingresó a payment.index en la fecha 2024-10-20 02:20:03
+    Ingresó a suscriptions.index en la fecha 2024-10-20 02:20:05
+    Ingresó a dashboard.index en la fecha 2024-10-20 02:20:40
+    Ingresó a invoice.index en la fecha 2024-10-20 02:20:46
+
+El usuario con id 1 y el email okuneva.jocelyn@example.net ingresó en la fecha 2024-10-20 02:21:36 e hizo:
+    Ingresó a profile.show en la fecha 2024-10-20 02:21:38
+    Eliminó su propio usuario en la fecha 2024-10-20 02:21:39
+    Ingresó a users.index en la fecha 2024-10-20 02:21:40
+    Ingresó a users.create en la fecha 2024-10-20 02:21:40
+    Creó un usuario en la fecha 2024-10-20 02:21:40
+    Consultó la información de un usuario en la fecha 2024-10-20 02:21:40
+    Ingresó a users.edit en la fecha 2024-10-20 02:21:40
+    Editó la información de un usuario en la fecha 2024-10-20 02:21:40
+    Eliminó un usuario en la fecha 2024-10-20 02:21:41
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 02:21:41
+    Editó la información de un usuario en la fecha 2024-10-20 02:21:41
+    Ingresó a users.index en la fecha 2024-10-20 02:22:04
+    Ingresó a users.create en la fecha 2024-10-20 02:22:04
+    Creó un usuario en la fecha 2024-10-20 02:22:05
+    Consultó la información de un usuario en la fecha 2024-10-20 02:22:05
+    Ingresó a users.edit en la fecha 2024-10-20 02:22:05
+    Editó la información de un usuario en la fecha 2024-10-20 02:22:05
+    Eliminó un usuario en la fecha 2024-10-20 02:22:05
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 02:22:05
+    Editó la información de un usuario en la fecha 2024-10-20 02:22:05
+    Ingresó a invoice.index en la fecha 2024-10-20 02:22:52
+    Ingresó a invoice.index en la fecha 2024-10-20 02:23:06
+    Ingresó a invoice.index en la fecha 2024-10-20 02:23:17
+    Consultó la información de una facturá en la fecha 2024-10-20 02:23:20
+    Ingresó a users.index en la fecha 2024-10-20 02:23:22
+    Consultó la información de un usuario en la fecha 2024-10-20 02:23:24
+    Ingresó a invoice.index en la fecha 2024-10-20 02:23:28
+    Consultó la información de una facturá en la fecha 2024-10-20 02:23:31
+    Ingresó a invoice.index en la fecha 2024-10-20 02:23:50
+    Ingresó a invoice.index en la fecha 2024-10-20 02:24:43
+    Ingresó a invoice.index en la fecha 2024-10-20 02:24:51
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-20 02:24:57 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-20 02:24:57
+    Ingresó a invoice.index en la fecha 2024-10-20 02:24:59
+    Ingresó a users.index en la fecha 2024-10-20 02:25:20
+    Ingresó a users.create en la fecha 2024-10-20 02:25:21
+    Creó un usuario en la fecha 2024-10-20 02:25:21
+    Consultó la información de un usuario en la fecha 2024-10-20 02:25:21
+    Ingresó a users.edit en la fecha 2024-10-20 02:25:21
+    Editó la información de un usuario en la fecha 2024-10-20 02:25:21
+    Eliminó un usuario en la fecha 2024-10-20 02:25:21
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 02:25:21
+    Editó la información de un usuario en la fecha 2024-10-20 02:25:22
+    Ingresó a users.index en la fecha 2024-10-20 02:30:22
+    Ingresó a users.create en la fecha 2024-10-20 02:30:23
+    Creó un usuario en la fecha 2024-10-20 02:30:23
+    Consultó la información de un usuario en la fecha 2024-10-20 02:30:23
+    Ingresó a users.edit en la fecha 2024-10-20 02:30:23
+    Editó la información de un usuario en la fecha 2024-10-20 02:30:23
+    Eliminó un usuario en la fecha 2024-10-20 02:30:23
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 02:30:24
+    Editó la información de un usuario en la fecha 2024-10-20 02:30:24
+    Ingresó a users.index en la fecha 2024-10-20 02:30:28
+    Ingresó a users.create en la fecha 2024-10-20 02:30:29
+    Creó un usuario en la fecha 2024-10-20 02:30:29
+    Consultó la información de un usuario en la fecha 2024-10-20 02:30:29
+    Ingresó a users.edit en la fecha 2024-10-20 02:30:29
+    Editó la información de un usuario en la fecha 2024-10-20 02:30:29
+    Eliminó un usuario en la fecha 2024-10-20 02:30:30
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 02:30:30
+    Editó la información de un usuario en la fecha 2024-10-20 02:30:30
+    Ingresó a users.index en la fecha 2024-10-20 02:30:35
+    Ingresó a users.create en la fecha 2024-10-20 02:30:36
+    Creó un usuario en la fecha 2024-10-20 02:30:36
+    Consultó la información de un usuario en la fecha 2024-10-20 02:30:36
+    Ingresó a users.edit en la fecha 2024-10-20 02:30:36
+    Editó la información de un usuario en la fecha 2024-10-20 02:30:36
+    Eliminó un usuario en la fecha 2024-10-20 02:30:36
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 02:30:37
+    Editó la información de un usuario en la fecha 2024-10-20 02:30:37
