@@ -2674,3 +2674,12 @@ El usuario con id 3 y el email brayan2.lujan@evertecinc.com ingresó en la fecha
     Eliminó un usuario en la fecha 2024-10-20 01:17:34
     Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 01:17:35
     Editó la información de un usuario en la fecha 2024-10-20 01:17:35
+    Ingresó a users.index en la fecha 2024-10-20 01:51:51
+    Ingresó a users.create en la fecha 2024-10-20 01:51:52
+    Creó un usuario en la fecha 2024-10-20 01:51:52
+    Consultó la información de un usuario en la fecha 2024-10-20 01:51:53
+    Ingresó a users.edit en la fecha 2024-10-20 01:51:53
+    Editó la información de un usuario en la fecha 2024-10-20 01:51:54
+    Eliminó un usuario en la fecha 2024-10-20 01:51:54
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 01:51:54
+    Editó la información de un usuario en la fecha 2024-10-20 01:51:55

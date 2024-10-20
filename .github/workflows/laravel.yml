@@ -20,7 +20,7 @@ jobs:
                 image: mysql:5.7
                 env:
                     MYSQL_DATABASE: ms_ptw_test
-                    MYSQL_ROOT_PASSWORD: root 
+                    MYSQL_ROOT_PASSWORD: root
                 ports:
                     - 3306:3306
                 options: >-
@@ -52,13 +52,17 @@ jobs:
             - name: Copy phpstan
               run: php -r "file_exists('phpstan.neon') || copy('phpstan.neon', 'phpstan.neon');" 
 
-            - name: run composer install
+            - name: Install Composer Dependencies
               run: composer install -n --prefer-dist
+
+            - name: Create Test Database
+              run: |
+                mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS ms_ptw_test;"
 
             - name: Wait for MySQL to be ready
               run: |
                 echo "Waiting for MySQL to start..."
-                for i in {1..30}; do
+                for i in {1..60}; do
                   if mysqladmin ping -h 127.0.0.1 --silent; then
                     echo "MySQL is up and running!"
                     break
@@ -66,7 +70,20 @@ jobs:
                   echo "MySQL is not ready yet. Waiting..."
                   sleep 2
                 done
-              
+
+            - name: Run Migrations
+              env:
+                DB_CONNECTION: mysql
+                DB_HOST: 127.0.0.1
+                DB_PORT: 3306
+                DB_DATABASE: ms_ptw_test
+                DB_USERNAME: root
+                DB_PASSWORD:
+              run: php artisan migrate --env=testing
+
+            - name: Clear Config Cache
+              run: php artisan config:clear
+
             - name: Run Tests
               env:
                 DB_CONNECTION: mysql
@@ -74,16 +91,13 @@ jobs:
                 DB_PORT: 3306
                 DB_DATABASE: ms_ptw_test
                 DB_USERNAME: root
-                DB_PASSWORD: ''
+                DB_PASSWORD:
               run: php artisan test tests/Feature/UsersControllerTest.php
-
-            - name: run npm install
-              run: npm install 
-
-            - name: Run laravel pint
+            
+            - name: Run Laravel Pint
               run: ./vendor/bin/pint
 
-            - name: Run laravel phpstan
+            - name: Run Laravel PHPStan
               run: ./vendor/bin/phpstan analyse
 
             - name: Run script
