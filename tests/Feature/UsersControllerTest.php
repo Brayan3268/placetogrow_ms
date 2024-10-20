@@ -26,6 +26,7 @@ class UsersControllerTest extends TestCase
             'users.delete',
             'users.store',
             'users.show',
+            'users.destroy',
         ];
     
         foreach ($permissions as $permission) {
@@ -234,6 +235,65 @@ class UsersControllerTest extends TestCase
             'last_name' => 'Doe',
             'email' => 'john@example.com',
             'phone' => '1234567890',
+        ]);
+    }
+
+    public function test_destroy_deletes_user_successfully()
+    {
+        $this->withoutExceptionHandling();
+
+        $superAdminUser = User::factory()->create();
+        $superAdminUser->assignRole('super_admin');
+
+        $userToDelete = User::factory()->create();
+        $userToDelete->assignRole('admin');
+
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
+        $this->actingAs($superAdminUser);
+
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->delete(route('users.destroy', $userToDelete->id));
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
+        $response->assertSessionHas('status', 'User deleted successfully');
+        $response->assertSessionHas('class', 'bg-green-500');
+
+        $this->assertDatabaseMissing('users', [
+            'id' => $userToDelete->id,
+        ]);
+    }
+
+    public function test_destroy_prevents_last_super_admin_deletion()
+    {
+        $this->withoutExceptionHandling();
+    
+        // Crea un usuario en la base de datos y asigna el rol de super admin
+        $superAdminUser1 = User::factory()->create();
+        $superAdminUser1->assignRole('super_admin');
+    
+        // Crea un segundo super admin
+        //$superAdminUser2 = User::factory()->create();
+        //$superAdminUser2->assignRole('super_admin');
+    
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser1 */
+        $this->actingAs($superAdminUser1);
+    
+        // Realiza la solicitud de eliminación del primer super admin
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->delete(route('users.destroy', $superAdminUser1->id));
+    
+        // Afirmaciones
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
+        $response->assertSessionHas('status', 'User not deleted because not exist more super admins users');
+        $response->assertSessionHas('class', 'bg-yellow-500');
+    
+        // Verifica que el usuario no haya sido eliminado
+        $this->assertDatabaseHas('users', [
+            'id' => $superAdminUser1->id,
         ]);
     }
 

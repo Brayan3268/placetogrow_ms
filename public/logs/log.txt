@@ -2569,3 +2569,89 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a users.edit en la fecha 2024-10-20 01:02:10
     Editó la información de un usuario en la fecha 2024-10-20 01:02:11
     Editó la información de un usuario en la fecha 2024-10-20 01:02:12
+    Ingresó a users.index en la fecha 2024-10-20 01:05:10
+    Ingresó a users.create en la fecha 2024-10-20 01:05:11
+    Creó un usuario en la fecha 2024-10-20 01:05:12
+    Consultó la información de un usuario en la fecha 2024-10-20 01:05:12
+    Ingresó a users.edit en la fecha 2024-10-20 01:05:13
+    Editó la información de un usuario en la fecha 2024-10-20 01:05:13
+    Editó la información de un usuario en la fecha 2024-10-20 01:05:14
+    Ingresó a users.index en la fecha 2024-10-20 01:05:42
+    Ingresó a users.create en la fecha 2024-10-20 01:05:42
+    Creó un usuario en la fecha 2024-10-20 01:05:43
+    Consultó la información de un usuario en la fecha 2024-10-20 01:05:43
+    Ingresó a users.edit en la fecha 2024-10-20 01:05:44
+    Editó la información de un usuario en la fecha 2024-10-20 01:05:44
+    Editó la información de un usuario en la fecha 2024-10-20 01:05:46
+    Ingresó a users.index en la fecha 2024-10-20 01:06:06
+    Ingresó a users.create en la fecha 2024-10-20 01:06:07
+    Creó un usuario en la fecha 2024-10-20 01:06:07
+    Consultó la información de un usuario en la fecha 2024-10-20 01:06:08
+    Ingresó a users.edit en la fecha 2024-10-20 01:06:08
+    Editó la información de un usuario en la fecha 2024-10-20 01:06:09
+    Editó la información de un usuario en la fecha 2024-10-20 01:06:10
+    Ingresó a users.index en la fecha 2024-10-20 01:06:35
+    Ingresó a users.create en la fecha 2024-10-20 01:06:35
+    Creó un usuario en la fecha 2024-10-20 01:06:36
+    Consultó la información de un usuario en la fecha 2024-10-20 01:06:36
+    Ingresó a users.edit en la fecha 2024-10-20 01:06:37
+    Editó la información de un usuario en la fecha 2024-10-20 01:06:37
+    Eliminó un usuario en la fecha 2024-10-20 01:06:38
+    Editó la información de un usuario en la fecha 2024-10-20 01:06:39
+    Ingresó a users.index en la fecha 2024-10-20 01:06:46
+    Ingresó a users.create en la fecha 2024-10-20 01:06:47
+    Creó un usuario en la fecha 2024-10-20 01:06:48
+    Consultó la información de un usuario en la fecha 2024-10-20 01:06:49
+    Ingresó a users.edit en la fecha 2024-10-20 01:06:49
+    Editó la información de un usuario en la fecha 2024-10-20 01:06:50
+    Eliminó un usuario en la fecha 2024-10-20 01:06:50
+    Editó la información de un usuario en la fecha 2024-10-20 01:06:51
+    Ingresó a users.index en la fecha 2024-10-20 01:08:21
+    Ingresó a users.create en la fecha 2024-10-20 01:08:22
+    Creó un usuario en la fecha 2024-10-20 01:08:22
+    Consultó la información de un usuario en la fecha 2024-10-20 01:08:23
+    Ingresó a users.edit en la fecha 2024-10-20 01:08:23
+    Editó la información de un usuario en la fecha 2024-10-20 01:08:24
+    Eliminó un usuario en la fecha 2024-10-20 01:08:24
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 01:08:25
+    Editó la información de un usuario en la fecha 2024-10-20 01:08:26
+    Ingresó a users.index en la fecha 2024-10-20 01:08:33
+    Ingresó a users.create en la fecha 2024-10-20 01:08:34
+    Creó un usuario en la fecha 2024-10-20 01:08:35
+    Consultó la información de un usuario en la fecha 2024-10-20 01:08:35
+    Ingresó a users.edit en la fecha 2024-10-20 01:08:36
+    Editó la información de un usuario en la fecha 2024-10-20 01:08:37
+    Eliminó un usuario en la fecha 2024-10-20 01:08:37
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 01:08:38
+    Editó la información de un usuario en la fecha 2024-10-20 01:08:38
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-20 01:09:36 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-20 01:09:36
+    Ingresó a users.index en la fecha 2024-10-20 01:09:38
+    Ingresó a users.create en la fecha 2024-10-20 01:09:40
+    Creó un usuario en la fecha 2024-10-20 01:10:00
+    Ingresó a users.index en la fecha 2024-10-20 01:10:00
+    Eliminó un usuario en la fecha 2024-10-20 01:10:05
+
+El usuario con id 3 y el email brayan2.lujan@evertecinc.com ingresó en la fecha 2024-10-20 01:10:53 e hizo:
+    Ingresó a users.index en la fecha 2024-10-20 01:10:53
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 01:10:55
+    Ingresó a users.index en la fecha 2024-10-20 01:10:55
+    Ingresó a users.index en la fecha 2024-10-20 01:11:05
+    Ingresó a users.create en la fecha 2024-10-20 01:11:05
+    Creó un usuario en la fecha 2024-10-20 01:11:06
+    Consultó la información de un usuario en la fecha 2024-10-20 01:11:07
+    Ingresó a users.edit en la fecha 2024-10-20 01:11:07
+    Editó la información de un usuario en la fecha 2024-10-20 01:11:08
+    Eliminó un usuario en la fecha 2024-10-20 01:11:08
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 01:11:08
+    Editó la información de un usuario en la fecha 2024-10-20 01:11:09
+    Ingresó a users.index en la fecha 2024-10-20 01:11:15
+    Ingresó a users.create en la fecha 2024-10-20 01:11:16
+    Creó un usuario en la fecha 2024-10-20 01:11:17
+    Consultó la información de un usuario en la fecha 2024-10-20 01:11:17
+    Ingresó a users.edit en la fecha 2024-10-20 01:11:18
+    Editó la información de un usuario en la fecha 2024-10-20 01:11:18
+    Eliminó un usuario en la fecha 2024-10-20 01:11:19
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 01:11:19
+    Editó la información de un usuario en la fecha 2024-10-20 01:11:20
