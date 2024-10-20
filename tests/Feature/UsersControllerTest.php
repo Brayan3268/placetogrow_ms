@@ -2,13 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\UserController;
 use App\Http\PersistantsLowLevel\UserPll;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 
 class UsersControllerTest extends TestCase
 {
@@ -43,8 +44,6 @@ class UsersControllerTest extends TestCase
 
     public function test_super_admin_user_can_access_index()
     {
-        $this->withoutExceptionHandling();
-
         $superAdminUser = User::factory()->create();
         $superAdminUser->assignRole('super_admin');
 
@@ -90,8 +89,6 @@ class UsersControllerTest extends TestCase
 
     public function test_super_admin_user_can_access_create()
     {
-        $this->withoutExceptionHandling();
-
         $superAdminUser = User::factory()->create();
         $superAdminUser->assignRole('super_admin');
 
@@ -162,19 +159,158 @@ class UsersControllerTest extends TestCase
         $response->assertViewHas('role_name', $roleName);
     }
 
-
-    /*public function testItCannotListUsersWithUnauthenticated(): void
+    public function test_edit_returns_correct_view_with_user_data()
     {
-        $response = $this->get(route('users.index'));
+        $this->withoutExceptionHandling();
+        // Crea un usuario en la base de datos
+        $user = User::factory()->create();
+        $user->assignRole('super_admin');
 
-        $response->assertRedirect(route('login'));
+        // Mocks el método get_specific_user_with_role para que retorne datos de prueba
+        $this->mock(UserPll::class, function ($mock) use ($user) {
+            $mock->shouldReceive('get_specific_user_with_role')
+                 ->with($user->id)
+                 ->andReturn([
+                     'user' => $user,
+                     'role' => ['admin'],
+                 ]);
+        });
+
+        // Simula autorización
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        $this->actingAs($user);
+
+        // Realiza la solicitud al método edit
+        $response = $this->get(route('users.edit', $user->id));
+
+        // Afirmaciones
+        $response->assertStatus(200);
+        $response->assertViewIs('users.edit');
+        $response->assertViewHas('user', $user);
+        $response->assertViewHas('role', ['admin']);
     }*/
 
-    //public function testItCanListUsersWithAuthenticated(): void
-    //{
-        //$this->seed_db();
+    public function test_update_user_data_without_pass_and_redirects()
+    {
+        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
+        $user->assignRole('super_admin');
 
-        //TEST 1
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        $this->actingAs($user);
+
+        $userToUpdate = User::factory()->create([
+            'name' => 'Jane',
+            'last_name' => 'Doe',
+            'email' => 'jane@example.com',
+            'phone' => '0987654321',
+            'document' => '987654321',
+            'document_type' => 'CC',
+        ]);
+    
+        $data = [
+            'name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john@example.com',
+            'phone' => '1234567890',
+            'document' => '123456789',
+            'document_type' => 'PPT',
+            'role' => 'admin',
+            'password' => '',
+        ];
+
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->put(route('users.update', $userToUpdate->id), $data);
+
+        $response->assertRedirect(route('users.index'));
+        $response->assertSessionHas('status', 'User updated successfully');
+        $response->assertSessionHas('class', 'bg-green-500');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $userToUpdate->id,
+            'name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john@example.com',
+            'phone' => '1234567890',
+        ]);
+    }
+
+    public function test_update_user_data_with_pass_and_redirects()
+    {
+        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
+        $user->assignRole('super_admin');
+
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        $this->actingAs($user);
+
+        $userToUpdate = User::factory()->create([
+            'name' => 'Jane',
+            'last_name' => 'Doe',
+            'email' => 'jane@example.com',
+            'phone' => '0987654321',
+            'document' => '987654321',
+            'document_type' => 'CC',
+        ]);
+    
+        $data = [
+            'name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john@example.com',
+            'phone' => '1234567890',
+            'document' => '123456789',
+            'document_type' => 'PPT',
+            'role' => 'admin',
+            'password' => bcrypt('123333658'),
+        ];
+
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->put(route('users.update', $userToUpdate->id), $data);
+
+        $response->assertRedirect(route('users.index'));
+        $response->assertSessionHas('status', 'User updated successfully');
+        $response->assertSessionHas('class', 'bg-green-500');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $userToUpdate->id,
+            'name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john@example.com',
+            'phone' => '1234567890',
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //TEST 1
       /*  $user = User::find(1);
         $response = $this->actingAs($user)
             ->get(route('users.index'));
