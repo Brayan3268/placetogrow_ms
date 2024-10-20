@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Constants\CurrencyTypes;
-use App\Constants\Permissions;
 use App\Constants\SiteTypes;
 use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Models\Category;
@@ -165,151 +164,150 @@ class SitesControllerTest extends TestCase
         ]);
     }
 
-public function test_show_displays_site_information()
-{
-    $this->withoutExceptionHandling();
+    public function test_show_displays_site_information()
+    {
+        $this->withoutExceptionHandling();
 
-    $user = User::factory()->create();
-    $user->assignRole('super_admin');
+        $user = User::factory()->create();
+        $user->assignRole('super_admin');
 
-    /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
-    $this->actingAs($user);
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        $this->actingAs($user);
 
-    $category = Category::factory()->create();
+        $category = Category::factory()->create();
 
-    $site = Site::factory()->create([
-        'site_type' => 'CLOSE',
-        'category_id' => $category->id,
-    ]);
-
-    $this->assertDatabaseHas('sites', [
-        'id' => $site->id,
-    ]);
-
-    $payment = Payment::factory()->create([
-        'site_id' => $site->id,
-        'user_id' => $user->id,
-        'status' => 'pending',
-    ]);
-
-    $this->assertDatabaseHas('payments', [
-        'id' => $payment->id,
-    ]);
-
-    $invoice = Invoice::factory()->create([
-        'site_id' => $site->id,
-        'user_id' => $user->id,
-        'amount' => $payment->amount,
-        'reference' => 'INV-' . uniqid(),
-        'date_created' => now(),
-        'date_expiration' => now()->addDays(30),
-        'amount_surcharge' => 0,
-        'date_surcharge' => now()->addDays(15),
-    ]);
-
-    $this->assertDatabaseHas('invoices', [
-        'reference' => $invoice->reference,
-        'site_id' => $site->id,
-    ]);
-
-    $suscription_plans = SuscriptionPll::get_site_suscription(intval($site->id));
-
-    $this->assertNotNull($suscription_plans);
-
-    $response = $this->get(route('sites.show', $site->id));
-
-    $response->assertStatus(200);
-    $response->assertViewIs('sites.show');
-    $response->assertViewHas('site', $site);
-
-    $invoices = $response->viewData('invoices');
-    $this->assertCount(1, $invoices);
-
-    $pay_exist = $response->viewData('pay_exist');
-    $this->assertTrue($pay_exist);
-
-    $pay = $response->viewData('pay');
-    $this->assertNotEmpty($pay);
-
-    $suscription_plans = $response->viewData('suscription_plans');
-    $this->assertEmpty($suscription_plans);
-
-    $user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
-    $this->assertEmpty($user_plans_get_suscribe);
-
-    $user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
-    $this->assertEmpty($user_plans_get_suscribe);
-}
-
-
-        /*public function testItCanListSitesWithAuthenticated(): void
-        {
-            $user = User::factory()->create();
-
-        $role = Role::firstOrCreate(['name' => 'admin']);
-        $role->givePermissionTo('sites.index');
-
-        $user->assignRole('admin');
-        //$this->seed_db();
-
-        //TEST 1
-
-        $response = $this->actingAs($user)
-            ->get(route('sites.index'));
-
-        $response->assertOk();
-
-        //TEST 2
-        /*$user = User::find(1);
-        $response = $this->actingAs($user)
-            ->get(route('sites.show', ['site' => 1]));
-
-        $response->assertOk();
-
-        //TEST 3
-        $user = User::find(1);
-        $response = $this->actingAs($user)->get(route('sites.create'));
-        $response->assertStatus(200);
-        $response->assertViewIs('sites.create');
-        $response->assertViewHasAll([
-            'categories',
-            'current_options',
-            'site_type_options',
-            'document_types',
+        $site = Site::factory()->create([
+            'site_type' => 'CLOSE',
+            'category_id' => $category->id,
         ]);
 
-        //TEST 4
-        Storage::fake('public');
-        $user = User::find(1);
-        $category = Category::find(1);
+        $this->assertDatabaseHas('sites', [
+            'id' => $site->id,
+        ]);
 
-        $requestData = [
-            'slug' => 'test-site',
-            'name' => 'Test Site',
-            'document_type' => 'CIF',
-            'document' => '12345678A',
-            'category' => $category->id,
-            'expiration_time' => '2024-12-31',
-            'current' => 'AC',
-            'site_type' => 'Type A',
-            'image' => 'public/images/welcome.jpg',
-        ];
+        $payment = Payment::factory()->create([
+            'site_id' => $site->id,
+            'user_id' => $user->id,
+            'status' => 'pending',
+        ]);
 
-        $response = $this->actingAs($user)->post(route('sites.store'), $requestData);
+        $this->assertDatabaseHas('payments', [
+            'id' => $payment->id,
+        ]);
 
-        $response->assertRedirect(route('sites.create'));
+        $invoice = Invoice::factory()->create([
+            'site_id' => $site->id,
+            'user_id' => $user->id,
+            'amount' => $payment->amount,
+            'reference' => 'INV-'.uniqid(),
+            'date_created' => now(),
+            'date_expiration' => now()->addDays(30),
+            'amount_surcharge' => 0,
+            'date_surcharge' => now()->addDays(15),
+        ]);
 
-        /*$this->assertDatabaseHas('sites', [
-            'slug' => 'test-site',
-            'name' => 'Test Site',
-            'document_type' => 'CIF',
-            'document' => '12345678A',
-            'category_id' => $category->id,
-            'expiration_time' => '2024-12-31',
-            'current_type' => 'AC',
-            'site_type' => 'Type A',
-            'image' => 'storage/site_images/test-image.jpg',
-        ]);*/
+        $this->assertDatabaseHas('invoices', [
+            'reference' => $invoice->reference,
+            'site_id' => $site->id,
+        ]);
+
+        $suscription_plans = SuscriptionPll::get_site_suscription(intval($site->id));
+
+        $this->assertNotNull($suscription_plans);
+
+        $response = $this->get(route('sites.show', $site->id));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('sites.show');
+        $response->assertViewHas('site', $site);
+
+        $invoices = $response->viewData('invoices');
+        $this->assertCount(1, $invoices);
+
+        $pay_exist = $response->viewData('pay_exist');
+        $this->assertTrue($pay_exist);
+
+        $pay = $response->viewData('pay');
+        $this->assertNotEmpty($pay);
+
+        $suscription_plans = $response->viewData('suscription_plans');
+        $this->assertEmpty($suscription_plans);
+
+        $user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
+        $this->assertEmpty($user_plans_get_suscribe);
+
+        $user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
+        $this->assertEmpty($user_plans_get_suscribe);
+    }
+
+    /*public function testItCanListSitesWithAuthenticated(): void
+    {
+        $user = User::factory()->create();
+
+    $role = Role::firstOrCreate(['name' => 'admin']);
+    $role->givePermissionTo('sites.index');
+
+    $user->assignRole('admin');
+    //$this->seed_db();
+
+    //TEST 1
+
+    $response = $this->actingAs($user)
+        ->get(route('sites.index'));
+
+    $response->assertOk();
+
+    //TEST 2
+    /*$user = User::find(1);
+    $response = $this->actingAs($user)
+        ->get(route('sites.show', ['site' => 1]));
+
+    $response->assertOk();
+
+    //TEST 3
+    $user = User::find(1);
+    $response = $this->actingAs($user)->get(route('sites.create'));
+    $response->assertStatus(200);
+    $response->assertViewIs('sites.create');
+    $response->assertViewHasAll([
+        'categories',
+        'current_options',
+        'site_type_options',
+        'document_types',
+    ]);
+
+    //TEST 4
+    Storage::fake('public');
+    $user = User::find(1);
+    $category = Category::find(1);
+
+    $requestData = [
+        'slug' => 'test-site',
+        'name' => 'Test Site',
+        'document_type' => 'CIF',
+        'document' => '12345678A',
+        'category' => $category->id,
+        'expiration_time' => '2024-12-31',
+        'current' => 'AC',
+        'site_type' => 'Type A',
+        'image' => 'public/images/welcome.jpg',
+    ];
+
+    $response = $this->actingAs($user)->post(route('sites.store'), $requestData);
+
+    $response->assertRedirect(route('sites.create'));
+
+    /*$this->assertDatabaseHas('sites', [
+        'slug' => 'test-site',
+        'name' => 'Test Site',
+        'document_type' => 'CIF',
+        'document' => '12345678A',
+        'category_id' => $category->id,
+        'expiration_time' => '2024-12-31',
+        'current_type' => 'AC',
+        'site_type' => 'Type A',
+        'image' => 'storage/site_images/test-image.jpg',
+    ]);*/
 
     //$response->assertSessionHas('status', 'Site created successfully!');
     //$response->assertSessionHas('class', 'bg-green-500');
