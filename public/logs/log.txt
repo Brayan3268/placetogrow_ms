@@ -2777,3 +2777,52 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Eliminó un usuario en la fecha 2024-10-20 02:30:36
     Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 02:30:37
     Editó la información de un usuario en la fecha 2024-10-20 02:30:37
+    Ingresó a sites.index en la fecha 2024-10-20 14:39:13
+    Ingresó a sites.index en la fecha 2024-10-20 14:40:18
+    Ingresó a users.index en la fecha 2024-10-20 14:42:17
+    Ingresó a users.create en la fecha 2024-10-20 14:42:18
+    Creó un usuario en la fecha 2024-10-20 14:42:20
+    Consultó la información de un usuario en la fecha 2024-10-20 14:42:21
+    Ingresó a users.edit en la fecha 2024-10-20 14:42:22
+    Editó la información de un usuario en la fecha 2024-10-20 14:42:22
+    Eliminó un usuario en la fecha 2024-10-20 14:42:23
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 14:42:23
+    Editó la información de un usuario en la fecha 2024-10-20 14:42:24
+    Ingresó a sites.index en la fecha 2024-10-20 14:46:04
+    Ingresó a users.index en la fecha 2024-10-20 14:46:19
+    Ingresó a users.create en la fecha 2024-10-20 14:46:20
+    Creó un usuario en la fecha 2024-10-20 14:46:20
+    Consultó la información de un usuario en la fecha 2024-10-20 14:46:21
+    Ingresó a users.edit en la fecha 2024-10-20 14:46:22
+    Editó la información de un usuario en la fecha 2024-10-20 14:46:22
+    Eliminó un usuario en la fecha 2024-10-20 14:46:23
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 14:46:23
+    Editó la información de un usuario en la fecha 2024-10-20 14:46:24
+    Ingresó a users.index en la fecha 2024-10-20 14:48:01
+    Ingresó a users.create en la fecha 2024-10-20 14:48:02
+    Creó un usuario en la fecha 2024-10-20 14:48:03
+    Consultó la información de un usuario en la fecha 2024-10-20 14:48:04
+    Ingresó a users.edit en la fecha 2024-10-20 14:48:04
+    Editó la información de un usuario en la fecha 2024-10-20 14:48:05
+    Eliminó un usuario en la fecha 2024-10-20 14:48:05
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 14:48:06
+    Editó la información de un usuario en la fecha 2024-10-20 14:48:07
+    Ingresó a users.index en la fecha 2024-10-20 14:51:39
+    Ingresó a users.create en la fecha 2024-10-20 14:51:40
+    Creó un usuario en la fecha 2024-10-20 14:51:41
+    Consultó la información de un usuario en la fecha 2024-10-20 14:51:42
+    Ingresó a users.edit en la fecha 2024-10-20 14:51:43
+    Editó la información de un usuario en la fecha 2024-10-20 14:51:43
+    Eliminó un usuario en la fecha 2024-10-20 14:51:44
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 14:51:44
+    Editó la información de un usuario en la fecha 2024-10-20 14:51:45
+    Ingresó a users.index en la fecha 2024-10-20 15:00:07
+    Ingresó a users.create en la fecha 2024-10-20 15:00:10
+    Creó un usuario en la fecha 2024-10-20 15:00:12
+    Consultó la información de un usuario en la fecha 2024-10-20 15:00:14
+    Ingresó a users.edit en la fecha 2024-10-20 15:00:16
+    Editó la información de un usuario en la fecha 2024-10-20 15:00:17
+    Eliminó un usuario en la fecha 2024-10-20 15:00:19
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 15:00:20
+    Editó la información de un usuario en la fecha 2024-10-20 15:00:22
+    Ingresó a sites.index en la fecha 2024-10-20 15:00:23

@@ -2,33 +2,72 @@
 
 namespace Tests\Feature;
 
-use App\Models\Category;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
+use Spatie\Permission\Models\Permission;
 
 class SitesControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function seed_db()
+    public function setUp(): void
     {
-        Artisan::call('db:seed');
+        parent::setUp();
+
+        $permissions = [
+            'users.index',
+            'users.create',
+            'users.edit',
+            'users.delete',
+            'users.store',
+            'users.show',
+            'users.destroy',
+            'sites.index',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
+
+        $superAdminRole = Role::firstOrCreate(['name' => 'super_admin']);
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $guestRole = Role::firstOrCreate(['name' => 'guest']);
+
+        $superAdminRole->givePermissionTo($permissions);
+        $adminRole->givePermissionTo($permissions);
+        $guestRole->givePermissionTo('users.index');
     }
 
-    /*public function testItCannotListSitesWithUnauthenticated(): void
+    public function test_index_displays_sites_correctly()
     {
+        $this->withoutExceptionHandling();
+
+        $superAdminUser = User::factory()->create();
+        $superAdminUser->assignRole('super_admin');
+
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
+        $this->actingAs($superAdminUser);
+
+        // Mockear los sitios
+        $sites = Site::factory()->count(3)->create([
+            'site_type' => 'OPEN',
+        ]);
+
+        // Simular la vista
         $response = $this->get(route('sites.index'));
 
-        $response->assertRedirect(route('login'));
-    }*/
+        $response->assertStatus(200);
+        $response->assertViewIs('sites.index');
+        $response->assertViewHasAll([
+            'open_sites', 'close_sites', 'suscription_sites'
+        ]);
+    }
 
-    public function testItCanListSitesWithAuthenticated(): void
+    
+    /*public function testItCanListSitesWithAuthenticated(): void
     {
         $user = User::factory()->create();
 
@@ -173,5 +212,5 @@ class SitesControllerTest extends TestCase
         }
         //$response->assertRedirect(route('sites.index'));
 */
-    }
+    //}
 }
