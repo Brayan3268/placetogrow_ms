@@ -2889,3 +2889,88 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a sites.index en la fecha 2024-10-20 16:44:31
     Ingresó a sites.create en la fecha 2024-10-20 16:44:33
     Creó un sitio en la fecha 2024-10-20 16:44:34
+    Ingresó a sites.index en la fecha 2024-10-20 16:53:40
+    Ingresó a sites.create en la fecha 2024-10-20 16:53:41
+    Creó un sitio en la fecha 2024-10-20 16:53:42
+    Ingresó a sites.index en la fecha 2024-10-20 16:54:12
+    Ingresó a sites.create en la fecha 2024-10-20 16:54:13
+    Creó un sitio en la fecha 2024-10-20 16:54:14
+    Ingresó a sites.index en la fecha 2024-10-20 16:56:11
+    Ingresó a sites.create en la fecha 2024-10-20 16:56:22
+    Creó un sitio en la fecha 2024-10-20 16:56:24
+    Ingresó a sites.index en la fecha 2024-10-20 16:57:31
+    Ingresó a sites.create en la fecha 2024-10-20 16:57:31
+    Creó un sitio en la fecha 2024-10-20 16:57:32
+    Ingresó a sites.show en la fecha 2024-10-20 16:57:34    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 16:57:34
+    Ingresó a sites.index en la fecha 2024-10-20 17:06:23
+    Ingresó a sites.create en la fecha 2024-10-20 17:06:24
+    Creó un sitio en la fecha 2024-10-20 17:06:24
+    Ingresó a sites.show en la fecha 2024-10-20 17:06:26    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:06:26
+    Ingresó a sites.index en la fecha 2024-10-20 17:06:58
+    Ingresó a sites.create en la fecha 2024-10-20 17:06:59
+    Creó un sitio en la fecha 2024-10-20 17:06:59
+    Ingresó a sites.show en la fecha 2024-10-20 17:07:01    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:07:01
+    Ingresó a sites.index en la fecha 2024-10-20 17:17:25
+    Ingresó a sites.create en la fecha 2024-10-20 17:17:25
+    Creó un sitio en la fecha 2024-10-20 17:17:26
+    Ingresó a sites.show en la fecha 2024-10-20 17:17:28    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:17:28
+    Ingresó a sites.index en la fecha 2024-10-20 17:21:36
+    Ingresó a sites.create en la fecha 2024-10-20 17:21:37
+    Creó un sitio en la fecha 2024-10-20 17:21:38
+    Ingresó a sites.index en la fecha 2024-10-20 17:22:02
+    Ingresó a sites.create en la fecha 2024-10-20 17:22:03
+    Creó un sitio en la fecha 2024-10-20 17:22:03
+    Ingresó a sites.index en la fecha 2024-10-20 17:22:23
+    Ingresó a sites.create en la fecha 2024-10-20 17:22:24
+    Creó un sitio en la fecha 2024-10-20 17:22:24
+    Ingresó a sites.show en la fecha 2024-10-20 17:22:25    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:22:25    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:22:25
+    Ingresó a sites.index en la fecha 2024-10-20 17:23:57
+    Ingresó a sites.create en la fecha 2024-10-20 17:23:57
+    Creó un sitio en la fecha 2024-10-20 17:23:58
+    Ingresó a sites.show en la fecha 2024-10-20 17:23:59    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:23:59    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:23:59
+    Ingresó a sites.index en la fecha 2024-10-20 17:27:25
+    Ingresó a sites.create en la fecha 2024-10-20 17:27:32
+    Creó un sitio en la fecha 2024-10-20 17:27:35
+    Ingresó a sites.show en la fecha 2024-10-20 17:27:37    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:27:37    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:27:37
+    Ingresó a sites.index en la fecha 2024-10-20 17:27:51
+    Ingresó a sites.create en la fecha 2024-10-20 17:27:52
+    Creó un sitio en la fecha 2024-10-20 17:27:52
+    Ingresó a sites.index en la fecha 2024-10-20 17:33:29
+    Ingresó a sites.create en la fecha 2024-10-20 17:33:30
+    Creó un sitio en la fecha 2024-10-20 17:33:31
+    Ingresó a sites.show en la fecha 2024-10-20 17:33:32    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:33:32    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:33:32
+    Ingresó a sites.index en la fecha 2024-10-20 17:34:14
+    Ingresó a sites.create en la fecha 2024-10-20 17:34:14
+    Creó un sitio en la fecha 2024-10-20 17:34:15
+    Ingresó a sites.show en la fecha 2024-10-20 17:34:16    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:34:16    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:34:16
+    Ingresó a sites.index en la fecha 2024-10-20 17:35:40
+    Ingresó a sites.create en la fecha 2024-10-20 17:35:46
+    Creó un sitio en la fecha 2024-10-20 17:35:47
+    Ingresó a sites.show en la fecha 2024-10-20 17:35:48    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:35:48    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:35:48
+    Ingresó a sites.index en la fecha 2024-10-20 17:36:07
+    Ingresó a sites.create en la fecha 2024-10-20 17:36:09
+    Creó un sitio en la fecha 2024-10-20 17:36:09
+    Ingresó a sites.show en la fecha 2024-10-20 17:36:11    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:36:11    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:36:11
+    Ingresó a sites.index en la fecha 2024-10-20 17:37:08
+    Ingresó a sites.create en la fecha 2024-10-20 17:37:09
+    Creó un sitio en la fecha 2024-10-20 17:37:10
+    Ingresó a sites.show en la fecha 2024-10-20 17:37:12    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:37:12    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:37:12
+    Ingresó a sites.index en la fecha 2024-10-20 17:48:31
+    Ingresó a sites.create en la fecha 2024-10-20 17:48:32
+    Creó un sitio en la fecha 2024-10-20 17:48:33
+    Ingresó a sites.index en la fecha 2024-10-20 17:58:39
+    Ingresó a sites.create en la fecha 2024-10-20 17:58:40
+    Creó un sitio en la fecha 2024-10-20 17:58:41
+    Ingresó a sites.show en la fecha 2024-10-20 17:58:43    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:58:43    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:58:43
+    Ingresó a sites.index en la fecha 2024-10-20 17:59:08
+    Ingresó a sites.create en la fecha 2024-10-20 17:59:10
+    Creó un sitio en la fecha 2024-10-20 17:59:10
+    Ingresó a sites.show en la fecha 2024-10-20 17:59:11    Consultó la información de un pago pendiente en la fecha 2024-10-20 17:59:11    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 17:59:11
+    Ingresó a sites.index en la fecha 2024-10-20 18:02:08
+    Ingresó a sites.create en la fecha 2024-10-20 18:02:09
+    Creó un sitio en la fecha 2024-10-20 18:02:10
+    Ingresó a sites.show en la fecha 2024-10-20 18:02:12    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:02:12    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:02:12
+    Ingresó a sites.index en la fecha 2024-10-20 18:09:10
+    Ingresó a sites.create en la fecha 2024-10-20 18:09:11
+    Creó un sitio en la fecha 2024-10-20 18:09:12
+    Ingresó a sites.show en la fecha 2024-10-20 18:09:14    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:09:14    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:09:14

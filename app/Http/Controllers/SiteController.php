@@ -92,7 +92,7 @@ class SiteController extends Controller
 
             $log[] = 'Creó un sitio';
             $this->write_file($log);
-            
+
             return redirect()->route('sites.index')
                 ->with('status', 'Site created successfully!')
                 ->with('class', 'bg-green-500');

@@ -3,18 +3,21 @@
 namespace Tests\Feature;
 
 use App\Constants\CurrencyTypes;
+use App\Constants\Permissions;
 use App\Constants\SiteTypes;
+use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Models\Category;
+use App\Models\Invoice;
+use App\Models\Payment;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Validation\ValidationException;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 
 class SitesControllerTest extends TestCase
 {
@@ -35,6 +38,9 @@ class SitesControllerTest extends TestCase
             'sites.index',
             'sites.create',
             'sites.store',
+            'sites.show',
+            'invoices.create',
+            'site.manage',
         ];
 
         foreach ($permissions as $permission) {
@@ -104,7 +110,7 @@ class SitesControllerTest extends TestCase
         Storage::fake('public');
 
         $file = UploadedFile::fake()->image('site.jpg');
-    
+
         $category = Category::factory()->create();
         $siteData = [
             'slug' => Str::slug('Sitio de Prueba'),
@@ -131,38 +137,114 @@ class SitesControllerTest extends TestCase
     }
 
     public function test_store_redirects_on_image_validation_failure()
+    {
+        $this->withoutExceptionHandling();
+
+        $superAdminUser = User::factory()->create();
+        $superAdminUser->assignRole('super_admin');
+
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
+        $this->actingAs($superAdminUser);
+
+        $siteData = [
+            'slug' => Str::slug('Sitio de Prueba'),
+            'name' => 'Sitio de Prueba',
+            'expiration_time' => rand(10, 30),
+            'currency' => CurrencyTypes::toArray()[array_rand(CurrencyTypes::toArray())],
+            'site_type' => SiteTypes::cases()[array_rand(SiteTypes::cases())]->name,
+        ];
+
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->post(route('sites.store'), $siteData);
+
+        $response->assertRedirect(route('sites.index'));
+        $response->assertSessionHas([
+            'status' => 'Site created unsuccessfully!',
+            'class' => 'bg-red-500',
+        ]);
+    }
+
+public function test_show_displays_site_information()
 {
     $this->withoutExceptionHandling();
 
-    $superAdminUser = User::factory()->create();
-    $superAdminUser->assignRole('super_admin');
+    $user = User::factory()->create();
+    $user->assignRole('super_admin');
 
-    /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
-    $this->actingAs($superAdminUser);
+    /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+    $this->actingAs($user);
 
-    $siteData = [
-        'slug' => Str::slug('Sitio de Prueba'),
-        'name' => 'Sitio de Prueba',
-        'expiration_time' => rand(10, 30),
-        'currency' => CurrencyTypes::toArray()[array_rand(CurrencyTypes::toArray())],
-        'site_type' => SiteTypes::cases()[array_rand(SiteTypes::cases())]->name,
-    ];
+    $category = Category::factory()->create();
 
-    $response = $this->withSession([])->withHeaders([
-        'X-CSRF-TOKEN' => csrf_token(),
-    ])->post(route('sites.store'), $siteData);
-
-    $response->assertRedirect(route('sites.index'));
-    $response->assertSessionHas([
-        'status' => 'Site created unsuccessfully!',
-        'class' => 'bg-red-500',
+    $site = Site::factory()->create([
+        'site_type' => 'CLOSE',
+        'category_id' => $category->id,
     ]);
+
+    $this->assertDatabaseHas('sites', [
+        'id' => $site->id,
+    ]);
+
+    $payment = Payment::factory()->create([
+        'site_id' => $site->id,
+        'user_id' => $user->id,
+        'status' => 'pending',
+    ]);
+
+    $this->assertDatabaseHas('payments', [
+        'id' => $payment->id,
+    ]);
+
+    $invoice = Invoice::factory()->create([
+        'site_id' => $site->id,
+        'user_id' => $user->id,
+        'amount' => $payment->amount,
+        'reference' => 'INV-' . uniqid(),
+        'date_created' => now(),
+        'date_expiration' => now()->addDays(30),
+        'amount_surcharge' => 0,
+        'date_surcharge' => now()->addDays(15),
+    ]);
+
+    $this->assertDatabaseHas('invoices', [
+        'reference' => $invoice->reference,
+        'site_id' => $site->id,
+    ]);
+
+    $suscription_plans = SuscriptionPll::get_site_suscription(intval($site->id));
+
+    $this->assertNotNull($suscription_plans);
+
+    $response = $this->get(route('sites.show', $site->id));
+
+    $response->assertStatus(200);
+    $response->assertViewIs('sites.show');
+    $response->assertViewHas('site', $site);
+
+    $invoices = $response->viewData('invoices');
+    $this->assertCount(1, $invoices);
+
+    $pay_exist = $response->viewData('pay_exist');
+    $this->assertTrue($pay_exist);
+
+    $pay = $response->viewData('pay');
+    $this->assertNotEmpty($pay);
+
+    $suscription_plans = $response->viewData('suscription_plans');
+    $this->assertEmpty($suscription_plans);
+
+    $user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
+    $this->assertEmpty($user_plans_get_suscribe);
+
+    $user_plans_get_suscribe = $response->viewData('user_plans_get_suscribe');
+    $this->assertEmpty($user_plans_get_suscribe);
 }
 
 
-    /*public function testItCanListSitesWithAuthenticated(): void
-    {
-        $user = User::factory()->create();
+        /*public function testItCanListSitesWithAuthenticated(): void
+        {
+            $user = User::factory()->create();
 
         $role = Role::firstOrCreate(['name' => 'admin']);
         $role->givePermissionTo('sites.index');
