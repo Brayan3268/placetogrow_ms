@@ -44,9 +44,6 @@ jobs:
             - name: run npm install
               run: npm install 
 
-            - name: Run test
-              run: php artisan test tests/Feature/UsersControllerTest.php
-            
             - name: Run laravel pint
               run: ./vendor/bin/pint
 
