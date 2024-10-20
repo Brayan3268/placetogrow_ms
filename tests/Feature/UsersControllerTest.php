@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\UserController;
+use App\Http\PersistantsLowLevel\UserPll;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
@@ -35,7 +37,7 @@ class UsersControllerTest extends TestCase
         $guestRole = Role::firstOrCreate(['name' => 'guest']);
 
         $superAdminRole->givePermissionTo($permissions); // Asignar todos los permisos
-        $adminRole->givePermissionTo(['users.index', 'users.create', 'users.edit']); // Asignar permisos específicos
+        $adminRole->givePermissionTo($permissions /*['asdasd', 'asdasd', 'asdasd']*/); // Asignar permisos específicos
         $guestRole->givePermissionTo('users.index'); // Solo permitir ver usuarios
     }
 
@@ -146,17 +148,20 @@ class UsersControllerTest extends TestCase
 
         /** @var \Illuminate\Contracts\Auth\Authenticatable $superAdminUser */
         $this->actingAs($superAdminUser);
-
-        $response = $this->get(route('users.show', ['user' => $userToView->id]));
+        
+        $response = $this->get(route('users.show', [
+            'user' => $userToView,
+            'role_name' => [$userToView->getRoleNames()],
+        ]));
 
         $response->assertStatus(200);
-        $response->assertRedirect(route('users.show'));
         $response->assertViewIs('users.show');
         $response->assertViewHas('user', $userToView);
 
         $roleName = $userToView->getRoleNames()->first(); // Obtén el rol del usuario visualizado
         $response->assertViewHas('role_name', $roleName);
     }
+
 
     /*public function testItCannotListUsersWithUnauthenticated(): void
     {

@@ -2248,3 +2248,64 @@ El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 202
     Ingresó a users.create en la fecha 2024-10-19 21:13:13
     Creó un usuario en la fecha 2024-10-19 21:13:14
     Consultó la información de un usuario en la fecha 2024-10-19 21:13:52
+    Ingresó a users.index en la fecha 2024-10-19 21:14:19
+    Ingresó a users.create en la fecha 2024-10-19 21:14:20
+    Creó un usuario en la fecha 2024-10-19 21:14:21
+    Consultó la información de un usuario en la fecha 2024-10-19 21:14:21
+    Ingresó a users.index en la fecha 2024-10-19 21:15:05
+    Ingresó a users.create en la fecha 2024-10-19 21:15:06
+    Creó un usuario en la fecha 2024-10-19 21:15:07
+    Consultó la información de un usuario en la fecha 2024-10-19 21:15:07
+    Ingresó a users.index en la fecha 2024-10-19 21:15:37
+    Ingresó a users.create en la fecha 2024-10-19 21:15:38
+    Creó un usuario en la fecha 2024-10-19 21:15:38
+    Ingresó a users.index en la fecha 2024-10-19 21:16:23
+    Ingresó a users.create en la fecha 2024-10-19 21:16:24
+    Creó un usuario en la fecha 2024-10-19 21:16:24
+    Consultó la información de un usuario en la fecha 2024-10-19 21:16:25
+    Ingresó a users.index en la fecha 2024-10-19 21:17:18
+    Ingresó a users.create en la fecha 2024-10-19 21:17:19
+    Creó un usuario en la fecha 2024-10-19 21:17:20
+    Consultó la información de un usuario en la fecha 2024-10-19 21:18:47
+    Consultó la información de un usuario en la fecha 2024-10-19 21:20:20
+    Consultó la información de un usuario en la fecha 2024-10-19 21:20:51
+    Consultó la información de un usuario en la fecha 2024-10-19 21:21:44
+    Consultó la información de un usuario en la fecha 2024-10-19 21:24:08
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-19 21:25:26 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-19 21:25:26
+    Ingresó a users.index en la fecha 2024-10-19 21:25:27
+    Consultó la información de un usuario en la fecha 2024-10-19 21:25:29
+    Consultó la información de un usuario en la fecha 2024-10-19 21:26:48
+    Consultó la información de un usuario en la fecha 2024-10-19 21:27:06
+    Consultó la información de un usuario en la fecha 2024-10-19 21:27:17
+    Consultó la información de un usuario en la fecha 2024-10-19 21:27:38
+    Consultó la información de un usuario en la fecha 2024-10-19 21:28:16
+    Consultó la información de un usuario en la fecha 2024-10-19 21:28:43
+    Consultó la información de un usuario en la fecha 2024-10-19 21:29:04
+    Consultó la información de un usuario en la fecha 2024-10-19 21:29:44
+    Consultó la información de un usuario en la fecha 2024-10-19 21:29:52
+    Consultó la información de un usuario en la fecha 2024-10-19 21:31:20
+    Consultó la información de un usuario en la fecha 2024-10-19 21:31:59
+    Consultó la información de un usuario en la fecha 2024-10-19 21:32:35
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-19 21:32:49 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-19 21:32:50
+    Ingresó a users.index en la fecha 2024-10-19 21:32:51
+    Consultó la información de un usuario en la fecha 2024-10-19 21:32:53
+    Consultó la información de un usuario en la fecha 2024-10-19 21:33:13
+    Consultó la información de un usuario en la fecha 2024-10-19 21:36:56
+    Consultó la información de un usuario en la fecha 2024-10-19 21:37:07
+    Consultó la información de un usuario en la fecha 2024-10-19 21:37:29
+    Consultó la información de un usuario en la fecha 2024-10-19 21:40:30
+    Consultó la información de un usuario en la fecha 2024-10-19 21:40:37
+    Consultó la información de un usuario en la fecha 2024-10-19 21:40:48
+    Ingresó a users.index en la fecha 2024-10-19 21:41:31
+    Ingresó a users.create en la fecha 2024-10-19 21:41:32
+    Creó un usuario en la fecha 2024-10-19 21:41:32
+    Consultó la información de un usuario en la fecha 2024-10-19 21:41:33
+    Consultó la información de un usuario en la fecha 2024-10-19 21:42:43
+    Ingresó a users.index en la fecha 2024-10-19 21:43:32
+    Ingresó a users.create en la fecha 2024-10-19 21:43:33
+    Creó un usuario en la fecha 2024-10-19 21:43:33
+    Consultó la información de un usuario en la fecha 2024-10-19 21:43:34

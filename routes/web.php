@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
-    Route::get('/users/{id}', [UserController::class, 'show'])->name('show.user');
+    //Route::get('/users/{id}', [UserController::class, 'show'])->name('show.user');
 });
 
 Route::middleware(LocalizationMiddleware::class)->group(function () {

@@ -3,14 +3,14 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('messages.view_user') }}
         </h2>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('messages.view_user') }}</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ __('messages.view_user') }}</title>
     </x-slot>
 
     @section('content')
-    <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
+    <div class="container mx-auto mt-5 flex-col space-y-4 items-center">
         <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.view_user') }}</h1>
         <form action="{{ route('users.edit', $user->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
             @csrf
@@ -42,7 +42,7 @@
 
             <div class="mb-6">
                 <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.phone') }}:</label>
-                <input type="number" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('phone') border-red-500 @enderror" requiered disabled>
+                <input type="number" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('phone') border-red-500 @enderror" required disabled>
                 @error('phone')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -50,7 +50,7 @@
 
             <div class="mb-6">
                 <label for="document" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.document') }}:</label>
-                <input type="number" id="document" name="document" value="{{ old('document', $user->document) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document') border-red-500 @enderror" requiered disabled>
+                <input type="number" id="document" name="document" value="{{ old('document', $user->document) }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document') border-red-500 @enderror" required disabled>
                 @error('document')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -58,7 +58,7 @@
 
             <div class="mb-6">
                 <label for="document_type" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.document_type') }}:</label>
-                <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" requiered disabled>
+                <select id="document_type" name="document_type" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('document_type') border-red-500 @enderror" required disabled>
                     <option value="" disabled selected>{{ old('document_type', $user->document_type) }}</option>
                 </select>
             </div>
@@ -66,7 +66,7 @@
             <div class="mb-4">
                 <label for="role" class="block text-sm font-bold mb-2">{{ __('messages.role') }}:</label>
                 <select id="role" name="role" class="form-select block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('role') border-red-500 @enderror" required disabled>
-                    <option value="" disabled selected>{{ old('role', $role_name[0]) }}</option>
+                    <option value="" disabled selected>{{ old('role', $role_name) }}</option> <!-- Acceder directamente a $role_name -->
                 </select>
                 @error('role')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
