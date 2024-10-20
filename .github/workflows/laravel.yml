@@ -78,7 +78,7 @@ jobs:
                 DB_PORT: 3306
                 DB_DATABASE: ms_ptw_test
                 DB_USERNAME: root
-                DB_PASSWORD:
+                DB_PASSWORD: root
               run: php artisan migrate --env=testing
 
             - name: Clear Config Cache
