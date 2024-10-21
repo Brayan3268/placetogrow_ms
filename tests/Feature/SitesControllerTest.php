@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Constants\CurrencyTypes;
-use App\Constants\Permissions;
 use App\Constants\SiteTypes;
 use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Models\Category;
@@ -41,6 +40,7 @@ class SitesControllerTest extends TestCase
             'sites.show',
             'invoices.create',
             'site.manage',
+            'sites.destroy',
         ];
 
         foreach ($permissions as $permission) {
@@ -302,4 +302,33 @@ class SitesControllerTest extends TestCase
             'slug' => 'updated-site-name',
         ]);
     }
+
+    public function test_destroy_deletes_site()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $user->assignRole('super_admin');
+
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        $this->actingAs($user);
+
+        $site = Site::factory()->create();
+
+        $this->assertDatabaseHas('sites', [
+            'id' => $site->id,
+        ]);
+
+        $response = $this->withSession([])->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->delete(route('sites.destroy', $site->id));
+
+        $response->assertRedirect(route('sites.index'));
+        $response->assertSessionHas('status', 'Site deleted successfully');
+
+        $this->assertDatabaseMissing('sites', [
+            'id' => $site->id,
+        ]);
+    }
+
 }

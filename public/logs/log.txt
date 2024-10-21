@@ -3016,3 +3016,22 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a sites.show en la fecha 2024-10-20 18:38:54    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:38:54    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:38:54
     Ingresó a sites.edit en la fecha 2024-10-20 18:38:55
     Editó la información de un sitio en la fecha 2024-10-20 18:38:55
+    Ingresó a sites.index en la fecha 2024-10-20 18:58:07
+    Ingresó a sites.create en la fecha 2024-10-20 18:58:15
+    Creó un sitio en la fecha 2024-10-20 18:58:16
+    Ingresó a sites.show en la fecha 2024-10-20 18:58:17    Consultó la información de un pago pendiente en la fecha 2024-10-20 18:58:17    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 18:58:17
+    Ingresó a sites.edit en la fecha 2024-10-20 18:58:19
+    Editó la información de un sitio en la fecha 2024-10-20 18:58:19
+    Ingresó a sites.index en la fecha 2024-10-20 19:02:53
+    Ingresó a sites.create en la fecha 2024-10-20 19:02:54
+    Creó un sitio en la fecha 2024-10-20 19:02:55
+    Ingresó a sites.show en la fecha 2024-10-20 19:02:56    Consultó la información de un pago pendiente en la fecha 2024-10-20 19:02:56    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 19:02:56
+    Ingresó a sites.edit en la fecha 2024-10-20 19:02:57
+    Editó la información de un sitio en la fecha 2024-10-20 19:02:57
+    Ingresó a sites.index en la fecha 2024-10-20 19:06:14
+    Ingresó a sites.create en la fecha 2024-10-20 19:06:15
+    Creó un sitio en la fecha 2024-10-20 19:06:15
+    Ingresó a sites.show en la fecha 2024-10-20 19:06:17    Consultó la información de un pago pendiente en la fecha 2024-10-20 19:06:17    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 19:06:17
+    Ingresó a sites.edit en la fecha 2024-10-20 19:06:17
+    Editó la información de un sitio en la fecha 2024-10-20 19:06:18
+    Eliminó un sitio en la fecha 2024-10-20 19:06:19
