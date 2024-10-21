@@ -69,15 +69,6 @@
                     <label for="days_until_next_payment" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.days_until_next_payment') }}:</label>
                     <input type="number" id="days_until_next_payment" name="days_until_next_payment" value="{{ old('days_until_next_payment', $user_suscription->days_until_next_payment) }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('days_until_next_payment') border-red-500 @enderror" disabled>
                 </div>
-
-                <button type="submit" class="my-button">
-                    @can('suscription.manage')
-                        <i class="fas fa-edit"></i>
-                    @endcan
-                    @can('suscriptions.user_get_suscription')
-                        <i class="fa-solid fa-circle-plus"></i>
-                    @endcan
-                </button>
             </form>
         </div>
     @endsection

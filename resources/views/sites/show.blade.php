@@ -154,7 +154,7 @@
                                 @endcan
                                 @can('invoices.see_admins_users')
                                     <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
-                                        <a href="{{ route('show.user', ['id' => $invoice->user->id]) }}">{{ $invoice->user->document }}</a>
+                                        <a href="{{ route('users.show', ['user' => $invoice->user->id]) }}">{{ $invoice->user->document }}</a>
                                     </td>
                                 @endcan
                                 <td class="border border-gray-200 px-4 py-2 text-right">

@@ -69,6 +69,10 @@
                 </div>
 
                 <div class="mb-4">
+                    <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.suscription_name') }}: {{ $user_suscription->suscription->name }}</label>
+                </div>
+
+                <div class="mb-4">
                     <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.suscription_status') }}: {{ $suscription_status }}</label>
                 </div>
             @endif

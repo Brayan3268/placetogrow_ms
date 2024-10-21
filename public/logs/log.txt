@@ -3035,3 +3035,74 @@ El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 
     Ingresó a sites.edit en la fecha 2024-10-20 19:06:17
     Editó la información de un sitio en la fecha 2024-10-20 19:06:18
     Eliminó un sitio en la fecha 2024-10-20 19:06:19
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-20 23:24:21 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-20 23:24:22
+    Ingresó a invoice.index en la fecha 2024-10-20 23:24:25
+    Ingresó a suscriptions.index en la fecha 2024-10-20 23:24:42
+    Consultó la información de una suscripción en la fecha 2024-10-20 23:24:44
+    Ingresó a suscriptions.edit en la fecha 2024-10-20 23:24:46
+
+El usuario con id 1 y el email brayan.lujan@evertecinc.com ingresó en la fecha 2024-10-20 23:24:52 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-20 23:24:52
+    Ingresó a sites.index en la fecha 2024-10-20 23:24:53
+    Importó facturas al sitio 2 en la fecha 2024-10-20 23:24:59
+    Ingresó a sites.show en la fecha 2024-10-20 23:24:59    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-20 23:24:59
+
+El usuario con id 2 y el email user.test@evertecinc.com ingresó en la fecha 2024-10-20 23:25:29 e hizo:
+    Ingresó a dashboard.index en la fecha 2024-10-20 23:25:29
+    Ingresó a suscriptions.index en la fecha 2024-10-20 23:25:30
+    Consultó la información de la suscripción 1 en la fecha 2024-10-20 23:25:34    Creó una sesion para realizar una suscripción en la fecha 2024-10-20 23:25:34    Redirige al usuario a la pasarela para la suscripción en la fecha 2024-10-20 23:25:34
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-20 23:25:51    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-20 23:25:51    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-20 23:25:51    Envia notificación de la suscripcion del usuario en la fecha 2024-10-20 23:25:51    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-20 23:25:51    Crea el payment del cobro automatico en la fecha 2024-10-20 23:25:51
+    Ingresó a sites.index en la fecha 2024-10-20 23:26:01
+    Ingresó a sites.show en la fecha 2024-10-20 23:26:06    Consultó las facturas pendientes del sitio 2 en la fecha 2024-10-20 23:26:06
+    Ingresó al formulario del sitio para crear una sesion pagando una factura en la fecha 2024-10-20 23:26:07
+    Creó una sesion de pago para P2P en la fecha 2024-10-20 23:26:12
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-20 23:26:24    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-20 23:26:24    Ingresó a payments.show invoice en la fecha 2024-10-20 23:26:24
+    Ingresó a sites.index en la fecha 2024-10-20 23:26:27
+    Ingresó a sites.show en la fecha 2024-10-20 23:26:28
+    Ingresó al formulario del sitio para crear una sesion en la fecha 2024-10-20 23:26:29
+    Creó una sesion de pago para P2P en la fecha 2024-10-20 23:26:33
+    Finalizó una sesion de pago en P2P de tipo  en la fecha 2024-10-20 23:26:45    Envió un correo con la información del movimiento transaccional en la fecha 2024-10-20 23:26:45    Ingresó a payments.show standart en la fecha 2024-10-20 23:26:45
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-20 23:29:13    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-20 23:29:13    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-20 23:29:13    Envia notificación de la suscripcion del usuario en la fecha 2024-10-20 23:29:13    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-20 23:29:13    Crea el payment del cobro automatico en la fecha 2024-10-20 23:29:13
+    Consulta la información de la sesion de suscripción en la fecha 2024-10-20 23:29:16    Actualiza la información de la sesion de suscripción del usuario en la fecha 2024-10-20 23:29:16    Realiza el cobro por token a la suscripción del usuario en la fecha 2024-10-20 23:29:16    Envia notificación de la suscripcion del usuario en la fecha 2024-10-20 23:29:16    Envia notificación del cobro automatico por suscripcion del usuario en la fecha 2024-10-20 23:29:16    Crea el payment del cobro automatico en la fecha 2024-10-20 23:29:16
+    Ingresó a sites.show en la fecha 2024-10-20 23:29:21    Consultó las suscripciones para el sitio 3 en la fecha 2024-10-20 23:29:21
+    Ingresó a sites.index en la fecha 2024-10-20 23:30:04
+    Ingresó a sites.create en la fecha 2024-10-20 23:30:05
+    Creó un sitio en la fecha 2024-10-20 23:30:05
+    Ingresó a sites.show en la fecha 2024-10-20 23:30:05    Consultó la información de un pago pendiente en la fecha 2024-10-20 23:30:05    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 23:30:05
+    Ingresó a sites.edit en la fecha 2024-10-20 23:30:05
+    Editó la información de un sitio en la fecha 2024-10-20 23:30:06
+    Eliminó un sitio en la fecha 2024-10-20 23:30:06
+    Ingresó a users.index en la fecha 2024-10-20 23:30:36
+    Ingresó a users.create en la fecha 2024-10-20 23:30:36
+    Creó un usuario en la fecha 2024-10-20 23:30:36
+    Consultó la información de un usuario en la fecha 2024-10-20 23:30:36
+    Ingresó a users.edit en la fecha 2024-10-20 23:30:37
+    Editó la información de un usuario en la fecha 2024-10-20 23:30:37
+    Eliminó un usuario en la fecha 2024-10-20 23:30:37
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 23:30:37
+    Editó la información de un usuario en la fecha 2024-10-20 23:30:37
+    Ingresó a sites.index en la fecha 2024-10-20 23:30:37
+    Ingresó a sites.create en la fecha 2024-10-20 23:30:37
+    Creó un sitio en la fecha 2024-10-20 23:30:38
+    Ingresó a sites.show en la fecha 2024-10-20 23:30:38    Consultó la información de un pago pendiente en la fecha 2024-10-20 23:30:38    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 23:30:38
+    Ingresó a sites.edit en la fecha 2024-10-20 23:30:38
+    Editó la información de un sitio en la fecha 2024-10-20 23:30:38
+    Eliminó un sitio en la fecha 2024-10-20 23:30:38
+    Ingresó a users.index en la fecha 2024-10-20 23:30:55
+    Ingresó a users.create en la fecha 2024-10-20 23:30:56
+    Creó un usuario en la fecha 2024-10-20 23:30:56
+    Consultó la información de un usuario en la fecha 2024-10-20 23:30:56
+    Ingresó a users.edit en la fecha 2024-10-20 23:30:57
+    Editó la información de un usuario en la fecha 2024-10-20 23:30:57
+    Eliminó un usuario en la fecha 2024-10-20 23:30:57
+    Intentó eliminar a un super usuario y no se pudo ya que era el último super usuario en la fecha 2024-10-20 23:30:57
+    Editó la información de un usuario en la fecha 2024-10-20 23:30:57
+    Ingresó a sites.index en la fecha 2024-10-20 23:30:58
+    Ingresó a sites.create en la fecha 2024-10-20 23:30:58
+    Creó un sitio en la fecha 2024-10-20 23:30:58
+    Ingresó a sites.show en la fecha 2024-10-20 23:30:59    Consultó la información de un pago pendiente en la fecha 2024-10-20 23:30:59    Consultó las facturas pendientes del sitio 5 en la fecha 2024-10-20 23:30:59
+    Ingresó a sites.edit en la fecha 2024-10-20 23:30:59
+    Editó la información de un sitio en la fecha 2024-10-20 23:30:59
+    Eliminó un sitio en la fecha 2024-10-20 23:30:59

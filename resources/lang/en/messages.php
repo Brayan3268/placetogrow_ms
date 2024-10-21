@@ -188,4 +188,5 @@ return [
     'suscription_reference' => 'Reference payment suscription',
     'suscription_status' => 'Status payment suscription',
     'days_until_next_payment' => 'Days until next collect',
+    'suscription_name' => 'Suscription plan name',
 ];
