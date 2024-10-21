@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('expiration_time');
             $table->enum('frecuency_collection', FrecuencyCollection::toArray());
             $table->foreignId('site_id')->constrained();
+            $table->integer('number_trys');
+            $table->integer('how_often_days');
             $table->timestamps();
         });
     }

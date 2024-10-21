@@ -92,6 +92,8 @@ class Permissions
 
     public const USER_SUSCRIPTION_SHOW = 'user_suscriptions.show';
 
+    public const USER_ADMINS_SEE_GRAPHICS = 'user_admins_see_graphics';
+
     public static function get_all_permissions(): array
     {
         return (new \ReflectionClass(self::class))->getConstants();
@@ -127,7 +129,6 @@ class Permissions
             self::INVOICES_SHOW,
             self::INVOICES_SEE_ADMINS_USERS,
             self::INVOICES_INFO_SHOW,
-            self::SITES_PAY,
             self::SUSCRIPTION_INDEX,
             self::SUSCRIPTION_STORE,
             self::SUSCRIPTION_CREATE,
@@ -135,6 +136,7 @@ class Permissions
             self::SUSCRIPTION_EDIT,
             self::SUSCRIPTION_SHOW,
             self::SUSCRIPTION_MANAGE,
+            self::USER_ADMINS_SEE_GRAPHICS,
         ];
     }
 
@@ -167,7 +169,6 @@ class Permissions
             self::INVOICES_SHOW,
             self::INVOICES_SEE_ADMINS_USERS,
             self::INVOICES_INFO_SHOW,
-            self::SITES_PAY,
             self::SUSCRIPTION_INDEX,
             self::SUSCRIPTION_STORE,
             self::SUSCRIPTION_CREATE,
@@ -175,6 +176,7 @@ class Permissions
             self::SUSCRIPTION_EDIT,
             self::SUSCRIPTION_SHOW,
             self::SUSCRIPTION_MANAGE,
+            self::USER_ADMINS_SEE_GRAPHICS,
         ];
     }
 

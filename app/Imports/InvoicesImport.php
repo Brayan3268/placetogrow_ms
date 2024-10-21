@@ -27,10 +27,10 @@ class InvoicesImport implements ToArray, WithHeadingRow
                 'currency' => $row['currency'],
                 'user_id' => $row['user_id'],
                 'date_created' => $this->convertToDate($row['date_created']),
+                'date_surcharge' => $this->convertToDate($row['date_surcharge']),
+                'amount_surcharge' => $row['amount_surcharge'],
                 'date_expiration' => $this->convertToDate($row['date_expiration']),
             ];
-
-            //dd($invoiceData['date_expiration']->format('d/m/Y'));
 
             $this->processedInvoices[] = $invoiceData;
         }

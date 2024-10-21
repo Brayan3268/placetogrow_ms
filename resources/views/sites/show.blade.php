@@ -122,6 +122,8 @@
                     </form>
                 @endif
             @endcan
+            <div class="border-t border-gray-900 my-4"></div>
+            <br>
             @if ($site->site_type == "CLOSE" && !$pay_exist)
                 @php
                     $columns = 5;
@@ -147,22 +149,22 @@
                                 <td class="border border-gray-200 px-4 py-2">{{ $invoice->reference }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $invoice->status }}</td>
                                 @can('site.pay')
-                                    <td class="border border-gray-200 px-4 py-2">{{ $invoice->amount }}</td>
+                                    <td class="border border-gray-200 px-4 py-2">{{ $invoice->currency }} {{ $invoice->amount }}</td>
                                     <td class="border border-gray-200 px-4 py-2">{{ $invoice->date_expiration }}</td>
                                 @endcan
                                 @can('invoices.see_admins_users')
                                     <td class="border border-gray-200 px-4 py-2 text-orange-500 hover:text-purple-800 mr-2">
-                                        <a href="{{ route('show.user', ['id' => $invoice->user->id]) }}">{{ $invoice->user->document }}</a>
+                                        <a href="{{ route('users.show', ['user' => $invoice->user->id]) }}">{{ $invoice->user->document }}</a>
                                     </td>
                                 @endcan
                                 <td class="border border-gray-200 px-4 py-2 text-right">
-                                    <a href="{{ route('invoices.show', $invoice->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('invoices.show', ['reference' => $invoice->reference, 'site_id' => $invoice->site_id]) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                     @can('site.pay')
-                                        <a href="{{ route('sites.form_site_invoices', $invoice->id) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
+                                        <a href="{{ route('sites.form_site_invoices', ['reference' => $invoice->reference, 'site_id' => $invoice->site_id]) }}" class="text-orange-500 hover:text-purple-800 mr-2"><i class="fas fa-dollar"></i></a>
                                     @endcan
                                     @can('invoices.see_admins_users')
-                                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="text-yellow-600 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
-                                        <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline-block">
+                                        <a href="{{ route('invoices.edit', ['reference' => $invoice->reference, 'site_id' => $invoice->site_id]) }}" class="text-yellow-600 hover:text-purple-800 mr-2"><i class="fas fa-edit"></i></a>
+                                        <form action="{{ route('invoices.destroy', $invoice->reference) }}" method="POST" class="inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-purple-800"><i class="fas fa-trash"></i></button>
@@ -225,7 +227,7 @@
                             <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{ $suscription_plan->name }}</h5>
+                                        <h5> {{ $suscription_plan->name }} - {{ $suscription_plan->currency_type }} {{ $suscription_plan->amount }} </h5>
                                     </div>
                                     <div class="card-body">
                                         <ul class="list-group">
@@ -273,7 +275,7 @@
                                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>{{ $user_plan_get_suscribe->suscription->name }}</h5>
+                                            <h5> {{ $user_plan_get_suscribe->suscription->name }} - {{ $user_plan_get_suscribe->suscription->currency_type }} {{ $user_plan_get_suscribe->suscription->amount }} </h5>
                                         </div>
                                         <div class="card-body">
                                             <ul class="list-group">

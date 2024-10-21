@@ -96,7 +96,9 @@ class UserController extends Controller
     {
         $this->authorize('update', User::class);
 
-        $user = (empty($request['password'])) ? UserPll::update_user_without_password($user, $request) : UserPll::update_user_with_password($user, $request);
+        $user = (empty($request['password'])) ?
+            UserPll::update_user_without_password($user, $request) :
+            UserPll::update_user_with_password($user, $request);
 
         $log[] = 'Editó la información de un usuario';
         $this->write_file($log);
@@ -143,16 +145,12 @@ class UserController extends Controller
 
     public function get_enums(): array
     {
-        //if (is_null($categories)) {
         $enumDocumentTypeValues = UserPll::get_users_enum_field_values('document_type');
         preg_match('/^enum\((.*)\)$/', $enumDocumentTypeValues, $matches);
         $document_types = explode(',', $matches[1]);
         $document_types = array_map(fn ($value) => trim($value, "'"), $document_types);
 
         UserPll::save_cache('document_types', $document_types);
-        //} else {
-        //$document_types = SitePll::get_cache('document_types');
-        //}
 
         return ['document_types' => $document_types];
     }

@@ -15,6 +15,7 @@ use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StoreFieldRequest;
 use App\Imports\InvoicesImport;
 use App\Models\Site;
+use App\Notifications\LoseSessionNotification;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -22,6 +23,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,6 +31,8 @@ use Maatwebsite\Excel\Facades\Excel;
 class SiteController extends Controller
 {
     use AuthorizesRequests;
+
+    private const SECONDS_EMAIL = 10;
 
     public function index(): View
     {
@@ -75,11 +79,10 @@ class SiteController extends Controller
     {
         $this->authorize('update', Site::class);
 
-        $request->validate([
-            'image' => 'required|image|max:2048',
-        ]);
-
         if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'required|image|max:2048',
+            ]);
             $image = $request->file('image');
 
             $image_name = $image->getClientOriginalName().time().'.'.$image->getClientOriginalExtension();
@@ -87,13 +90,13 @@ class SiteController extends Controller
 
             SitePll::save_site($request, $image_name);
 
+            $log[] = 'Creó un sitio';
+            $this->write_file($log);
+
             return redirect()->route('sites.index')
                 ->with('status', 'Site created successfully!')
                 ->with('class', 'bg-green-500');
         }
-
-        $log[] = 'Creó un sitio';
-        $this->write_file($log);
 
         return redirect()->route('sites.index')
             ->with('status', 'Site created unsuccessfully!')
@@ -119,7 +122,7 @@ class SiteController extends Controller
         $user = UserPll::get_specific_user(Auth::user()->id);
 
         if ($site->site_type == 'CLOSE') {
-            $invoices = ($user->hasPermissionTo(Permissions::SITES_PAY) && $user->hasPermissionTo(Permissions::SITES_MANAGE)) ?
+            $invoices = ($user->hasPermissionTo(Permissions::INVOICES_CREATE) && $user->hasPermissionTo(Permissions::SITES_MANAGE)) ?
                 InvoicePll::get_especific_site_invoices($site->id) :
                 InvoicePll::get_especific_site_user_invoices($site->id);
             $log[] = 'Consultó las facturas pendientes del sitio '.$site->id;
@@ -274,20 +277,20 @@ class SiteController extends Controller
             $site_field->value_invoice = ' ';
         }
 
-        $invoice_id = 0;
+        $invoice_reference = 0;
 
         $log[] = 'Ingresó al formulario del sitio para crear una sesion';
         $this->write_file($log);
 
-        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
+        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_reference'));
     }
 
-    public function form_site_invoices(int $invoice_id): View
+    public function form_site_invoices(string $reference, int $site_id): View
     {
         $this->authorize('form_sites_pay', Site::class);
 
-        $invoice = InvoicePll::get_especific_invoice($invoice_id);
-        $invoice_id = $invoice->id;
+        $invoice = InvoicePll::get_especific_invoice($reference, intval($site_id));
+        $invoice_reference = $invoice->reference;
 
         $sites_fields = FieldpaysitePll::get_fields_site($invoice->site_id);
 
@@ -308,7 +311,7 @@ class SiteController extends Controller
         $log[] = 'Ingresó al formulario del sitio para crear una sesion pagando una factura';
         $this->write_file($log);
 
-        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_id'));
+        return view('sites.form_site', compact('site', 'sites_fields', 'invoice_reference'));
     }
 
     public function get_enums(): array
@@ -358,12 +361,16 @@ class SiteController extends Controller
     {
         $this->authorize('form_sites_pay', Site::class);
 
-        $site_id = PaymentPll::lose_session($payment_id);
+        $payment = PaymentPll::lose_session($payment_id);
+
+        $notification = new LoseSessionNotification($payment);
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
+        $log[] = 'Envió un correo con la información de la eliminación de la session';
 
         $log[] = 'Eliminó una sesion de pago';
         $this->write_file($log);
 
-        return $this->show($site_id);
+        return $this->show($payment->site->id);
     }
 
     public function import_invoices(Request $request, string $site_id): View

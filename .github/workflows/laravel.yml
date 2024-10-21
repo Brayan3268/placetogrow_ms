@@ -3,7 +3,7 @@ name: ptw_ptp
 on:
     push:
         branches: 
-            [feature/*]
+            [feature/*, fix/*, refactor/*, style/*, test/*]
     
     pull_request:
         types: [opened, synchronize]
@@ -14,6 +14,20 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+
+        services:
+            mysql:
+                image: mysql:5.7
+                env:
+                    MYSQL_DATABASE: ms_ptw_test
+                    MYSQL_ROOT_PASSWORD: root
+                ports:
+                    - 3306:3306
+                options: >-
+                    --health-cmd="mysqladmin ping -h localhost"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=3
 
         strategy:
             matrix:
@@ -38,19 +52,63 @@ jobs:
             - name: Copy phpstan
               run: php -r "file_exists('phpstan.neon') || copy('phpstan.neon', 'phpstan.neon');" 
 
-            - name: run composer install
+            - name: Install Composer Dependencies
               run: composer install -n --prefer-dist
 
-            - name: run npm install
-              run: npm install 
+            - name: Create Test Database
+              run: |
+                mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS ms_ptw_test;"
 
-            #- name: Run test
-            #  run: php artisan test
+            - name: Wait for MySQL to be ready
+              run: |
+                echo "Waiting for MySQL to start..."
+                for i in {1..60}; do
+                  if mysqladmin ping -h 127.0.0.1 --silent; then
+                    echo "MySQL is up and running!"
+                    break
+                  fi
+                  echo "MySQL is not ready yet. Waiting..."
+                  sleep 2
+                done
+
+            - name: Run Migrations
+              env:
+                DB_CONNECTION: mysql
+                DB_HOST: 127.0.0.1
+                DB_PORT: 3306
+                DB_DATABASE: ms_ptw_test
+                DB_USERNAME: root
+                DB_PASSWORD: root
+              run: php artisan migrate --env=testing
+
+            - name: Clear Config Cache
+              run: php artisan config:clear
+
+            - name: Install Node.js and npm
+              uses: actions/setup-node@v2
+              with:
+                node-version: '20.17.0'
+
+            - name: Install npm dependencies
+              run: npm install
+
+            - name: Build assets
+              run: npm run build
+
+            - name: Run Tests
+              env:
+                DB_CONNECTION: mysql
+                DB_HOST: 127.0.0.1
+                DB_PORT: 3306
+                DB_DATABASE: ms_ptw_test
+                DB_USERNAME: root
+                DB_PASSWORD: root
+              run: php artisan test tests/Feature/UsersControllerTest.php
             
-            - name: Run laravel print
+            - name: Run Laravel Pint
               run: ./vendor/bin/pint
 
-            - name: Run laravel phpstan
+            - name: Run Laravel PHPStan
               run: ./vendor/bin/phpstan analyse
 
             - name: Run script

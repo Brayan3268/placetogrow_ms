@@ -13,7 +13,7 @@
 
     <div class="container mx-auto mt-5  flex-col space-y-4 items-center">
         <h1 class="text-2xl font-bold mb-4 flex flex-col items-center">{{ __('messages.view_invoice') }}</h1>
-        <form action="{{ route('invoices.edit', $invoice->id) }}" method="POST" class="max-w-lg mx-auto mt-5">
+        <form action="{{ route('invoices.edit', ['reference' => $invoice->reference, 'site_id' => $invoice->site_id]) }}" method="POST" class="max-w-lg mx-auto mt-5">
             @csrf
             @method('GET')
 
@@ -82,7 +82,22 @@
                 @enderror
             </div>
 
-            
+            <div class="mb-4">
+                <label for="date_surcharge" class="block text-sm font-bold mb-2">{{ __('messages.invoice_surcharge') }}:</label>
+                <input type="text" id="date_surcharge" name="date_surcharge" value="{{ old('date_surcharge', $invoice->date_surcharge) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('date_surcharge') border-red-500 @enderror" required disabled>
+                @error('date_surcharge')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label for="amount_surcharge" class="block text-sm font-bold mb-2">{{ __('messages.amount_surcharge') }}:</label>
+                <input type="text" id="amount_surcharge" name="amount_surcharge" value="{{ old('amount_surcharge', $invoice->amount_surcharge) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('amount_surcharge') border-red-500 @enderror" required disabled>
+                @error('amount_surcharge')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <div class="mb-4">
                 <label for="date_expiration" class="block text-sm font-bold mb-2">{{ __('messages.invoice_expirated') }}:</label>
                 <input type="text" id="date_expiration" name="date_expiration" value="{{ old('date_expiration', $invoice->date_expiration) }}" class="form-input block w-full px-4 py-3 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 @error('date_expiration') border-red-500 @enderror" required disabled>

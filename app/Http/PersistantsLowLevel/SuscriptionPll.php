@@ -10,15 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class SuscriptionPll extends PersistantLowLevel
 {
+    private const SECONDS = 300;
+
     public static function get_all_suscription()
     {
-        $suscription = Cache::get('suscription.index');
-        if (is_null($suscription)) {
-            $suscription = Suscription::with('site')->get();
-            Cache::put('suscription.index', $suscription);
-        }
-
-        return $suscription;
+        return Cache::remember('suscription.index', self::SECONDS, function () {
+            return Suscription::with('site')->get();
+        });
     }
 
     public static function get_suscription_enum_field_values(string $field)
@@ -36,6 +34,8 @@ class SuscriptionPll extends PersistantLowLevel
         $suscription->expiration_time = $request->expiration_time;
         $suscription->frecuency_collection = $request->frecuency_collection;
         $suscription->site()->associate($request->site_id);
+        $suscription->number_trys = $request->number_trys;
+        $suscription->how_often_days = $request->how_often_days;
         $suscription->save();
 
         Cache::flush();
@@ -51,6 +51,8 @@ class SuscriptionPll extends PersistantLowLevel
             'expiration_time' => $request->expiration_time,
             'frecuency_collection' => $request->frecuency_collection,
             'site_id' => $request->site_id,
+            'number_trys' => $request->number_trys,
+            'how_often_days' => $request->how_often_days,
         ]);
 
         Cache::flush();
@@ -65,14 +67,10 @@ class SuscriptionPll extends PersistantLowLevel
 
     public static function get_site_suscription(int $site_id)
     {
-        $suscriptions = Cache::get('suscription.site');
-        if (is_null($suscriptions)) {
-            $suscriptions = Suscription::where('site_id', $site_id)
+        return Cache::remember('suscription.site', self::SECONDS, function () use ($site_id) {
+            return Suscription::where('site_id', $site_id)
                 ->get();
-            Cache::put('suscription.site', $suscriptions);
-        }
-
-        return $suscriptions;
+        });
     }
 
     public static function get_especific_suscription(int $id)
@@ -82,7 +80,9 @@ class SuscriptionPll extends PersistantLowLevel
 
     public static function get_cache(string $name)
     {
-        return Cache::get($name);
+        return Cache::remember($name, self::SECONDS, function () use ($name) {
+            return Cache::get($name);
+        });
     }
 
     public static function forget_cache(string $name_cache)
@@ -92,6 +92,8 @@ class SuscriptionPll extends PersistantLowLevel
 
     public static function save_cache(string $name, $data)
     {
-        Cache::put($name, $data);
+        Cache::remember($name, self::SECONDS, function () use ($data) {
+            return $data;
+        });
     }
 }

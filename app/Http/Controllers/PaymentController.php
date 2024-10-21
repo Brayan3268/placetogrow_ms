@@ -12,30 +12,22 @@ use App\Http\PersistantsLowLevel\UserPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
+use App\Notifications\PayNotification;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
+    private const SECONDS_EMAIL = 10;
+
     public function index(): View
     {
-        /*if ($user->hasPermissionTo(Permissions::USER_GET_SUSCRIPTION)) {
-            $user_plans = UserSuscriptionPll::get_specific_user_suscriptions($user->id);
-            foreach ($user_plans as $key => $value) {
-                foreach ($suscription_plans as $key_all => $value_all) {
-                    if ($value->suscription_id == $value_all->id) {
-                        array_push($user_plans_get_suscribe, $value);
-                        unset($suscription_plans[$key_all]);
-                    }
-                }
-            }
-        }*/
-
         $pays = $this->validate_role() ? PaymentPll::get_all_pays() : PaymentPll::get_especific_user_pays(Auth::user()->id);
 
         $log[] = 'Ingresó a payment.index';
@@ -68,7 +60,7 @@ class PaymentController extends Controller
     {
         $payment = PaymentPll::save_payment($request);
 
-        $payment->setAttribute('invoice_id', $request->invoice_id);
+        $payment->setAttribute('invoice_reference', $request->invoice_reference);
 
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
@@ -95,6 +87,7 @@ class PaymentController extends Controller
 
     public function show(Request $request, Payment $payment): View
     {
+
         /** @var PaymentService $paymentService */
         $paymentService = app(PaymentService::class, [
             'payment' => $payment,
@@ -106,13 +99,14 @@ class PaymentController extends Controller
             $log[] = 'Finalizó una sesion de pago en P2P de tipo '.$payment->origin_payment;
         }
 
-        $invoice_id = intval($request->query('invoice_id'));
+        $invoice_reference = $request->query('invoice_reference');
         $payment_id = intval($payment->id);
         $status = '';
 
         if ($payment->origin_payment == '') {
             $payment->update([
-                'origin_payment' => ($invoice_id == 0 && $payment->origin_payment == '') ? OriginPayment::STANDART->value : OriginPayment::INVOICE->value,
+                //@phpstan-ignore-next-line
+                'origin_payment' => ($invoice_reference == 0 && $payment->origin_payment == '') ? OriginPayment::STANDART->value : OriginPayment::INVOICE->value,
             ]);
             Cache::flush();
         }
@@ -125,12 +119,12 @@ class PaymentController extends Controller
         $invoice = '';
         if ($payment->origin_payment == OriginPayment::INVOICE->value) {
             try {
-                $invoice = InvoicePll::get_especific_invoice($invoice_id);
+                $invoice = InvoicePll::get_especific_invoice($invoice_reference, intval($payment->site_id));
                 if ($payment->reference != $invoice->reference) {
                     $payment = PaymentPll::update_reference_pay($payment->id, $invoice->reference);
                 }
             } catch (\Exception $e) {
-                dump('catch');
+                echo 'catch';
             }
 
             $status_payment = $payment->status;
@@ -153,7 +147,7 @@ class PaymentController extends Controller
                     break;
             }
 
-            $invoice = InvoicePll::update_invoice($payment->reference, $status, $payment_id);
+            $invoice = InvoicePll::update_invoice($payment->reference, $status, $payment_id, $payment->site_id);
         }
 
         $suscription_status = '';
@@ -162,6 +156,17 @@ class PaymentController extends Controller
             $user_suscription = UserSuscriptionPll::get_specific_user_suscription_request_id($payment->process_identifier);
             $suscription_status = $user_suscription->status;
         }
+
+        $notification = new PayNotification(
+            $payment,
+            $status,
+            $suscription_status,
+            $invoice,
+            $user_suscription,
+        );
+
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
+        $log[] = 'Envió un correo con la información del movimiento transaccional';
 
         $log[] = 'Ingresó a payments.show '.$payment->origin_payment;
         $this->write_file($log);
@@ -183,9 +188,45 @@ class PaymentController extends Controller
     }
 
     //ELIMINAR ESTO Y CREAR LA POLICY Y ELIMINAR VALIDATE_ROL
-    public function show_suscription_pay(int $payment)
+    public function show_suscription_pay(int $payment) {}
+
+    public function show_pays(int $payment_id)
     {
-        //dd($payment);
+        $payment = PaymentPll::get_especific_pay($payment_id);
+        $invoice = '';
+        $status = '';
+        $suscription_status = '';
+        $user_suscription = '';
+
+        $log[] = 'Consultó el pago '.$payment_id.' de tipo ';
+
+        switch ($payment->origin_payment) {
+            case OriginPayment::INVOICE->value:
+                $invoice = InvoicePll::get_especific_invoice($payment->reference, intval($payment->site->id));
+                $status = $invoice->status;
+                $log[] = OriginPayment::INVOICE->value;
+                break;
+
+            case OriginPayment::SUSCRIPTION->value:
+                $user_suscription = UserSuscriptionPll::get_specific_user_suscription_request_id($payment->process_identifier);
+                $suscription_status = $user_suscription->status;
+                $log[] = OriginPayment::SUSCRIPTION->value;
+                break;
+
+            default:
+                $log[] = OriginPayment::STANDART->value;
+                break;
+        }
+
+        $this->write_file($log);
+
+        return view('payments.show', [
+            'payment' => $payment,
+            'invoice_status' => $status,
+            'invoice' => $invoice,
+            'suscription_status' => $suscription_status,
+            'user_suscription' => $user_suscription,
+        ]);
     }
 
     protected function write_file(array $info)

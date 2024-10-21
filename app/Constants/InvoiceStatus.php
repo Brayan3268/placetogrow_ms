@@ -8,7 +8,7 @@ enum InvoiceStatus: string
 
     case PAYED = 'payed';
 
-    case EXPIRATE = 'expirate';
+    case EXPIRATED = 'expirated';
 
     case PENDING = 'pending';
 

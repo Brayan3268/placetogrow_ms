@@ -12,7 +12,7 @@ class Usersuscription extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'reference';
 
     public $incrementing = false;
 

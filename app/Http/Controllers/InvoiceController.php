@@ -50,8 +50,8 @@ class InvoiceController extends Controller
         $this->authorize('update', Invoice::class);
 
         InvoicePll::save_invoice($request);
-
         $log[] = 'Creó una factura';
+
         $this->write_file($log);
 
         return redirect()->route('invoices.index')
@@ -59,11 +59,11 @@ class InvoiceController extends Controller
             ->with('class', 'bg-green-500');
     }
 
-    public function show(string $id)
+    public function show(string $reference, int $site_id)
     {
         $this->authorize('view', Invoice::class);
 
-        $invoice = InvoicePll::get_especific_invoice(intval($id));
+        $invoice = InvoicePll::get_especific_invoice($reference, intval($site_id));
 
         $log[] = 'Consultó la información de una facturá';
         $this->write_file($log);
@@ -71,23 +71,24 @@ class InvoiceController extends Controller
         return view('invoices.show', compact('invoice'));
     }
 
-    public function edit(string $id)
+    public function edit(string $reference, int $site_id)
     {
         $this->authorize('edit', Invoice::class);
 
-        $invoice = InvoicePll::get_especific_invoice(intval($id));
+        $invoice = InvoicePll::get_especific_invoice($reference, intval($site_id));
 
         $datos = $this->get_enums();
         $currency = $datos['currency'];
         $users = UserPll::get_users_guest();
         $sites = SitePll::get_sites_closed();
 
+        $date_surcharge = $invoice->date_surcharge ? Carbon::parse($invoice->date_surcharge)->format('Y-m-d\TH:i') : '';
         $date_expiration = $invoice->date_expiration ? Carbon::parse($invoice->date_expiration)->format('Y-m-d\TH:i') : '';
 
         $log[] = 'Ingresó a invoice.edit';
         $this->write_file($log);
 
-        return view('invoices.edit', compact('invoice', 'currency', 'users', 'sites', 'date_expiration'));
+        return view('invoices.edit', compact('invoice', 'currency', 'users', 'sites', 'date_expiration', 'date_surcharge'));
     }
 
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)

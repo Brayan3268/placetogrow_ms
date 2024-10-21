@@ -4,6 +4,16 @@ return [
     //APP:
     'actions' => 'Actions',
 
+    //DASHBOARD
+    'selec_site' => 'Select a site to draw graphic',
+    'choose_site' => 'Get graphic',
+    'dashboard_graphics' => 'Panel graphics',
+    'graphics_site' => 'This are the graphics for the site: ',
+    'graphics_label' => 'Pie graphics: ',
+    'payed_not_payed' => 'Invoices payeds and not payeds:',
+    'not_payed_expirated' => 'Invoices not payeds and expirateds:',
+    'payed_expirated' => 'Invoices payeds and expirateds:',
+
     //SITES:
     'name' => 'Name',
     'slug' => 'Slug',
@@ -86,6 +96,14 @@ return [
     'user_document' => 'User\'s document',
     'invoice_created' => 'Invoice created at',
     'invoice_expirated' => 'Invoice expirated at',
+    'search_by_date_created' => 'Search by date created',
+    'search_by_date_expired' => 'search by date expired',
+    'date_created' => 'Invoice created',
+    'date_expired' => 'Invoice expired',
+    'date_surcharge' => 'Invoice surcharge',
+    'invoice_surcharge' => 'Invoice get surcharge at',
+    'amount_surcharge' => 'surcharge for invoice',
+    'percentage_error' => 'If you use the surcharge in percetage, you need to use a number between 0 y 100',
 
     //Pays
     'payments' => 'Pays',
@@ -98,6 +116,8 @@ return [
     'invoice_status' => 'Invoice status',
     'search_by_origin_payment' => 'Search by pay origin',
     'origin_payment' => 'Pay origin',
+    'search_by_date' => 'Search by date',
+    'date' => 'Date',
 
     //Navigation
     'select_language' => 'Select language',
@@ -159,7 +179,14 @@ return [
     'all_plans' => 'All plans',
     'plans_can_get' => 'Plans can get',
 
+    'number_trys' => 'Number of collection attempts',
+    'hint_number_trys' => 'Number of trys when pay is rejected',
+    'how_often_days' => 'For how many days',
+    'hint_how_often_days' => 'Number of days for try a new collect',
+
     //Usersuscription
     'suscription_reference' => 'Reference payment suscription',
     'suscription_status' => 'Status payment suscription',
+    'days_until_next_payment' => 'Days until next collect',
+    'suscription_name' => 'Suscription plan name',
 ];

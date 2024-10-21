@@ -64,7 +64,6 @@ class PlacetopayGateway implements PaymentGateway
 
     public function payment(Payment $payment): self
     {
-        //dd($payment);
         $this->data['locale'] = $payment->locale;
 
         $this->data['payment'] = [
@@ -74,50 +73,22 @@ class PlacetopayGateway implements PaymentGateway
                 'currency' => $payment->currency,
                 'total' => $payment->amount,
             ],
-            //'expiration' => $payment->expiration,
         ];
 
         $this->data['returnUrl'] = route('payment.show', [
             'payment' => $payment,
         ]);
 
-        $invoice_id = $payment->getAttribute('invoice_id');
-        //$invoice_id = $payment->invoice_id;
+        $invoice_reference = $payment->getAttribute('invoice_reference');
 
-        $this->data['returnUrl'] = route('payment.show', compact('payment', 'invoice_id'));
-
-        //dd($this->data);
+        $this->data['returnUrl'] = route('payment.show', compact('payment', 'invoice_reference'));
 
         return $this;
     }
 
-    /*public function payment_suscription(Payment $payment): self
-    {
-        $this->data['locale'] = $payment->locale;
-
-        $this->data['payment'] = [
-            'reference' => $payment->reference,
-            'description' => $payment->description,
-            'amount' => [
-                'currency' => $payment->currency,
-                'total' => $payment->amount,
-            ],
-        ];
-
-        $this->data['returnUrl'] = route('payment.show', [
-            'payment' => $payment,
-        ]);
-
-        $invoice_id = $payment->getAttribute('invoice_id');
-
-        $this->data['returnUrl'] = route('payment.show', compact('payment', 'invoice_id'));
-
-        return $this;
-    }*/
-
     public function process(): PaymentResponse
     {
-        $response = Http::post($this->config['url'], $this->data);
+        $response = Http::post($this->config['url'].'session', $this->data);
 
         //AQUI HAY QUE HACER QUE EL PAYMENTRESPONSE EVALUE LAS DIFERENTES RESPUESTAS, ESTE SOLO ES EL CAMINO FELIZ
         $response = $response->json();
@@ -127,7 +98,7 @@ class PlacetopayGateway implements PaymentGateway
 
     public function get(Payment $payment): QueryPaymentResponse
     {
-        $url = $this->config['url'].'/'.$payment->process_identifier;
+        $url = $this->config['url'].'session'.'/'.$payment->process_identifier;
 
         $response = Http::post($url, $this->data);
         $response = $response->json();

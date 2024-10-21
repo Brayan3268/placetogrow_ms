@@ -62,7 +62,7 @@
 
             <div class="mb-6">
                 <label for="expiration_time" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.expiration_plan_days') }}:</label>
-                <input type="number" id="expiration_time" name="expiration_time" value="{{ old('expiration_time', $suscription->expiration_time) }}" placeholder="{{ __('messages.hint_expiration_plan') }}" value="{{ old('expiration_time') }}" min="10" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('expiration_time') border-red-500 @enderror" required>
+                <input type="number" id="expiration_time" name="expiration_time" value="{{ old('expiration_time', $suscription->expiration_time) }}" placeholder="{{ __('messages.hint_expiration_plan') }}" value="{{ old('expiration_time') }}" min="" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('expiration_time') border-red-500 @enderror" required>
                 @error('expiration_time')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -76,6 +76,22 @@
                         <option value="{{ $option }}">{{ $option }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="mb-6">
+                <label for="number_trys" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.number_trys') }}:</label>
+                <input type="number" id="number_trys" name="number_trys" value="{{ old('number_trys', $suscription->number_trys) }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('number_trys') border-red-500 @enderror" required>
+                @error('number_trys')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="how_often_days" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.how_often_days') }}:</label>
+                <input type="number" id="how_often_days" name="how_often_days" value="{{ old('how_often_days', $suscription->how_often_days) }}" class="form-input block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('how_often_days') border-red-500 @enderror" required>
+                @error('how_often_days')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <button type="submit" class="my-button">{{ __('messages.edit_suscription') }}</button>

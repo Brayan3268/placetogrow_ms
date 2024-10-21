@@ -35,7 +35,6 @@ class AppServiceProvider extends ServiceProvider
                 PaymentGateway::PLACETOPAY => new PlacetopayGateway,
             };
         });
-        //$this->app->singleton(PaymentServiceContract::class, PlacetopayGateway::class);
     }
 
     public function boot(): void

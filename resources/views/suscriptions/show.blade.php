@@ -64,6 +64,21 @@
                         <option value="" disabled selected>{{ old('frecuency_collection', $suscription->frecuency_collection) }}</option>
                     </select>
                 </div>
+
+                <div class="mb-6">
+                    <label for="number_trys" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.number_trys') }}:</label>
+                    <select id="number_trys" name="number_trys" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('number_trys') border-red-500 @enderror" disabled>
+                        <option value="" disabled selected>{{ old('number_trys', $suscription->number_trys) }}</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="how_often_days" class="block text-gray-700 text-sm font-bold mb-2">{{ __('messages.how_often_days') }}:</label>
+                    <select id="how_often_days" name="how_often_days" class="form-select block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue @error('how_often_days') border-red-500 @enderror" disabled>
+                        <option value="" disabled selected>{{ old('how_often_days', $suscription->how_often_days) }}</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="my-button">
                     @can('suscription.manage')
                         <i class="fas fa-edit"></i>

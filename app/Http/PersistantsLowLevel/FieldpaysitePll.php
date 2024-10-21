@@ -2,12 +2,15 @@
 
 namespace App\Http\PersistantsLowLevel;
 
+use App\Constants\SiteTypes;
 use App\Models\Fieldspaysite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class FieldpaysitePll extends PersistantLowLevel
 {
+    private const SECONDS = 300;
+
     public static function save_default_fields(int $site_id, string $site_type)
     {
         $fieldpaysite = new Fieldspaysite;
@@ -22,7 +25,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->is_modify = true;
         $fieldpaysite->save();
 
-        if ($site_type == 'CLOSED') {
+        if ($site_type == SiteTypes::CLOSE->name) {
             $fieldpaysite = new Fieldspaysite;
 
             $fieldpaysite->name = 'currency';
@@ -44,7 +47,7 @@ class FieldpaysitePll extends PersistantLowLevel
         $fieldpaysite->is_optional = false;
         $fieldpaysite->values = '';
         $fieldpaysite->is_mandatory = true;
-        $fieldpaysite->is_modify = ($site_type == 'CLOSED') ? false : true;
+        $fieldpaysite->is_modify = ($site_type == SiteTypes::CLOSE->name) ? false : true;
         $fieldpaysite->site_id = $site_id;
         $fieldpaysite->save();
     }
@@ -82,12 +85,16 @@ class FieldpaysitePll extends PersistantLowLevel
 
     public static function save_cache(string $name, $data)
     {
-        Cache::put($name, $data);
+        Cache::remember($name, self::SECONDS, function () use ($data) {
+            return $data;
+        });
     }
 
     public static function get_cache(string $name)
     {
-        return Cache::get($name);
+        return Cache::remember($name, self::SECONDS, function () use ($name) {
+            return Cache::get($name);
+        });
     }
 
     public static function forget_cache(string $name_cache)

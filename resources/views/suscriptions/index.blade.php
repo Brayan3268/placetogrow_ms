@@ -163,7 +163,7 @@
                                 <td class="border border-gray-200 px-4 py-2">{{ $user_suscription->suscription->currency_type }} {{ $user_suscription->suscription->amount }}</td>
                                 <td class="border border-gray-200 px-4 py-2">{{ $user_suscription->suscription->expiration_time }} {{ __('messages.days') }} </td>
                                 <td class="border border-gray-200 px-4 py-2 text-right">
-                                    <a href="{{ route('suscriptions.show', $user_suscription->suscription->id) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('user_suscriptions.show', $user_suscription->reference) }}" class="text-blue-600 hover:text-purple-800 mr-2"><i class="fas fa-eye"></i></a>
                                     
                                     <form action="{{ route('user_suscriptions.destroyy', ['reference' => $user_suscription->reference, 'user_id' => $user_suscription->user_id]) }}" method="POST" class="inline-block">
                                         @csrf

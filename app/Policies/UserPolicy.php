@@ -31,4 +31,9 @@ class UserPolicy
     {
         return $user->hasPermissionTo(Permissions::USERS_DESTROY);
     }
+
+    public function view_graphics(User $user): bool
+    {
+        return $user->hasPermissionTo(Permissions::USER_ADMINS_SEE_GRAPHICS);
+    }
 }

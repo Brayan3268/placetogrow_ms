@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\PaymentStatus;
 use App\Constants\SuscriptionStatus;
+use App\Constants\UserSuscriptionTypesNotification;
 use App\Http\PersistantsLowLevel\PaymentPll;
+use App\Http\PersistantsLowLevel\SitePll;
 use App\Http\PersistantsLowLevel\SuscriptionPll;
 use App\Http\PersistantsLowLevel\UserSuscriptionPll;
 use App\Http\Requests\UpdateUsersuscriptionRequest;
 use App\Models\Usersuscription;
+use App\Notifications\PayNotification;
+use App\Notifications\UserSuscriptionNotification;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UsersuscriptionController extends Controller
 {
     use AuthorizesRequests;
+
+    private const SECONDS_EMAIL = 10;
 
     public function index()
     {
@@ -55,7 +63,7 @@ class UsersuscriptionController extends Controller
             'status' => SuscriptionStatus::PENDING,
         ];
 
-        $auth = $this->get_auth();
+        $auth = UserSuscriptionPll::get_auth();
         $data = [
             'auth' => [
                 'login' => $auth['login'],
@@ -80,7 +88,7 @@ class UsersuscriptionController extends Controller
             ],
         ];
 
-        $response = Http::post('https://checkout-co.placetopay.dev/api/session', $data);
+        $response = Http::post(config('app.placetopay_url').'session', $data);
 
         $log[] = 'Creó una sesion para realizar una suscripción';
 
@@ -108,10 +116,15 @@ class UsersuscriptionController extends Controller
     {
         $this->authorize('view', Usersuscription::class);
 
+        $user_id = Auth::user()->id;
+
+        $user_suscription = UsersuscriptionPll::get_specific_suscription($usersuscription_reference, $user_id);
+        $site = SitePll::get_specific_site($user_suscription->suscription->site_id);
+
         $log[] = 'Ingresó a user_suscriptions.show';
         $this->write_file($log);
 
-        return view('user_suscriptions.show', compact('usersuscription_reference'));
+        return view('user_suscriptions.show', compact('user_suscription', 'site'));
     }
 
     public function edit(Usersuscription $usersuscription)
@@ -128,7 +141,14 @@ class UsersuscriptionController extends Controller
 
     public function destroyy(string $reference, int $user_id)
     {
-        UserSuscriptionPll::delete_user_suscription($reference, $user_id);
+        $user_suscription = UserSuscriptionPll::get_specific_suscription_with_out_decode($reference, $user_id);
+        UserSuscriptionPll::delete_user_suscription($reference, $user_id, SuscriptionStatus::EXPIRATED->value);
+
+        $site = SitePll::get_specific_site($user_suscription->suscription->site_id);
+
+        $notification = new UserSuscriptionNotification($user_suscription, $site, UserSuscriptionTypesNotification::UNSUSCRIPTION->value);
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
+        $log[] = 'Envia notificación de la dessuscripcion del usuario';
 
         $log[] = 'Eliminó la suscripción '.$reference.' del usuario '.$user_id;
         $this->write_file($log);
@@ -142,7 +162,7 @@ class UsersuscriptionController extends Controller
     {
         $user_suscription = UserSuscriptionPll::get_specific_suscription($user_suscription, intval(Auth::user()->id));
 
-        $auth = $this->get_auth();
+        $auth = UserSuscriptionPll::get_auth();
         $data = [
             'auth' => [
                 'login' => $auth['login'],
@@ -151,7 +171,8 @@ class UsersuscriptionController extends Controller
                 'seed' => $auth['seed'],
             ],
         ];
-        $session_information = Http::post('https://checkout-co.placetopay.dev/api/session/'.$user_suscription->request_id, $data);
+
+        $session_information = Http::post(config('app.placetopay_url').'session/'.$user_suscription->request_id, $data);
 
         $log[] = 'Consulta la información de la sesion de suscripción';
 
@@ -161,7 +182,7 @@ class UsersuscriptionController extends Controller
         $user_suscription_updated = UserSuscriptionPll::update_suscription($user_suscription, SuscriptionStatus::APPROVED);
         $log[] = 'Actualiza la información de la sesion de suscripción del usuario';
 
-        $auth = $this->get_auth();
+        $auth = UserSuscriptionPll::get_auth();
         $data_pay = [
             'auth' => [
                 'login' => $auth['login'],
@@ -197,7 +218,7 @@ class UsersuscriptionController extends Controller
             ]),
         ];
 
-        $response = Http::post('https://checkout-co.placetopay.dev/api/collect', $data_pay);
+        $response = Http::post(config('app.placetopay_url').'collect', $data_pay);
         $log[] = 'Realiza el cobro por token a la suscripción del usuario';
 
         $result = $response->json();
@@ -215,29 +236,34 @@ class UsersuscriptionController extends Controller
         $suscription_status = $user_suscription_updated->status;
         $user_suscription = $user_suscription_updated;
 
+        switch ($result['status']['status']) {
+            case PaymentStatus::APPROVED->value:
+                break;
+
+            default:
+                UserSuscriptionPll::delete_user_suscription($user_suscription->reference, $user_suscription->user->id, SuscriptionStatus::REJECTED->value);
+                break;
+        }
+
+        $site = SitePll::get_specific_site($user_suscription->suscription->site_id);
+        $notification_sus = new UserSuscriptionNotification($user_suscription, $site, UserSuscriptionTypesNotification::SUSCRIPTION->value);
+        Notification::send([Auth::user()], $notification_sus->delay(self::SECONDS_EMAIL));
+        $log[] = 'Envia notificación de la suscripcion del usuario';
+
+        $notification = new PayNotification(
+            $payment,
+            '',
+            $suscription_status,
+            '',
+            $user_suscription,
+        );
+        Notification::send([Auth::user()], $notification->delay(self::SECONDS_EMAIL));
+        $log[] = 'Envia notificación del cobro automatico por suscripcion del usuario';
+
         $log[] = 'Crea el payment del cobro automatico';
         $this->write_file($log);
 
         return view('payments.show', compact('payment', 'invoice_status', 'suscription_status', 'user_suscription'));
-    }
-
-    public function get_auth()
-    {
-        $login = 'e3bba31e633c32c48011a4a70ff60497';
-        $secretKey = 'ak5N6IPH2kjljHG3';
-        $seed = date('c');
-        $nonce = (string) rand();
-
-        $tranKey = base64_encode(hash('sha256', $nonce.$seed.$secretKey, true));
-
-        $nonce = base64_encode($nonce);
-
-        return [
-            'login' => $login,
-            'tranKey' => $tranKey,
-            'nonce' => $nonce,
-            'seed' => $seed,
-        ];
     }
 
     protected function write_file(array $info)

@@ -20,11 +20,7 @@ class PaymentService implements PaymentServiceContract
             ->payment($this->payment)
             ->process();
 
-        //dd($this->payment);
-
-        unset($this->payment->invoice_id);
-
-        //dd($this->payment);
+        unset($this->payment->invoice_reference);
 
         $this->payment->update([
             'process_identifier' => $response->process_identifier,
@@ -37,14 +33,9 @@ class PaymentService implements PaymentServiceContract
     {
         $response = $this->gateway->prepare()
             ->buyer($buyer)
-            //->payment_suscription($this->payment)
             ->process();
 
-        //dd($this->payment);
-
-        unset($this->payment->invoice_id);
-
-        //dd($this->payment);
+        unset($this->payment->invoice_reference);
 
         $this->payment->update([
             'process_identifier' => $response->process_identifier,
@@ -63,4 +54,3 @@ class PaymentService implements PaymentServiceContract
         ]);
     }
 }
-//CLASE CONTEXTO

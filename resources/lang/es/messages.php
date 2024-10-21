@@ -6,6 +6,16 @@ return [
     'currency' => 'Moneda',
     'select_currency' => 'Selecciona una moneda',
 
+    //DASHBOARD
+    'selec_site' => 'Selecciona un sitio para graficar',
+    'choose_site' => 'Graficar',
+    'dashboard_graphics' => 'Panel graficos',
+    'graphics_site' => 'Estos son los graficos para el sitio: ',
+    'graphics_label' => 'Graficos circulares: ',
+    'payed_not_payed' => 'Facturas pagadas y no pagadas:',
+    'not_payed_expirated' => 'Facturas no pagadas y expiradas:',
+    'payed_expirated' => 'Facturas pagadas y expiradas:',
+
     //SITES:
     'name' => 'Nombre',
     'slug' => 'Nombre único',
@@ -87,6 +97,14 @@ return [
     'invoice_expirated' => 'La factura expira el día',
     'view_form_site' => 'Ver formulario del sitio',
     'complete_form_pay' => 'Complete el formulario de pago',
+    'search_by_date_created' => 'Buscar por fecha de creación',
+    'search_by_date_expired' => 'Buscar por fecha de expiración',
+    'date_created' => 'Factura creada',
+    'date_expired' => 'Factura expira',
+    'date_surcharge' => 'Factura recargo',
+    'invoice_surcharge' => 'La factura obtiene recargo el día',
+    'amount_surcharge' => 'Recargo para la factura',
+    'percentage_error' => 'El número debe estar entre 0 y 100 si vas a poner el recargo en porcentajes',
 
     //Pays
     'payments' => 'Pagos',
@@ -99,6 +117,8 @@ return [
     'invoice_status' => 'Estado del pago de la factura',
     'search_by_origin_payment' => 'Buscar por origen del pago',
     'origin_payment' => 'Origen del pago',
+    'search_by_date' => 'Buscar por fecha',
+    'date' => 'Fecha',
 
     //Navigation
     'select_language' => 'Seleccionar idioma',
@@ -161,11 +181,16 @@ return [
 
     'all_plans' => 'Todos los planes',
     'plans_can_get' => 'Planes que puedo adquirir',
+    'number_trys' => 'Número de intentos de cobro',
+    'hint_number_trys' => 'Numero de intentos cuando el pago es rechazado',
+    'how_often_days' => 'Cada cuantos días',
+    'hint_how_often_days' => 'Cada cuantos días se reintará el cobro',
 
     //Usersuscription
     'suscription_reference' => 'Referencia del pago de la suscripción',
     'suscription_status' => 'Estado del pago de la suscripción',
-
+    'days_until_next_payment' => 'Días restantes hasta el siguiente cobro',
+    'suscription_name' => 'Nombre del plan',
 ];
 
 /*

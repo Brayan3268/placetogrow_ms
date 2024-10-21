@@ -15,6 +15,10 @@
         <div class="flex flex-col max-w-lg mx-auto mt-4 items-center">
 
             <div class="mb-4">
+                <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.date') }}: {{ $payment->created_at }}</label>
+            </div>
+
+            <div class="mb-4">
                 <label class="block mb-2 w-full font-bold px-4 py-3">{{ __('messages.origin_payment') }}: {{ $payment->origin_payment }}</label>
             </div>
 
@@ -27,11 +31,11 @@
             </div>
 
             <div class="mb-4">
-                <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.amount') }}: {{ $payment->amount }}</label>
+                <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.currency') }}: {{ $payment->currency }}</label>
             </div>
 
             <div class="mb-4">
-                <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.currency') }}: {{ $payment->currency }}</label>
+                <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.amount') }}: {{ $payment->amount }}</label>
             </div>
 
             <div class="mb-4">
@@ -50,7 +54,7 @@
 
             @if ($invoice_status != "")
                 <div class="mb-4">
-                    <label class="block font-bold w-full px-4 py-3">{{ __('messages.invoice_reference') }}:<a href="{{ route('invoices.show', $invoice->id) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $invoice->reference }}</a></label> 
+                    <label class="block font-bold w-full px-4 py-3">{{ __('messages.invoice_reference') }}:<a href="{{ route('invoices.show', ['reference' => $invoice->reference, 'site_id' => $invoice->site_id]) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $invoice->reference }}</a></label> 
                 </div>  
 
                 <div class="mb-4">
@@ -62,6 +66,10 @@
                 <div class="mb-2">
                     <label class="block font-bold w-full px-4 py-3">{{ __('messages.suscription_reference') }}:<br>
                     <a href="{{ route('user_suscriptions.show', ['user_suscription' => $user_suscription->reference]) }}" class="px-1 text-orange-500 hover:text-purple-800">{{ $user_suscription->reference }}</a></label> 
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-2 font-bold w-full px-4 py-3">{{ __('messages.suscription_name') }}: {{ $user_suscription->suscription->name }}</label>
                 </div>
 
                 <div class="mb-4">

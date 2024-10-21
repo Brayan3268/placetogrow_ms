@@ -3,28 +3,28 @@
 namespace Database\Factories;
 
 use App\Constants\DocumentTypes;
-use App\Models\User; // Asegúrate de importar el modelo User
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
     protected static ?string $password = null;
 
-    protected $model = User::class; // Asegúrate de definir el modelo
+    protected $model = User::class;
 
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => static::$password ??= Hash::make('password'),
+            'phone' => $this->faker->unique()->phoneNumber(),
+            'document_type' => $this->faker->randomElement(array_column(DocumentTypes::cases(), 'name')),
+            'document' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
+            'email_verified_at' => $this->faker->optional()->dateTime(),
+            'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
-            'document' => $this->faker->numerify('##########'),
-            'document_type' => $this->faker->randomElement(array_column(DocumentTypes::cases(), 'value')),
-            'phone' => $this->faker->phoneNumber(),
         ];
     }
 }
